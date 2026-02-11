@@ -1,15 +1,19 @@
 <img src="../assets/logointeli.png">
 
-# ESSE É UM TESTE PARA REVIEW NO GITLAB
+
 # GDD - Game Design Document - Módulo 1 - Inteli
 
 **_Os trechos em itálico servem apenas como guia para o preenchimento da seção. Por esse motivo, não devem fazer parte da documentação final_**
 
 ## Nome do Grupo
 
-#### Nomes dos integrantes do grupo
-
-
+Ana Célia Augusta Santos do Amaral
+Anita Fratelli Sonobe Silveira
+Davi Viana Tricarico
+Gustavo Luz Fantasia Barbosa
+Isaac Nicolas Alves Silva
+João Pedro Fuzzo Poveda
+Pedro Lemos Negri
 
 ## Sumário
 
@@ -68,19 +72,16 @@
 
 *Definição de metas SMART (específicas, mensuráveis, alcançáveis, relevantes e temporais) para seu projeto, com indicadores claros para mensuração*
 
-## 1.2. Requisitos do Projeto (sprints 1 e 2)
-
-*Posicione aqui a lista de requisitos levantados para o projeto, sejam pedidos do parceiro ou invenções do grupo. Descreva-os de forma objetiva, de modo que seja possível entender claramente como implementá-los tecnicamente.*
-
-*ATUALIZE ESTA SEÇÃO SEMPRE QUE ALGUM REQUISITO MUDAR EM SEU PROJETO*
-
-*Exemplo de tabela de requisitos*
-\# | Requisito  
+## 1.2. Requisitos do Projeto (sprints 1 e 2)  
 --- | ---
-1 | O controle do personagem será realizado usando as teclas WASD para navegação pelas fases
-2 | O personagem perde uma vida toda vez que tocar em um inimigo ou em algum projétil inimigo
-3 | O jogo deve possuir uma tela de abertura para o jogador selecionar se quer jogar sozinho ou em dupla
-4 | ...
+1 | O jogo deve possuir gatos e cães como animais
+2 | O jogador deve tratar do animal (realizando suas necessidades como lavar, alimentar, medicar, brincar, etc.) a fim de progredir no jogo.
+3 | O jogo terá como mecânica principal o cuidado com os animais. Ao começar uma fase, animais descuidados aparecerão para o jogador tratar. 
+4 | Em certo momento do jogo, o jogador se depará com um animal totalmente limpo e não precisará tratar, esse animal conterá uma mensagem junto a ele conscientizando sobre a devolução de animais adotados.
+5 | O Jogo terá cenários para cada tipo de tratamento (ex: área de alimentação)
+//adicionar requisitos da tela inicial
+6 | O jogo terá indicação visual no mouse para áreas interativas, a fim de melhorar a UX
+7 | O jogador ganhará moedas ao tratar animais as quais podem ser usadas para melhorias.
 
 ## 1.3. Público-alvo do Projeto (sprint 2)
 
