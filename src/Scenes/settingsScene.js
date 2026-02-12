@@ -5,12 +5,18 @@ class settingsScene extends Phaser.Scene {
       // Carrega as imagens do jogo
     preload() {
         this.load.image('bg', 'assets/bgInicial.png'); //Essa é a imagem do planode fundo
-        this.load.image('botaoJogar', 'assets/botãoJogar.png'); //A imagem do botão
+
+        // Carrega as imagens dos botões
+        this.load.image('botaoJogar', 'assets/botãoJogar.png');
         this.load.image('botaoTutorial', 'assets/botãoTutorial.png');
         this.load.image('botaoSair', 'assets/botãoSair.png');
         this.load.image('botaoConfiguraçoes', 'assets/botãoConfigurações.png');
-        this.load.image('settings', 'assets/settings.png');
         this.load.image('retornoInicio', 'assets/retornoInicio.png');
+
+        // Carrega a imagem de configurações
+        this.load.image('settings', 'assets/settings.png');
+
+        // Carrega a música de fundo
         this.load.audio('musica', 'assets/trilhaSonora.mp3');
     }
     //Gera as imagens do jogo,as animações e os efeitos de transição
@@ -21,23 +27,28 @@ class settingsScene extends Phaser.Scene {
         
         gameState.bg = this.add.image(window.innerWidth/2, window.innerHeight/2, 'bg').setDisplaySize(window.innerWidth, window.innerHeight);  //Adiciona uma imagem a partir do centro da tela do jogo
 
-        gameState.botaoJogar = this.add.image(250, 300, 'botaoJogar').setScale(0.5,0.5).setInteractive({ useHandCursor: true }); //Cria um botão que é interativo para usuário
+        //Adiciona os botões de volta para o início do jogo e de configurações
+        gameState.botaoJogar = this.add.image(250, 300, 'botaoJogar').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
         gameState.botaoTutorial = this.add.image(250, 400, 'botaoTutorial').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
         gameState.botaoSair = this.add.image(250, 500, 'botaoSair').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
         gameState.botaoConfiguraçoes = this.add.image(80, 600, 'botaoConfiguraçoes').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.settings = this.add.image(1000, 300, 'settings').setScale(0.8,0.8); //Adiciona a imagem de configurações no centro da tela
-        gameState.retornoInicio = this.add.image(1060, 165, 'retornoInicio').setScale(0.35,0.35).setInteractive({ useHandCursor: true }); //Adiciona a imagem de retorno para o início do jogo
+        gameState.retornoInicio = this.add.image(1060, 165, 'retornoInicio').setScale(0.35,0.35).setInteractive({ useHandCursor: true });
+
+        //Cria a imagens da tela de configurações
+        gameState.settings = this.add.image(1000, 300, 'settings').setScale(0.8,0.8);
         
-        gameState.bg .depth = -1; //Define a profundidade da imagem de fundo para -1, garantindo que ela fique atrás de outros elementos
+        //Define a profundidade da imagem de fundo para -1, garantindo que ela fique atrás de outros elementos
+        gameState.bg .depth = -1;
         gameState.botaoJogar.depth = -1; 
         gameState.botaoTutorial.depth = -1;
         gameState.botaoSair.depth = -1;
         gameState.botaoConfiguraçoes.depth = -1;
-        gameState.retangulo.depth = 0; //Define a profundidade do retângulo para 0, garantindo que ele fique na frente da imagem de fundo, mas atrás dos botões
-        gameState.settings.depth = 1; //Define a profundidade da imagem de configurações para 1, garantindo que ela fique na frente do retângulo e dos botões
-        gameState.retornoInicio.depth = 1; //Define a profundidade da imagem de retorno para o início do jogo para 1, garantindo que ela fique na frente do retângulo e dos botões
+        gameState.retangulo.depth = 0;
+        gameState.settings.depth = 1; 
+        gameState.retornoInicio.depth = 1;
 
         this.cameras.main.setBounds(0,0,window.innerWidth,window.innerHeight); //A camera principal ocupa todo o tamanho da tela
+        
         this.cameras.main.fadeIn(200, 0,0,0);//Adiciona um efeito de escurecer
 
         /* Quando o usuário colocar o cursor em cima do botão ele aumenta de tamanho */
