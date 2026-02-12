@@ -45,7 +45,7 @@ class settingsScene extends Phaser.Scene {
         gameState.botaoConfiguraçoes.depth = -1;
         gameState.retangulo.depth = 0;
         gameState.settings.depth = 1; 
-        gameState.retornoInicio.depth = 1;
+        gameState.retornoInicio.depth = 2;
 
         this.cameras.main.setBounds(0,0,window.innerWidth,window.innerHeight); //A camera principal ocupa todo o tamanho da tela
         
