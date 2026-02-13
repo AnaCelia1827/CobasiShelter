@@ -3,16 +3,14 @@
 
 # GDD - Game Design Document - Módulo 1 - Inteli
 
-**_Os trechos em itálico servem apenas como guia para o preenchimento da seção. Por esse motivo, não devem fazer parte da documentação final_**
+## Bordot Studios
 
-## Nome do Grupo
-
-Ana Célia Augusta Santos do Amaral
-Anita Fratelli Sonobe Silveira
-Davi Viana Tricarico
-Gustavo Luz Fantasia Barbosa
-Isaac Nicolas Alves Silva
-João Pedro Fuzzo Poveda
+Ana Célia Augusta Santos do Amaral  
+Anita Fratelli Sonobe Silveira  
+Davi Viana Tricarico  
+Gustavo Luz Fantasia Barbosa  
+Isaac Nicolas Alves Silva  
+João Pedro Fuzzo Poveda  
 Pedro Lemos Negri
 
 ## Sumário
@@ -72,16 +70,21 @@ Pedro Lemos Negri
 
 *Definição de metas SMART (específicas, mensuráveis, alcançáveis, relevantes e temporais) para seu projeto, com indicadores claros para mensuração*
 
-## 1.2. Requisitos do Projeto (sprints 1 e 2)  
---- | ---
+## 1.2. Requisitos do Projeto
+
+Os requisitos do projeto foram definidos para estruturar a experiência do jogador a partir da mecânica central de cuidado com animais domésticos, garantindo alinhamento entre jogabilidade e propósito social. O jogo deverá possuir gatos e cães como espécies principais, delimitando o universo temático e aproximando a experiência da realidade dos animais mais adotados. Essa escolha fortalece a proposta de conscientização sobre responsabilidade no cuidado e na adoção.
+\# | Requisitos
+--- | --- 
 1 | O jogo deve possuir gatos e cães como animais
-2 | O jogador deve tratar do animal (realizando suas necessidades como lavar, alimentar, medicar, brincar, etc.) a fim de progredir no jogo.
-3 | O jogo terá como mecânica principal o cuidado com os animais. Ao começar uma fase, animais descuidados aparecerão para o jogador tratar. 
-4 | Em certo momento do jogo, o jogador se depará com um animal totalmente limpo e não precisará tratar, esse animal conterá uma mensagem junto a ele conscientizando sobre a devolução de animais adotados.
-5 | O Jogo terá cenários para cada tipo de tratamento (ex: área de alimentação)
-//adicionar requisitos da tela inicial
-6 | O jogo terá indicação visual no mouse para áreas interativas, a fim de melhorar a UX
-7 | O jogador ganhará moedas ao tratar animais as quais podem ser usadas para melhorias.
+2 | A tela inicial do jogo irá possuír botões de "Jogar", "Tutorial", "Sair" e umna engrenagem para alterar configurações
+3 | O jogador deve tratar do animal (realizando suas necessidades como lavar, alimentar, medicar, brincar, etc.) a fim de progredir no jogo.
+4 | O jogo terá como mecânica principal o cuidado com os animais. Ao começar uma fase, animais descuidados aparecerão para o jogador tratar. 
+5 | Em certo momento do jogo, o jogador se depará com um animal totalmente limpo e não precisará tratar, esse animal conterá uma mensagem junto a ele conscientizando sobre a devolução de animais adotados.
+6 | O Jogo terá cenários para cada tipo de tratamento (ex: área de alimentação)
+7 | O jogo terá indicação visual no mouse para áreas interativas
+8 | O jogador ganhará moedas ao tratar animais as quais podem ser usadas para melhorias.
+
+Os requisitos não operam de forma isolada, mas de maneira articulada. A definição das espécies estabelece o escopo temático; a mecânica de cuidado estrutura a jogabilidade; os cenários organizam as ações; o sistema de moedas promove progressão; a indicação visual aprimora a interação; e o momento de conscientização consolida o propósito social do projeto. O desenvolvimento será realizado de forma incremental nas sprints iniciais, priorizando a implementação da mecânica central e das interações básicas, e posteriormente incorporando o sistema de recompensas e o evento educativo, garantindo viabilidade técnica e coerência na evolução do jogo.
 
 ## 1.3. Público-alvo do Projeto (sprint 2)
 
@@ -237,9 +240,9 @@ Figura 1: detalhe da cena da partida do herói para a missão, usando sua nave
 
 *Em seguida, foi desenvolvida a estrutura técnica inicial do projeto, que incluiu a criação do cenário em pixel art e a implementação da tela inicial do jogo, com seus respectivos elementos visuais e interativos. Nesta primeira versão, foi entregue uma tela inicial funcional contendo os botões “Jogar”, "Sair",“Opções” e “Tutorial”, além de um sistema de navegação entre telas. Os botões possuem um feedback para o usuário saber que são clicáveis. Nessa primeira etapa focamos apenas em deixar o botão de configurações utilizável (símbolo de engrenagem), que ao ser selecionado abre uma tela para alterar diversas opções que serão implementadas em breve.*
 
-![Tela Inicial](assets/telaInicial.png)
+![Tela Inicial](assets/telaInicial.jpeg)
 
-_Autoria própria (2026)_
+_Autoria própria (2025)_
 
 
 *Durante essa primeira sprint, foram enfrentadas algumas dificuldades, principalmente no desenvolvimento das artes em pixel art, na utilização do GitLab para controle de versões, na organização das tarefas em grupo e na adaptação da equipe ao fluxo da metodologia Scrum. Apesar dos desafios, a equipe conseguiu entregar uma versão inicial funcional, que serviu como base estruturada para a continuidade do desenvolvimento do projeto.*
