@@ -14,7 +14,9 @@ class introScene extends Phaser.Scene {
     }
     //Gera as imagens do jogo,as animações e os efeitos de transição
     create() {
-        this.sound.play('musica', { loop: true, volume: 0.5 }); //Toca a música de fundo em loop com volume reduzido
+        gameState.musica = this.sound.add('musica', { loop: true, volume: 0.5 });
+        gameState.musica.play();
+
         //Função para criar o efeito de hover e pressionar nos botões
         function hoverPressEffect(scene, target, scaleNormal, scaleHover) {
             target.on('pointerover', () => {
@@ -51,10 +53,10 @@ class introScene extends Phaser.Scene {
         this.add.image(window.innerWidth/2, window.innerHeight/2, 'bg').setDisplaySize(window.innerWidth, window.innerHeight);  //Adiciona uma imagem a partir do centro da tela do jogo
 
         //Cria um botão que é interativo para usuário
-        gameState.botaoJogar = this.add.image(250, 300, 'botaoJogar').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.botaoTutorial = this.add.image(250, 400, 'botaoTutorial').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.botaoSair = this.add.image(250, 500, 'botaoSair').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.botaoConfiguraçoes = this.add.image(80, 600, 'botaoConfiguraçoes').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
+        gameState.botaoJogar = this.add.image((window.innerWidth/6)+20, 380, 'botaoJogar').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
+        gameState.botaoTutorial = this.add.image((window.innerWidth/6)+20, 480, 'botaoTutorial').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
+        gameState.botaoSair = this.add.image((window.innerWidth/6)+20, 580, 'botaoSair').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
+        gameState.botaoConfiguraçoes = this.add.image((window.innerWidth/6)+20,680, 'botaoConfiguraçoes').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
         
 
         this.cameras.main.setBounds(0,0,window.innerWidth,window.innerHeight); //A camera principal ocupa todo o tamanho da tela
@@ -71,6 +73,7 @@ class introScene extends Phaser.Scene {
             this.cameras.main.fadeOut(300, 0,0,0);
             this.cameras.main.once('camerafadeoutcomplete', () => {
                 this.scene.start('settingsScene');
+                gameState.musica.stop(); //Para a música de fundo
             });
         });
     }
