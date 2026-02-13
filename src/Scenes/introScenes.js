@@ -53,10 +53,10 @@ class introScene extends Phaser.Scene {
         this.add.image(window.innerWidth/2, window.innerHeight/2, 'bg').setDisplaySize(window.innerWidth, window.innerHeight);  //Adiciona uma imagem a partir do centro da tela do jogo
 
         //Cria um botão que é interativo para usuário
-        gameState.botaoJogar = this.add.image(250, 300, 'botaoJogar').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.botaoTutorial = this.add.image(250, 400, 'botaoTutorial').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.botaoSair = this.add.image(250, 500, 'botaoSair').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.botaoConfiguraçoes = this.add.image(80, 600, 'botaoConfiguraçoes').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
+        gameState.botaoJogar = this.add.image(225, 300, 'botaoJogar').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
+        gameState.botaoTutorial = this.add.image(225, 400, 'botaoTutorial').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
+        gameState.botaoSair = this.add.image(225, 500, 'botaoSair').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
+        gameState.botaoConfiguraçoes = this.add.image(70, 600, 'botaoConfiguraçoes').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
         
 
         this.cameras.main.setBounds(0,0,window.innerWidth,window.innerHeight); //A camera principal ocupa todo o tamanho da tela

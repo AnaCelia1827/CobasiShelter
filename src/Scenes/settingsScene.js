@@ -31,10 +31,10 @@ class settingsScene extends Phaser.Scene {
         gameState.bg = this.add.image(window.innerWidth/2, window.innerHeight/2, 'bg').setDisplaySize(window.innerWidth, window.innerHeight);  //Adiciona uma imagem a partir do centro da tela do jogo
 
         //Adiciona os botões de volta para o início do jogo e de configurações
-        gameState.botaoJogar = this.add.image(250, 300, 'botaoJogar').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.botaoTutorial = this.add.image(250, 400, 'botaoTutorial').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.botaoSair = this.add.image(250, 500, 'botaoSair').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.botaoConfiguraçoes = this.add.image(80, 600, 'botaoConfiguraçoes').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
+        gameState.botaoJogar = this.add.image(225, 300, 'botaoJogar').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
+        gameState.botaoTutorial = this.add.image(225, 400, 'botaoTutorial').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
+        gameState.botaoSair = this.add.image(225, 500, 'botaoSair').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
+        gameState.botaoConfiguraçoes = this.add.image(70, 600, 'botaoConfiguraçoes').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
         gameState.retornoInicio = this.add.image(1060, 165, 'retornoInicio').setScale(0.35,0.35).setInteractive({ useHandCursor: true });
 
         //Cria a imagens da tela de configurações
