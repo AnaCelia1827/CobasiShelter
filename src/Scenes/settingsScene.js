@@ -21,7 +21,10 @@ class settingsScene extends Phaser.Scene {
     }
     //Gera as imagens do jogo,as animações e os efeitos de transição
     create() {
-        this.sound.play('musica', { loop: true, volume: 0.5 }); //Toca a música de fundo em loop com volume reduzido
+
+        //Toca a música de fundo em loop com volume reduzido
+        gameState.musica = this.sound.add('musica', { loop: true, volume: 0.5 });
+        gameState.musica.play();
 
         gameState.retangulo = this.add.rectangle(window.innerWidth/2, window.innerHeight/2, 200, 100, 0x000000).setAlpha(0.5).setDisplaySize(window.innerWidth, window.innerHeight); //Adiciona um retângulo preto com opacidade de 50%
         
@@ -76,6 +79,7 @@ class settingsScene extends Phaser.Scene {
         gameState.retornoInicio.on('pointerdown', () => {
             this.cameras.main.fadeOut(200, 0,0,0);
             this.cameras.main.once('camerafadeoutcomplete', () => {
+                gameState.musica.stop(); //Para a música de fundo
                 this.scene.start('introScene');
             });
         });

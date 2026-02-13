@@ -14,7 +14,9 @@ class introScene extends Phaser.Scene {
     }
     //Gera as imagens do jogo,as animações e os efeitos de transição
     create() {
-        this.sound.play('musica', { loop: true, volume: 0.5 }); //Toca a música de fundo em loop com volume reduzido
+        gameState.musica = this.sound.add('musica', { loop: true, volume: 0.5 });
+        gameState.musica.play();
+
         //Função para criar o efeito de hover e pressionar nos botões
         function hoverPressEffect(scene, target, scaleNormal, scaleHover) {
             target.on('pointerover', () => {
@@ -71,6 +73,7 @@ class introScene extends Phaser.Scene {
             this.cameras.main.fadeOut(300, 0,0,0);
             this.cameras.main.once('camerafadeoutcomplete', () => {
                 this.scene.start('settingsScene');
+                gameState.musica.stop(); //Para a música de fundo
             });
         });
     }
