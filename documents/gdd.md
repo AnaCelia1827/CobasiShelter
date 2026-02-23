@@ -12,6 +12,7 @@ Gustavo Luz Fantasia Barbosa
 Isaac Nicolas Alves Silva  
 João Pedro Fuzzo Poveda  
 Pedro Lemos Negri
+Valter Lucas Garcia de Lima
 
 ## Sumário
 
@@ -75,20 +76,26 @@ Pedro Lemos Negri
 Os requisitos do projeto foram definidos para estruturar a experiência do jogador a partir da mecânica central de cuidado com animais domésticos, garantindo alinhamento entre jogabilidade e propósito social. O jogo deverá possuir gatos e cães como espécies principais, delimitando o universo temático e aproximando a experiência da realidade dos animais mais adotados. Essa escolha fortalece a proposta de conscientização sobre responsabilidade no cuidado e na adoção.
 \# | Requisitos
 --- | --- 
-1 | O jogo deve possuir gatos e cães como animais
-2 | A tela inicial do jogo irá possuír botões de "Jogar", "Tutorial", "Sair" e umna engrenagem para alterar configurações
+1 | O jogo deve possuir gatos e cães como animais.
+2 | A tela inicial do jogo irá possuír botões de "Jogar", "Tutorial", "Sair" e uma engrenagem para alterar configurações.
 3 | O jogador deve tratar do animal (realizando suas necessidades como lavar, alimentar, medicar, brincar, etc.) a fim de progredir no jogo.
 4 | O jogo terá como mecânica principal o cuidado com os animais. Ao começar uma fase, animais descuidados aparecerão para o jogador tratar. 
 5 | Em certo momento do jogo, o jogador se depará com um animal totalmente limpo e não precisará tratar, esse animal conterá uma mensagem junto a ele conscientizando sobre a devolução de animais adotados.
-6 | O Jogo terá cenários para cada tipo de tratamento (ex: área de alimentação)
-7 | O jogo terá indicação visual no mouse para áreas interativas
+6 | O Jogo terá cenários para cada tipo de tratamento (ex: área de alimentação).
+7 | O jogo terá indicação visual no mouse para áreas interativas.
 8 | O jogador ganhará moedas ao tratar animais as quais podem ser usadas para melhorias.
+9 | O jogo deverá possuir uma Cena de Banho, onde o jogador poderá remover sujeira, lama e parasitas do animal através de interações como esfregar, enxaguar e aplicar shampoo.
+10 | A Cena de Banho deverá conter feedback visual e sonoro (espuma, água escorrendo, animal reagindo positivamente ao ficar limpo).
+11 | O sistema de limpeza deverá ser progressivo: a sujeira diminui conforme o jogador interage corretamente.
+12 | Caso o jogador utilize as ferramentas erradas para a ação, haverá uma indicação visual para a ferramenta correta.
+13 | Cada tipo de animal poderá apresentar variações de problemas (pulgas, carrapatos, feridas leves), exigindo abordagens específicas.
 
 Os requisitos não operam de forma isolada, mas de maneira articulada. A definição das espécies estabelece o escopo temático; a mecânica de cuidado estrutura a jogabilidade; os cenários organizam as ações; o sistema de moedas promove progressão; a indicação visual aprimora a interação; e o momento de conscientização consolida o propósito social do projeto. O desenvolvimento será realizado de forma incremental nas sprints iniciais, priorizando a implementação da mecânica central e das interações básicas, e posteriormente incorporando o sistema de recompensas e o evento educativo, garantindo viabilidade técnica e coerência na evolução do jogo.
 
-## 1.3. Público-alvo do Projeto (sprint 2)
+## 1.3. Público-alvo do Projeto
 
-*Posicione aqui uma descrição justificada do público-alvo do jogo, em termos demográficos e de preferências/gostos pessoais.*
+O Público alvo do nosso projeto é qualquer um que tenha interesse em aprender e dar uma qualidade de vida melhor ao seu Pet. Apesar de ser acessível para qualquer um, é previsto que a Geração Z tenha mais contato com o jogo pela seu apreço com jogos e pela crescente onda de pais de pets entre essa geração.
+fonte: https://pet.istoe.com.br/pesquisa-global-aponta-vivemos-uma-nova-era-de-tutores-e-pets
 
 # <a name="c2"></a>2. Visão Geral do Jogo (sprint 2)
 
@@ -100,21 +107,23 @@ Os requisitos não operam de forma isolada, mas de maneira articulada. A defini�
 
 ### 2.2.1. Gênero do Jogo (sprint 2)
 
-*simulação, RPG, corrida, estratégia, esportes, ação, aventura etc.*  
+Simulação + Casual
 
 ### 2.2.2. Plataforma do Jogo (sprint 2)
 
-*quanto ao dispositivo: desktop, smartphones, tablets, TV etc.*
-
-*quanto ao sistema: navegadores compatíveis*
+Desktop, Chrome
 
 ### 2.2.3. Número de jogadores (sprint 2)
 
-*1 jogador, 2 jogadores versus, 2 jogadores cooperação, multiplayer etc.*
+1 Jogador
 
 ### 2.2.4. Títulos semelhantes e inspirações (sprint 2)
 
-*Liste e descreva títulos semelhantes e jogos que inspiram e são usados como referência do projeto*
+Pet Care Game - Puppy games
+Com o esquema de limpeza porém com bastante foco na pontuação e personalização. A principal inspiração desse projeto são as etapas de limpeza e cuidado com o Pet. 
+
+Animal Shelter
+Consiste em administrar um abrigo: o foco é deixar os animais felizes (carinho, petiscos, brinquedos) e encontrar um lar.
 
 ### 2.2.5. Tempo estimado de jogo (sprint 5)
 
