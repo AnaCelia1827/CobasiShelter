@@ -97,39 +97,68 @@ Os requisitos não operam de forma isolada, mas de maneira articulada. A defini�
 O Público alvo do nosso projeto é qualquer um que tenha interesse em aprender e dar uma qualidade de vida melhor ao seu Pet. Apesar de ser acessível para qualquer um, é previsto que a Geração Z tenha mais contato com o jogo pela seu apreço com jogos e pela crescente onda de pais de pets entre essa geração.
 fonte: https://pet.istoe.com.br/pesquisa-global-aponta-vivemos-uma-nova-era-de-tutores-e-pets
 
+
+
 # <a name="c2"></a>2. Visão Geral do Jogo (sprint 2)
 
 ## 2.1. Objetivos do Jogo (sprint 2)
 
-*Descreva o que o jogador deve cumprir para avançar ou concluir o jogo*
+O jogo tem como objetivo central promover o cuidado e o bem-estar dos animais, em especial dos cachorros, dentro do projeto Cobasi Cuida. A experiência é organizada em fases progressivas, cada uma apresentando novos desafios e diferentes perfis de cães, variando em raça, porte, idade e peso.
+O jogador assume o papel de cuidador responsável e, para avançar no jogo, precisa realizar uma série de atividades interativas por meio de minigames. Esses minigames simulam tarefas de cuidado, como encher o pote de ração, oferecer brinquedos, dar banho ou proporcionar momentos de lazer. Cada ação realizada contribui para o aumento da barra de felicidade, indicador visual que demonstra o nível de satisfação e bem-estar do animal.
+
+O progresso do jogador é medido pela sua capacidade de manter os cães felizes e saudáveis. A cada animal bem cuidado, o jogador recebe moedas virtuais como recompensa. Essas moedas desempenham um papel estratégico, pois permitem Comprar rações e equipamentos melhores, que facilitam os cuidados nas fases seguintes., Adquirir acessórios e itens de personalização, que tornam a experiência mais divertida e permitem enfeitar os animais, Desbloquear novos conteúdos e desafios, ampliando a diversidade de cães e atividades disponíveis.Assim, os objetivos do jogo se dividem em duas partes principais: o primeiro é garantir garantir o cuidado adequado dos animais, mantendo a barra de felicidade sempre elevado e o secundario é acumular moedas para investir em melhorias, acessórios e desbloqueios, tornando a jornada mais rica e recompensadora.
+
 
 ## 2.2. Características do Jogo (sprint 2)
 
 ### 2.2.1. Gênero do Jogo (sprint 2)
 
-Simulação + Casual
+O gênero do jogo é simulação, pois o jogador assume o papel de um voluntário do projeto Cobasi Cuida, responsável por cuidar de diferentes cães em situações variadas. A proposta é reproduzir, de forma lúdica e interativa, a experiência de oferecer atenção, carinho e cuidados básicos aos animais, aproximando o jogador da realidade de quem atua em abrigos ou projetos de adoção.
+Dentro do gênero de simulação, o jogo incorpora elementos de progressão e personalização, permitindo que o jogador evolua conforme realiza os cuidados e acumula moedas virtuais. Essa mecânica aproxima o jogo de características de RPG leve, já que há evolução de recursos, desbloqueio de fases e aquisição de itens que melhoram a experiência.
+Além disso, o jogo pode ser classificado como casual, pois apresenta minigames acessíveis e intuitivos, voltados para públicos diversos, sem exigir domínio de controles complexos ou estratégias avançadas. O foco está na diversão, na sensação de responsabilidade e na recompensa emocional de ver os animais felizes.
 
 ### 2.2.2. Plataforma do Jogo (sprint 2)
 
-Desktop, Chrome
+O jogo será disponibilizado para desktop, com execução diretamente em navegadores web modernos, como Google Chrome, Microsoft Edge, Safari e Opera. Essa escolha de plataforma garante maior acessibilidade e praticidade, já que não será necessário instalar programas adicionais ou realizar downloads complexos.
+A opção por navegadores permite que o jogo seja multiplataforma, funcionando em diferentes sistemas operacionais (Windows, macOS e Linux), desde que o usuário tenha acesso a um navegador compatível. Além disso, essa abordagem facilita a atualização contínua do jogo, pois qualquer melhoria ou correção pode ser aplicada diretamente no servidor, sem exigir que o jogador baixe novas versões.
+Outro ponto importante é que a execução em navegadores torna o jogo mais inclusivo e acessível, permitindo que seja jogado em computadores com diferentes níveis de desempenho, sem exigir configurações avançadas de hardware.
+
 
 ### 2.2.3. Número de jogadores (sprint 2)
+O jogo foi projetado para apenas um jogador, com o objetivo de fortalecer o vínculo individual entre o cuidador e os animais. Essa escolha garante maior senso de responsabilidade, já que cada decisão e ação realizada impacta diretamente no bem-estar dos cães.
+A experiência single-player também permite que o jogador se envolva de forma mais imersiva e pessoal, sem distrações externas, reforçando a proposta central do projeto Cobasi Cuida: estimular a empatia, o cuidado e a dedicação aos animais.
 
-1 Jogador
+### 2.2.4. Títulos semelhantes e inspirações
 
-### 2.2.4. Títulos semelhantes e inspirações (sprint 2)
+#### 2.2.4.1 Meu Talking Tom - Android ou IOS
 
-Pet Care Game - Puppy games
-Com o esquema de limpeza porém com bastante foco na pontuação e personalização. A principal inspiração desse projeto são as etapas de limpeza e cuidado com o Pet. 
+Ideias de funcionalidades: 
+- Toque interativo (tocar no pet e ele reagir).
+- Pet ouvir sua fala e replicar com uma voz diferente (não seria original).
+- Vestir o pet .
+- Alimentar o pet (diferentes alimentos; não só ração ou sachês).
+- Nível de pet (conforme atividades são realizadas o nível sobe) → possível integração com a ideia de fases.
+- Troca de ambientação (sala, quarto, banheiro, quintal, parque, loja…).
+- Estilo de interface (felicidade, fome, sede, sono, foguinho).
 
-Animal Shelter
-Consiste em administrar um abrigo: o foco é deixar os animais felizes (carinho, petiscos, brinquedos) e encontrar um lar.
+#### 2.2.4.2 Nintendogs - Nintendo DS/3DS:
 
-### 2.2.5. Tempo estimado de jogo (sprint 5)
+- Referência em funcionalidades de cuidados com o Pet. 
+- Pet reage às ações: seu visual muda conforme o cuidado (sujo/limpo/feliz/triste)
+- Toque sensível na tela é usada para acariciar o Pet
+- O jogo inclui diversas raças de diferentes de cães e gatos
 
-*Ex. O jogo pode ser concluído em 3 horas passando por todas as fases.*
+#### 2.2.4.3 Animal Shelter Simulator - Google Play e IOS: 
 
-*Ex. cada partida dura até 15 minutos*
+A proposta é “rodar um abrigo” com tarefas operacionais e cuidado dos animais.
+
+- Loop de tarefas (higiene, alimentação, rotina)
+- Progressão (desbloqueios / expansão)
+
+
+
+### 2.2.5 Tempo estimado de jogo (sprint 5)
+
 
 # <a name="c3"></a>3. Game Design (sprints 2 e 3)
 
