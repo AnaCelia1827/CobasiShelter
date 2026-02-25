@@ -76,6 +76,13 @@ class introScene extends Phaser.Scene {
                 gameState.musica.stop(); //Para a música de fundo
             });
         });
+        gameState.botaoJogar.on('pointerdown', () => {
+            this.cameras.main.fadeOut(300, 0,0,0);
+            this.cameras.main.once('camerafadeoutcomplete', () => {
+                this.scene.start('bathScene');
+                gameState.musica.stop(); //Para a música de fundo
+            });
+        });
     }
 
     update() {}

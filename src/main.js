@@ -7,10 +7,18 @@ var config = {
     width: window.innerWidth,
     height: window.innerHeight,
     audio: {
-    disableWebAudio: false,
-    noAudio: false,
-},
-    scene: [introScene, settingsScene]
+        disableWebAudio: false,
+        noAudio: false,
+    },
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 0 },
+            debug: true,
+        }
+    },
+    scene: [introScene, settingsScene,bathScene]
+
 };
 //Aplica as configurações no jogo
 var game = new Phaser.Game(config);
