@@ -47,13 +47,86 @@ Valter Lucas Garcia de Lima
 
 *Posicione aqui o modelo de 5 Forças de Porter para sustentar o contexto da indústria.*
 
-### 1.1.2. Análise SWOT (sprint 2)
+### 1.1.2. Análise SWOT 
 
-*Posicione aqui a análise SWOT relacionada ao parceiro de projeto. Utilize a análise SWOT para fazer uma análise ambiental do parceiro no âmbito estratégico. Leve em consideração o contexto da indústria, concorrência e as características do ambiente interno (forças e fraquezas) e externo (oportunidades e ameaças) do parceiro.*
+&ensp;A análise SWOT — também denominada matriz FOFA — é um instrumento estratégico que permite avaliar a posição competitiva de uma organização a partir da interação entre fatores internos e externos. O modelo se estrutura em quatro dimensões: forças (strengths), que evidenciam vantagens internas; fraquezas (weaknesses), que apontam limitações internas; oportunidades (opportunities), relacionadas a condições externas favoráveis; e ameaças (threats), que representam riscos do ambiente externo (Casarotto, 2019). Ao organizar essas variáveis, a ferramenta apoia decisões mais consistentes e o direcionamento estratégico. Nesse contexto, apresenta-se a análise SWOT da Cobasi (Figura 2).
 
-### 1.1.3. Missão / Visão / Valores (sprint 2)
+<div align="center">
+  <p>Análise Swot</p>
+  <img src="assets/analiseSwot.png" width="300">
+  <p>Feito pela própia equipe(2026)</p>
+</div>
 
-*Posicione aqui a Missão, Visão e Valores do seu projeto.*
+## Strengths
+
+As forças (strengths) correspondem aos atributos internos que sustentam a vantagem competitiva da organização (Casarotto, 2019). Para a Cobasi, destacam-se:
+
+&ensp;• Autoridade e credibilidade de marca como pioneira no setor pet;  
+&ensp;• Ecossistema omnichannel consolidado, com forte integração físico-digital;  
+&ensp;• Diversificação do portfólio em categorias complementares (jardinagem, aquarismo e casa);  
+&ensp;• Elevado poder de escala após a fusão, fortalecendo o poder de negociação com grandes fornecedores.
+
+
+## Weaknesses
+
+As fraquezas (weaknesses) referem-se a limitações internas que podem restringir desempenho ou eficiência (Casarotto, 2019). No caso da Cobasi, observam-se:
+
+&ensp;• Estrutura de custo fixo elevada decorrente do modelo de megalojas;  
+&ensp;• Desafios de integração operacional e cultural após a fusão com a Petz;  
+&ensp;• Concentração geográfica no mercado brasileiro, aumentando a exposição a ciclos econômicos locais.
+
+
+## Opportunities
+
+As oportunidades (opportunities) dizem respeito a fatores externos positivos que podem ser explorados para crescimento e diferenciação (Casarotto, 2019). Para a Cobasi, evidenciam-se:
+
+&ensp;• Verticalização do ecossistema de saúde pet, com expansão em hospitais e planos veterinários;  
+&ensp;• Aceleração do desenvolvimento de marcas próprias, ampliando controle de margem;  
+&ensp;• Tendência de aumento do número de pets por família, impulsionando a demanda estrutural do setor.
+
+
+## Threats
+
+As ameaças (threats) envolvem elementos externos que podem impactar negativamente o negócio (Casarotto, 2019). Entre as principais para a Cobasi, estão:
+
+&ensp;• Guerra de preços em marketplaces, com forte pressão competitiva de plataformas como Amazon e Mercado Livre;  
+&ensp;• Resiliência dos pet shops de bairro, que competem via proximidade e atendimento personalizado;  
+&ensp;• Restrições regulatórias associadas às exigências do CADE após a fusão;  
+&ensp;• Volatilidade no custo de commodities utilizadas na produção de rações.
+
+
+### 1.1.3. Missão / Visão / Valores 
+
+De modo geral, missão expressa o propósito central de uma organização, ou seja, por que ela existe. A visão representa onde a empresa pretende chegar no futuro, enquanto os valores correspondem aos princípios que orientam suas decisões e comportamentos (TOTVS, 2024). A seguir, apresentam-se esses elementos aplicados à Cobasi.
+
+
+
+###  Missão
+
+Proporcionar aos apaixonados por animais uma experiência de compra diferenciada, reunindo produtos de qualidade, atendimento especializado e preços competitivos em um ambiente confortável.
+
+
+
+###  Visão
+
+
+Apesar de não divulgar formalmente uma declaração de visão, a atuação da empresa indica a intenção de se consolidar como referência no varejo pet, fortalecendo continuamente a experiência do cliente e a confiança na marca.
+
+
+
+###  Valores
+
+&ensp;• Compromisso com o cliente (prioridade em atender bem e gerar satisfação ao consumidor);  
+&ensp;• Ética (conduta profissional baseada em integridade e respeito);  
+&ensp;• Transparência (relações claras e responsáveis com clientes, parceiros e colaboradores);  
+&ensp;• Excelência (busca contínua por alto padrão em produtos, serviços e atendimento);  
+&ensp;• Responsabilidade (atuação consciente em relação ao negócio, à sociedade e ao bem-estar animal);  
+&ensp;• Trabalho em equipe (valorização da cooperação entre colaboradores para melhores resultados).
+
+---
+
+
+A cultura organizacional da Cobasi evidencia forte orientação para a experiência do consumidor aliada a princípios éticos consistentes. Esses pilares sustentam a credibilidade da marca e direcionam a equipe na entrega de um atendimento de qualidade, favorecendo a fidelização do público pet.
 
 ### 1.1.4. Proposta de Valor (sprint 4)
 
