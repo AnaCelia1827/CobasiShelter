@@ -358,9 +358,21 @@ Figura 1: detalhe da cena da partida do herói para a missão, usando sua nave
 2 | robô voador | <img src="../assets/inimigo1.PNG"> | a partir da fase 2 | ataca o personagem vindo pelo ar, fazendo movimento em 'V' quando se aproxima | se encostar, o personagem perde 3 pontos de vida | som de hélice
 3 | ... 
 
-## 3.5. Gameflow (Diagrama de cenas) (sprint 2)
+## 3.5. Gameflow (Diagrama de cenas)
 
-*Posicione aqui seu "storyboard de programação" - o diagrama de cenas do jogo. Indique, por exemplo, como o jogo começa, quais opções o jogador tem, como ele avança nas fases, quais as condições de 'game over', como o jogo reinicia. Seu diagrama deve representar as classes, atributos e métodos usados no jogo.*
+
+*No desenvolvimento de jogos, o diagrama de cenas é uma ferramenta visual utilizada no GDD (Game Design Document) para organizar e representar a estrutura do jogo. Ele mostra, de forma esquemática, todas as telas ou cenas existentes — como menu inicial, tutorial, fases, configurações, pausa e game over (e como elas se conectam entre si).*
+
+*Esse diagrama ajuda a equipe a entender o fluxo de navegação do jogador, indicando quais ações levam de uma cena para outra. Além disso, facilita o planejamento da programação, da interface e da experiência do usuário, evitando erros de estrutura e retrabalho. Assim, o diagrama de cenas funciona como um “mapa” do jogo, tornando o projeto mais claro, organizado e eficiente durante o desenvolvimento.*
+
+<div align="center">
+  <p>Diagrama de Cenas</p>
+  <a href="https://miro.com/app/board/uXjVG8ZyQIk=/?share_link_id=884951366758">
+    <img src="assets/diagramaDeCenas.png" width="300">
+  </a>
+  <p>Feito pela própia equipe(2026)</p>
+    
+</div>
 
 ## 3.6. Regras do jogo (sprint 3)
 
