@@ -379,14 +379,25 @@ _Autoria própria (2025)_
 
 ## 5.1. Casos de Teste (sprints 2 a 4)
 
-*Descreva nesta seção os casos de teste comuns que podem ser executados a qualquer momento para testar o funcionamento e integração das partes do jogo. Utilize tabelas para facilitar a organização.*
+Um **Caso de Teste** (*Test Case*) é um roteiro detalhado de condições, variáveis, passos e resultados esperados, criado para verificar se uma funcionalidade específica de um software (ou jogo) está operando corretamente e cumprindo seus requisitos.
 
-*Exemplo de tabela*
-\# | pré-condição | descrição do teste | pós-condição 
---- | --- | --- | --- 
-1 | posicionar o jogo na tela de abertura | iniciar o jogo desde seu início | o jogo deve iniciar da fase 1
-2 | posicionar o personagem em local seguro de inimigos | aguardar o tempo passar até o final da contagem | o personagem deve perder uma vida e reiniciar a fase
-3 | ...
+Eles são essenciais para garantir a qualidade do produto, identificar bugs de forma sistemática antes do lançamento e documentar o comportamento esperado do sistema.
+
+| pré-condição |descrição do teste | condição |
+| :--- | :---: | ---: |
+|Jogo deve apresentar a tela na proporção correta  | Abrir o jogo no navegador | Jogo apresenta aspectos visuais corretamente enquandrados na tela |
+| Presença funcional de feedback do usuário | Realizar interações com as funcionalidades da tela de início | Assim que o mouse passa pelos botões eles aumentam de tamanho, indicando correta funcionalidade |
+| Botão "settings" deve gerar outra tela para configurações do jogo | clicar no botão para saber o resultado| Funcionalidade requisitada aparece perfeitamente
+|O botão "jogar" deve redirecionar para uma nova tela| Clicar no botão e esperar o resultado | O jogo é redirecionado para uma nova tela
+| Deve ser possível segurar e mover o "sabão"| Clicar no sabão e arrastar sobre a tela| O "sabão" é movimentado com o mouse|
+| Ao passar o "sabão" sobre o cachorro, deve surgir "bolhas" como rastro para indicar limpeza| Clicar no sabão e arrastar sobre o cachorro| O efeito das "bolhas" surge sobre o cachorro como rastro de limpeza.| 
+| Deve ser possível segurar e mover o "chuveiro"| Clicar no "chuveiro" e arrastar sobre a tela| O "chuveiro" é movimentado com o mouse|
+|Ao arrastar o chuveiro sobre o cachorro, deve haver uma animação de água caindo que "limpa o sabão"| Arrastar o "chuveiro" sobre o cachorro com "sabão" sobreposto| O efeito da água caindo ocorre e "limpa o sabão|
+
+<div align="center">
+  <p>Quadro de casos de teste</p>
+  <p>Feito pela própia equipe(2026)</p>
+</div>
 
 ## 5.2. Testes de jogabilidade (playtests) (sprint 5)
 
