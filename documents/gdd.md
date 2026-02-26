@@ -39,13 +39,50 @@ Valter Lucas Garcia de Lima
 
 ## 1.1. Plano Estratégico do Projeto
 
-### 1.1.1. Contexto da indústria (sprint 2)
+### 1.1.1. Contexto da indústria 
 
-*Posicione aqui o texto que explica o contexto da indústria/mercado do qual o parceiro de projeto faz parte. Contextualize o segmento de atuação do parceiro (pode ser indústria, comércio ou serviço). Caracterize as atividades executadas pelo negócio do parceiro e a abrangência de suas atividades (âmbito internacional, nacional ou regional).*
+&ensp;*O varejo pet brasileiro é um setor em franca expansão, caracterizado por uma transição de um mercado altamente fragmentado, dominado por pequenos pet shops de bairro, para um ecossistema de grandes redes especializadas e marketplaces. Impulsionado pela "humanização" dos animais e pela multicanalidade, o segmento movimenta bilhões anualmente. Atualmente, o cenário é ditado pela consolidação de grandes players, como a fusão entre Cobasi e Petz, que buscam escala e eficiência logística para dominar a oferta de produtos, serviços e experiências integradas em um ambiente cada vez mais competitivo e digital.*
 
-#### 1.1.1.1. Modelo de 5 Forças de Porter (sprint 2)
+#### 1.1.1.1. Modelo de 5 Forças de Porter 
 
-*Posicione aqui o modelo de 5 Forças de Porter para sustentar o contexto da indústria.*
+&ensp;*As Cinco Forças de Porter são uma ferramenta usada para entender como funciona a competição dentro de um mercado. Dessa forma, ela analisa quem pode entrar no setor como novo concorrente, quais empresas já disputam clientes, se existem alternativas que podem substituir o serviço oferecido, e qual é o poder de negociação de fornecedores e consumidores.*
+*Neste projeto, utilizamos esse modelo para compreender melhor o mercado pet onde a marca está inserida. Isso ajuda a entender os desafios, oportunidades e o nível de concorrência do setor, permitindo que as decisões estratégicas do jogo estejam alinhadas à realidade do mercado em que a empresa atua.*
+
+##### 1.1.1.2 Ameaça de Novos Entrantes
+
+&ensp;*A Ameaça de Novos Entrantes analisa o nível de dificuldade para novas empresas ingressarem no setor e competirem com os players já estabelecidos.O mercado pet brasileiro movimenta cerca de R$ 77,2 bilhões em 2025, com projeção de R$ 80 bilhões em 2026, sendo um setor atrativo e em expansão. Embora a abertura de pequenos pet shops seja acessível, competir em escala nacional exige alto investimento em infraestrutura, logística, marketing e construção de marca. Grandes grupos como Petz e Cobasi possuem forte poder de negociação, capilaridade e estratégia omnichannel, dificultando a entrada de novos concorrentes relevantes .Assim, a ameaça é considerada baixa a moderada, restrita principalmente a nichos específicos ou modelos digitais inovadores.*
+
+
+##### 1.1.1.3 Ameaça de Produtos ou Serviços Substitutos
+
+&ensp;*Esse tópico analisa a possibilidade de os consumidores atenderem à mesma necessidade por meio de alternativas diferentes das oferecidas pelas empresas do setor, podendo reduzir sua demanda ou pressionar preços.*
+*No varejo pet, os principais substitutos estão relacionados a canais alternativos de compra, como supermercados, marketplaces generalistas (Amazon, Shopee, Mercado Livre) e compras diretas de fabricantes. Esses canais oferecem produtos básicos, especialmente ração e acessórios, muitas vezes com preços mais competitivos. Além disso, pequenas lojas de bairro também competem por conveniência local, oferecendo entregas rápidas em regiões específicas.*
+*Entretanto, a Cobasi reduz essa ameaça ao investir em diferenciação por meio de ampla variedade de produtos, serviços especializados (como banho e tosa) e logística de entrega rápida, que exige infraestrutura, tecnologia e capilaridade nacional. Dessa forma, embora existam alternativas disponíveis ao consumidor, a ameaça de substitutos é considerada moderada, sendo mais relevante no segmento de produtos padronizados e sensível a preço.*
+
+
+##### 1.1.1.4 Poder de Barganha dos Fornecedores
+
+&ensp;*O Poder de Barganha dos Fornecedores, dentro do modelo das Cinco Forças de Porter, analisa o nível de influência que os fornecedores exercem sobre as empresas do setor, especialmente na definição de preços, condições comerciais e disponibilidade de produtos. Quanto maior a dependência das empresas em relação a poucos fornecedores estratégicos, maior tende a ser esse poder.*
+*No varejo pet brasileiro, os principais fornecedores são grandes indústrias de ração e produtos especializados, como BRF Pet, Special Dog e Premier Pet, que figuram entre as maiores do segmento nacional. Com a unificação entre Petz e Cobasi, houve aumento da concentração de demanda em um único grande grupo varejista, ampliando seu poder de negociação sobre fabricantes, inclusive para exigência de exclusividades e melhores condições comerciais.*
+*Dessa forma, embora os fornecedores sejam relevantes e detenham marcas consolidadas, seu poder de barganha é considerado baixo a moderado, uma vez que grande parte das compras está concentrada em poucos varejistas de grande porte.*
+
+
+##### 1.1.1.5 Poder de Barganha dos Clientes
+
+&ensp;*O Poder de Barganha dos Clientes, segundo o modelo das Cinco Forças de Porter, analisa o nível de influência que os consumidores possuem sobre as empresas do setor, especialmente em relação a preços, qualidade, variedade e condições de compra. Quanto maior a oferta de alternativas disponíveis no mercado, maior tende a ser o poder de negociação dos clientes.*
+*No mercado pet brasileiro, observa-se ampla presença de micro e pequenas empresas, que representam cerca de 98% do setor, sendo os microempreendedores individuais responsáveis por grande parcela da movimentação econômica. Pequenos e médios pet shops concentram aproximadamente 49% da receita do setor, enquanto grandes redes representam cerca de 9%, e clínicas e hospitais veterinários detêm 18%. Esse cenário evidencia a elevada oferta de estabelecimentos e amplia as opções disponíveis aos consumidores finais, aumentando seu poder de escolha e sensibilidade a preço e qualidade.*
+*Por outro lado, a recente fusão entre Cobasi e Petz, que juntas somam mais de 500 lojas no país, representa uma estratégia para ampliar escala, fortalecer marca e reduzir a influência do cliente por meio de diferenciação, conveniência e integração omnichannel. Ainda assim, diante da concorrência de lojas virtuais como Shopee e Amazon, o poder de barganha dos clientes pode ser considerado moderado, pois há diversas alternativas disponíveis no mercado.*
+
+
+##### 1.1.1.6 Rivalidade entre os Concorrentes Existentes
+
+&ensp;*A Rivalidade entre os Concorrentes Existentes, no modelo das Cinco Forças de Porter, analisa o nível de competição direta entre as empresas que já atuam no setor. Essa força considera fatores como número de concorrentes, diferenciação de serviços, disputa por preço e intensidade das estratégias de mercado.*
+*No varejo pet brasileiro, a rivalidade é considerada elevada. Entre os concorrentes especializados, destaca-se a Petlove, com forte atuação em e-commerce, oferta de serviços veterinários e presença física, competindo diretamente na venda de produtos e serviços.*
+*Os marketplaces digitais, como Mercado Livre, Amazon, Shopee e TikTok Shop, exercem concorrência intensa no ambiente online, principalmente por meio de preços mais baixos, ampla variedade e alcance nacional. Já os supermercados, como Carrefour, Extra e Sonda, apresentam concorrência moderada, oferecendo produtos básicos e captando consumidores que realizam compras de rotina, embora não disponibilizem serviços especializados.*
+*Por fim, os pet shops de bairro competem fortemente no mercado local, com foco em relacionamento, flexibilidade de preços e oferta de serviços como banho e tosa. Apesar de não possuírem a escala das grandes redes, mantêm relevância regional. A rivalidade no setor é alta, especialmente no e-commerce e na venda de produtos padronizados, exigindo diferenciação estratégica por parte das grandes redes.*
+
+
+
 
 ### 1.1.2. Análise SWOT (sprint 2)
 
@@ -74,7 +111,7 @@ Valter Lucas Garcia de Lima
 ## 1.2. Requisitos do Projeto
 
 Os requisitos do projeto foram definidos para estruturar a experiência do jogador a partir da mecânica central de cuidado com animais domésticos, garantindo alinhamento entre jogabilidade e propósito social. O jogo deverá possuir gatos e cães como espécies principais, delimitando o universo temático e aproximando a experiência da realidade dos animais mais adotados. Essa escolha fortalece a proposta de conscientização sobre responsabilidade no cuidado e na adoção.
-\# | Requisitos
+\# | Quadro 1- Requisitos do projeto
 --- | --- 
 1 | O jogo deve possuir gatos e cães como animais.
 2 | A tela inicial do jogo irá possuír botões de "Jogar", "Tutorial", "Sair" e uma engrenagem para alterar configurações.
@@ -182,7 +219,12 @@ A proposta é “rodar um abrigo” com tarefas operacionais e cuidado dos anima
 
 ### 3.2.3. Diversidade e Representatividade dos Personagens
 
-Considerando as personagens do game, analise se estas estão alinhadas ao público-alvo do jogo (seção 1.3), e compare-as dentro da realidade da sociedade brasileira. Por fim, discorra sobre qual é o impacto esperado da escolha dessas personagens.
+&ensp;*A diversidade e a inclusão são elementos cada vez mais essenciais na indústria de jogos digitais, pois garantem representatividade, acessibilidade e identificação para diferentes perfis de jogadores. No contexto dos games, esses princípios envolvem a construção respeitosa de personagens, narrativas e mecânicas que contemplem múltiplas realidades sociais, culturais e individuais*
+*Com base nessa compreensão, a diversidade e a inclusão foram incorporadas como pilares estratégicos no desenvolvimento deste projeto. A construção das personagens foi fundamentada em dados da realidade brasileira e alinhada ao público-alvo do jogo. A escolha de uma mulher jovem como protagonista baseia-se em pesquisas como o levantamento GoldeN/Opinion Box, que aponta maior engajamento feminino na adoção responsável e na busca por animais em ONGs e abrigos, além da forte participação da Geração Z nesse movimento. Essa decisão fortalece a identificação entre jogador e protagonista, promovendo pertencimento e coerência com o perfil dos consumidores da marca Cobasi*
+*Além disso, o personagem pet care foi desenvolvido com pele escura, reforçando a representatividade racial e ampliando a diversidade étnica dentro do universo do jogo. O personagem também utiliza o colar de identificação do autismo, símbolo associado à conscientização sobre o Transtorno do Espectro Autista (TEA), promovendo visibilidade à neurodiversidade de maneira respeitosa e não estereotipada. A proposta dialoga com princípios de equidade ao representar grupos historicamente invisibilizados de forma ativa e protagonista, indo além de uma diversidade apenas estética.*
+*Dessa forma, o impacto esperado é duplo: fortalecer o vínculo emocional com o público-alvo e posicionar o jogo como uma experiência transformadora que reflete a pluralidade da sociedade brasileira e os valores de responsabilidade, cuidado e inclusão associados à marca.*
+
+
 
 ## 3.3. Mundo do jogo (sprints 2 e 3)
 
@@ -272,23 +314,46 @@ Figura 1: detalhe da cena da partida do herói para a missão, usando sua nave
 ## 4.1. Desenvolvimento preliminar do jogo 
  
 
- *Durante a primeira fase de desenvolvimento, foram estabelecidas as prioridades do projeto, com foco na definição dos requisitos iniciais e na estruturação da narrativa principal. A equipe realizou sessões de brainstorming com o objetivo de consolidar a ideia central do jogo, definir suas mecânicas e organizar o escopo do sistema. A partir dessas definições, foi feita a organização inicial do software, com a implementação das primeiras funcionalidades e a distribuição de funções entre os membros da equipe, estabelecendo uma estrutura promissora para as próximas sprints.*
+ &ensp;*Durante a primeira fase de desenvolvimento, foram estabelecidas as prioridades do projeto, com foco na definição dos requisitos iniciais e na estruturação da narrativa principal. A equipe realizou sessões de brainstorming com o objetivo de consolidar a ideia central do jogo, definir suas mecânicas e organizar o escopo do sistema. A partir dessas definições, foi feita a organização inicial do software, com a implementação das primeiras funcionalidades e a distribuição de funções entre os membros da equipe, estabelecendo uma estrutura promissora para as próximas sprints.*
 
-*No desenvolvimento da narrativa, optou-se por um personagem principal que representa uma pessoa comum, aproximando o jogador da realidade proposta pelo jogo. As mecânicas centrais envolvem o resgate de animais e os cuidados prestados a eles, com o objetivo de sensibilizar o público quanto à importância da adoção responsável e de ensinar, de maneira lúdica e educativa, os cuidados necessários com os animais. Essa definição foi essencial para alinhar os elementos narrativos às funcionalidades técnicas implementadas.*
+&ensp;*No desenvolvimento da narrativa, optou-se por um personagem principal que representa uma pessoa comum, aproximando o jogador da realidade proposta pelo jogo. As mecânicas centrais envolvem o resgate de animais e os cuidados prestados a eles, com o objetivo de sensibilizar o público quanto à importância da adoção responsável e de ensinar, de maneira lúdica e educativa, os cuidados necessários com os animais. Essa definição foi essencial para alinhar os elementos narrativos às funcionalidades técnicas implementadas.*
 
-*Em seguida, foi desenvolvida a estrutura técnica inicial do projeto, que incluiu a criação do cenário em pixel art e a implementação da tela inicial do jogo, com seus respectivos elementos visuais e interativos. Nesta primeira versão, foi entregue uma tela inicial funcional contendo os botões “Jogar”, "Sair",“Opções” e “Tutorial”, além de um sistema de navegação entre telas. Os botões possuem um feedback para o usuário saber que são clicáveis. Nessa primeira etapa focamos apenas em deixar o botão de configurações utilizável (símbolo de engrenagem), que ao ser selecionado abre uma tela para alterar diversas opções que serão implementadas em breve.*
+&ensp;*Em seguida, foi desenvolvida a estrutura técnica inicial do projeto, que incluiu a criação do cenário em pixel art e a implementação da tela inicial do jogo, com seus respectivos elementos visuais e interativos. Nesta primeira versão, foi entregue uma tela inicial funcional contendo os botões “Jogar”, "Sair",“Opções” e “Tutorial”, além de um sistema de navegação entre telas. Os botões possuem um feedback para o usuário saber que são clicáveis. Nessa primeira etapa focamos apenas em deixar o botão de configurações utilizável (símbolo de engrenagem), que ao ser selecionado abre uma tela para alterar diversas opções que serão implementadas em breve.*
 
-![Tela Inicial](assets/telaInicial.png)
+<div align="center">
+  <p>Tela Inicial</p>
+  <img src="telaInicial.png" width="300">
+  <p>Feito pela própia equipe(2026)</p>
+</div>
 
-_Autoria própria (2025)_
 
 
-*Durante essa primeira sprint, foram enfrentadas algumas dificuldades, principalmente no desenvolvimento das artes em pixel art, na utilização do GitLab para controle de versões, na organização das tarefas em grupo e na adaptação da equipe ao fluxo da metodologia Scrum. Apesar dos desafios, a equipe conseguiu entregar uma versão inicial funcional, que serviu como base estruturada para a continuidade do desenvolvimento do projeto.*
+&ensp;*Durante essa primeira sprint, foram enfrentadas algumas dificuldades, principalmente no desenvolvimento das artes em pixel art, na utilização do GitLab para controle de versões, na organização das tarefas em grupo e na adaptação da equipe ao fluxo da metodologia Scrum. Apesar dos desafios, a equipe conseguiu entregar uma versão inicial funcional, que serviu como base estruturada para a continuidade do desenvolvimento do projeto.*
 
 
-## 4.2. Desenvolvimento básico do jogo (sprint 2)
+## 4.2. Desenvolvimento básico do jogo 
 
-*Descreva e ilustre aqui o desenvolvimento da versão básica do jogo, explicando brevemente o que foi entregue em termos de código e jogo. Utilize prints de tela para ilustrar. Indique as eventuais dificuldades e próximos passos.*
+&ensp;*Na segunda sprint do projeto, a equipe concentrou suas atividades na estruturação das fases do jogo, na definição das cenas e na consolidação do storytelling específico, com o objetivo de organizar a progressão da experiência do jogador de forma coerente com a proposta educativa do projeto. Essa etapa foi fundamental para estabelecer a base narrativa e estrutural que orienta as interações e os mini games desenvolvidos.*
+
+&ensp;*Paralelamente, houve foco na implementação das mecânicas relacionadas ao cuidado com a higiene do animal, que constitui uma das interações centrais da dinâmica do jogo. Foi desenvolvida a tela inicial de HUD (Head-Up Display), composta por botões, que direcionam o jogador para diferentes áreas de cuidado do cachorro. Entre essas áreas, a funcionalidade plenamente implementada nesta sprint corresponde ao ambiente de banheiro, no qual ocorre o mini game de higiene.*
+*No mini game, o cachorro é apresentado inicialmente em estado sujo, exigindo a intervenção do jogador. A mecânica consiste na utilização de elementos interativos, como sãbão, chuveiro e toalha, que devem ser acionados em sequência para realizar o processo de limpeza. O fluxo da interação envolve a aplicação do sabão, o enxágue e, ao final, a exibição do sprite do cachorro limpo, caracterizando a conclusão da atividade e reforçando a lógica de progressão da fase.*
+
+<div align="center">
+  <p>Tela de lazer Geral</p>
+  <img src="assets/telagddHud.png" width="300">
+  <p>Feito pela própia equipe(2026)</p>
+</div>
+
+<div align="center">
+  <p>Tela de Banho</p>
+  <img src="assets/telagddBanheiro.png" width="300">
+ 
+  <p>Feito pela própia equipe(2026)</p>
+</div>
+
+&ensp;*No âmbito visual, foram desenvolvidos os sprites dos personagens, os estados visuais do cachorro (sujo e limpo) e o cenário do ambiente de banheiro. Para as próximas sprints, a equipe prevê a ampliação da produção de sprites para outras telas, o aprimoramento dos fundos em pixel art e o desenvolvimento do quiz sobre os diversos tipos de rações, que contribuirá para fortalecer o caráter educativo do jogo.*
+
+&ensp;*Entre as principais dificuldades enfrentadas durante esse desenvolvimento destacam-se os desafios relacionados à aplicação da sintaxe do framework Phaser, especialmente no que se refere à implementação de mecânicas que envolvem interação direta do jogador, como eventos de clique e ativação sequencial de ações. Ademais, foram identificadas limitações técnicas e criativas na elaboração dos fundos em pixel art, demandando maior refinamento visual nas próximas etapas do projeto.*
 
 ## 4.3. Desenvolvimento intermediário do jogo (sprint 3)
 
