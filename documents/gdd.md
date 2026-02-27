@@ -35,13 +35,14 @@ Valter Lucas Garcia de Lima
 <br>
 
 
-# <a name="c1"></a>1. Introdução (sprints 1 a 4)
+# <a name="c1"></a>1. Introdução
 
 ## 1.1. Plano Estratégico do Projeto
 
 ### 1.1.1. Contexto da indústria 
 
-&ensp;*O varejo pet brasileiro é um setor em franca expansão, caracterizado por uma transição de um mercado altamente fragmentado, dominado por pequenos pet shops de bairro, para um ecossistema de grandes redes especializadas e marketplaces. Impulsionado pela "humanização" dos animais e pela multicanalidade, o segmento movimenta bilhões anualmente. Atualmente, o cenário é ditado pela consolidação de grandes players, como a fusão entre Cobasi e Petz, que buscam escala e eficiência logística para dominar a oferta de produtos, serviços e experiências integradas em um ambiente cada vez mais competitivo e digital.*
+&ensp;*O varejo pet brasileiro é um setor em expansão, marcado pela transição de um mercado fragmentado, dominado por pequenos pet shops de bairro, para grandes redes especializadas e marketplaces. Impulsionado pela "humanização" dos animais e pela multicanalidade, o segmento movimenta bilhões anualmente. O cenário é ditado pela consolidação de grandes players, como a fusão entre Cobasi e Petz, que buscam escala e eficiência logística para ampliar a oferta de produtos e serviços em ambiente cada vez mais competitivo e digital (CONSELHO ADMINISTRATIVO DE DEFESA ECONÔMICA – CADE, 2025; INVESTING.COM, 2024).*  
+*Além disso, dados financeiros reforçam a estratégia de integração operacional e ganhos de sinergia entre as companhias, evidenciando a consolidação do setor (PETZCOBASI RI, 2026).*
 
 #### 1.1.1.1. Modelo de 5 Forças de Porter 
 
@@ -50,14 +51,16 @@ Valter Lucas Garcia de Lima
 
 ##### 1.1.1.2 Ameaça de Novos Entrantes
 
-&ensp;*A Ameaça de Novos Entrantes analisa o nível de dificuldade para novas empresas ingressarem no setor e competirem com os players já estabelecidos.O mercado pet brasileiro movimenta cerca de R$ 77,2 bilhões em 2025, com projeção de R$ 80 bilhões em 2026, sendo um setor atrativo e em expansão. Embora a abertura de pequenos pet shops seja acessível, competir em escala nacional exige alto investimento em infraestrutura, logística, marketing e construção de marca. Grandes grupos como Petz e Cobasi possuem forte poder de negociação, capilaridade e estratégia omnichannel, dificultando a entrada de novos concorrentes relevantes .Assim, a ameaça é considerada baixa a moderada, restrita principalmente a nichos específicos ou modelos digitais inovadores.*
+&ensp;*A Ameaça de Novos Entrantes analisa o nível de dificuldade para novas empresas ingressarem no setor e competirem com os players já estabelecidos.*
+*O mercado pet brasileiro movimentou cerca de R$77,2 bilhões em 2025, com projeção de R$80 bilhões em 2026 (ABRAS, 2025), sendo um setor atrativo e em expansão. Embora a abertura de pequenos pet shops seja acessível, competir em escala nacional exige alto investimento em infraestrutura, logística, marketing e construção de marca (NEOFEED, 2024; CONSUMIDOR MODERNO, 2024). Grandes grupos como Petz e Cobasi possuem forte poder de negociação, capilaridade e estratégia omnichannel, dificultando a entrada de novos concorrentes relevantes (CADE, 2024).*
+*Assim, a ameaça é considerada baixa a moderada, restrita principalmente a nichos específicos ou modelos digitais inovadores.*
 
 
 ##### 1.1.1.3 Ameaça de Produtos ou Serviços Substitutos
 
-&ensp;*Esse tópico analisa a possibilidade de os consumidores atenderem à mesma necessidade por meio de alternativas diferentes das oferecidas pelas empresas do setor, podendo reduzir sua demanda ou pressionar preços.*
-*No varejo pet, os principais substitutos estão relacionados a canais alternativos de compra, como supermercados, marketplaces generalistas (Amazon, Shopee, Mercado Livre) e compras diretas de fabricantes. Esses canais oferecem produtos básicos, especialmente ração e acessórios, muitas vezes com preços mais competitivos. Além disso, pequenas lojas de bairro também competem por conveniência local, oferecendo entregas rápidas em regiões específicas.*
-*Entretanto, a Cobasi reduz essa ameaça ao investir em diferenciação por meio de ampla variedade de produtos, serviços especializados (como banho e tosa) e logística de entrega rápida, que exige infraestrutura, tecnologia e capilaridade nacional. Dessa forma, embora existam alternativas disponíveis ao consumidor, a ameaça de substitutos é considerada moderada, sendo mais relevante no segmento de produtos padronizados e sensível a preço.*
+&ensp;*A Ameaça de Produtos ou Serviços Substitutos analisa a possibilidade de os consumidores atenderem à mesma necessidade por meio de alternativas diferentes das oferecidas pelas empresas do setor, podendo reduzir sua demanda ou pressionar preços, conforme o modelo das Cinco Forças (PORTER, 2008).*  
+*No varejo pet, os principais substitutos estão relacionados a canais alternativos de compra, como supermercados, marketplaces generalistas, como Amazon, Shopee e Mercado Livre, e compras diretas de fabricantes, ampliadas pelo avanço do comércio eletrônico no Brasil (E-COMMERCE BRASIL, 2023). Esses canais oferecem produtos básicos, especialmente ração e acessórios, muitas vezes com preços mais competitivos e maior transparência de comparação (SBVC, 2024).* *Além disso, pequenas lojas de bairro também competem por conveniência local, oferecendo entregas rápidas em regiões específicas.  Entretanto, a Cobasi reduz essa ameaça ao investir em diferenciação por meio de ampla variedade de produtos, serviços especializados, como banho e tosa, e logística de entrega rápida, que exige infraestrutura, tecnologia e capilaridade nacional, especialmente após o movimento de consolidação com a Petz (CONSELHO ADMINISTRATIVO DE DEFESA ECONÔMICA – CADE, 2025). Dessa forma, embora existam alternativas disponíveis ao consumidor, a ameaça de substitutos é considerada moderada, sendo mais relevante no segmento de produtos padronizados e sensível a preço.*
+
 
 
 ##### 1.1.1.4 Poder de Barganha dos Fornecedores
@@ -76,9 +79,9 @@ Valter Lucas Garcia de Lima
 
 ##### 1.1.1.6 Rivalidade entre os Concorrentes Existentes
 
-&ensp;*A Rivalidade entre os Concorrentes Existentes, no modelo das Cinco Forças de Porter, analisa o nível de competição direta entre as empresas que já atuam no setor. Essa força considera fatores como número de concorrentes, diferenciação de serviços, disputa por preço e intensidade das estratégias de mercado.*
-*No varejo pet brasileiro, a rivalidade é considerada elevada. Entre os concorrentes especializados, destaca-se a Petlove, com forte atuação em e-commerce, oferta de serviços veterinários e presença física, competindo diretamente na venda de produtos e serviços.*
-*Os marketplaces digitais, como Mercado Livre, Amazon, Shopee e TikTok Shop, exercem concorrência intensa no ambiente online, principalmente por meio de preços mais baixos, ampla variedade e alcance nacional. Já os supermercados, como Carrefour, Extra e Sonda, apresentam concorrência moderada, oferecendo produtos básicos e captando consumidores que realizam compras de rotina, embora não disponibilizem serviços especializados.*
+&ensp;*A Rivalidade entre os Concorrentes Existentes, no modelo das Cinco Forças de Porter, analisa o nível de competição direta entre as empresas que já atuam no setor. Essa força considera fatores como número de concorrentes, diferenciação de serviços, disputa por preço e intensidade das estratégias de mercado (PORTER, 2008).*
+*No varejo pet brasileiro, a rivalidade é considerada elevada, especialmente após o processo de consolidação entre grandes redes especializadas (CONSELHO ADMINISTRATIVO DE DEFESA ECONÔMICA – CADE, 2025). Entre os concorrentes especializados, destaca-se a Petlove, com forte atuação em e-commerce, oferta de serviços veterinários e presença física, competindo diretamente na venda de produtos e serviços (PETLOVE, 2026).*
+*Os marketplaces digitais, como Mercado Livre, Amazon, Shopee e TikTok Shop, exercem intensa concorrência no ambiente online, principalmente por meio de preços mais baixos, ampla variedade e alcance nacional, refletindo o crescimento do comércio eletrônico no Brasil (E-COMMERCE BRASIL, 2023). Já os supermercados, como Carrefour, Extra e Sonda, apresentam concorrência moderada, oferecendo produtos básicos e captando consumidores que realizam compras de rotina, embora não disponibilizem serviços especializados (SBVC, 2024).*
 *Por fim, os pet shops de bairro competem fortemente no mercado local, com foco em relacionamento, flexibilidade de preços e oferta de serviços como banho e tosa. Apesar de não possuírem a escala das grandes redes, mantêm relevância regional. A rivalidade no setor é alta, especialmente no e-commerce e na venda de produtos padronizados, exigindo diferenciação estratégica por parte das grandes redes.*
 
 
@@ -86,17 +89,17 @@ Valter Lucas Garcia de Lima
 
 ### 1.1.2. Análise SWOT 
 
-&ensp;A análise SWOT — também denominada matriz FOFA — é um instrumento estratégico que permite avaliar a posição competitiva de uma organização a partir da interação entre fatores internos e externos. O modelo se estrutura em quatro dimensões: forças (strengths), que evidenciam vantagens internas; fraquezas (weaknesses), que apontam limitações internas; oportunidades (opportunities), relacionadas a condições externas favoráveis; e ameaças (threats), que representam riscos do ambiente externo (Casarotto, 2019). Ao organizar essas variáveis, a ferramenta apoia decisões mais consistentes e o direcionamento estratégico. Nesse contexto, apresenta-se a análise SWOT da Cobasi (Figura 2).
+&ensp;*A análise SWOT — também denominada matriz FOFA — é um instrumento estratégico que permite avaliar a posição competitiva de uma organização a partir da interação entre fatores internos e externos. O modelo se estrutura em quatro dimensões: forças (strengths), que evidenciam vantagens internas; fraquezas (weaknesses), que apontam limitações internas; oportunidades (opportunities), relacionadas a condições externas favoráveis; e ameaças (threats), que representam riscos do ambiente externo (Casarotto, 2019). Ao organizar essas variáveis, a ferramenta apoia decisões mais consistentes e o direcionamento estratégico. Nesse contexto, apresenta-se a análise SWOT da Cobasi (Figura 2).*
 
 <div align="center">
   <p>Análise Swot</p>
-  <img src="other/swot.png" width="300">
+  <img src="other/swot.png" width="800">
   <p>Feito pela própia equipe(2026)</p>
 </div>
 
 ## Strengths
 
-As forças (strengths) correspondem aos atributos internos que sustentam a vantagem competitiva da organização (Casarotto, 2019). Para a Cobasi, destacam-se:
+*As forças (strengths) correspondem aos atributos internos que sustentam a vantagem competitiva da organização (Casarotto, 2019). Para a Cobasi, destacam-se:*
 
 &ensp;• Autoridade e credibilidade de marca como pioneira no setor pet;  
 &ensp;• Ecossistema omnichannel consolidado, com forte integração físico-digital;  
@@ -106,7 +109,7 @@ As forças (strengths) correspondem aos atributos internos que sustentam a vanta
 
 ## Weaknesses
 
-As fraquezas (weaknesses) referem-se a limitações internas que podem restringir desempenho ou eficiência (Casarotto, 2019). No caso da Cobasi, observam-se:
+*As fraquezas (weaknesses) referem-se a limitações internas que podem restringir desempenho ou eficiência (Casarotto, 2019). No caso da Cobasi, observam-se:*
 
 &ensp;• Estrutura de custo fixo elevada decorrente do modelo de megalojas;  
 &ensp;• Desafios de integração operacional e cultural após a fusão com a Petz;  
@@ -115,7 +118,7 @@ As fraquezas (weaknesses) referem-se a limitações internas que podem restringi
 
 ## Opportunities
 
-As oportunidades (opportunities) dizem respeito a fatores externos positivos que podem ser explorados para crescimento e diferenciação (Casarotto, 2019). Para a Cobasi, evidenciam-se:
+*As oportunidades (opportunities) dizem respeito a fatores externos positivos que podem ser explorados para crescimento e diferenciação (Casarotto, 2019). Para a Cobasi, evidenciam-se:*
 
 &ensp;• Verticalização do ecossistema de saúde pet, com expansão em hospitais e planos veterinários;  
 &ensp;• Aceleração do desenvolvimento de marcas próprias, ampliando controle de margem;  
@@ -124,7 +127,7 @@ As oportunidades (opportunities) dizem respeito a fatores externos positivos que
 
 ## Threats
 
-As ameaças (threats) envolvem elementos externos que podem impactar negativamente o negócio (Casarotto, 2019). Entre as principais para a Cobasi, estão:
+*As ameaças (threats) envolvem elementos externos que podem impactar negativamente o negócio (Casarotto, 2019). Entre as principais para a Cobasi, estão:*
 
 &ensp;• Guerra de preços em marketplaces, com forte pressão competitiva de plataformas como Amazon e Mercado Livre;  
 &ensp;• Resiliência dos pet shops de bairro, que competem via proximidade e atendimento personalizado;  
@@ -134,21 +137,20 @@ As ameaças (threats) envolvem elementos externos que podem impactar negativamen
 
 ### 1.1.3. Missão / Visão / Valores 
 
-De modo geral, missão expressa o propósito central de uma organização, ou seja, por que ela existe. A visão representa onde a empresa pretende chegar no futuro, enquanto os valores correspondem aos princípios que orientam suas decisões e comportamentos (TOTVS, 2024). A seguir, apresentam-se esses elementos aplicados à Cobasi.
+*De modo geral, missão expressa o propósito central de uma organização, ou seja, por que ela existe. A visão representa onde a empresa pretende chegar no futuro, enquanto os valores correspondem aos princípios que orientam suas decisões e comportamentos (TOTVS, 2024). A seguir, apresentam-se esses elementos aplicados à Cobasi.*
 
 
 
 ###  Missão
 
-Proporcionar aos apaixonados por animais uma experiência de compra diferenciada, reunindo produtos de qualidade, atendimento especializado e preços competitivos em um ambiente confortável.
+*Proporcionar aos apaixonados por animais uma experiência de compra diferenciada, reunindo produtos de qualidade, atendimento especializado e preços competitivos em um ambiente confortável.*
 
 
 
 ###  Visão
 
 
-Apesar de não divulgar formalmente uma declaração de visão, a atuação da empresa indica a intenção de se consolidar como referência no varejo pet, fortalecendo continuamente a experiência do cliente e a confiança na marca.
-
+*Apesar de não divulgar formalmente uma declaração de visão, a atuação da empresa indica a intenção de se consolidar como referência no varejo pet, fortalecendo continuamente a experiência do cliente e a confiança na marca.*
 
 
 ###  Valores
@@ -163,7 +165,7 @@ Apesar de não divulgar formalmente uma declaração de visão, a atuação da e
 ---
 
 
-A cultura organizacional da Cobasi evidencia forte orientação para a experiência do consumidor aliada a princípios éticos consistentes. Esses pilares sustentam a credibilidade da marca e direcionam a equipe na entrega de um atendimento de qualidade, favorecendo a fidelização do público pet.
+*A cultura organizacional da Cobasi evidencia forte orientação para a experiência do consumidor aliada a princípios éticos consistentes. Esses pilares sustentam a credibilidade da marca e direcionam a equipe na entrega de um atendimento de qualidade, favorecendo a fidelização do público pet.*
 
 ### 1.1.4. Proposta de Valor (sprint 4)
 
@@ -183,7 +185,7 @@ A cultura organizacional da Cobasi evidencia forte orientação para a experiên
 
 ## 1.2. Requisitos do Projeto
 
-Os requisitos do projeto foram definidos para estruturar a experiência do jogador a partir da mecânica central de cuidado com animais domésticos, garantindo alinhamento entre jogabilidade e propósito social. O jogo deverá possuir gatos e cães como espécies principais, delimitando o universo temático e aproximando a experiência da realidade dos animais mais adotados. Essa escolha fortalece a proposta de conscientização sobre responsabilidade no cuidado e na adoção.
+*Os requisitos do projeto foram definidos para estruturar a experiência do jogador a partir da mecânica central de cuidado com animais domésticos, garantindo alinhamento entre jogabilidade e propósito social. O jogo deverá possuir gatos e cães como espécies principais, delimitando o universo temático e aproximando a experiência da realidade dos animais mais adotados. Essa escolha fortalece a proposta de conscientização sobre responsabilidade no cuidado e na adoção.*
 \# | Quadro 1- Requisitos do projeto
 --- | --- 
 1 | O jogo deve possuir gatos e cães como animais.
@@ -195,17 +197,20 @@ Os requisitos do projeto foram definidos para estruturar a experiência do jogad
 7 | O jogo terá indicação visual no mouse para áreas interativas.
 8 | O jogador ganhará moedas ao tratar animais as quais podem ser usadas para melhorias.
 9 | O jogo deverá possuir uma Cena de Banho, onde o jogador poderá remover sujeira, lama e parasitas do animal através de interações como esfregar, enxaguar e aplicar shampoo.
-10 | A Cena de Banho deverá conter feedback visual e sonoro (espuma, água escorrendo, animal reagindo positivamente ao ficar limpo).
-11 | O sistema de limpeza deverá ser progressivo: a sujeira diminui conforme o jogador interage corretamente.
-12 | Caso o jogador utilize as ferramentas erradas para a ação, haverá uma indicação visual para a ferramenta correta.
-13 | Cada tipo de animal poderá apresentar variações de problemas (pulgas, carrapatos, feridas leves), exigindo abordagens específicas.
+10 | A Cena de Banho deverá conter feedback visual (espuma, água escorrendo, animal reagindo positivamente ao ficar limpo).
+11 | O animal só será limpo após uma certa quantidade de sabão ser aplicado sobre o mesmo.
+12 | O jogador deverá ensaboar, enxaguar e secar o animal afim de completar o processo de limpeza.
 
-Os requisitos não operam de forma isolada, mas de maneira articulada. A definição das espécies estabelece o escopo temático; a mecânica de cuidado estrutura a jogabilidade; os cenários organizam as ações; o sistema de moedas promove progressão; a indicação visual aprimora a interação; e o momento de conscientização consolida o propósito social do projeto. O desenvolvimento será realizado de forma incremental nas sprints iniciais, priorizando a implementação da mecânica central e das interações básicas, e posteriormente incorporando o sistema de recompensas e o evento educativo, garantindo viabilidade técnica e coerência na evolução do jogo.
+<div align="center">
+  <p>Feito pela própia equipe(2026)</p>
+</div>
+
+*Os requisitos não operam de forma isolada, mas de maneira articulada. A definição das espécies estabelece o escopo temático; a mecânica de cuidado estrutura a jogabilidade; os cenários organizam as ações; o sistema de moedas promove progressão; a indicação visual aprimora a interação; e o momento de conscientização consolida o propósito social do projeto. O desenvolvimento será realizado de forma incremental nas sprints iniciais, priorizando a implementação da mecânica central e das interações básicas, e posteriormente incorporando o sistema de recompensas e o evento educativo, garantindo viabilidade técnica e coerência na evolução do jogo.*
 
 ## 1.3. Público-alvo do Projeto
 
-O Público alvo do nosso projeto é qualquer um que tenha interesse em aprender e dar uma qualidade de vida melhor ao seu Pet. Apesar de ser acessível para qualquer um, é previsto que a Geração Z tenha mais contato com o jogo pela seu apreço com jogos e pela crescente onda de pais de pets entre essa geração.
-fonte: https://pet.istoe.com.br/pesquisa-global-aponta-vivemos-uma-nova-era-de-tutores-e-pets
+*O Público alvo do nosso projeto é qualquer um que tenha interesse em aprender e dar uma qualidade de vida melhor ao seu Pet. Apesar de ser acessível para qualquer um, é previsto que a Geração Z tenha mais contato com o jogo pela seu apreço com jogos e pela crescente onda de pais de pets entre essa geração.*
+
 
 
 
@@ -213,38 +218,38 @@ fonte: https://pet.istoe.com.br/pesquisa-global-aponta-vivemos-uma-nova-era-de-t
 
 ## 2.1. Objetivos do Jogo
 
-O jogo tem como objetivo central promover o cuidado e o bem-estar dos animais, em especial dos cachorros, dentro do projeto Cobasi Cuida. A experiência é organizada em fases progressivas, cada uma apresentando novos desafios e diferentes perfis de cães, variando em raça, porte, idade e peso.
-O jogador assume o papel de cuidador responsável e, para avançar no jogo, precisa realizar uma série de atividades interativas por meio de minigames. Esses minigames simulam tarefas de cuidado, como encher o pote de ração, oferecer brinquedos, dar banho ou proporcionar momentos de lazer. Cada ação realizada contribui para o aumento da barra de felicidade, indicador visual que demonstra o nível de satisfação e bem-estar do animal.
+*O jogo tem como objetivo central promover o cuidado e o bem-estar dos animais, em especial dos cachorros, dentro do projeto Cobasi Cuida. A experiência é organizada em fases progressivas, cada uma apresentando novos desafios e diferentes perfis de cães, variando em raça, porte, idade e peso.*
+*O jogador assume o papel de cuidador responsável e, para avançar no jogo, precisa realizar uma série de atividades interativas por meio de minigames. Esses minigames simulam tarefas de cuidado, como encher o pote de ração, oferecer brinquedos, dar banho ou proporcionar momentos de lazer. Cada ação realizada contribui para o aumento da barra de felicidade, indicador visual que demonstra o nível de satisfação e bem-estar do animal.*
 
-O progresso do jogador é medido pela sua capacidade de manter os cães felizes e saudáveis. A cada animal bem cuidado, o jogador recebe moedas virtuais como recompensa. Essas moedas desempenham um papel estratégico, pois permitem Comprar rações e equipamentos melhores, que facilitam os cuidados nas fases seguintes., Adquirir acessórios e itens de personalização, que tornam a experiência mais divertida e permitem enfeitar os animais, Desbloquear novos conteúdos e desafios, ampliando a diversidade de cães e atividades disponíveis.Assim, os objetivos do jogo se dividem em duas partes principais: o primeiro é garantir garantir o cuidado adequado dos animais, mantendo a barra de felicidade sempre elevado e o secundario é acumular moedas para investir em melhorias, acessórios e desbloqueios, tornando a jornada mais rica e recompensadora.
+*O progresso do jogador é medido pela sua capacidade de manter os cães felizes e saudáveis. A cada animal bem cuidado, o jogador recebe moedas virtuais como recompensa. Essas moedas desempenham um papel estratégico, pois permitem Comprar rações e equipamentos melhores, que facilitam os cuidados nas fases seguintes., Adquirir acessórios e itens de personalização, que tornam a experiência mais divertida e permitem enfeitar os animais, Desbloquear novos conteúdos e desafios, ampliando a diversidade de cães e atividades disponíveis.Assim, os objetivos do jogo se dividem em duas partes principais: o primeiro é garantir garantir o cuidado adequado dos animais, mantendo a barra de felicidade sempre elevado e o secundario é acumular moedas para investir em melhorias, acessórios e desbloqueios, tornando a jornada mais rica e recompensadora.*
 
 
 ## 2.2. Características do Jogo 
 
 ### 2.2.1. Gênero do Jogo 
 
-O gênero do jogo é simulação, pois o jogador assume o papel de um voluntário do projeto Cobasi Cuida, responsável por cuidar de diferentes cães em situações variadas. A proposta é reproduzir, de forma lúdica e interativa, a experiência de oferecer atenção, carinho e cuidados básicos aos animais, aproximando o jogador da realidade de quem atua em abrigos ou projetos de adoção.
-Dentro do gênero de simulação, o jogo incorpora elementos de progressão e personalização, permitindo que o jogador evolua conforme realiza os cuidados e acumula moedas virtuais. Essa mecânica aproxima o jogo de características de RPG leve, já que há evolução de recursos, desbloqueio de fases e aquisição de itens que melhoram a experiência.
-Além disso, o jogo pode ser classificado como casual, pois apresenta minigames acessíveis e intuitivos, voltados para públicos diversos, sem exigir domínio de controles complexos ou estratégias avançadas. O foco está na diversão, na sensação de responsabilidade e na recompensa emocional de ver os animais felizes.
+*O gênero do jogo é simulação, pois o jogador assume o papel de um voluntário do projeto Cobasi Cuida, responsável por cuidar de diferentes cães em situações variadas. A proposta é reproduzir, de forma lúdica e interativa, a experiência de oferecer atenção, carinho e cuidados básicos aos animais, aproximando o jogador da realidade de quem atua em abrigos ou projetos de adoção.*
+*Dentro do gênero de simulação, o jogo incorpora elementos de progressão e personalização, permitindo que o jogador evolua conforme realiza os cuidados e acumula moedas virtuais. Essa mecânica aproxima o jogo de características de RPG leve, já que há evolução de recursos, desbloqueio de fases e aquisição de itens que melhoram a experiência.*
+*Além disso, o jogo pode ser classificado como casual, pois apresenta minigames acessíveis e intuitivos, voltados para públicos diversos, sem exigir domínio de controles complexos ou estratégias avançadas. O foco está na diversão, na sensação de responsabilidade e na recompensa emocional de ver os animais felizes.*
 
 ### 2.2.2. Plataforma do Jogo 
 
-O jogo será disponibilizado para desktop, com execução diretamente em navegadores web modernos, como Google Chrome, Microsoft Edge, Safari e Opera. Essa escolha de plataforma garante maior acessibilidade e praticidade, já que não será necessário instalar programas adicionais ou realizar downloads complexos.
-A opção por navegadores permite que o jogo seja multiplataforma, funcionando em diferentes sistemas operacionais (Windows, macOS e Linux), desde que o usuário tenha acesso a um navegador compatível. Além disso, essa abordagem facilita a atualização contínua do jogo, pois qualquer melhoria ou correção pode ser aplicada diretamente no servidor, sem exigir que o jogador baixe novas versões.
-Outro ponto importante é que a execução em navegadores torna o jogo mais inclusivo e acessível, permitindo que seja jogado em computadores com diferentes níveis de desempenho, sem exigir configurações avançadas de hardware.
+*O jogo será disponibilizado para desktop, com execução diretamente em navegadores web modernos, como Google Chrome, Microsoft Edge, Safari e Opera. Essa escolha de plataforma garante maior acessibilidade e praticidade, já que não será necessário instalar programas adicionais ou realizar downloads complexos.*
+*A opção por navegadores permite que o jogo seja multiplataforma, funcionando em diferentes sistemas operacionais (Windows, macOS e Linux), desde que o usuário tenha acesso a um navegador compatível. Além disso, essa abordagem facilita a atualização contínua do jogo, pois qualquer melhoria ou correção pode ser aplicada diretamente no servidor, sem exigir que o jogador baixe novas versões.*
+*Outro ponto importante é que a execução em navegadores torna o jogo mais inclusivo e acessível, permitindo que seja jogado em computadores com diferentes níveis de desempenho, sem exigir configurações avançadas de hardware.*
 
 
 ### 2.2.3. Número de jogadores 
-O jogo foi projetado para apenas um jogador, com o objetivo de fortalecer o vínculo individual entre o cuidador e os animais. Essa escolha garante maior senso de responsabilidade, já que cada decisão e ação realizada impacta diretamente no bem-estar dos cães.
-A experiência single-player também permite que o jogador se envolva de forma mais imersiva e pessoal, sem distrações externas, reforçando a proposta central do projeto Cobasi Cuida: estimular a empatia, o cuidado e a dedicação aos animais.
+*O jogo foi projetado para apenas um jogador, com o objetivo de fortalecer o vínculo individual entre o cuidador e os animais. Essa escolha garante maior senso de responsabilidade, já que cada decisão e ação realizada impacta diretamente no bem-estar dos cães.*
+*A experiência single-player também permite que o jogador se envolva de forma mais imersiva e pessoal, sem distrações externas, reforçando a proposta central do projeto Cobasi Cuida: estimular a empatia, o cuidado e a dedicação aos animais.*
 
 ### 2.2.4. Títulos semelhantes e inspirações
 
 #### 2.2.4.1 Meu Talking Tom - Android ou IOS
 
-É a principal inspiração para nosso protótipo. Jogo simples com o objetivo de cuidar do Tom.
+*É a principal inspiração para nosso protótipo. Jogo simples com o objetivo de cuidar do Tom.*
 
-Ideias de funcionalidades: 
+*Ideias de funcionalidades:*
 - Toque interativo (tocar no pet e ele reagir).
 - Pet ouvir sua fala e replicar com uma voz diferente (não seria original).
 - Vestir o pet .
@@ -262,7 +267,7 @@ Ideias de funcionalidades:
 
 #### 2.2.4.3 Animal Shelter Simulator - Google Play e IOS: 
 
-A proposta é “rodar um abrigo” com tarefas operacionais e cuidado dos animais.
+*A proposta é “rodar um abrigo” com tarefas operacionais e cuidado dos animais.*
 
 - Loop de tarefas (higiene, alimentação, rotina)
 - Progressão (desbloqueios / expansão)
@@ -294,7 +299,7 @@ A proposta é “rodar um abrigo” com tarefas operacionais e cuidado dos anima
 
 ### 3.2.3. Diversidade e Representatividade dos Personagens
 
-&ensp;*A diversidade e a inclusão são elementos cada vez mais essenciais na indústria de jogos digitais, pois garantem representatividade, acessibilidade e identificação para diferentes perfis de jogadores. No contexto dos games, esses princípios envolvem a construção respeitosa de personagens, narrativas e mecânicas que contemplem múltiplas realidades sociais, culturais e individuais*
+*A diversidade e a inclusão são elementos cada vez mais essenciais na indústria de jogos digitais, pois garantem representatividade, acessibilidade e identificação para diferentes perfis de jogadores. No contexto dos games, esses princípios envolvem a construção respeitosa de personagens, narrativas e mecânicas que contemplem múltiplas realidades sociais, culturais e individuais*
 *Com base nessa compreensão, a diversidade e a inclusão foram incorporadas como pilares estratégicos no desenvolvimento deste projeto. A construção das personagens foi fundamentada em dados da realidade brasileira e alinhada ao público-alvo do jogo. A escolha de uma mulher jovem como protagonista baseia-se em pesquisas como o levantamento GoldeN/Opinion Box, que aponta maior engajamento feminino na adoção responsável e na busca por animais em ONGs e abrigos, além da forte participação da Geração Z nesse movimento. Essa decisão fortalece a identificação entre jogador e protagonista, promovendo pertencimento e coerência com o perfil dos consumidores da marca Cobasi*
 *Além disso, o personagem pet care foi desenvolvido com pele escura, reforçando a representatividade racial e ampliando a diversidade étnica dentro do universo do jogo. O personagem também utiliza o colar de identificação do autismo, símbolo associado à conscientização sobre o Transtorno do Espectro Autista (TEA), promovendo visibilidade à neurodiversidade de maneira respeitosa e não estereotipada. A proposta dialoga com princípios de equidade ao representar grupos historicamente invisibilizados de forma ativa e protagonista, indo além de uma diversidade apenas estética.*
 *Dessa forma, o impacto esperado é duplo: fortalecer o vínculo emocional com o público-alvo e posicionar o jogo como uma experiência transformadora que reflete a pluralidade da sociedade brasileira e os valores de responsabilidade, cuidado e inclusão associados à marca.*
@@ -370,7 +375,7 @@ Figura 1: detalhe da cena da partida do herói para a missão, usando sua nave
 <div align="center">
   <p>Diagrama de Cenas</p>
   <a href="https://miro.com/app/board/uXjVG8ZyQIk=/?share_link_id=884951366758">
-    <img src="other/diagramacenas.jpeg" width="300">
+    <img src="other/diagramacenas.jpeg" width="800">
   </a>
   <p>Feito pela própia equipe(2026)</p>
     
@@ -442,12 +447,6 @@ Figura 1: detalhe da cena da partida do herói para a missão, usando sua nave
 
 &ensp;*Entre as principais dificuldades enfrentadas durante esse desenvolvimento destacam-se os desafios relacionados à aplicação da sintaxe do framework Phaser, especialmente no que se refere à implementação de mecânicas que envolvem interação direta do jogador, como eventos de clique e ativação sequencial de ações. Ademais, foram identificadas limitações técnicas e criativas na elaboração dos fundos em pixel art, demandando maior refinamento visual nas próximas etapas do projeto.*
 
-<div align = "center">
-    <p>Figura x - título</p>
-    <img src = "">
-    <p>Fonte: material produzido pelos autores (2026).</p>
-</div>
-
 ## 4.3. Desenvolvimento intermediário do jogo (sprint 3)
 
 *Descreva e ilustre aqui o desenvolvimento da versão intermediária do jogo, explicando brevemente o que foi entregue em termos de código e jogo. Utilize prints de tela para ilustrar. Indique as eventuais dificuldades e próximos passos.*
@@ -464,9 +463,12 @@ Figura 1: detalhe da cena da partida do herói para a missão, usando sua nave
 
 ## 5.1. Casos de Teste (sprints 2 a 4)
 
-Um **Caso de Teste** (*Test Case*) é um roteiro detalhado de condições, variáveis, passos e resultados esperados, criado para verificar se uma funcionalidade específica de um software (ou jogo) está operando corretamente e cumprindo seus requisitos.
+Um Caso de Teste (*Test Case*) é um roteiro detalhado de condições, variáveis, passos e resultados esperados, criado para verificar se uma funcionalidade específica de um software (ou jogo) está operando corretamente e cumprindo seus requisitos.
 
 Eles são essenciais para garantir a qualidade do produto, identificar bugs de forma sistemática antes do lançamento e documentar o comportamento esperado do sistema.
+<div align="center">
+  <p>Quadro de casos de teste</p>
+</div>
 
 | pré-condição |descrição do teste | condição |
 | :--- | :---: | ---: |
@@ -478,12 +480,9 @@ Eles são essenciais para garantir a qualidade do produto, identificar bugs de f
 | Ao passar o "sabão" sobre o cachorro, deve surgir "bolhas" como rastro para indicar limpeza| Clicar no sabão e arrastar sobre o cachorro| O efeito das "bolhas" surge sobre o cachorro como rastro de limpeza.| 
 | Deve ser possível segurar e mover o "chuveiro"| Clicar no "chuveiro" e arrastar sobre a tela| O "chuveiro" é movimentado com o mouse|
 |Ao arrastar o chuveiro sobre o cachorro, deve haver uma animação de água caindo que "limpa o sabão"| Arrastar o "chuveiro" sobre o cachorro com "sabão" sobreposto| O efeito da água caindo ocorre e "limpa o sabão|
-
 <div align="center">
-  <p>Quadro de casos de teste</p>
-  <p>Feito pela própia equipe(2026)</p>
+  <p>Feito pela própia equipe(2026)</p>
 </div>
-
 ## 5.2. Testes de jogabilidade (playtests) (sprint 5)
 
 ### 5.2.1 Registros de testes
@@ -513,15 +512,48 @@ O que poderia melhorar no jogo? | A responsividade do personagem aos controles, 
 
 *Relacione também quaisquer ideias que o grupo tenha para melhorias futuras*
 
-# <a name="c7"></a>7. Referências (sprint 5)
+# <a name="c7"></a>7. Referências
 
-_Incluir as principais referências de seu projeto, para que seu parceiro possa consultar caso ele se interessar em aprofundar. Um exemplo de referência de livro e de site:_<br>
+CONSELHO ADMINISTRATIVO DE DEFESA ECONÔMICA (CADE). CADE clears merger of Petz and Cobasi. 23 jun. 2025. Disponível em: https://www.gov.br/cade/en/matters/news/cade-clears-merger-of-petz-and-cobasi
+. Acesso em: 27 fev. 2026.
 
-LUCK, Heloisa. Liderança em gestão escolar. 4. ed. Petrópolis: Vozes, 2010. <br>
-SOBRENOME, Nome. Título do livro: subtítulo do livro. Edição. Cidade de publicação: Nome da editora, Ano de publicação. <br>
+CONSELHO ADMINISTRATIVO DE DEFESA ECONÔMICA (CADE). CADE clears merger of Petz and Cobasi. 23 jun. 2025. Disponível em: https://www.gov.br/cade/en/matters/news/cade-clears-merger-of-petz-and-cobasi. Acesso em: 27 fev. 2026.
 
-INTELI. Adalove. Disponível em: https://adalove.inteli.edu.br/feed. Acesso em: 1 out. 2023 <br>
-SOBRENOME, Nome. Título do site. Disponível em: link do site. Acesso em: Dia Mês Ano
+E-COMMERCE BRASIL. Relatório sobre o crescimento do comércio eletrônico no Brasil. 2023. Disponível em: https://www.ecommercebrasil.com.br. Acesso em: 27 fev. 2026.
+
+PORTER, Michael E. The five competitive forces that shape strategy. Harvard Business Review, 2008.
+
+SBVC – Sociedade Brasileira de Varejo e Consumo. Estudos sobre comportamento do consumidor e varejo digital. 2024. Disponível em: https://sbvc.com.br. Acesso em: 27 fev. 2026.
+
+INVESTING.COM. Brazilian pet product retailer Petz shares soar on Cobasi merger deal. 2024. Disponível em: https://www.investing.com/news/stock-market-news/brazilian-pet-product-retailer-petz-shares-soar-on-cobasi-merger-deal-3575949
+. Acesso em: 27 fev. 2026.
+
+PETZCOBASI RI. Central de Resultados - Cobasi. 25 fev. 2026. Disponível em: https://ri.petzcobasi.com.br/informacoes-financeiras/central-de-resultados-cobasi/
+. Acesso em: 27 fev. 2026.
+
+ASSOCIAÇÃO BRASILEIRA DE SUPERMERCADOS (ABRAS). Overview do mercado pet brasileiro 2025. São Paulo: ABRAS, 2025. Disponível em: https://static.abras.com.br/pdf/food-retail-future/overview-do-mercado-pet-abras-2025.pdf
+. Acesso em: 12 fev. 2026.
+
+CONSUMIDOR MODERNO. Fusão entre Petz e Cobasi cria gigante do varejo pet no Brasil. 2024. Disponível em: https://consumidormoderno.com.br/fusao-petz-cobasi/
+. Acesso em: 12 fev. 2026.
+
+NEOFEED. A fusão Petz-Cobasi vai esmagar as vendas do pequeno pet shop?. 2024. Disponível em: https://neofeed.com.br/negocios/a-fusao-petz-cobasi-vai-esmagar-as-vendas-do-pequeno-pet-shop-diz-ceo-da-petland/
+. Acesso em: 12 fev. 2026.
+
+REVISTA POWER SUPPLY. Petlove em evidência: crescimento e consolidação no mercado pet. 2024. Disponível em: https://www.revistapowersupply.com/blog/petlove-em-evidencia
+. Acesso em: 12 fev. 2026.
+
+CONSELHO ADMINISTRATIVO DE DEFESA ECONÔMICA (CADE). Cade aprova fusão entre Petz e Cobasi com restrições. 2024. Disponível em: https://www.gov.br/cade/en/matters/news/cade-conditionally-clears-merger-of-petz-and-cobasi
+. Acesso em: 12 fev. 2026.
+
+PET CONECTA DIGITAL. Criação da União Pet lança alerta de desequilíbrio no mercado. 2026. Disponível em: https://www.petconectadigital.com.br/panorama-petvet/criacao-da-uniao-pet-lanca-alerta-de-desequilibrio-no-mercado
+. Acesso em: 27 fev. 2026.
+
+PANORAMA PET VET. Lista das maiores indústrias de rações tem 4 brasileiras. 2024. Disponível em: https://www.petconectadigital.com.br/panorama-petvet/lista-das-maiores-industrias-de-racoes-tem-4-brasileiras
+. Acesso em: 27 fev. 2026.
+
+ISTOÉ PET. Pesquisa global aponta: vivemos uma nova era de tutores e pets. 12 nov. 2024. Disponível em: https://pet.istoe.com.br/pesquisa-global-aponta-vivemos-uma-nova-era-de-tutores-e-pets
+. Acesso em: 27 fev. 2026.
 
 # <a name="c8"></a>Anexos
 

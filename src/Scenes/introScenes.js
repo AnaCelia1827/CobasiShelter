@@ -1,4 +1,4 @@
-//Gera uma nova cena chamada introScene
+// Gera uma nova cena chamada introScene
 class introScene extends Phaser.Scene {
     constructor() {
         super({ key: 'introScene' });
@@ -12,7 +12,7 @@ class introScene extends Phaser.Scene {
         this.load.image('botaoConfiguraçoes', 'assets/botaoConfiguraçoes.png');
         this.load.audio('musica', 'assets/trilhaSonora.mp3'); //Carrega a música de fundo
     }
-    //Gera as imagens do jogo,as animações e os efeitos de transição
+    // Gera as imagens do jogo,as animações e os efeitos de transição
     create() {
         gameState.musica = this.sound.add('musica', { loop: true, volume: 0.5 });
         gameState.musica.play();
@@ -52,7 +52,7 @@ class introScene extends Phaser.Scene {
 
         this.add.image(window.innerWidth/2, window.innerHeight/2, 'bg').setDisplaySize(window.innerWidth, window.innerHeight);  //Adiciona uma imagem a partir do centro da tela do jogo
 
-        //Cria um botão que é interativo para usuário
+        // Cria um botão que é interativo para usuário
         gameState.botaoJogar = this.add.image((window.innerWidth/6)+20, 380, 'botaoJogar').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
         gameState.botaoTutorial = this.add.image((window.innerWidth/6)+20, 480, 'botaoTutorial').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
         gameState.botaoSair = this.add.image((window.innerWidth/6)+20, 580, 'botaoSair').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
@@ -62,7 +62,7 @@ class introScene extends Phaser.Scene {
         this.cameras.main.setBounds(0,0,window.innerWidth,window.innerHeight); //A camera principal ocupa todo o tamanho da tela
         this.cameras.main.fadeIn(200, 0,0,0);//Adiciona um efeito de escurecer
 
-        /* Aplicação da função hoverPressEffect para cada botão */
+        // Aplicação da função hoverPressEffect para cada botão
         hoverPressEffect(this, gameState.botaoJogar, 0.5, 0.6);
         hoverPressEffect(this, gameState.botaoTutorial, 0.5, 0.6);
         hoverPressEffect(this, gameState.botaoSair, 0.5, 0.6);

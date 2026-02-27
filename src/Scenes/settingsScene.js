@@ -19,10 +19,10 @@ class settingsScene extends Phaser.Scene {
         // Carrega a música de fundo
         this.load.audio('musica', 'assets/trilhaSonora.mp3');
     }
-    //Gera as imagens do jogo,as animações e os efeitos de transição
+    // Gera as imagens do jogo,as animações e os efeitos de transição
     create() {
 
-        //Toca a música de fundo em loop com volume reduzido
+        // Toca a música de fundo em loop com volume reduzido
         gameState.musica = this.sound.add('musica', { loop: true, volume: 0.5 });
         gameState.musica.play();
 
@@ -30,17 +30,17 @@ class settingsScene extends Phaser.Scene {
         
         gameState.bg = this.add.image(window.innerWidth/2, window.innerHeight/2, 'bg').setDisplaySize(window.innerWidth, window.innerHeight);  //Adiciona uma imagem a partir do centro da tela do jogo
 
-        //Adiciona os botões de volta para o início do jogo e de configurações
+        // Adiciona os botões de volta para o início do jogo e de configurações
         gameState.botaoJogar = this.add.image((window.innerWidth/6)+20, 380, 'botaoJogar').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
         gameState.botaoTutorial = this.add.image((window.innerWidth/6)+20, 480, 'botaoTutorial').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
         gameState.botaoSair = this.add.image((window.innerWidth/6)+20, 580, 'botaoSair').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
         gameState.botaoConfiguraçoes = this.add.image((window.innerWidth/6)+20,680, 'botaoConfiguraçoes').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
         gameState.retornoInicio = this.add.image(1060, 165, 'retornoInicio').setScale(0.35,0.35).setInteractive({ useHandCursor: true });
 
-        //Cria a imagens da tela de configurações
+        // Cria a imagens da tela de configurações
         gameState.settings = this.add.image(1000, 300, 'settings').setScale(0.8,0.8);
         
-        //Define a profundidade da imagem de fundo para -1, garantindo que ela fique atrás de outros elementos
+        // Define a profundidade da imagem de fundo para -1, garantindo que ela fique atrás de outros elementos
         gameState.bg .depth = -1;
         gameState.botaoJogar.depth = -1; 
         gameState.botaoTutorial.depth = -1;
@@ -54,7 +54,7 @@ class settingsScene extends Phaser.Scene {
         
         this.cameras.main.fadeIn(200, 0,0,0);//Adiciona um efeito de escurecer
 
-        /* Quando o usuário colocar o cursor em cima do botão ele aumenta de tamanho */
+        // Quando o usuário colocar o cursor em cima do botão ele aumenta de tamanho
         gameState.retornoInicio.on('pointerover', () => {
             this.tweens.add({
                 targets: gameState.retornoInicio,

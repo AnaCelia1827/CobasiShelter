@@ -22,9 +22,9 @@ class gameScene extends Phaser.Scene {
             .setDepth(-1); // Define profundidade para ficar atrás dos outros elementos
         
         // Adiciona um HUD interativo (botão)
-        gameState.btnGameScene = this.add.image(1150, window.innerHeight/2, 'btn')
+        gameState.btnGameScene = this.add.image(1400, window.innerHeight/2, 'btn')
             .setInteractive({ useHandCursor: true })
-            .setScale(0.82); 
+            .setScale(1); 
 
         // Configura a câmera principal para ocupar toda a tela
         this.cameras.main.setBounds(0, 0, window.innerWidth, window.innerHeight);
@@ -54,7 +54,7 @@ class gameScene extends Phaser.Scene {
                     scaleY: 0.45,
                     duration: 180,
                     ease: 'Power2',
-                    yoyo: true, // Volta ao tamanho original após animação
+                    yoyo: true,
                 });
             });
 
