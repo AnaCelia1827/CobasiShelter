@@ -84,86 +84,13 @@ Valter Lucas Garcia de Lima
 
 
 
-### 1.1.2. Análise SWOT 
+### 1.1.2. Análise SWOT (sprint 2)
 
-&ensp;A análise SWOT — também denominada matriz FOFA — é um instrumento estratégico que permite avaliar a posição competitiva de uma organização a partir da interação entre fatores internos e externos. O modelo se estrutura em quatro dimensões: forças (strengths), que evidenciam vantagens internas; fraquezas (weaknesses), que apontam limitações internas; oportunidades (opportunities), relacionadas a condições externas favoráveis; e ameaças (threats), que representam riscos do ambiente externo (Casarotto, 2019). Ao organizar essas variáveis, a ferramenta apoia decisões mais consistentes e o direcionamento estratégico. Nesse contexto, apresenta-se a análise SWOT da Cobasi (Figura 2).
+*Posicione aqui a análise SWOT relacionada ao parceiro de projeto. Utilize a análise SWOT para fazer uma análise ambiental do parceiro no âmbito estratégico. Leve em consideração o contexto da indústria, concorrência e as características do ambiente interno (forças e fraquezas) e externo (oportunidades e ameaças) do parceiro.*
 
-<div align="center">
-  <p>Análise Swot</p>
-  <img src="assets/analiseSwot.png" width="300">
-  <p>Feito pela própia equipe(2026)</p>
-</div>
+### 1.1.3. Missão / Visão / Valores (sprint 2)
 
-## Strengths
-
-As forças (strengths) correspondem aos atributos internos que sustentam a vantagem competitiva da organização (Casarotto, 2019). Para a Cobasi, destacam-se:
-
-&ensp;• Autoridade e credibilidade de marca como pioneira no setor pet;  
-&ensp;• Ecossistema omnichannel consolidado, com forte integração físico-digital;  
-&ensp;• Diversificação do portfólio em categorias complementares (jardinagem, aquarismo e casa);  
-&ensp;• Elevado poder de escala após a fusão, fortalecendo o poder de negociação com grandes fornecedores.
-
-
-## Weaknesses
-
-As fraquezas (weaknesses) referem-se a limitações internas que podem restringir desempenho ou eficiência (Casarotto, 2019). No caso da Cobasi, observam-se:
-
-&ensp;• Estrutura de custo fixo elevada decorrente do modelo de megalojas;  
-&ensp;• Desafios de integração operacional e cultural após a fusão com a Petz;  
-&ensp;• Concentração geográfica no mercado brasileiro, aumentando a exposição a ciclos econômicos locais.
-
-
-## Opportunities
-
-As oportunidades (opportunities) dizem respeito a fatores externos positivos que podem ser explorados para crescimento e diferenciação (Casarotto, 2019). Para a Cobasi, evidenciam-se:
-
-&ensp;• Verticalização do ecossistema de saúde pet, com expansão em hospitais e planos veterinários;  
-&ensp;• Aceleração do desenvolvimento de marcas próprias, ampliando controle de margem;  
-&ensp;• Tendência de aumento do número de pets por família, impulsionando a demanda estrutural do setor.
-
-
-## Threats
-
-As ameaças (threats) envolvem elementos externos que podem impactar negativamente o negócio (Casarotto, 2019). Entre as principais para a Cobasi, estão:
-
-&ensp;• Guerra de preços em marketplaces, com forte pressão competitiva de plataformas como Amazon e Mercado Livre;  
-&ensp;• Resiliência dos pet shops de bairro, que competem via proximidade e atendimento personalizado;  
-&ensp;• Restrições regulatórias associadas às exigências do CADE após a fusão;  
-&ensp;• Volatilidade no custo de commodities utilizadas na produção de rações.
-
-
-### 1.1.3. Missão / Visão / Valores 
-
-De modo geral, missão expressa o propósito central de uma organização, ou seja, por que ela existe. A visão representa onde a empresa pretende chegar no futuro, enquanto os valores correspondem aos princípios que orientam suas decisões e comportamentos (TOTVS, 2024). A seguir, apresentam-se esses elementos aplicados à Cobasi.
-
-
-
-###  Missão
-
-Proporcionar aos apaixonados por animais uma experiência de compra diferenciada, reunindo produtos de qualidade, atendimento especializado e preços competitivos em um ambiente confortável.
-
-
-
-###  Visão
-
-
-Apesar de não divulgar formalmente uma declaração de visão, a atuação da empresa indica a intenção de se consolidar como referência no varejo pet, fortalecendo continuamente a experiência do cliente e a confiança na marca.
-
-
-
-###  Valores
-
-&ensp;• Compromisso com o cliente (prioridade em atender bem e gerar satisfação ao consumidor);  
-&ensp;• Ética (conduta profissional baseada em integridade e respeito);  
-&ensp;• Transparência (relações claras e responsáveis com clientes, parceiros e colaboradores);  
-&ensp;• Excelência (busca contínua por alto padrão em produtos, serviços e atendimento);  
-&ensp;• Responsabilidade (atuação consciente em relação ao negócio, à sociedade e ao bem-estar animal);  
-&ensp;• Trabalho em equipe (valorização da cooperação entre colaboradores para melhores resultados).
-
----
-
-
-A cultura organizacional da Cobasi evidencia forte orientação para a experiência do consumidor aliada a princípios éticos consistentes. Esses pilares sustentam a credibilidade da marca e direcionam a equipe na entrega de um atendimento de qualidade, favorecendo a fidelização do público pet.
+*Posicione aqui a Missão, Visão e Valores do seu projeto.*
 
 ### 1.1.4. Proposta de Valor (sprint 4)
 
@@ -358,21 +285,9 @@ Figura 1: detalhe da cena da partida do herói para a missão, usando sua nave
 2 | robô voador | <img src="../assets/inimigo1.PNG"> | a partir da fase 2 | ataca o personagem vindo pelo ar, fazendo movimento em 'V' quando se aproxima | se encostar, o personagem perde 3 pontos de vida | som de hélice
 3 | ... 
 
-## 3.5. Gameflow (Diagrama de cenas)
+## 3.5. Gameflow (Diagrama de cenas) (sprint 2)
 
-
-*No desenvolvimento de jogos, o diagrama de cenas é uma ferramenta visual utilizada no GDD (Game Design Document) para organizar e representar a estrutura do jogo. Ele mostra, de forma esquemática, todas as telas ou cenas existentes — como menu inicial, tutorial, fases, configurações, pausa e game over (e como elas se conectam entre si).*
-
-*Esse diagrama ajuda a equipe a entender o fluxo de navegação do jogador, indicando quais ações levam de uma cena para outra. Além disso, facilita o planejamento da programação, da interface e da experiência do usuário, evitando erros de estrutura e retrabalho. Assim, o diagrama de cenas funciona como um “mapa” do jogo, tornando o projeto mais claro, organizado e eficiente durante o desenvolvimento.*
-
-<div align="center">
-  <p>Diagrama de Cenas</p>
-  <a href="https://miro.com/app/board/uXjVG8ZyQIk=/?share_link_id=884951366758">
-    <img src="assets/diagramaDeCenas.png" width="300">
-  </a>
-  <p>Feito pela própia equipe(2026)</p>
-    
-</div>
+*Posicione aqui seu "storyboard de programação" - o diagrama de cenas do jogo. Indique, por exemplo, como o jogo começa, quais opções o jogador tem, como ele avança nas fases, quais as condições de 'game over', como o jogo reinicia. Seu diagrama deve representar as classes, atributos e métodos usados no jogo.*
 
 ## 3.6. Regras do jogo (sprint 3)
 
@@ -399,46 +314,46 @@ Figura 1: detalhe da cena da partida do herói para a missão, usando sua nave
 ## 4.1. Desenvolvimento preliminar do jogo 
  
 
- &ensp;*Durante a primeira fase de desenvolvimento, foram estabelecidas as prioridades do projeto, com foco na definição dos requisitos iniciais e na estruturação da narrativa principal. A equipe realizou sessões de brainstorming com o objetivo de consolidar a ideia central do jogo, definir suas mecânicas e organizar o escopo do sistema. A partir dessas definições, foi feita a organização inicial do software, com a implementação das primeiras funcionalidades e a distribuição de funções entre os membros da equipe, estabelecendo uma estrutura promissora para as próximas sprints.*
+ *Durante a primeira fase de desenvolvimento, foram estabelecidas as prioridades do projeto, com foco na definição dos requisitos iniciais e na estruturação da narrativa principal. A equipe realizou sessões de brainstorming com o objetivo de consolidar a ideia central do jogo, definir suas mecânicas e organizar o escopo do sistema. A partir dessas definições, foi feita a organização inicial do software, com a implementação das primeiras funcionalidades e a distribuição de funções entre os membros da equipe, estabelecendo uma estrutura promissora para as próximas sprints.*
 
-&ensp;*No desenvolvimento da narrativa, optou-se por um personagem principal que representa uma pessoa comum, aproximando o jogador da realidade proposta pelo jogo. As mecânicas centrais envolvem o resgate de animais e os cuidados prestados a eles, com o objetivo de sensibilizar o público quanto à importância da adoção responsável e de ensinar, de maneira lúdica e educativa, os cuidados necessários com os animais. Essa definição foi essencial para alinhar os elementos narrativos às funcionalidades técnicas implementadas.*
+*No desenvolvimento da narrativa, optou-se por um personagem principal que representa uma pessoa comum, aproximando o jogador da realidade proposta pelo jogo. As mecânicas centrais envolvem o resgate de animais e os cuidados prestados a eles, com o objetivo de sensibilizar o público quanto à importância da adoção responsável e de ensinar, de maneira lúdica e educativa, os cuidados necessários com os animais. Essa definição foi essencial para alinhar os elementos narrativos às funcionalidades técnicas implementadas.*
 
-&ensp;*Em seguida, foi desenvolvida a estrutura técnica inicial do projeto, que incluiu a criação do cenário em pixel art e a implementação da tela inicial do jogo, com seus respectivos elementos visuais e interativos. Nesta primeira versão, foi entregue uma tela inicial funcional contendo os botões “Jogar”, "Sair",“Opções” e “Tutorial”, além de um sistema de navegação entre telas. Os botões possuem um feedback para o usuário saber que são clicáveis. Nessa primeira etapa focamos apenas em deixar o botão de configurações utilizável (símbolo de engrenagem), que ao ser selecionado abre uma tela para alterar diversas opções que serão implementadas em breve.*
+*Em seguida, foi desenvolvida a estrutura técnica inicial do projeto, que incluiu a criação do cenário em pixel art e a implementação da tela inicial do jogo, com seus respectivos elementos visuais e interativos. Nesta primeira versão, foi entregue uma tela inicial funcional contendo os botões “Jogar”, "Sair",“Opções” e “Tutorial”, além de um sistema de navegação entre telas. Os botões possuem um feedback para o usuário saber que são clicáveis. Nessa primeira etapa focamos apenas em deixar o botão de configurações utilizável (símbolo de engrenagem), que ao ser selecionado abre uma tela para alterar diversas opções que serão implementadas em breve.*
 
 <div align="center">
   <p>Tela Inicial</p>
-  <img src="telaInicial.png" width="300">
+  <img src="../assets/telaInicial.png" width="800">
   <p>Feito pela própia equipe(2026)</p>
 </div>
 
 
 
-&ensp;*Durante essa primeira sprint, foram enfrentadas algumas dificuldades, principalmente no desenvolvimento das artes em pixel art, na utilização do GitLab para controle de versões, na organização das tarefas em grupo e na adaptação da equipe ao fluxo da metodologia Scrum. Apesar dos desafios, a equipe conseguiu entregar uma versão inicial funcional, que serviu como base estruturada para a continuidade do desenvolvimento do projeto.*
+*Durante essa primeira sprint, foram enfrentadas algumas dificuldades, principalmente no desenvolvimento das artes em pixel art, na utilização do GitLab para controle de versões, na organização das tarefas em grupo e na adaptação da equipe ao fluxo da metodologia Scrum. Apesar dos desafios, a equipe conseguiu entregar uma versão inicial funcional, que serviu como base estruturada para a continuidade do desenvolvimento do projeto.*
 
 
 ## 4.2. Desenvolvimento básico do jogo 
 
-&ensp;*Na segunda sprint do projeto, a equipe concentrou suas atividades na estruturação das fases do jogo, na definição das cenas e na consolidação do storytelling específico, com o objetivo de organizar a progressão da experiência do jogador de forma coerente com a proposta educativa do projeto. Essa etapa foi fundamental para estabelecer a base narrativa e estrutural que orienta as interações e os mini games desenvolvidos.*
+*Na segunda sprint do projeto, a equipe concentrou suas atividades na estruturação das fases do jogo, na definição das cenas e na consolidação do storytelling específico, com o objetivo de organizar a progressão da experiência do jogador de forma coerente com a proposta educativa do projeto. Essa etapa foi fundamental para estabelecer a base narrativa e estrutural que orienta as interações e os mini games desenvolvidos.*
 
-&ensp;*Paralelamente, houve foco na implementação das mecânicas relacionadas ao cuidado com a higiene do animal, que constitui uma das interações centrais da dinâmica do jogo. Foi desenvolvida a tela inicial de HUD (Head-Up Display), composta por botões, que direcionam o jogador para diferentes áreas de cuidado do cachorro. Entre essas áreas, a funcionalidade plenamente implementada nesta sprint corresponde ao ambiente de banheiro, no qual ocorre o mini game de higiene.*
+*Paralelamente, houve foco na implementação das mecânicas relacionadas ao cuidado com a higiene do animal, que constitui uma das interações centrais da dinâmica do jogo. Foi desenvolvida a tela inicial de HUD (Head-Up Display), composta por botões, que direcionam o jogador para diferentes áreas de cuidado do cachorro. Entre essas áreas, a funcionalidade plenamente implementada nesta sprint corresponde ao ambiente de banheiro, no qual ocorre o mini game de higiene.*
 *No mini game, o cachorro é apresentado inicialmente em estado sujo, exigindo a intervenção do jogador. A mecânica consiste na utilização de elementos interativos, como sãbão, chuveiro e toalha, que devem ser acionados em sequência para realizar o processo de limpeza. O fluxo da interação envolve a aplicação do sabão, o enxágue e, ao final, a exibição do sprite do cachorro limpo, caracterizando a conclusão da atividade e reforçando a lógica de progressão da fase.*
 
 <div align="center">
   <p>Tela de lazer Geral</p>
-  <img src="assets/telagddHud.png" width="300">
+  <img src="../assets/telagddHud.png" width="800">
   <p>Feito pela própia equipe(2026)</p>
 </div>
 
 <div align="center">
   <p>Tela de Banho</p>
-  <img src="assets/telagddBanheiro.png" width="300">
+  <img src="../assets/telabanheiro.png" width="800">
  
   <p>Feito pela própia equipe(2026)</p>
 </div>
 
-&ensp;*No âmbito visual, foram desenvolvidos os sprites dos personagens, os estados visuais do cachorro (sujo e limpo) e o cenário do ambiente de banheiro. Para as próximas sprints, a equipe prevê a ampliação da produção de sprites para outras telas, o aprimoramento dos fundos em pixel art e o desenvolvimento do quiz sobre os diversos tipos de rações, que contribuirá para fortalecer o caráter educativo do jogo.*
+*No âmbito visual, foram desenvolvidos os sprites dos personagens, os estados visuais do cachorro (sujo e limpo) e o cenário do ambiente de banheiro. Para as próximas sprints, a equipe prevê a ampliação da produção de sprites para outras telas, o aprimoramento dos fundos em pixel art e o desenvolvimento do quiz sobre os diversos tipos de rações, que contribuirá para fortalecer o caráter educativo do jogo.*
 
-&ensp;*Entre as principais dificuldades enfrentadas durante esse desenvolvimento destacam-se os desafios relacionados à aplicação da sintaxe do framework Phaser, especialmente no que se refere à implementação de mecânicas que envolvem interação direta do jogador, como eventos de clique e ativação sequencial de ações. Ademais, foram identificadas limitações técnicas e criativas na elaboração dos fundos em pixel art, demandando maior refinamento visual nas próximas etapas do projeto.*
+*Entre as principais dificuldades enfrentadas durante esse desenvolvimento destacam-se os desafios relacionados à aplicação da sintaxe do framework Phaser, especialmente no que se refere à implementação de mecânicas que envolvem interação direta do jogador, como eventos de clique e ativação sequencial de ações. Ademais, foram identificadas limitações técnicas e criativas na elaboração dos fundos em pixel art, demandando maior refinamento visual nas próximas etapas do projeto.*
 
 ## 4.3. Desenvolvimento intermediário do jogo (sprint 3)
 
@@ -456,25 +371,14 @@ Figura 1: detalhe da cena da partida do herói para a missão, usando sua nave
 
 ## 5.1. Casos de Teste (sprints 2 a 4)
 
-Um **Caso de Teste** (*Test Case*) é um roteiro detalhado de condições, variáveis, passos e resultados esperados, criado para verificar se uma funcionalidade específica de um software (ou jogo) está operando corretamente e cumprindo seus requisitos.
+*Descreva nesta seção os casos de teste comuns que podem ser executados a qualquer momento para testar o funcionamento e integração das partes do jogo. Utilize tabelas para facilitar a organização.*
 
-Eles são essenciais para garantir a qualidade do produto, identificar bugs de forma sistemática antes do lançamento e documentar o comportamento esperado do sistema.
-
-| pré-condição |descrição do teste | condição |
-| :--- | :---: | ---: |
-|Jogo deve apresentar a tela na proporção correta  | Abrir o jogo no navegador | Jogo apresenta aspectos visuais corretamente enquandrados na tela |
-| Presença funcional de feedback do usuário | Realizar interações com as funcionalidades da tela de início | Assim que o mouse passa pelos botões eles aumentam de tamanho, indicando correta funcionalidade |
-| Botão "settings" deve gerar outra tela para configurações do jogo | clicar no botão para saber o resultado| Funcionalidade requisitada aparece perfeitamente
-|O botão "jogar" deve redirecionar para uma nova tela| Clicar no botão e esperar o resultado | O jogo é redirecionado para uma nova tela
-| Deve ser possível segurar e mover o "sabão"| Clicar no sabão e arrastar sobre a tela| O "sabão" é movimentado com o mouse|
-| Ao passar o "sabão" sobre o cachorro, deve surgir "bolhas" como rastro para indicar limpeza| Clicar no sabão e arrastar sobre o cachorro| O efeito das "bolhas" surge sobre o cachorro como rastro de limpeza.| 
-| Deve ser possível segurar e mover o "chuveiro"| Clicar no "chuveiro" e arrastar sobre a tela| O "chuveiro" é movimentado com o mouse|
-|Ao arrastar o chuveiro sobre o cachorro, deve haver uma animação de água caindo que "limpa o sabão"| Arrastar o "chuveiro" sobre o cachorro com "sabão" sobreposto| O efeito da água caindo ocorre e "limpa o sabão|
-
-<div align="center">
-  <p>Quadro de casos de teste</p>
-  <p>Feito pela própia equipe(2026)</p>
-</div>
+*Exemplo de tabela*
+\# | pré-condição | descrição do teste | pós-condição 
+--- | --- | --- | --- 
+1 | posicionar o jogo na tela de abertura | iniciar o jogo desde seu início | o jogo deve iniciar da fase 1
+2 | posicionar o personagem em local seguro de inimigos | aguardar o tempo passar até o final da contagem | o personagem deve perder uma vida e reiniciar a fase
+3 | ...
 
 ## 5.2. Testes de jogabilidade (playtests) (sprint 5)
 
