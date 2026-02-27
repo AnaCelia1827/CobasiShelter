@@ -1,16 +1,24 @@
 //A variável abaixo é global, sendo que ela é utilizada para criar mais variáveis
 let gameState = {
 }
-/* Esse trecho gera as configurações básicas do jogo. O type cria o tipo de tela , que geralmente é do tipo CANVAS.O width gera a largura do tela do jogo no navegador, que no caso será a tela inteira, de maneira analoga, funciona o height,mas para altura.O comando scene cria a ordem das cenas que começa com introScene e depois vai para settingsScene*/
+
+//Estabelece as configurações do jogo
 var config = {
+
+    //Adiciona o tipo de apresentação automaticamente
     type: Phaser.AUTO,
+
+    //Estabele a largura e altura para toda tela
     width: window.innerWidth,
     height: window.innerHeight,
+
+    //Configurações de audio
     audio: {
         disableWebAudio: false,
         noAudio: false,
     },
-    //Adiciona physica no jogo
+
+    //Adiciona fisiva no jogo
     physics: {
         default: 'arcade',
         arcade: {
@@ -18,6 +26,8 @@ var config = {
             debug: false
         }
     },
+
+    // Organiza as cenas
     scene: [introScene, settingsScene,gameScene, bathScene]
 };
 
