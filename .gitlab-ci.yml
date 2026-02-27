@@ -1,14 +1,7 @@
-image: node:lts
-
 pages:
   stage: deploy
-  before_script:
-    - npm install
-    - npm run build
-    - mkdir -p public
-    - cp -r dist/* public/
   script:
-    - echo "Build concluído, public pronto para deploy"
+    - echo "Arquivos já estão na pasta public, nada a copiar."
   artifacts:
     paths:
       - public
