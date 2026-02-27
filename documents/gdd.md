@@ -322,13 +322,49 @@ Valter Lucas Garcia de Lima
 
 *Caso seja relevante, descreva como o tempo passa, se ele é um fator limitante ao jogo (ex. contagem de tempo para terminar uma fase)*
 
-### 3.3.4. Concept Art (sprint 2)
+### 3.3.4. Concept Art 
 
-*Inclua imagens de Concept Art do jogo que ainda não foram demonstradas em outras seções deste documento. Para cada imagem, coloque legendas, como no exemplo abaixo.*
+&ensp;A concept art é uma etapa do desenvolvimento de jogos voltada à definição visual de personagens, cenários e elementos interativos, servindo como guia para a direção artística do projeto. Segundo Schell (2019), a visualização prévia contribui para alinhar a proposta estética entre os membros da equipe. Assim, as concept arts deste jogo foram elaboradas para evidenciar seus principais componentes visuais.
 
-<img src="../assets/concept1.jpg">
+<br>
+<div align="center">
+<p> Figura 1: Tela principal da área de lazer, sem o Hud.
+<img src="other/telaprincipal.png">
+Fonte: material produzido pelos autores (2026).
+<br>
 
-Figura 1: detalhe da cena da partida do herói para a missão, usando sua nave
+
+<br>
+<div align="center">
+<p> Figura 2: HUD com botões que redirecionam para as telas de banheiro, alimentação, saúde e lazer do pet.
+<img src="other/hud.png">
+Fonte: material produzido pelos autores (2026).
+<br>
+
+
+<br>
+<div align="center">
+<p> Figura 3: Tela do banheiro, apresentando o pet no ambiente de higiene com itens interativos.
+<img src="other/bath.png">
+Fonte: fundo feito por ChatGPT, sprites produzidas pelos autores (2026).
+<br>
+
+
+<br>
+<div align="center">
+<p> Figura 4: Personagem protagonista do jogo, representada por uma mulher jovem e empoderada que cuidará dos pets.
+<img src="other/protagonista.png">
+Fonte: material produzido pelos autores (2026).
+<br>
+
+
+<br>
+<div align="center">
+<p> Figura 5: Personal Pet, personagem secundário do jogo, responsável por auxiliar o jogador durante a narrativa do jogo.
+<img src="other/personalPet.png">
+Fonte: material produzido pelos autores (2026).
+<br>
+
 
 ### 3.3.5. Trilha sonora (sprint 4)
 
