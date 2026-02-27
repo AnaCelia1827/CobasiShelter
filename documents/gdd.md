@@ -332,6 +332,7 @@ Valter Lucas Garcia de Lima
 <img src="other/telaprincipal.png">
 Fonte: material produzido pelos autores (2026).
 <br>
+</div>
 
 
 <br>
@@ -340,30 +341,41 @@ Fonte: material produzido pelos autores (2026).
 <img src="other/hud.png">
 Fonte: material produzido pelos autores (2026).
 <br>
+</div>
 
 
 <br>
+
 <div align="center">
 <p> Figura 3: Tela do banheiro, apresentando o pet no ambiente de higiene com itens interativos.
 <img src="other/bath.png">
 Fonte: fundo feito por ChatGPT, sprites produzidas pelos autores (2026).
 <br>
+</div>
 
 
 <br>
 <div align="center">
-<p> Figura 4: Personagem protagonista do jogo, representada por uma mulher jovem e empoderada que cuidará dos pets.
-<img src="other/protagonista.png">
+<p> Figura 4: Personagem protagonista do jogo, representada por uma mulher jovem e empoderada que cuidará dos pets.</p>
+<img src="other/protagonista.png" width="300>
 Fonte: material produzido pelos autores (2026).
 <br>
 
+</div>
+
 
 <br>
+
 <div align="center">
 <p> Figura 5: Personal Pet, personagem secundário do jogo, responsável por auxiliar o jogador durante a narrativa do jogo.
-<img src="other/personalPet.png">
+</p>
+<img src="other/personalpet.png" width="300>
 Fonte: material produzido pelos autores (2026).
-<br>
+
+
+</p>
+
+</div>
 
 
 ### 3.3.5. Trilha sonora (sprint 4)
@@ -450,7 +462,7 @@ Fonte: material produzido pelos autores (2026).
 
 <div align="center">
   <p>Tela Inicial</p>
-  <img src="other/telainicial.png" width="300">
+  <img src="other/telainicial.png" width="800">
   <p>Feito pela própia equipe(2026)</p>
 </div>
 
