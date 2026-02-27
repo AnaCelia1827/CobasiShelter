@@ -2,10 +2,13 @@ class bathScene extends Phaser.Scene {
     constructor() {
         super({ key: 'bathScene' });
     }
+
+    // Variáveis que armazenam a informação se o jogador clicou nos objetos.
     mouseSabao = false;
     mousechuveiro = false;
     mouseToalha = false;
 
+    // Carrega as imagens, sprites e sons necessários para a cena
     preload(){
         this.load.image('banheiro', 'assets/banheiro.png');
         this.load.image('chuveiro', 'assets/chuveiro.png');
@@ -20,40 +23,37 @@ class bathScene extends Phaser.Scene {
         this.load.image('bolhas', 'assets/bolhas.png');
     }
 
+    // Gera os elementos visuais do jogo, animações e efeitos de transição
     create(){
-        // fundo e cachorro
+
+        // Adiciona o fundo para ocupar toda a tela
         gameState.banheiro = this.add.image(window.innerWidth/2, window.innerHeight/2, 'banheiro')
             .setDisplaySize(window.innerWidth, window.innerHeight);
 
+        // Adiciona o cachorro com física
         gameState.dog = this.physics.add.sprite(window.innerWidth/2, window.innerHeight/2, 'dogSujo').setScale(0.5);
         gameState.dog.setImmovable(true);
         gameState.dog.body.allowGravity = false;
 
-        // animação do cachorro sujo
+        // Cria animações para os diferentes estados do cachorro
         this.anims.create({
             key: 'dogSujoAnim',
             frames: this.anims.generateFrameNumbers('dogSujo', { start: 0, end: 1 }),
             frameRate: 4,
             repeat: -1
         });
-
-        // animação da agua
         this.anims.create({
             key: 'aguaAnim',
             frames: this.anims.generateFrameNumbers('agua', { start: 0, end: 5 }),
             frameRate: 8,
             repeat: -1
         });
-
-        // animação do cachorro com espuma
         this.anims.create({
             key: 'dogEspumaAnim',
             frames: this.anims.generateFrameNumbers('dogEspuma', { start: 0, end: 1 }),
             frameRate: 4,
             repeat: -1
         });
-
-        // animação do cachorro limpo
         this.anims.create({
             key: 'dogLimpoAnim',
             frames: this.anims.generateFrameNumbers('dogLimpo', { start: 0, end: 1 }),
@@ -61,25 +61,28 @@ class bathScene extends Phaser.Scene {
             repeat: -1
         });
 
+        // Ativa a animação inicial do cachorro sujo
         gameState.dog.play('dogSujoAnim');
 
-        // objetos como PathFollower
+        // Cria objetos interativos (sabão, chuveiro e toalha) como PathFollower
         gameState.sabao = this.add.follower(new Phaser.Curves.Path(400, 500), 600, 720, 'sabao').setInteractive().setDepth(3).setScale(0.120);
         gameState.chuveiro = this.add.follower(new Phaser.Curves.Path(400, 500), 770, 750, 'chuveiro').setInteractive().setDepth(3).setScale(0.25);
         gameState.toalha = this.add.follower(new Phaser.Curves.Path(400, 500), 940, 720, 'toalha').setInteractive().setDepth(3).setScale(0.20);
 
-        // adiciona corpo físico e ajusta tamanho
+        // Adiciona corpo físico aos objetos e ajusta tamanho
         this.physics.add.existing(gameState.sabao);
         gameState.sabao.body.setSize(gameState.sabao.displayWidth, gameState.sabao.displayHeight);
-
         this.physics.add.existing(gameState.chuveiro);
         gameState.chuveiro.body.setSize(gameState.chuveiro.displayWidth, gameState.chuveiro.displayHeight);
-
         this.physics.add.existing(gameState.toalha);
         gameState.toalha.body.setSize(gameState.toalha.displayWidth, gameState.toalha.displayHeight);
 
-        gameState.stars = this.physics.add.group(); 
-        gameState.novas = this.physics.add.group(); 
+        // Adiciona grupos de objetos com física (bolhas e gotas de água) gameState.stars = this.physics.add.group();
+        gameState.bolhas = this.physics.add.group(); 
+        gameState.gotas = this.physics.add.group(); 
+
+
+        // Variáveis de controle da lógica do jogo
         gameState.quantidade = 0;
         gameState.quantidadeBolha = 50;
         gameState.secar = 100;
@@ -89,10 +92,10 @@ class bathScene extends Phaser.Scene {
         gameState.tempoSecando = 0;
         gameState.tempoParaSecar = 90; 
 
-        // overlap com o cachorro removido - detecção manual no update()
-        this.physics.add.overlap(gameState.novas, gameState.stars, (nova, star) => { star.destroy(); nova.destroy(); gameState.quantidadeBolha--; }, null, this);
+        // Detecta overlap entre gotas de água e bolhas
+        this.physics.add.overlap(gameState.gotas, gameState.bolhas, (gota, bolha) => { bolha.destroy(); gota.destroy(); gameState.quantidadeBolha--; }, null, this);
 
-        // eventos de clique com if/else
+        // Eventos de clique para alternar entre seguir o mouse ou voltar à posição inicial
         gameState.sabao.on('pointerdown', () => {
             if (this.mouseSabao === true) {
                 // estava seguindo o mouse → desliga e cria caminho
@@ -101,99 +104,155 @@ class bathScene extends Phaser.Scene {
                 if (gameState.quantidade < 50) {
                     gameState.quantidade = 0;
                 }
+
+                // Cria uma trajetoria para o sabao voltar para posição inicial
                 let novoPath = new Phaser.Curves.Path(gameState.sabao.x, gameState.sabao.y);
                 novoPath.lineTo(600, 720);
+
+                //Aplica a trajetoria
                 gameState.sabao.setPath(novoPath);
+
+                // Inicia a trajetoria e estabelece o tempo da animação
                 gameState.sabao.startFollow({ duration: 1000, repeat: 0 });
+
             } else {
-                // não estava seguindo o mouse → liga
+
+                // Não estava seguindo o mouse → liga
                 this.mouseSabao = true;
+
+                // Atualiza a ultima posição
                 gameState.ultimoX = gameState.sabao.x;
                 gameState.ultimoY = gameState.sabao.y;
+
             } 
         });
-
         gameState.chuveiro.on('pointerdown', () => {
             if (this.mousechuveiro === true) {
+
+                // estava seguindo o mouse → desliga e cria caminho
                 this.mousechuveiro = false;
+
+                // Cria uma trajetoria para o chuveiro voltar para a posição inicial
                 let novoPath = new Phaser.Curves.Path(gameState.chuveiro.x, gameState.chuveiro.y);
                 novoPath.lineTo(770, 750);
+
+                //Aplica a trajetoria
                 gameState.chuveiro.setPath(novoPath);
+
+                // Inicia a trajetoria e estabelece o tempo da animação
                 gameState.chuveiro.startFollow({ duration: 1000, repeat: 0 });
+
             } else {
+
+                // Não estava seguindo o mouse → liga
                 this.mousechuveiro = true;
+
             }
         });
-
         gameState.toalha.on('pointerdown', () => {
             if (this.mouseToalha === true) {
+
+                // estava seguindo o mouse → desliga e cria caminho
                 this.mouseToalha = false;
+
+                 // Cria uma trajetoria para o chuveiro voltar para a posição inicial
                 let novoPath = new Phaser.Curves.Path(gameState.toalha.x, gameState.toalha.y);
                 novoPath.lineTo(940, 720);
+
+                //Aplica a trajetoria
                 gameState.toalha.setPath(novoPath);
+
+                // Inicia a trajetoria e estabelece o tempo da animação
                 gameState.toalha.startFollow({ duration: 1000, repeat: 0 });
+
             } else {
+
+                // Não estava seguindo o mouse → liga
                 this.mouseToalha = true;
+
             }
         });
     }
 
     update(){
+    
+        // --- Controle do sabão ---
         if (this.mouseSabao === true){ 
+        
+            // Atualiza posição do sabão para seguir o mouse
             gameState.ultimoX = gameState.sabao.x;
             gameState.ultimoY = gameState.sabao.y;
-
             gameState.sabao.x = this.input.activePointer.x;
             gameState.sabao.y = this.input.activePointer.y; 
             gameState.sabao.body.reset(this.input.activePointer.x, this.input.activePointer.y);
 
-            // detecção manual de distância entre sabão e cachorro (sem física)
+            // Calcula distância entre sabão e cachorro
             let distX = Math.abs(gameState.sabao.x - gameState.dog.x);
             let distY = Math.abs(gameState.sabao.y - gameState.dog.y);
-            let moveu = Math.abs(gameState.sabao.x - gameState.ultimoX) > gameState.threshold || 
-                        Math.abs(gameState.sabao.y - gameState.ultimoY) > gameState.threshold;
 
+            // Verifica se o sabão se moveu além do limite definido
+            let moveu = Math.abs(gameState.sabao.x - gameState.ultimoX) > gameState.threshold || 
+                    Math.abs(gameState.sabao.y - gameState.ultimoY) > gameState.threshold;
+
+            // Se estiver perto do cachorro e em movimento, cria bolhas
             if (distX < 200 && distY < 250 && gameState.quantidade < 50 && moveu){
-                let star = gameState.stars.create( Phaser.Math.RND.between(700, 830), Phaser.Math.RND.between(280, 600), 'bolhas' );
-                star.setScale(0.13); 
+                let bolha = gameState.bolhas.create(
+                    Phaser.Math.RND.between(700, 830), 
+                    Phaser.Math.RND.between(280, 600), 
+                    'bolhas'
+                );
+                bolha.setScale(0.13); 
                 gameState.quantidade++;
             }
         } 
+
+        // --- Controle do chuveiro ---
         if (this.mousechuveiro === true){
+            // Atualiza posição do chuveiro para seguir o mouse
             gameState.chuveiro.x = this.input.activePointer.x;
             gameState.chuveiro.y = this.input.activePointer.y; 
             gameState.chuveiro.body.reset(this.input.activePointer.x, this.input.activePointer.y);
-            let novaStar = gameState.novas.create( gameState.chuveiro.x, gameState.chuveiro.y + gameState.chuveiro.displayHeight/2, 'agua' );
-            novaStar.play('aguaAnim');
-            novaStar.setScale(0.1); 
-            novaStar.body.setVelocityY(100); 
+
+            // Cria uma nova gota de água animada
+            let gota = gameState.gotas.create(
+                gameState.chuveiro.x, 
+                gameState.chuveiro.y + gameState.chuveiro.displayHeight/2, 
+                'agua'
+            );
+            gota.play('aguaAnim');
+            gota.setScale(0.1); 
+            gota.body.setVelocityY(100); 
         }
+
+        // --- Controle da toalha ---
         if (this.mouseToalha === true){ 
+            // Atualiza posição da toalha para seguir o mouse
             gameState.toalha.x = this.input.activePointer.x; 
             gameState.toalha.y = this.input.activePointer.y; 
             gameState.toalha.body.reset(this.input.activePointer.x, this.input.activePointer.y);
 
-            // só seca se o cachorro já estiver com espuma
+            // Só funciona se o cachorro já estiver com espuma
             if (gameState.dog.texture.key === 'dogEspuma') {
-                // detecção manual de distância igual ao sabão
                 let distX = Math.abs(gameState.toalha.x - gameState.dog.x);
                 let distY = Math.abs(gameState.toalha.y - gameState.dog.y);
 
+                // Se a toalha estiver próxima do cachorro, incrementa tempo de secagem
                 if (distX < 200 && distY < 250) {
-                    gameState.tempoSecando++; // incrementa enquanto estiver em cima
+                    gameState.tempoSecando++; 
                     if (gameState.tempoSecando >= gameState.tempoParaSecar) {
                         gameState.dog.setTexture('dogLimpo');
                         gameState.dog.play('dogLimpoAnim');
                         gameState.tempoSecando = 0;
                     }
                 } else {
-                    gameState.tempoSecando = 0; // reseta se sair de cima
+                    gameState.tempoSecando = 0; // Saiu de cima → reseta
                 }
             }
         } else {
-            gameState.tempoSecando = 0; // reseta se soltar a toalha
+            gameState.tempoSecando = 0; // Soltou a toalha → reseta
         }
-        // troca sprite quando limpeza estiver completa
+
+        // --- Troca sprite do cachorro quando limpeza completa ---
         if (gameState.quantidade >= 50){
             gameState.dog.setTexture('dogEspuma');  
             gameState.dog.play('dogEspumaAnim');
