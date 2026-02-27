@@ -1,0 +1,18 @@
+# The Docker image that will be used to build your app
+image: node:lts
+create-pages:
+  pages:
+    # The folder that contains the files to be exposed at the Page URL
+    publish: public
+  rules:
+    # This ensures that only pushes to the default branch will trigger
+    # a pages deploy
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  # Functions that should be executed before the build script is run
+  before_script:
+    - "1. Instale Node.js (versão LTS). 2. Clone o repositório: git clone
+      <url-do-repo> 3. Entre na pasta do projeto: cd nome-do-projeto 4. Instale
+      as dependências: npm install 5. Rode o build local: npm run build 6.
+      Inicie o servidor de desenvolvimento: npm start"
+  script:
+    - llll
