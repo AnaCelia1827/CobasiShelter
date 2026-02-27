@@ -10,15 +10,16 @@ var config = {
         disableWebAudio: false,
         noAudio: false,
     },
+    //Adiciona physica no jogo
     physics: {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 },
-            debug: true,
+            debug: false
         }
     },
-    scene: [introScene, settingsScene,bathScene]
-
+    scene: [introScene, settingsScene,gameScene, bathScene]
 };
+
 //Aplica as configurações no jogo
 var game = new Phaser.Game(config);

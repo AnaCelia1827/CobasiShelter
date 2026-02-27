@@ -68,18 +68,20 @@ class introScene extends Phaser.Scene {
         hoverPressEffect(this, gameState.botaoSair, 0.5, 0.6);
         hoverPressEffect(this, gameState.botaoConfiguraçoes, 0.5, 0.6);
 
+        // Quando usuário clica no botão jogar é redirecionado para tela principal do jogo
+        gameState.botaoJogar.on('pointerdown', () => {
+            this.cameras.main.fadeOut(300, 0,0,0);
+            this.cameras.main.once('camerafadeoutcomplete', () => {
+                this.scene.start('gameScene');
+                gameState.musica.stop(); //Para a música de fundo
+            });
+        });
+
         // Quando o usuário clica no botão configurações ele será redirecionado para tela de configurações
         gameState.botaoConfiguraçoes.on('pointerdown', () => {
             this.cameras.main.fadeOut(300, 0,0,0);
             this.cameras.main.once('camerafadeoutcomplete', () => {
                 this.scene.start('settingsScene');
-                gameState.musica.stop(); //Para a música de fundo
-            });
-        });
-        gameState.botaoJogar.on('pointerdown', () => {
-            this.cameras.main.fadeOut(300, 0,0,0);
-            this.cameras.main.once('camerafadeoutcomplete', () => {
-                this.scene.start('bathScene');
                 gameState.musica.stop(); //Para a música de fundo
             });
         });
