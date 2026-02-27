@@ -176,7 +176,7 @@ class bathScene extends Phaser.Scene {
 
     update(){
     
-        // --- Controle do sabão ---
+        // Controle do sabão
         if (this.mouseSabao === true){ 
         
             // Atualiza posição do sabão para seguir o mouse
@@ -206,7 +206,7 @@ class bathScene extends Phaser.Scene {
             }
         } 
 
-        // --- Controle do chuveiro ---
+        // Controle do chuveiro
         if (this.mousechuveiro === true){
             // Atualiza posição do chuveiro para seguir o mouse
             gameState.chuveiro.x = this.input.activePointer.x;
@@ -224,7 +224,7 @@ class bathScene extends Phaser.Scene {
             gota.body.setVelocityY(100); 
         }
 
-        // --- Controle da toalha ---
+        // Controle da toalha
         if (this.mouseToalha === true){ 
             // Atualiza posição da toalha para seguir o mouse
             gameState.toalha.x = this.input.activePointer.x; 
@@ -252,7 +252,7 @@ class bathScene extends Phaser.Scene {
             gameState.tempoSecando = 0; // Soltou a toalha → reseta
         }
 
-        // --- Troca sprite do cachorro quando limpeza completa ---
+        // Troca sprite do cachorro quando limpeza completa
         if (gameState.quantidade >= 50){
             gameState.dog.setTexture('dogEspuma');  
             gameState.dog.play('dogEspumaAnim');
