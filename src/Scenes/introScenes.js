@@ -56,7 +56,7 @@ class introScene extends Phaser.Scene {
         gameState.botaoJogar = this.add.image((window.innerWidth/6)+20, 380, 'botaoJogar').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
         gameState.botaoTutorial = this.add.image((window.innerWidth/6)+20, 480, 'botaoTutorial').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
         gameState.botaoSair = this.add.image((window.innerWidth/6)+20, 580, 'botaoSair').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.botaoConfiguraçoes = this.add.image((window.innerWidth/6)+20,680, 'botaoConfiguraçoes').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
+        gameState.botaoConfiguracoes = this.add.image((window.innerWidth/6)+20,680, 'botaoConfiguraçoes').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
         
 
         this.cameras.main.setBounds(0,0,window.innerWidth,window.innerHeight); //A camera principal ocupa todo o tamanho da tela
@@ -66,7 +66,7 @@ class introScene extends Phaser.Scene {
         hoverPressEffect(this, gameState.botaoJogar, 0.5, 0.6);
         hoverPressEffect(this, gameState.botaoTutorial, 0.5, 0.6);
         hoverPressEffect(this, gameState.botaoSair, 0.5, 0.6);
-        hoverPressEffect(this, gameState.botaoConfiguraçoes, 0.5, 0.6);
+        hoverPressEffect(this, gameState.botaoConfiguracoes, 0.5, 0.6);
 
         // Quando usuário clica no botão jogar é redirecionado para tela principal do jogo
         gameState.botaoJogar.on('pointerdown', () => {
@@ -78,7 +78,7 @@ class introScene extends Phaser.Scene {
         });
 
         // Quando o usuário clica no botão configurações ele será redirecionado para tela de configurações
-        gameState.botaoConfiguraçoes.on('pointerdown', () => {
+        gameState.botaoConfiguracoes.on('pointerdown', () => {
             this.cameras.main.fadeOut(300, 0,0,0);
             this.cameras.main.once('camerafadeoutcomplete', () => {
                 this.scene.start('settingsScene');
