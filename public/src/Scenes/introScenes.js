@@ -8,6 +8,7 @@ export class introScene extends Phaser.Scene {
     }
     // Carrega as imagens do jogo
     preload() {
+        // OTIMIZACAO: mover assets de menu para PreloadScene evita custo em toda entrada nesta cena.
         this.load.image('bg', 'assets/bgInicial.png'); //Essa é a imagem do planode fundo
         this.load.image('botaoJogar', 'assets/botaoJogar.png'); //A imagem do botão
         this.load.image('botaoTutorial', 'assets/botaoTutorial.png');
@@ -19,6 +20,7 @@ export class introScene extends Phaser.Scene {
     create() {
         
         this.scene.stop('hudScene');
+        // OTIMIZACAO: reutilizar instancia de audio global evita recriar source e reduz micro travadas.
         gameState.musica = this.sound.add('musica', { loop: true, volume: 0.5 });
         gameState.musica.play();
 

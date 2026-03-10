@@ -8,6 +8,7 @@ export class gameScene extends Phaser.Scene {
 
     // Carrega as imagens do jogo
     preload(){
+        // OTIMIZACAO: mover para PreloadScene evita recarregar o mesmo fundo toda vez que entrar na cena.
         this.load.image('bgGameScene', 'assets/bgGameScene.png') // Fundo da cena
                         
     }
@@ -15,6 +16,7 @@ export class gameScene extends Phaser.Scene {
     create(){
        
         // Adiciona a música em loop com volume reduzido
+        // OTIMIZACAO: reaproveitar trilha global evita reinstanciar audio em cada transicao.
         gameState.musica = this.sound.add('musica', { loop: true, volume: 0.5 });
         gameState.musica.play();
 

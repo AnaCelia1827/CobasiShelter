@@ -15,6 +15,7 @@ export class hudScene extends Phaser.Scene {
     create() {
 
 
+        // OTIMIZACAO/UX: substituir coordenadas fixas (1600, y) por this.scale.width evita HUD fora da tela em resolucoes menores.
         const fundoHUD = this.add.rectangle(
         1600,                // posição X
         this.scale.height / 2, // centro vertical
@@ -36,6 +37,7 @@ export class hudScene extends Phaser.Scene {
                 .setScrollFactor(0);
 
             botao.on('pointerdown', () => {
+                // OTIMIZACAO: bloquear clique repetido durante a transicao evita multiplos fade/listeners concorrentes.
 
                 this.cameras.main.fadeOut(500, 0, 0, 0);
 
@@ -43,6 +45,7 @@ export class hudScene extends Phaser.Scene {
 
                     const cenasAtivas = this.scene.manager.getScenes(true);
 
+                    // OTIMIZACAO: evitar stop/launch de todas as cenas a cada clique; preferir sleep/wake ou switch para reduzir recriacao.
                     cenasAtivas.forEach(scene => {
                         if (scene.scene.key !== 'hudScene') {
                             this.scene.stop(scene.scene.key);

@@ -9,6 +9,7 @@ export class ficha extends Phaser.Scene {
 
     // Carrega as imagens, sprites e sons necessários para a cena
     preload(){
+       // OTIMIZACAO: como a ficha eh overlay, prefira reaproveitar assets ja carregados no preload global.
        
         this.load.image('estanteVazia', 'assets/estanteVazia.png');
         this.load.image('racaoVazia', 'assets/racaoVazia.png');

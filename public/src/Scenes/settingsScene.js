@@ -6,6 +6,7 @@ export class settingsScene extends Phaser.Scene {
     }
       // Carrega as imagens do jogo
     preload() {
+        // OTIMIZACAO: carregar estes assets uma vez no PreloadScene reduz custo de retorno para configuracoes.
         this.load.image('bg', 'assets/bgInicial.png'); //Essa é a imagem do planode fundo
 
         // Carrega as imagens dos botões
@@ -25,6 +26,7 @@ export class settingsScene extends Phaser.Scene {
     create() {
         this.scene.stop('hudScene');
         // Toca a música de fundo em loop com volume reduzido
+        // OTIMIZACAO: compartilhar audio entre cenas evita reinstanciar musica a cada abertura de menu.
         gameState.musica = this.sound.add('musica', { loop: true, volume: 0.5 });
         gameState.musica.play();
 

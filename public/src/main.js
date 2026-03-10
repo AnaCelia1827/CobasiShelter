@@ -17,6 +17,7 @@ export let gameState = {
 const config = {
     
     type: Phaser.AUTO,
+    // OTIMIZACAO: usar Scale Manager (mode + autoCenter) evita resize manual custoso em telas muito grandes.
    
     width: window.innerWidth,//1080x1920
     height: window.innerHeight,
@@ -34,6 +35,7 @@ const config = {
         }
     },
     // Organização das cenas do jogo
+    // OTIMIZACAO/ESTABILIDADE: manter todas as cenas usadas pela HUD registradas aqui evita "travamento" por chave ausente.
     scene: [
        // introScene,
        //settingsScene,

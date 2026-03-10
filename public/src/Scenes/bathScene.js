@@ -13,6 +13,7 @@ export class bathScene extends Phaser.Scene {
 
     // Carrega as imagens, sprites e sons necessários para a cena
     preload(){
+        // OTIMIZACAO: mover estes loads para PreloadScene evita recarregar assets ao reiniciar a cena.
         this.load.image('banheiro', 'assets/bgBanheiro.png');
         this.load.image('chuveiro', 'assets/chuveiro.png');
         this.load.spritesheet('dogEspuma', 'assets/dogEspumado.png', { frameWidth: 720, frameHeight: 960 });
@@ -42,6 +43,7 @@ export class bathScene extends Phaser.Scene {
         gameState.dog = this.physics.add.sprite(window.innerWidth/2, window.innerHeight/2, 'dogSujo').setScale(0.5);
         gameState.dog.setImmovable(true);
         gameState.dog.body.allowGravity = false;
+        // OTIMIZACAO: proteger criacao de animacoes com this.anims.exists(...) para evitar custo em reinicio de cena.
 
         // Cria animações para os diferentes estados do cachorro
         this.anims.create({
@@ -88,6 +90,7 @@ export class bathScene extends Phaser.Scene {
         // Adiciona grupos de objetos com física (bolhas e gotas de água) gameState.stars = this.physics.add.group();
         gameState.bolhas = this.physics.add.group(); 
         gameState.gotas = this.physics.add.group(); 
+        // OTIMIZACAO: usar pool com maxSize/createMultiple nesses grupos reduz alocacao continua e pausas de GC.
 
 
         // Variáveis de controle da lógica do jogo
@@ -101,6 +104,7 @@ export class bathScene extends Phaser.Scene {
         gameState.tempoParaSecar = 90; 
 
         // Detecta overlap entre gotas de água e bolhas
+        // OTIMIZACAO: overlap entre grupos grandes escala mal; limitar objetos ativos e limpar entidades fora da tela.
         this.physics.add.overlap(gameState.gotas, gameState.bolhas, (gota, bolha) => { bolha.destroy(); gota.destroy(); gameState.quantidadeBolha--; }, null, this);
 
         // Eventos de clique para alternar entre seguir o mouse ou voltar à posição inicial
@@ -204,6 +208,7 @@ export class bathScene extends Phaser.Scene {
 
             // Se estiver perto do cachorro e em movimento, cria bolhas
             if (distX < 200 && distY < 250 && gameState.quantidade < 50 && moveu){
+                // OTIMIZACAO: trocar create/destroy por reuse via setActive/setVisible evita travadas por coleta de lixo.
                 let bolha = gameState.bolhas.create(
                     Phaser.Math.RND.between(700, 830), 
                     Phaser.Math.RND.between(280, 600), 
@@ -222,6 +227,7 @@ export class bathScene extends Phaser.Scene {
             gameState.chuveiro.body.reset(this.input.activePointer.x, this.input.activePointer.y);
 
             // Cria uma nova gota de água animada
+            // OTIMIZACAO CRITICA: aqui nasce 1 gota por frame (~60/s) sem limite; usar timer (10-15/s), pool e limpeza off-screen.
             let gota = gameState.gotas.create(
                 gameState.chuveiro.x, 
                 gameState.chuveiro.y + gameState.chuveiro.displayHeight/2, 
@@ -230,6 +236,7 @@ export class bathScene extends Phaser.Scene {
             gota.play('aguaAnim');
             gota.setScale(0.1); 
             gota.body.setVelocityY(100); 
+            // OTIMIZACAO: definir lifespan/maxY para remover gota fora da tela e impedir acumulo infinito.
         }
 
         // Controle da toalha

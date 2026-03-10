@@ -9,6 +9,7 @@ export class cuidadoCena extends Phaser.Scene {
 
     // Carrega as imagens, sprites e sons necessários para a cena
     preload(){
+        // OTIMIZACAO: mover assets para PreloadScene evita custo de I/O e upload para GPU em cada troca de cena.
         this.load.image('banheiro', 'assets/banheiro.png');
         this.load.image('racaoVazia', 'assets/racaoVazia.png'); 
         this.load.spritesheet( "cachorro","assets/dogLimpo.png", { frameWidth: 720, frameHeight: 960 } );

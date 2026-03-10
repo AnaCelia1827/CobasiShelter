@@ -5,6 +5,8 @@ export class PreloadScene extends Phaser.Scene {
     }
 
     preload(){
+        // OTIMIZACAO: concentrar aqui todos os assets evita preload duplicado nas outras cenas e reduz travadas nas transicoes.
+        // OTIMIZACAO: para imagens grandes, considerar versoes comprimidas/WebP para diminuir tempo de upload para GPU.
         //asseits de jogoRcao
         this.load.image('bgLimpo', 'assets/bgLimpo.png');
         this.load.image('estanteVazia', 'assets/estanteVazia.png');
@@ -30,6 +32,7 @@ export class PreloadScene extends Phaser.Scene {
 
     create(){
 
+      // OTIMIZACAO: se houver tela de loading, iniciar apenas apos load complete e renderizar progresso para evitar "congelamento aparente".
        //this.scene.start("foodScene")
       this.scene.start("jogoRacao");
 
