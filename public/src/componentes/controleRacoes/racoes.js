@@ -10,6 +10,7 @@ export class Racao {
         this.nome = dados.nome
         this.fome = dados.fome
         this.descricao = dados.descricao
+        this.id = dados.id
 
         // sprite da ração
         this.sprite = scene.add.image(x, y, dados.sprite)
