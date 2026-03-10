@@ -36,13 +36,13 @@ export class PreloadScene extends Phaser.Scene {
         this.load.image("toalha", "assets/toalha.png");
         this.load.image("bolhas", "assets/bolhas.png");
 
-        // Racoes
-        this.load.image("racaoGA", "assets/Racoes/racaoGA.png");
-        this.load.image("racaoGF", "assets/Racoes/racaoGF.png");
-        this.load.image("racaoGV", "assets/Racoes/racaoGV.png");
-        this.load.image("racaoMA", "assets/Racoes/racaoMA.png");
-        this.load.image("racaoMF", "assets/Racoes/racaoMF.png");
-        this.load.image("racaoMV", "assets/Racoes/racaoMV.png");
+        // OTIMIZACAO: usar texturas menores evita decode/upload inicial muito pesado na primeira entrada da cena de rações.
+        this.load.image("racaoGA", "assets/Racoes/otimizadas/racaoGA.png");
+        this.load.image("racaoGF", "assets/Racoes/otimizadas/racaoGF.png");
+        this.load.image("racaoGV", "assets/Racoes/otimizadas/racaoGV.png");
+        this.load.image("racaoMA", "assets/Racoes/otimizadas/racaoMA.png");
+        this.load.image("racaoMF", "assets/Racoes/otimizadas/racaoMF.png");
+        this.load.image("racaoMV", "assets/Racoes/otimizadas/racaoMV.png");
 
         // Audio
         this.load.audio("musica", "assets/trilhaSonora.mp3");

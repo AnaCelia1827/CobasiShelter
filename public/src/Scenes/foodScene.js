@@ -16,6 +16,7 @@ export class foodScene extends Phaser.Scene {
         }
 
         this.scene.bringToTop("hudScene");
+        this.prewarmRacaoTextures();
 
         const hoverPressEffect = (target, scaleNormal, scaleHover) => {
             target.on("pointerover", () => {
@@ -91,6 +92,23 @@ export class foodScene extends Phaser.Scene {
             if (this.scene.isActive("ficha")) {
                 this.scene.stop("ficha");
             }
+        });
+    }
+
+    prewarmRacaoTextures() {
+        if (this.registry.get("racao_textures_prewarmed")) {
+            return;
+        }
+
+        // OTIMIZACAO: pre-aquece texturas da cena de racao para evitar travada no primeiro clique da prateleira.
+        const warmupKeys = ["bgLimpo", "estanteVazia", "botaoVoltar", "racaoGA", "racaoGF", "racaoGV", "racaoMA", "racaoMF", "racaoMV"];
+        const warmupSprites = warmupKeys.map((key, index) =>
+            this.add.image(2 + index, 2, key).setScale(0.001).setAlpha(0.001).setDepth(-9999)
+        );
+
+        this.time.delayedCall(50, () => {
+            warmupSprites.forEach((sprite) => sprite.destroy());
+            this.registry.set("racao_textures_prewarmed", true);
         });
     }
 }
