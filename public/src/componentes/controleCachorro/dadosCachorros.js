@@ -6,5 +6,5 @@ export const cachorroInicial = {
   estado: "normal",
   racao:"pequena",
   historia:"Encontrado na chuva forte",
-  id: 12
+  id: "12"
 }

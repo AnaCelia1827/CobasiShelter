@@ -7,6 +7,14 @@ export class foodScene extends Phaser.Scene {
         super({ key: 'foodScene' })
     }
 
+    preload(){
+          this.load.image('bgRacao', 'assets/bgRacao.png');
+        this.load.image('estanteRacao', 'assets/estanteRacao.png');
+        //racaovazia
+        this.load.image('mineFicha', 'assets/mineFicha.png');
+        this.load.spritesheet( "cachorro","assets/dogLimpo.png", { frameWidth: 720, frameHeight: 960 } );
+    }
+
     create(){
 
         // garante que a HUD esteja rodando

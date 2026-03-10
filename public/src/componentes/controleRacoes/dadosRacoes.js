@@ -1,6 +1,6 @@
 export const racaoGrandeFilhote = {
   nome: "premium grande",
-  id :12,
+  id :"12",
   descricao:"mmimimimiiimiim",
   sprite:"racaoGF"
   

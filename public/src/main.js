@@ -7,7 +7,7 @@ import { hudScene } from "./componentes/hudScene.js";
 import { cuidadoCena } from "./Scenes/cuidadoCena.js";
 import { jogoRacao } from "./Scenes/jogoRacao.js";
 import {ficha} from "./componentes/ficha.js"
-import { PreloadScene } from "./Scenes/preloadScene.js";
+
 
 
 export let gameState = {
@@ -35,15 +35,12 @@ const config = {
     },
     // Organização das cenas do jogo
     scene: [
-       // introScene,
-       //settingsScene,
-       //gameScene,
-      //bathScene,
-       
-        
-        //cuidadoCena,
-        PreloadScene,
-        // foodScene,
+        introScene,
+        settingsScene,
+        gameScene,
+        bathScene,
+        cuidadoCena,
+        foodScene,
         jogoRacao,
         hudScene,
         ficha

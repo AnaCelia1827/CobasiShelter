@@ -1,16 +1,29 @@
-import { gameState } from '../main.js'
+import { gameState } from '../main.js';
 
 import { 
 racaoGrandeFilhote, racaoGrandeAdulto, racaoGrandeVelho,
 racaoMediaAdulto, racaoMediaFilhote, racaoMediaVelho
-} from '../componentes/controleRacoes/dadosRacoes.js'
+} from '../componentes/controleRacoes/dadosRacoes.js';
 
-import { Racao } from "../componentes/controleRacoes/racoes.js"
+import { Racao } from "../componentes/controleRacoes/racoes.js";
 
 export class jogoRacao extends Phaser.Scene {
 
     constructor(){
         super({ key: 'jogoRacao' })
+    }
+    preload(){
+         this.load.image('bgLimpo', 'assets/bgLimpo.png');
+        this.load.image('estanteVazia', 'assets/estanteVazia.png');
+        this.load.image('racaoVazia', 'assets/racaoVazia.png');
+       this.load.image('mineFicha', 'assets/mineFicha.png');
+        this.load.image('botaoVoltar', 'assets/botaoVoltar.png');
+        this.load.image('racaoGA', 'assets/Racoes/racaoGA.png');
+        this.load.image('racaoGF', 'assets/Racoes/racaoGF.png');
+        this.load.image('racaoGV', 'assets/Racoes/racaoGV.png');
+        this.load.image('racaoMA', 'assets/Racoes/racaoMA.png');
+        this.load.image('racaoMF', 'assets/Racoes/racaoMF.png');
+        this.load.image('racaoMV', 'assets/Racoes/racaoMV.png');
     }
 
     create(){
