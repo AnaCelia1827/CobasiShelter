@@ -1,4 +1,7 @@
-class bathScene extends Phaser.Scene {
+import { gameState } from '../main.js';
+
+
+export class bathScene extends Phaser.Scene {
     constructor() {
         super({ key: 'bathScene' });
     }
@@ -10,12 +13,11 @@ class bathScene extends Phaser.Scene {
 
     // Carrega as imagens, sprites e sons necessários para a cena
     preload(){
-        this.load.image('banheiro', 'assets/banheiro.png');
+        this.load.image('banheiro', 'assets/bgBanheiro.png');
         this.load.image('chuveiro', 'assets/chuveiro.png');
         this.load.spritesheet('dogEspuma', 'assets/dogEspumado.png', { frameWidth: 720, frameHeight: 960 });
         this.load.spritesheet('dogSujo', 'assets/dogSujo.png', { frameWidth: 720, frameHeight: 960 });
         this.load.spritesheet('dogLimpo', 'assets/dogLimpo.png', { frameWidth: 720, frameHeight: 960 });
-        this.load.image('star', 'assets/star.png');
         this.load.audio('musica', 'assets/trilhaSonora.mp3');
         this.load.spritesheet('agua', 'assets/agua.png', { frameWidth: 480, frameHeight: 480 });
         this.load.image('sabao', 'assets/barrasabao.png');
@@ -25,6 +27,12 @@ class bathScene extends Phaser.Scene {
 
     // Gera os elementos visuais do jogo, animações e efeitos de transição
     create(){
+
+           if (!this.scene.isActive('hudScene')) {
+        this.scene.launch('hudScene');
+        }
+
+        this.scene.bringToTop('hudScene');
 
         // Adiciona o fundo para ocupar toda a tela
         gameState.banheiro = this.add.image(window.innerWidth/2, window.innerHeight/2, 'banheiro')

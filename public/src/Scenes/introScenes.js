@@ -1,7 +1,10 @@
-// Gera uma nova cena chamada introScene
-class introScene extends Phaser.Scene {
+
+import { gameState } from '../main.js';
+
+export class introScene extends Phaser.Scene {
+    
     constructor() {
-        super({ key: 'introScene' });
+        super({ key: 'introScene'});
     }
     // Carrega as imagens do jogo
     preload() {
@@ -14,6 +17,8 @@ class introScene extends Phaser.Scene {
     }
     // Gera as imagens do jogo,as animações e os efeitos de transição
     create() {
+        
+        this.scene.stop('hudScene');
         gameState.musica = this.sound.add('musica', { loop: true, volume: 0.5 });
         gameState.musica.play();
 
@@ -53,10 +58,14 @@ class introScene extends Phaser.Scene {
         this.add.image(window.innerWidth/2, window.innerHeight/2, 'bg').setDisplaySize(window.innerWidth, window.innerHeight);  //Adiciona uma imagem a partir do centro da tela do jogo
 
         // Cria um botão que é interativo para usuário
-        gameState.botaoJogar = this.add.image((window.innerWidth/6)+20, 380, 'botaoJogar').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.botaoTutorial = this.add.image((window.innerWidth/6)+20, 480, 'botaoTutorial').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.botaoSair = this.add.image((window.innerWidth/6)+20, 580, 'botaoSair').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.botaoConfiguracoes = this.add.image((window.innerWidth/6)+20,680, 'botaoConfiguraçoes').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
+        gameState.botaoJogar = this.add.image((window.innerWidth/6)+20, 380, 'botaoJogar')
+        .setScale(0.5,0.5).setInteractive({ useHandCursor: true });
+        gameState.botaoTutorial = this.add.image((window.innerWidth/6)+20, 480, 'botaoTutorial')
+        .setScale(0.5,0.5).setInteractive({ useHandCursor: true });
+        gameState.botaoSair = this.add.image((window.innerWidth/6)+20, 580, 'botaoSair')
+        .setScale(0.5,0.5).setInteractive({ useHandCursor: true });
+        gameState.botaoConfiguracoes = this.add.image((window.innerWidth/6)+20,680, 'botaoConfiguraçoes')
+        .setScale(0.5,0.5).setInteractive({ useHandCursor: true });
         
 
         this.cameras.main.setBounds(0,0,window.innerWidth,window.innerHeight); //A camera principal ocupa todo o tamanho da tela
@@ -72,7 +81,7 @@ class introScene extends Phaser.Scene {
         gameState.botaoJogar.on('pointerdown', () => {
             this.cameras.main.fadeOut(300, 0,0,0);
             this.cameras.main.once('camerafadeoutcomplete', () => {
-                this.scene.start('gameScene');
+                this.scene.start('bathScene');
                 gameState.musica.stop(); //Para a música de fundo
             });
         });

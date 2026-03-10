@@ -1,35 +1,53 @@
-//A variável abaixo é global, sendo que ela é utilizada para criar mais variáveis
-let gameState = {
-}
+import { introScene } from "./Scenes/introScenes.js";
+import { bathScene } from "./Scenes/bathScene.js";
+import { settingsScene } from "./Scenes/settingsScene.js";
+import { foodScene } from "./Scenes/foodScene.js";
+import { gameScene } from "./Scenes/gameScene.js";
+import { hudScene } from "./componentes/hudScene.js";
+import { cuidadoCena } from "./Scenes/cuidadoCena.js";
+import { jogoRacao } from "./Scenes/jogoRacao.js";
+import {ficha} from "./componentes/ficha.js"
+import { PreloadScene } from "./Scenes/preloadScene.js";
 
-//Estabelece as configurações do jogo
-var config = {
 
-    //Adiciona o tipo de apresentação automaticamente
+export let gameState = {
+
+};
+
+const config = {
+    
     type: Phaser.AUTO,
-
-    //Estabele a largura e altura para toda tela
-    width: window.innerWidth,
+   
+    width: window.innerWidth,//1080x1920
     height: window.innerHeight,
-
-    //Configurações de audio
+    
     audio: {
         disableWebAudio: false,
         noAudio: false,
     },
-
-    //Adiciona fisiva no jogo
+   
     physics: {
-        default: 'arcade',
+        default: "arcade",
         arcade: {
-            gravity: { y: 0 },
-            debug: false
+            gravity: { y: 0 }, // Sem gravidade
+            debug: false 
         }
     },
-
-    // Organiza as cenas
-    scene: [introScene, settingsScene,gameScene, bathScene]
+    // Organização das cenas do jogo
+    scene: [
+       // introScene,
+       //settingsScene,
+       //gameScene,
+      //bathScene,
+       
+        
+        //cuidadoCena,
+        PreloadScene,
+        // foodScene,
+        jogoRacao,
+        hudScene,
+        ficha
+    ]
 };
 
-//Aplica as configurações no jogo
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

@@ -1,4 +1,6 @@
-class settingsScene extends Phaser.Scene {
+import { gameState } from '../main.js';
+
+export class settingsScene extends Phaser.Scene {
     constructor() {
         super({ key: 'settingsScene' });
     }
@@ -21,7 +23,7 @@ class settingsScene extends Phaser.Scene {
     }
     // Gera as imagens do jogo,as animações e os efeitos de transição
     create() {
-
+        this.scene.stop('hudScene');
         // Toca a música de fundo em loop com volume reduzido
         gameState.musica = this.sound.add('musica', { loop: true, volume: 0.5 });
         gameState.musica.play();
