@@ -1,0 +1,9 @@
+pages:
+  stage: deploy
+  script:
+    - echo "Arquivos já estão na pasta public, nada a copiar."
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
