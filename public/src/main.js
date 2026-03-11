@@ -1,3 +1,4 @@
+
 import { cenaInicial } from "./Cenas/cenaInicial.js";
 import { cenaBanho } from "./Cenas/cenaBanho.js";
 import { cenaConfiguracoes } from "./Cenas/cenaConfiguracoes.js";
