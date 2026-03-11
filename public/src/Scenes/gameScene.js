@@ -1,33 +1,29 @@
 import { gameState } from "../main.js";
 
 export class gameScene extends Phaser.Scene {
-    
-    constructor(){
-        super({ key: 'gameScene' }) // Define a cena com a chave 'gameScene'
+    constructor() {
+        super({ key: "gameScene" });
     }
 
-    // Carrega as imagens do jogo
-    preload(){
-        this.load.image('bgGameScene', 'assets/bgGameScene.png') // Fundo da cena
-                        
-    }
-    // Gera os elementos visuais do jogo, animações e efeitos de transição
-    create(){
-       
-        // Adiciona a música em loop com volume reduzido
-        gameState.musica = this.sound.add('musica', { loop: true, volume: 0.5 });
-        gameState.musica.play();
+    create() {
+        if (!this.scene.isActive("hudScene")) {
+            this.scene.launch("hudScene");
+        }
+        this.scene.bringToTop("hudScene");
 
-        // Adiciona a tela de fundo para ocupar todo o navegador
-        this.add.image(window.innerWidth/2, window.innerHeight/2, 'bgGameScene')
-            .setDisplaySize(window.innerWidth, window.innerHeight)
-            .setDepth(-1); // Define profundidade para ficar atrás dos outros elementos
-        
-        // Configura a câmera principal para ocupar toda a tela
-        this.cameras.main.setBounds(0, 0, window.innerWidth, window.innerHeight);
-        // Adiciona efeito de fade-in (escurecer e aparecer suavemente)
+        if (!gameState.musica) {
+            gameState.musica = this.sound.add("musica", { loop: true, volume: 0.5 });
+        }
+        if (!gameState.musica.isPlaying) {
+            gameState.musica.play();
+        }
+
+        this.add
+            .image(this.scale.width / 2, this.scale.height / 2, "bgGameScene")
+            .setDisplaySize(this.scale.width, this.scale.height)
+            .setDepth(-1);
+
+        this.cameras.main.setBounds(0, 0, this.scale.width, this.scale.height);
         this.cameras.main.fadeIn(200, 0, 0, 0);
-
-        
     }
 }

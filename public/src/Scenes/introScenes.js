@@ -1,100 +1,95 @@
-
-import { gameState } from '../main.js';
+import { gameState } from "../main.js";
 
 export class introScene extends Phaser.Scene {
-    
     constructor() {
-        super({ key: 'introScene'});
+        super({ key: "introScene" });
+        this.isTransitioning = false;
     }
-    // Carrega as imagens do jogo
-    preload() {
-        this.load.image('bg', 'assets/bgInicial.png'); //Essa é a imagem do planode fundo
-        this.load.image('botaoJogar', 'assets/botaoJogar.png'); //A imagem do botão
-        this.load.image('botaoTutorial', 'assets/botaoTutorial.png');
-        this.load.image('botaoSair', 'assets/botaoSair.png');
-        this.load.image('botaoConfiguraçoes', 'assets/botaoConfiguraçoes.png');
-        this.load.audio('musica', 'assets/trilhaSonora.mp3'); //Carrega a música de fundo
-    }
-    // Gera as imagens do jogo,as animações e os efeitos de transição
-    create() {
-        
-        this.scene.stop('hudScene');
-        gameState.musica = this.sound.add('musica', { loop: true, volume: 0.5 });
-        gameState.musica.play();
 
-        //Função para criar o efeito de hover e pressionar nos botões
-        function hoverPressEffect(scene, target, scaleNormal, scaleHover) {
-            target.on('pointerover', () => {
-                scene.tweens.add({
+    create() {
+        this.scene.stop("hudScene");
+        this.isTransitioning = false;
+
+        if (!gameState.musica) {
+            gameState.musica = this.sound.add("musica", { loop: true, volume: 0.5 });
+        }
+        if (!gameState.musica.isPlaying) {
+            gameState.musica.play();
+        }
+
+        this.add
+            .image(this.scale.width / 2, this.scale.height / 2, "bg")
+            .setDisplaySize(this.scale.width, this.scale.height);
+
+        const hoverPressEffect = (target, scaleNormal, scaleHover) => {
+            target.on("pointerover", () => {
+                this.tweens.add({
                     targets: target,
                     scaleX: scaleHover,
                     scaleY: scaleHover,
                     duration: 200,
-                    ease: 'Power2'
+                    ease: "Power2"
                 });
             });
 
-            target.on('pointerdown', () => {
-                scene.tweens.add({
+            target.on("pointerdown", () => {
+                this.tweens.add({
                     targets: target,
                     scaleX: 0.45,
                     scaleY: 0.45,
                     duration: 180,
-                    ease: 'Power2',
-                    yoyo: true,
-                    });
+                    ease: "Power2",
+                    yoyo: true
+                });
             });
-            target.on('pointerout', () => {
-                scene.tweens.add({
+
+            target.on("pointerout", () => {
+                this.tweens.add({
                     targets: target,
                     scaleX: scaleNormal,
                     scaleY: scaleNormal,
                     duration: 200,
-                    ease: 'Power2'
+                    ease: "Power2"
                 });
             });
-        }
+        };
 
-        this.add.image(window.innerWidth/2, window.innerHeight/2, 'bg').setDisplaySize(window.innerWidth, window.innerHeight);  //Adiciona uma imagem a partir do centro da tela do jogo
+        const createButton = (y, texture) => {
+            return this.add
+                .image(this.scale.width / 6 + 20, y, texture)
+                .setScale(0.5)
+                .setInteractive({ useHandCursor: true });
+        };
 
-        // Cria um botão que é interativo para usuário
-        gameState.botaoJogar = this.add.image((window.innerWidth/6)+20, 380, 'botaoJogar')
-        .setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.botaoTutorial = this.add.image((window.innerWidth/6)+20, 480, 'botaoTutorial')
-        .setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.botaoSair = this.add.image((window.innerWidth/6)+20, 580, 'botaoSair')
-        .setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.botaoConfiguracoes = this.add.image((window.innerWidth/6)+20,680, 'botaoConfiguraçoes')
-        .setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        
+        const botaoJogar = createButton(380, "botaoJogar");
+        const botaoTutorial = createButton(480, "botaoTutorial");
+        const botaoSair = createButton(580, "botaoSair");
+        const botaoConfiguracoes = createButton(680, "botaoConfiguracoes");
 
-        this.cameras.main.setBounds(0,0,window.innerWidth,window.innerHeight); //A camera principal ocupa todo o tamanho da tela
-        this.cameras.main.fadeIn(200, 0,0,0);//Adiciona um efeito de escurecer
+        this.cameras.main.setBounds(0, 0, this.scale.width, this.scale.height);
+        this.cameras.main.fadeIn(200, 0, 0, 0);
 
-        // Aplicação da função hoverPressEffect para cada botão
-        hoverPressEffect(this, gameState.botaoJogar, 0.5, 0.6);
-        hoverPressEffect(this, gameState.botaoTutorial, 0.5, 0.6);
-        hoverPressEffect(this, gameState.botaoSair, 0.5, 0.6);
-        hoverPressEffect(this, gameState.botaoConfiguracoes, 0.5, 0.6);
+        hoverPressEffect(botaoJogar, 0.5, 0.6);
+        hoverPressEffect(botaoTutorial, 0.5, 0.6);
+        hoverPressEffect(botaoSair, 0.5, 0.6);
+        hoverPressEffect(botaoConfiguracoes, 0.5, 0.6);
 
-        // Quando usuário clica no botão jogar é redirecionado para tela principal do jogo
-        gameState.botaoJogar.on('pointerdown', () => {
-            this.cameras.main.fadeOut(300, 0,0,0);
-            this.cameras.main.once('camerafadeoutcomplete', () => {
-                this.scene.start('bathScene');
-                gameState.musica.stop(); //Para a música de fundo
-            });
-        });
-
-        // Quando o usuário clica no botão configurações ele será redirecionado para tela de configurações
-        gameState.botaoConfiguracoes.on('pointerdown', () => {
-            this.cameras.main.fadeOut(300, 0,0,0);
-            this.cameras.main.once('camerafadeoutcomplete', () => {
-                this.scene.start('settingsScene');
-                gameState.musica.stop(); //Para a música de fundo
-            });
-        });
+        botaoJogar.on("pointerdown", () => this.transitionTo("bathScene"));
+        botaoConfiguracoes.on("pointerdown", () => this.transitionTo("settingsScene"));
     }
 
-    update() {}
+    transitionTo(sceneKey) {
+        if (this.isTransitioning) {
+            return;
+        }
+
+        this.isTransitioning = true;
+        this.cameras.main.fadeOut(300, 0, 0, 0);
+        this.cameras.main.once("camerafadeoutcomplete", () => {
+            if (gameState.musica?.isPlaying) {
+                gameState.musica.stop();
+            }
+            this.scene.start(sceneKey);
+        });
+    }
 }

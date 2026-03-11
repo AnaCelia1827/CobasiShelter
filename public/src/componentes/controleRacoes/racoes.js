@@ -1,45 +1,42 @@
+import { cachorroGeral } from "../controleCachorro/cachorroGeral.js";
 
-import { cachorroGeral } from "../controleCachorro/cachorroGeral.js"
 export class Racao {
 
-    constructor(scene, x, y, dados){
+    static selecionada = null;
 
-        this.scene = scene
+    constructor(scene, x, y, dados) {
 
-        // informações da ração
-        this.nome = dados.nome
-        this.fome = dados.fome
-        this.descricao = dados.descricao
+        this.scene = scene;
 
-        // sprite da ração
-        this.sprite = scene.add.image(x, y, dados.sprite)
-        .setScale(0.018)
-        .setInteractive({useHandCursor:true})
+        this.nome = dados.nome;
+        this.idade = dados.idade;
+        this.porte = dados.porte;
+        this.descricao = dados.descricao;
+        this.id = dados.id;
 
-        // clique
-        this.sprite.on('pointerdown', ()=>{
-           
+        this.sprite = scene.add
+            .image(x, y, dados.sprite)
+            .setDisplaySize(144, 209)
+            .setInteractive({ useHandCursor: true });
 
-         const pet = cachorroGeral.pet
+        this.sprite.on("pointerdown", () => {
 
-            if(pet.id === this.id){
-                console.log(pet.id);
-                console.log(this.id);
-
-                console.log("ração correta");
-                
-            }else{
-                console.log("errado");
+            // remove destaque da anterior
+            if (Racao.selecionada) {
+                Racao.selecionada.sprite.clearTint();
             }
-        
+            // seleciona atual
+            Racao.selecionada = this;
+
+            // destaque amarelo
+            this.sprite.setTint(0xffff00);
+
+            // atualiza painel
+            if (scene.atualizarPainel) {
+                scene.atualizarPainel(this);
+            }
 
         });
-
-    }
-
-    mostrarInfo(){
-
-        
 
     }
 

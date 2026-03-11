@@ -1,91 +1,76 @@
-import { gameState } from '../main.js';
+import { gameState } from "../main.js";
 
 export class settingsScene extends Phaser.Scene {
     constructor() {
-        super({ key: 'settingsScene' });
+        super({ key: "settingsScene" });
+        this.isTransitioning = false;
     }
-      // Carrega as imagens do jogo
-    preload() {
-        this.load.image('bg', 'assets/bgInicial.png'); //Essa é a imagem do planode fundo
 
-        // Carrega as imagens dos botões
-        this.load.image('botaoJogar', 'assets/botãoJogar.png');
-        this.load.image('botaoTutorial', 'assets/botãoTutorial.png');
-        this.load.image('botaoSair', 'assets/botãoSair.png');
-        this.load.image('botaoConfiguraçoes', 'assets/botãoConfigurações.png');
-        this.load.image('retornoInicio', 'assets/retornoInicio.png');
-
-        // Carrega a imagem de configurações
-        this.load.image('settings', 'assets/settings.png');
-
-        // Carrega a música de fundo
-        this.load.audio('musica', 'assets/trilhaSonora.mp3');
-    }
-    // Gera as imagens do jogo,as animações e os efeitos de transição
     create() {
-        this.scene.stop('hudScene');
-        // Toca a música de fundo em loop com volume reduzido
-        gameState.musica = this.sound.add('musica', { loop: true, volume: 0.5 });
-        gameState.musica.play();
+        this.scene.stop("hudScene");
+        this.isTransitioning = false;
 
-        gameState.retangulo = this.add.rectangle(window.innerWidth/2, window.innerHeight/2, 200, 100, 0x000000).setAlpha(0.5).setDisplaySize(window.innerWidth, window.innerHeight); //Adiciona um retângulo preto com opacidade de 50%
-        
-        gameState.bg = this.add.image(window.innerWidth/2, window.innerHeight/2, 'bg').setDisplaySize(window.innerWidth, window.innerHeight);  //Adiciona uma imagem a partir do centro da tela do jogo
+        if (!gameState.musica) {
+            gameState.musica = this.sound.add("musica", { loop: true, volume: 0.5 });
+        }
+        if (!gameState.musica.isPlaying) {
+            gameState.musica.play();
+        }
 
-        // Adiciona os botões de volta para o início do jogo e de configurações
-        gameState.botaoJogar = this.add.image((window.innerWidth/6)+20, 380, 'botaoJogar').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.botaoTutorial = this.add.image((window.innerWidth/6)+20, 480, 'botaoTutorial').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.botaoSair = this.add.image((window.innerWidth/6)+20, 580, 'botaoSair').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.botaoConfiguraçoes = this.add.image((window.innerWidth/6)+20,680, 'botaoConfiguraçoes').setScale(0.5,0.5).setInteractive({ useHandCursor: true });
-        gameState.retornoInicio = this.add.image(1060, 165, 'retornoInicio').setScale(0.35,0.35).setInteractive({ useHandCursor: true });
+        this.add
+            .image(this.scale.width / 2, this.scale.height / 2, "bg")
+            .setDisplaySize(this.scale.width, this.scale.height)
+            .setDepth(-1);
 
-        // Cria a imagens da tela de configurações
-        gameState.settings = this.add.image(1000, 300, 'settings').setScale(0.8,0.8);
-        
-        // Define a profundidade da imagem de fundo para -1, garantindo que ela fique atrás de outros elementos
-        gameState.bg .depth = -1;
-        gameState.botaoJogar.depth = -1; 
-        gameState.botaoTutorial.depth = -1;
-        gameState.botaoSair.depth = -1;
-        gameState.botaoConfiguraçoes.depth = -1;
-        gameState.retangulo.depth = 0;
-        gameState.settings.depth = 1; 
-        gameState.retornoInicio.depth = 2;
+        this.add
+            .rectangle(this.scale.width / 2, this.scale.height / 2, this.scale.width, this.scale.height, 0x000000)
+            .setAlpha(0.5)
+            .setDepth(0);
 
-        this.cameras.main.setBounds(0,0,window.innerWidth,window.innerHeight); //A camera principal ocupa todo o tamanho da tela
-        
-        this.cameras.main.fadeIn(200, 0,0,0);//Adiciona um efeito de escurecer
+        this.add.image(1000, 300, "settings").setScale(0.8).setDepth(1);
 
-        // Quando o usuário colocar o cursor em cima do botão ele aumenta de tamanho
-        gameState.retornoInicio.on('pointerover', () => {
+        const retornoInicio = this.add
+            .image(1060, 165, "retornoInicio")
+            .setScale(0.35)
+            .setDepth(2)
+            .setInteractive({ useHandCursor: true });
+
+        this.cameras.main.setBounds(0, 0, this.scale.width, this.scale.height);
+        this.cameras.main.fadeIn(200, 0, 0, 0);
+
+        retornoInicio.on("pointerover", () => {
             this.tweens.add({
-                targets: gameState.retornoInicio,
+                targets: retornoInicio,
                 scaleX: 0.4,
                 scaleY: 0.4,
                 duration: 200,
-                ease: 'Power2'
+                ease: "Power2"
             });
         });
 
-        // Quando o usuário retirar o cursor de cima do botão, ele volta ao normal
-        gameState.retornoInicio.on('pointerout', () => {
+        retornoInicio.on("pointerout", () => {
             this.tweens.add({
-                targets: gameState.retornoInicio,
+                targets: retornoInicio,
                 scaleX: 0.35,
                 scaleY: 0.35,
                 duration: 200,
-                ease: 'Power2'
+                ease: "Power2"
             });
         });
-        // Quando o usuário clica no botão ele será redirecionado para tela de configurações
-        gameState.retornoInicio.on('pointerdown', () => {
-            this.cameras.main.fadeOut(200, 0,0,0);
-            this.cameras.main.once('camerafadeoutcomplete', () => {
-                gameState.musica.stop(); //Para a música de fundo
-                this.scene.start('introScene');
+
+        retornoInicio.on("pointerdown", () => {
+            if (this.isTransitioning) {
+                return;
+            }
+
+            this.isTransitioning = true;
+            this.cameras.main.fadeOut(200, 0, 0, 0);
+            this.cameras.main.once("camerafadeoutcomplete", () => {
+                if (gameState.musica?.isPlaying) {
+                    gameState.musica.stop();
+                }
+                this.scene.start("introScene");
             });
         });
     }
-
-    update() {}
 }
