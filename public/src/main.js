@@ -1,35 +1,46 @@
-//A variável abaixo é global, sendo que ela é utilizada para criar mais variáveis
-let gameState = {
-}
 
-//Estabelece as configurações do jogo
-var config = {
+import { cenaInicial } from "./Cenas/cenaInicial.js";
+import { cenaBanho } from "./Cenas/cenaBanho.js";
+import { cenaConfiguracoes } from "./Cenas/cenaConfiguracoes.js";
+import { cenaComida} from "./Cenas/cenaComida.js";
+import { cenaPrincipal } from "./Cenas/cenaPrincipal.js";
+import { cenaHUD } from "./componentes/cenaHUD.js";
+import { cenaCuidado } from "./Cenas/cenaCuidado.js";
+import { jogoRacao } from "./Cenas/jogoRacao.js";
+import { ficha } from "./componentes/ficha.js";
+import { cenaCarregamento } from "./Cenas/cenaCarregamento.js";
 
-    //Adiciona o tipo de apresentação automaticamente
+export let gameState = {};
+
+const config = {
     type: Phaser.AUTO,
-
-    //Estabele a largura e altura para toda tela
     width: window.innerWidth,
     height: window.innerHeight,
-
-    //Configurações de audio
     audio: {
         disableWebAudio: false,
-        noAudio: false,
+        noAudio: false
     },
-
-    //Adiciona fisiva no jogo
     physics: {
-        default: 'arcade',
+        default: "arcade",
+
         arcade: {
             gravity: { y: 0 },
             debug: false
         }
     },
-
-    // Organiza as cenas
-    scene: [introScene, settingsScene,gameScene, bathScene]
+    scene: [
+        cenaCarregamento,
+        cenaInicial,
+        cenaConfiguracoes,
+        cenaBanho,
+        cenaComida,
+        cenaCuidado,
+        cenaPrincipal,
+        jogoRacao,
+        cenaHUD,
+        ficha
+    ]
 };
 
-//Aplica as configurações no jogo
-var game = new Phaser.Game(config);
+new Phaser.Game(config);
+
