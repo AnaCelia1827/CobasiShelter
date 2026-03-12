@@ -1,3 +1,6 @@
+
+import { Cachorro } from "../componentes/controleCachorro/cachorroAnimacao.js";
+
 export class cenaCuidado extends Phaser.Scene {
     constructor() {
         super({ key: "cenaCuidado" });
@@ -13,8 +16,9 @@ export class cenaCuidado extends Phaser.Scene {
         }
         this.scene.bringToTop("cenaHUD");
 
-        this.add
-            .image(this.scale.width / 2, this.scale.height / 2, "bgCuidado")
+
+        this.cachorro = new Cachorro(this, 920, 600);
+        this.add.image(this.scale.width / 2, this.scale.height / 2, "bgCuidado")
             .setDisplaySize(this.scale.width, this.scale.height)
             .setDepth(-1);
 
@@ -119,5 +123,6 @@ export class cenaCuidado extends Phaser.Scene {
         flea.body.enable = false;
         flea.setActive(false).setVisible(false);
         flea.setPosition(-200, -200);
+>>>>>>> public/src/Cenas/cenaCuidado.js
     }
 }
