@@ -19,7 +19,7 @@ export class cenaPrincipal extends Phaser.Scene {
         }
 
         this.add
-            .image(this.scale.width / 2, this.scale.height / 2, "bgGameScene")
+            .image(this.scale.width / 2, this.scale.height / 2, "bgInicial")
             .setDisplaySize(this.scale.width, this.scale.height)
             .setDepth(-1);
 

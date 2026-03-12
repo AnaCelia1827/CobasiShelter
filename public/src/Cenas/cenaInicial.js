@@ -7,9 +7,11 @@ export class cenaInicial extends Phaser.Scene {
     }
 
     create() {
+        // Para garantir que a HUD não fique ativa
         this.scene.stop("cenaHUD");
         this.transicao = false;
 
+        // Música de fundo
         if (!gameState.musica) {
             gameState.musica = this.sound.add("musica", { loop: true, volume: 0.5 });
         }
@@ -17,69 +19,70 @@ export class cenaInicial extends Phaser.Scene {
             gameState.musica.play();
         }
 
+        // Fundo da cena
         this.add
-            .image(this.scale.width / 2, this.scale.height / 2, "bg")
+            .image(this.scale.width / 2, this.scale.height / 2, "bgInical")
             .setDisplaySize(this.scale.width, this.scale.height);
 
-        const passarPressionarEfeito = (alvo, escalaNormal, escalaPassar) => {
-            alvo.on("pointerover", () => {
-                this.tweens.add({
-                    targets: alvo,
-                    scaleX: escalaPassar,
-                    scaleY: escalaPassar,
-                    duration: 200,
-                    ease: "Power2"
-                });
+        // Função utilitária para criar botões com troca de textura e animação de escala
+        const criarBotao = (x, y, texturaNormal, texturaOver, texturaDown, escalaBase, escalaHover, escalaDown, callback) => {
+            const botao = this.add.image(x, y, texturaNormal).setScale(escalaBase).setInteractive({ useHandCursor: true });
+
+            botao.on("pointerover", () => {
+                botao.setTexture(texturaOver);
+                this.tweens.add({ targets: botao, scale: escalaHover, duration: 150, ease: "Power2" });
             });
 
-            alvo.on("pointerdown", () => {
-                this.tweens.add({
-                    targets: alvo,
-                    scaleX: 0.45,
-                    scaleY: 0.45,
-                    duration: 180,
-                    ease: "Power2",
-                    yoyo: true
-                });
+            botao.on("pointerout", () => {
+                botao.setTexture(texturaNormal);
+                this.tweens.add({ targets: botao, scale: escalaBase, duration: 150, ease: "Power2" });
             });
 
-            alvo.on("pointerout", () => {
-                this.tweens.add({
-                    targets: alvo,
-                    scaleX: escalaNormal,
-                    scaleY: escalaNormal,
-                    duration: 200,
-                    ease: "Power2"
-                });
+            botao.on("pointerdown", () => {
+                botao.setTexture(texturaDown);
+                this.tweens.add({ targets: botao, scale: escalaDown, duration: 100, ease: "Power2" });
             });
+
+            botao.on("pointerup", () => {
+                botao.setTexture(texturaOver);
+                this.tweens.add({ targets: botao, scale: escalaHover, duration: 100, ease: "Power2" });
+                if (callback) callback();
+            });
+
+            return botao;
         };
 
-        const criarBotao = (y, texture) => {
-            return this.add
-                .image(this.scale.width / 6 + 20, y, texture)
-                .setScale(0.5)
-                .setInteractive({ useHandCursor: true });
-        };
+        // Botão Jogar
+        criarBotao(
+            window.innerWidth / 7 + 28, window.innerWidth / 3,
+            "botaoJogarNormal", "botaoJogarCrescendo", "botaoJogarPressionado",
+            0.085, 0.1, 0.08,
+            () => this.transitionTo("cenaPrincipal")
+        );
 
-        const botaoJogar = criarBotao(380, "botaoJogar");
-        const botaoSair = criarBotao(580, "botaoSair");
-        const botaoConfiguracoes = criarBotao(680, "botaoConfiguracoes");
+        // Botão Sair
+        criarBotao(
+            window.innerWidth / 7 - 150, window.innerWidth / 2 - 100,
+            "botaoSairNormal", "botaoSairCrescendo", "botaoSairPressionado",
+            0.065, 0.08, 0.06,
+            () => this.game.destroy(true)
+        );
 
+        // Botão Configurações 
+        criarBotao(
+            window.innerWidth / 7 + 200, window.innerWidth / 2 - 100,
+            "botaoConfiguracoesNormal", "botaoConfiguracoesCrescendo", "botaoConfiguracoesPressionado",
+            0.85, 0.95, 0.75,
+            () => this.transitionTo("cenaConfiguracoes")
+        );
+
+        // Configuração da câmera
         this.cameras.main.setBounds(0, 0, this.scale.width, this.scale.height);
         this.cameras.main.fadeIn(200, 0, 0, 0);
-
-        passarPressionarEfeito(botaoJogar, 0.5, 0.6);
-        passarPressionarEfeito(botaoSair, 0.5, 0.6);
-        passarPressionarEfeito(botaoConfiguracoes, 0.5, 0.6);
-
-        botaoJogar.on("pointerdown", () => this.transitionTo("cenaPrincipal"));
-        botaoConfiguracoes.on("pointerdown", () => this.transitionTo("cenaConfiguracoes"));
     }
 
     transitionTo(sceneKey) {
-        if (this.transicao) {
-            return;
-        }
+        if (this.transicao) return;
 
         this.transicao = true;
         this.cameras.main.fadeOut(300, 0, 0, 0);

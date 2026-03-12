@@ -1,10 +1,13 @@
 import {
     racaoGrandeFilhote,
     racaoGrandeAdulto,
-    racaoGrandeVelho,
+    racaoGrandeSenior,
     racaoMediaAdulto,
     racaoMediaFilhote,
-    racaoMediaVelho
+    racaoMediaSenior,
+    racaoPequenaSenior,
+    racaoPequenaAdulto,
+    racaoPequenaFilhote
 } from "../componentes/controleRacoes/dadosRacoes.js";
 import { Racao } from "../componentes/controleRacoes/racoes.js";
 
@@ -60,17 +63,17 @@ export class jogoRacao extends Phaser.Scene {
         passarPressionarEfeito(voltar, 0.01, 0.012);
 
         voltar.on("pointerdown", () => {
-            if (this.scene.isSleeping("hudScene")) {
-                this.scene.wake("hudScene");
+            if (this.scene.isSleeping("cenaHUD")) {
+                this.scene.wake("cenaHUD");
             }
-            this.scene.start("foodScene");
+            this.scene.start("cenaAlimentacao");
         });
 
         this.add.image(500, 500, "estanteVazia").setScale(1.3).setDepth(-1);
 
         this.r1 = new Racao(this, 300, 300, racaoGrandeAdulto);
         this.r2 = new Racao(this, 500, 300, racaoGrandeFilhote);
-        this.r3 = new Racao(this, 700, 300, racaoGrandeVelho);
+        this.r3 = new Racao(this, 700, 300, racaoGrandeSenior);
         this.r4 = new Racao(this, 300, 500, racaoMediaAdulto);
         this.r5 = new Racao(this, 500, 500, racaoMediaFilhote);
         this.r6 = new Racao(this, 700, 500, racaoMediaVelho);
