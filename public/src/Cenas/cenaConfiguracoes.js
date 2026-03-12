@@ -1,12 +1,14 @@
+// Importa o objeto global gameState do arquivo principal
 import { gameState } from "../main.js";
 
+// Define a cena "cenaConfiguracoes", responsável pelas opções de configuração do jogo
 export class cenaConfiguracoes extends Phaser.Scene {
     constructor() {
         super({ key: 'cenaConfiguracoes' });
     }
 
     create() {
-        // Música de fundo
+        // Música de fundo: cria e inicia se ainda não estiver tocando
         if (!gameState.musica) {
             gameState.musica = this.sound.add('musica', { loop: true, volume: 0.5 });
         }
@@ -27,19 +29,19 @@ export class cenaConfiguracoes extends Phaser.Scene {
             0x000000
         ).setAlpha(0.5).setDepth(0);
 
-        // Botão Jogar (apenas textura normal, sem interatividade)
+        // Botão Jogar (apenas visual, sem interatividade)
         const botaoJogar = this.add.image(
-            window.innerWidth / 7 + 28, window.innerHeight / 2+100,
+            window.innerWidth / 7 + 28, window.innerHeight / 2 + 100,
             "botaoJogarNormal"
         ).setScale(0.085).setDepth(1);
 
-        // Botão Sair (apenas textura normal, sem interatividade)
+        // Botão Sair (apenas visual, sem interatividade)
         const botaoSair = this.add.image(
-            window.innerWidth / 7 - 150, window.innerHeight /2+300,
+            window.innerWidth / 7 - 150, window.innerHeight / 2 + 300,
             "botaoSairNormal"
         ).setScale(0.065).setDepth(1);
 
-        // Botão Configurações (apenas textura normal, sem interatividade)
+        // Botão Configurações (apenas visual, sem interatividade)
         const botaoConfiguracoes = this.add.image(
             window.innerWidth / 7 + 200, window.innerHeight / 2 + 300,
             "botaoConfiguracoesNormal"
@@ -48,38 +50,44 @@ export class cenaConfiguracoes extends Phaser.Scene {
         // Ícone de configurações
         const iconeConfiguracoes = this.add.image(1000, 300, "configuracoes").setScale(0.8).setDepth(1);
 
-        // Botão de retorno ao menu inicial (este continua interativo)
-        const botaoRetorno = this.add.image(200, 100, "retornoInicio").setScale(0.35).setInteractive({ useHandCursor: true }).setDepth(2);
+        // Botão de retorno ao menu inicial (interativo)
+        const botaoRetorno = this.add.image(200, 100, "retornoInicio")
+            .setScale(0.35)
+            .setInteractive({ useHandCursor: true })
+            .setDepth(2);
 
+        // Efeito ao passar o mouse sobre o botão de retorno
         botaoRetorno.on('pointerover', () => {
             this.tweens.add({ targets: botaoRetorno, scale: 0.4, duration: 200, ease: 'Power2' });
         });
 
+        // Efeito ao retirar o mouse do botão de retorno
         botaoRetorno.on('pointerout', () => {
             this.tweens.add({ targets: botaoRetorno, scale: 0.35, duration: 200, ease: 'Power2' });
         });
 
+        // Evento de clique no botão de retorno → volta para cena inicial
         botaoRetorno.on('pointerdown', () => {
             this.cameras.main.fadeOut(200, 0, 0, 0);
             this.cameras.main.once('camerafadeoutcomplete', () => {
-                gameState.musica.stop();
+                gameState.musica.stop(); // Para música ao sair
                 this.scene.start('cenaInicial');
             });
         });
 
-        // Alternar Música
+        // Alternar Música (liga/desliga)
         gameState.alternarMusica = this.criarAlternar(1020, 215, true,
-            () => { gameState.musica.resume(); },
-            () => { gameState.musica.pause(); }
+            () => { gameState.musica.resume(); },   // Ao ligar
+            () => { gameState.musica.pause(); }    // Ao desligar
         );
 
-        // Alternar Som
+        // Alternar Som (placeholder)
         gameState.alternarSom = this.criarAlternar(1020, 265, true,
             () => { console.log('Som ligado (placeholder)'); },
             () => { console.log('Som desligado (placeholder)'); }
         );
 
-        // Alternar Vibração
+        // Alternar Vibração (placeholder)
         gameState.alternarVibracao = this.criarAlternar(1020, 315, true,
             () => { console.log('Vibração ligada (placeholder)'); },
             () => { console.log('Vibração desligada (placeholder)'); }
@@ -106,6 +114,7 @@ export class cenaConfiguracoes extends Phaser.Scene {
         botaoLigado.setVisible(ligado);
         botaoDesligado.setVisible(!ligado);
 
+        // Evento de clique no botão ligado → desliga
         botaoLigado.on('pointerdown', () => {
             ligado = false;
             botaoLigado.setVisible(false);
@@ -113,6 +122,7 @@ export class cenaConfiguracoes extends Phaser.Scene {
             if (aoDesligar) aoDesligar();
         });
 
+        // Evento de clique no botão desligado → liga
         botaoDesligado.on('pointerdown', () => {
             ligado = true;
             botaoDesligado.setVisible(false);
@@ -123,5 +133,6 @@ export class cenaConfiguracoes extends Phaser.Scene {
         return { botaoLigado, botaoDesligado };
     }
 
+    // Método update (não utilizado nesta cena)
     update() {}
 }

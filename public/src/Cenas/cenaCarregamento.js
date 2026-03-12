@@ -1,3 +1,4 @@
+//Exporta as imagens e sprites
 export class cenaCarregamento extends Phaser.Scene {
     constructor() {
         super({ key: "cenaCarregamento" });
@@ -28,6 +29,10 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("iconeCuidados", "assets/iconeCuidados.png");
         this.load.image("iconeLazer", "assets/iconeLazer.png");
         this.load.image("iconeVoltar", "assets/iconeVoltar.png");
+
+        // Tela Cuidado
+        this.load.image("bgCuidado", "assets/tela-cuidado/bgCuidado.png");
+        this.load.image("pulga", "assets/tela-cuidado/pulga.png");
 
         // Cenas de gameplay
         this.load.image("bgRacao", "assets/tela-alimentacao/bgRacao.png");

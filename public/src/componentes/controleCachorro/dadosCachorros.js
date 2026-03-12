@@ -1,3 +1,4 @@
+// Exporta um objeto com os dados iniciais do cachorro
 export const cachorroInicial = {
   nome: "Adriel",
   peso: 100,
