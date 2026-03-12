@@ -1,7 +1,7 @@
 // Importa a classe Cachorro, responsável pela animação e controle do cachorro
 import { Cachorro } from "../componentes/controleCachorro/cachorroAnimacao.js";
 
-// Define a cena "cenaComida", onde o jogador interage com a comida do cachorro
+// Define a cena "cenaComida"
 export class cenaComida extends Phaser.Scene {
     constructor() {
         super({ key: "cenaComida" });
