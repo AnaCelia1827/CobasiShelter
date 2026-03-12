@@ -13,6 +13,12 @@ export class PreloadScene extends Phaser.Scene {
         this.load.image("retornoInicio", "assets/retornoInicio.png");
         this.load.image("settings", "assets/settings.png");
 
+        //icons de barras
+        this.load.image("iconeFome", "assets/Icones/iconeFome.png");
+        this.load.image("iconeFelicidade", "assets/Icones/iconeFelicidade.png");
+        this.load.image("iconeSaude", "assets/Icones/iconeSaude.png");
+        this.load.image("iconeSujeira", "assets/Icones/iconeSujeira.png");
+
         //Barras 
         this.load.spritesheet("barra", "assets/Icones/BarraStatus.png", {
             frameWidth: 144,

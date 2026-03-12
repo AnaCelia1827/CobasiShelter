@@ -140,16 +140,13 @@ hoverPressEffect(voltar, 0.01, 0.012);
                 `Ração selecionada:
 
                 Nome: ${racao.nome}
-
                 ${racao.descricao}
-
                 Porte: ${racao.porte}
                 Idade: ${racao.idade}`
                             );
-
                         };
 
-        // BOTÃO VERIFICAR
+        
         const verificar = this.add.text(100,350,"Verificar",{
             fontFamily:'"Press Start 2P"',
             fontSize:"14px",
@@ -168,15 +165,11 @@ hoverPressEffect(voltar, 0.01, 0.012);
                 mensagem.setText("Falta selecionar uma ração.");
                 return;
             }
-
             if(
-                racao.id === pet.id 
-                
+                racao.id === pet.id   
             ){
-
                 mensagem.setText(
                         ` Acertou!
-
                         Essa é a ração ideal
                         para o cachorro.`
                 );
@@ -189,17 +182,9 @@ hoverPressEffect(voltar, 0.01, 0.012);
 
                 mensagem.setText(
             `Essa ração não é ideal.
-
-            Cachorro:
-            Porte: ${pet.porte}
-            Idade: ${pet.idade}
-
-
-            Escolha outra ração.`
+             Escolha outra ração.`
                             );
-
                         }
-
         });
 
         painel.add([fundo,mensagem,verificar]);

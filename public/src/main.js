@@ -10,7 +10,15 @@ import { ficha } from "./componentes/ficha.js";
 import { PreloadScene } from "./Scenes/preloadScene.js";
 
 
-export let gameState = {};
+export let gameState = {
+
+     barras: {
+        comida:  11,
+        lazer:   11,
+        limpeza: 11,
+        saude:    11,
+    }
+};
 
 const config = {
     type: Phaser.AUTO,

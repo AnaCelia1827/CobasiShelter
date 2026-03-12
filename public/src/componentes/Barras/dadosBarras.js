@@ -1,18 +1,18 @@
 
 export const barraComida = {
-  fome:0,
+  fome:1,
   sprite:"barraStatus",
   
   
 }
 export const barraFelicidade= {
-  felicidade:0,
+  felicidade:5,
   sprite:"barraStatus",
   
   
 }
 export const barraLimpeza = {
-  limpeza:0,
+  limpeza: 0,
   sprite:"barraStatus",
   
   
@@ -21,7 +21,7 @@ export const barraSaude = {
   saude:0,
   sprite:"barraStatus",
   
-  
+
 }
 
 

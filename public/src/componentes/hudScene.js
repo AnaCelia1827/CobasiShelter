@@ -1,3 +1,6 @@
+import { gameState } from "../main.js";
+import { Barra} from "./Barras/barras.js";
+
 export class hudScene extends Phaser.Scene {
     constructor() {
         super({ key: "hudScene" });
@@ -12,6 +15,19 @@ export class hudScene extends Phaser.Scene {
         const centerY = this.scale.height / 2;
         const topY = Math.max(100, this.scale.height * 0.12);
         const spacing = Math.max(90, this.scale.height * 0.18);
+
+            //  barras nepai
+        this.add.image(100, 100, "iconeFome").setScale(1.5);
+        this.barraComida = new Barra(this, 230, 100, gameState.barras.comida);
+
+        this.add.image(100, 160, "iconeFelicidade").setScale(1.5);
+        this.barraLazer = new Barra(this, 230, 160, gameState.barras.lazer);
+
+        this.add.image(100, 220, "iconeSujeira").setScale(1.5);
+        this.barraLimpeza = new Barra(this, 230, 220, gameState.barras.limpeza);
+
+        this.add.image(100, 280, "iconeSaude").setScale(1.5);
+        this.barraSaude = new Barra(this, 230, 280, gameState.barras.saude);
 
         this.add
             .rectangle(panelX, centerY, panelWidth, this.scale.height, 0xffffff, 1)
@@ -75,4 +91,16 @@ export class hudScene extends Phaser.Scene {
             this.isTransitioning = false;
         });
     }
+
+    update() {
+    this.barraComida.valor  = gameState.barras.comida;
+    this.barraLazer.valor   = gameState.barras.felicidade;  
+    this.barraLimpeza.valor =  gameState.barras.limpeza; 
+    this.barraSaude.valor   = gameState.barras.saude;
+
+    this.barraComida.atualizarBarra();
+    this.barraLazer.atualizarBarra();
+    this.barraLimpeza.atualizarBarra();
+    this.barraSaude.atualizarBarra();
+}
 }

@@ -17,19 +17,19 @@ export class ficha extends Phaser.Scene {
             fontSize: "14px",
             color: "#000000"
         };
+        const titulo = this.add.text(-220,-120,`Ficha do Animal`,estiloPixel).setOrigin(0, 0.5);
+        const nome = this.add.text(-220, -80, `Nome: ${pet.nome}`, estiloPixel).setOrigin(0, 0.5);
+        const peso = this.add.text(-220, -40, `Peso: ${pet.peso}`, estiloPixel).setOrigin(0, 0.5);
+        const idade = this.add.text(-220, 0, `Idade: ${pet.idade}`, estiloPixel).setOrigin(0, 0.5);
+        const porte = this.add.text(-220, 40, `Porte: ${pet.porte}`, estiloPixel).setOrigin(0, 0.5);
+        const estado = this.add.text(-220, 80, `Estado: ${pet.estado}`, estiloPixel).setOrigin(0, 0.5);
 
-        const nome = this.add.text(-220, -120, `Nome: ${pet.nome}`, estiloPixel).setOrigin(0, 0.5);
-        const peso = this.add.text(-220, -80, `Peso: ${pet.peso}`, estiloPixel).setOrigin(0, 0.5);
-        const idade = this.add.text(-220, -40, `Idade: ${pet.idade}`, estiloPixel).setOrigin(0, 0.5);
-        const porte = this.add.text(-220, 0, `Porte: ${pet.porte}`, estiloPixel).setOrigin(0, 0.5);
-        const estado = this.add.text(-220, 40, `Estado: ${pet.estado}`, estiloPixel).setOrigin(0, 0.5);
-
-        const historia = this.add.text(-220, 80, `Historia: ${pet.historia}`, {
+        const historia = this.add.text(-220, 120, `Historia: ${pet.historia}`, {
             ...estiloPixel,
             align: "left",
             wordWrap: { width: 420 }
         }).setOrigin(0, 0);
 
-        fichaContainer.add([fundo, nome, peso, idade, porte, estado, historia]);
+        fichaContainer.add([fundo,titulo, nome, peso, idade, porte, estado, historia]);
     }
 }

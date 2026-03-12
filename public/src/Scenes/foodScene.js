@@ -1,6 +1,4 @@
-import { barraComida, barraFelicidade, barraLimpeza, barraSaude } from "../componentes/Barras/dadosBarras.js";
 import { Cachorro } from "../componentes/controleCachorro/cachorroAnimacao.js";
-import { Barra } from "../componentes/Barras/barras.js";
 
 export class foodScene extends Phaser.Scene {
     constructor() {
@@ -20,11 +18,12 @@ export class foodScene extends Phaser.Scene {
         this.scene.bringToTop("hudScene");
         this.prewarmRacaoTextures();
 
-          this.b1 = new Barra(this, 300, 300, barraSaude);
-          this.b2 = new Barra(this, 300, 400, barraComida);
-          this.b3 = new Barra(this, 300, 500, barraFelicidade);
-          this.b3 = new Barra(this, 300, 600, barraLimpeza);
+      
 
+       
+        
+
+        //cliques
         const hoverPressEffect = (target, scaleNormal, scaleHover) => {
             target.on("pointerover", () => {
                 this.tweens.add({

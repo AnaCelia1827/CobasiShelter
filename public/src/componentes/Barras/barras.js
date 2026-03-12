@@ -1,26 +1,18 @@
-import { barraComida, barraFelicidade, barraLimpeza, barraSaude } from "./dadosBarras.js"
+export class Barra {
+    constructor(scene, x, y, valor = 0) {
+        this.scene = scene;
+        this.valor = valor;
+        this.sprite = scene.add.sprite(x, y, "barra").setScale(1.5);
+        this.atualizarBarra();
+    }
 
-class Barra{
+    atualizarBarra() {
+        this.valor = Phaser.Math.Clamp(this.valor, 0, 9);
+        this.sprite.setFrame(Math.floor(this.valor));
+    }
 
-  constructor(){
-    this.iconeC = { ...barraComida }
-    this.iconeF = { ...barraFelicidade }
-    this.iconeL = { ...barraLimpeza }
-    this.iconeS = { ...barraSaude }///copia todos os  dados para a classe cachorro
-  }
-
-  sujar(){
-    this.pet.estado = "barra_pequena"//muda as animações
-  }
-
-  limpar(){
-    this.pet.estado = "barra_media"
-  }
-
-  normal(){
-    this.pet.estado = "barra_grande"
-  }
-
+    alterar(delta) {
+        this.valor = Phaser.Math.Clamp(this.valor + delta, 0, 9);
+        this.atualizarBarra();
+    }
 }
-
-export const  barra= new Barra()

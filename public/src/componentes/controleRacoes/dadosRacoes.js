@@ -37,7 +37,7 @@ export const racaoMediaAdulto = {
 export const racaoMediaVelho = {
   nome: "premium media",
   id :"6",
-  descricao:"mmimimimiiimiim",
+  descricao:"ISSAC NORDESTINO",
   sprite:"racaoMV"
   
 }
