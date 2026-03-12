@@ -1,23 +1,28 @@
+// Importa o objeto global gameState do arquivo principal
 import { gameState } from "../main.js";
 
+// Define a cena "cenaBanho" que representa o banho do cachorro
 export class cenaBanho extends Phaser.Scene {
     constructor() {
         super({ key: "cenaBanho" });
 
-        this.ferramentaAtiva = null;
-        this.acumuladorAgua = 0;
-        this.tempoSecando = 0;
-        this.quantidadeEspuma = 0;
-        this.limiteMovimento = 30;
-        this.ultimoX = 0;
-        this.ultimoY = 0;
+        // Variáveis de controle
+        this.ferramentaAtiva = null;      // Ferramenta atualmente selecionada (sabão, chuveiro ou toalha)
+        this.acumuladorAgua = 0;          // Controla o tempo para gerar gotas de água
+        this.tempoSecando = 0;            // Tempo acumulado para secar o cachorro
+        this.quantidadeEspuma = 0;        // Quantidade de espuma gerada
+        this.limiteMovimento = 30;        // Limite de movimento para gerar bolhas
+        this.ultimoX = 0;                 // Última posição X do sabão
+        this.ultimoY = 0;                 // Última posição Y do sabão
 
+        // Posições iniciais das ferramentas
         this.posicaoInicialSabao = { x: 600, y: 720 };
         this.posicaoInicialChuveiro = { x: 770, y: 750 };
         this.posicaoInicialToalha = { x: 940, y: 720 };
     }
 
     create() {
+        // Garante que a cena HUD esteja ativa
         if (!this.scene.isActive("cenaHUD")) {
             this.scene.launch("cenaHUD");
         } else if (this.scene.isSleeping("cenaHUD")) {
@@ -25,22 +30,27 @@ export class cenaBanho extends Phaser.Scene {
         }
         this.scene.bringToTop("cenaHUD");
 
+        // Reseta variáveis
         this.ferramentaAtiva = null;
         this.acumuladorAgua = 0;
         this.tempoSecando = 0;
         this.quantidadeEspuma = 0;
 
+        // Fundo do banheiro
         gameState.banheiro = this.add
             .image(this.scale.width / 2, this.scale.height / 2, "bgBanheiro")
             .setDisplaySize(this.scale.width, this.scale.height);
 
+        // Sprite do cachorro sujo
         gameState.cachorro = this.physics.add.sprite(this.scale.width / 2, this.scale.height / 2, "dogSujo").setScale(0.5);
         gameState.cachorro.setImmovable(true);
         gameState.cachorro.body.allowGravity = false;
 
+        // Cria animações e inicia a animação do cachorro sujo
         this.criarAnimacoes();
         gameState.cachorro.play("dogSujoAnim");
 
+        // Cria ferramentas (sabão, chuveiro e toalha) como objetos interativos
         gameState.sabao = this.add
             .follower(new Phaser.Curves.Path(400, 500), this.posicaoInicialSabao.x, this.posicaoInicialSabao.y, "sabao")
             .setInteractive()
@@ -59,6 +69,7 @@ export class cenaBanho extends Phaser.Scene {
             .setDepth(3)
             .setScale(0.2);
 
+        // Adiciona física às ferramentas
         this.physics.add.existing(gameState.sabao);
         gameState.sabao.body.setSize(gameState.sabao.displayWidth, gameState.sabao.displayHeight);
 
@@ -68,18 +79,22 @@ export class cenaBanho extends Phaser.Scene {
         this.physics.add.existing(gameState.toalha);
         gameState.toalha.body.setSize(gameState.toalha.displayWidth, gameState.toalha.displayHeight);
 
+        // Grupos de bolhas e gotas
         gameState.bolhas = this.physics.add.group({ maxSize: 80 });
         gameState.gotas = this.physics.add.group({ maxSize: 160 });
 
+        // Colisão entre gotas e bolhas (recicla objetos)
         this.physics.add.overlap(gameState.gotas, gameState.bolhas, (gota, bolha) => {
             this.reciclarObjeto(gota);
             this.reciclarObjeto(bolha);
         });
 
+        // Eventos de clique nas ferramentas
         gameState.sabao.on("pointerdown", () => this.alternarFerramenta("sabao"));
         gameState.chuveiro.on("pointerdown", () => this.alternarFerramenta("chuveiro"));
         gameState.toalha.on("pointerdown", () => this.alternarFerramenta("toalha"));
 
+        // Reseta variáveis ao encerrar a cena
         this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
             this.ferramentaAtiva = null;
             this.acumuladorAgua = 0;
@@ -87,6 +102,7 @@ export class cenaBanho extends Phaser.Scene {
         });
     }
 
+    // Cria animações do cachorro e da água
     criarAnimacoes() {
         if (!this.anims.exists("dogSujoAnim")) {
             this.anims.create({
@@ -125,6 +141,7 @@ export class cenaBanho extends Phaser.Scene {
         }
     }
 
+    // Alterna entre ferramentas
     alternarFerramenta(nomeFerramenta) {
         if (this.ferramentaAtiva === nomeFerramenta) {
             this.retornarPosicaoInicial(nomeFerramenta);
@@ -144,6 +161,7 @@ export class cenaBanho extends Phaser.Scene {
         this.ferramentaAtiva = nomeFerramenta;
     }
 
+    // Retorna ferramenta para posição inicial
     retornarPosicaoInicial(nomeFerramenta) {
         const ferramenta = this.pegarFerramenta(nomeFerramenta);
         if (!ferramenta) return;
@@ -161,6 +179,7 @@ export class cenaBanho extends Phaser.Scene {
         ferramenta.startFollow({ duration: 250, repeat: 0 });
     }
 
+    // Retorna referência da ferramenta
     pegarFerramenta(nomeFerramenta) {
         if (nomeFerramenta === "sabao") return gameState.sabao;
         if (nomeFerramenta === "chuveiro") return gameState.chuveiro;
@@ -168,6 +187,7 @@ export class cenaBanho extends Phaser.Scene {
         return null;
     }
 
+    // Retorna posição inicial da ferramenta
     pegarPosicaoInicial(nomeFerramenta) {
         if (nomeFerramenta === "sabao") return this.posicaoInicialSabao;
         if (nomeFerramenta === "chuveiro") return this.posicaoInicialChuveiro;
@@ -175,50 +195,62 @@ export class cenaBanho extends Phaser.Scene {
         return null;
     }
 
+    // Atualiza lógica a cada frame
     update(tempo, delta) {
         this.atualizarSabao();
         this.atualizarChuveiro(delta);
         this.atualizarToalha();
         this.limparGotas();
 
+                // Quando espuma suficiente é gerada, troca textura do cachorro
         if (this.quantidadeEspuma >= 50 && gameState.cachorro.texture.key !== "dogEspuma") {
-            gameState.cachorro.setTexture("dogEspuma");
-            gameState.cachorro.play("dogEspumaAnim");
-            this.quantidadeEspuma = 0;
+            gameState.cachorro.setTexture("dogEspuma");   // Define textura de cachorro com espuma
+            gameState.cachorro.play("dogEspumaAnim");     // Inicia animação de cachorro ensaboado
+            this.quantidadeEspuma = 0;                    // Reseta contador de espuma
         }
     }
 
+    // Atualiza lógica do sabão
     atualizarSabao() {
         if (this.ferramentaAtiva !== "sabao") return;
 
+        // Guarda última posição
         this.ultimoX = gameState.sabao.x;
         this.ultimoY = gameState.sabao.y;
 
+        // Move sabão para posição do ponteiro
         gameState.sabao.x = this.input.activePointer.x;
         gameState.sabao.y = this.input.activePointer.y;
         gameState.sabao.body.reset(this.input.activePointer.x, this.input.activePointer.y);
 
+        // Calcula distância até o cachorro
         const distX = Math.abs(gameState.sabao.x - gameState.cachorro.x);
         const distY = Math.abs(gameState.sabao.y - gameState.cachorro.y);
+
+        // Verifica se houve movimento suficiente
         const moveu =
             Math.abs(gameState.sabao.x - this.ultimoX) > this.limiteMovimento ||
             Math.abs(gameState.sabao.y - this.ultimoY) > this.limiteMovimento;
 
+        // Se sabão está perto do cachorro e houve movimento, cria bolha
         if (distX < 200 && distY < 250 && this.quantidadeEspuma < 50 && moveu) {
             this.criarBolha();
         }
     }
 
-        atualizarChuveiro(delta) {
+    // Atualiza lógica do chuveiro
+    atualizarChuveiro(delta) {
         if (this.ferramentaAtiva !== "chuveiro") {
             this.acumuladorAgua = 0;
             return;
         }
 
+        // Move chuveiro para posição do ponteiro
         gameState.chuveiro.x = this.input.activePointer.x;
         gameState.chuveiro.y = this.input.activePointer.y;
         gameState.chuveiro.body.reset(this.input.activePointer.x, this.input.activePointer.y);
 
+        // Acumula tempo para gerar gotas
         this.acumuladorAgua += delta;
         if (this.acumuladorAgua < 70) return;
 
@@ -226,27 +258,33 @@ export class cenaBanho extends Phaser.Scene {
         this.criarGota();
     }
 
+    // Atualiza lógica da toalha
     atualizarToalha() {
         if (this.ferramentaAtiva !== "toalha") {
             this.tempoSecando = 0;
             return;
         }
 
+        // Move toalha para posição do ponteiro
         gameState.toalha.x = this.input.activePointer.x;
         gameState.toalha.y = this.input.activePointer.y;
         gameState.toalha.body.reset(this.input.activePointer.x, this.input.activePointer.y);
 
+        // Só funciona se o cachorro estiver com espuma
         if (gameState.cachorro.texture.key !== "dogEspuma") {
             this.tempoSecando = 0;
             return;
         }
 
+        // Calcula distância até o cachorro
         const distX = Math.abs(gameState.toalha.x - gameState.cachorro.x);
         const distY = Math.abs(gameState.toalha.y - gameState.cachorro.y);
 
+        // Se toalha está próxima, acumula tempo de secagem
         if (distX < 200 && distY < 250) {
             this.tempoSecando += 1;
             if (this.tempoSecando >= 90) {
+                // Troca textura para cachorro limpo
                 gameState.cachorro.setTexture("dogLimpo");
                 gameState.cachorro.play("dogLimpoAnim");
                 this.tempoSecando = 0;
@@ -257,6 +295,7 @@ export class cenaBanho extends Phaser.Scene {
         this.tempoSecando = 0;
     }
 
+    // Cria bolha de sabão
     criarBolha() {
         const x = Phaser.Math.RND.between(700, 830);
         const y = Phaser.Math.RND.between(280, 600);
@@ -272,6 +311,7 @@ export class cenaBanho extends Phaser.Scene {
         this.quantidadeEspuma += 1;
     }
 
+    // Cria gota de água
     criarGota() {
         const x = gameState.chuveiro.x;
         const y = gameState.chuveiro.y + gameState.chuveiro.displayHeight / 2;
@@ -288,6 +328,7 @@ export class cenaBanho extends Phaser.Scene {
         gota.body.setVelocityY(100);
     }
 
+    // Remove gotas que saíram da tela
     limparGotas() {
         gameState.gotas.children.iterate((gota) => {
             if (!gota || !gota.active) return;
@@ -298,6 +339,7 @@ export class cenaBanho extends Phaser.Scene {
         });
     }
 
+    // Recicla objetos (bolhas/gotas) para reaproveitar memória
     reciclarObjeto(objeto) {
         if (!objeto) return;
 

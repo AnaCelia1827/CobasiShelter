@@ -1,8 +1,8 @@
-
+// Importa todas as cenas e componentes do jogo
 import { cenaInicial } from "./Cenas/cenaInicial.js";
 import { cenaBanho } from "./Cenas/cenaBanho.js";
 import { cenaConfiguracoes } from "./Cenas/cenaConfiguracoes.js";
-import { cenaComida} from "./Cenas/cenaComida.js";
+import { cenaComida } from "./Cenas/cenaComida.js";
 import { cenaPrincipal } from "./Cenas/cenaPrincipal.js";
 import { cenaHUD } from "./componentes/cenaHUD.js";
 import { cenaCuidado } from "./Cenas/cenaCuidado.js";
@@ -10,37 +10,45 @@ import { jogoRacao } from "./Cenas/jogoRacao.js";
 import { ficha } from "./componentes/ficha.js";
 import { cenaCarregamento } from "./Cenas/cenaCarregamento.js";
 
+// Objeto global para armazenar estados do jogo (música, ferramentas, cachorro, etc.)
 export let gameState = {};
 
+// Configuração principal do Phaser
 const config = {
-    type: Phaser.AUTO,
-    width: window.innerWidth,
-    height: window.innerHeight,
+    type: Phaser.AUTO, // Phaser escolhe automaticamente entre WebGL ou Canvas
+    width: window.innerWidth,  // Largura da tela = largura da janela
+    height: window.innerHeight, // Altura da tela = altura da janela
+
+    // Configuração de áudio
     audio: {
-        disableWebAudio: false,
-        noAudio: false
+        disableWebAudio: false, // Permite usar WebAudio
+        noAudio: false          // Garante que o áudio esteja habilitado
     },
+
+    // Configuração de física
     physics: {
-        default: "arcade",
+        default: "arcade", // Usa o motor de física Arcade (mais simples e leve)
 
         arcade: {
-            gravity: { y: 0 },
-            debug: false
+            gravity: { y: 0 }, // Sem gravidade (objetos não caem automaticamente)
+            debug: false       // Desativa visualização de colisões e corpos físicos
         }
     },
+
+    // Lista de cenas que compõem o jogo
     scene: [
-        cenaCarregamento,
-        cenaInicial,
-        cenaConfiguracoes,
-        cenaBanho,
-        cenaComida,
-        cenaCuidado,
-        cenaPrincipal,
-        jogoRacao,
-        cenaHUD,
-        ficha
+        cenaCarregamento,   // Tela de carregamento inicial
+        cenaInicial,        // Tela inicial (menu principal)
+        cenaConfiguracoes,  // Tela de configurações
+        cenaBanho,          // Minijogo de banho do cachorro
+        cenaComida,         // Cena de alimentação
+        cenaCuidado,        // Cena de cuidados gerais
+        cenaPrincipal,      // Cena principal (provavelmente hub do jogo)
+        jogoRacao,          // Minijogo de escolha de ração
+        cenaHUD,            // HUD (interface sobreposta)
+        ficha               // Ficha informativa do cachorro
     ]
 };
 
+// Inicializa o jogo com a configuração definida
 new Phaser.Game(config);
-
