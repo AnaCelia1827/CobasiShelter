@@ -4,6 +4,7 @@ import { cenaBanho } from "./Cenas/cenaBanho.js";
 import { cenaConfiguracoes } from "./Cenas/cenaConfiguracoes.js";
 import { cenaComida } from "./Cenas/cenaComida.js";
 import { cenaPrincipal } from "./Cenas/cenaPrincipal.js";
+import { jogoLazer } from "./Cenas/jogoLazer.js";
 import { cenaHUD } from "./componentes/cenaHUD.js";
 import { cenaCuidado } from "./Cenas/cenaCuidado.js";
 import { jogoRacao } from "./Cenas/jogoRacao.js";
@@ -46,6 +47,7 @@ const config = {
         cenaPrincipal,      // Cena principal (provavelmente hub do jogo)
         jogoRacao,          // Minijogo de escolha de ração
         cenaHUD,            // HUD (interface sobreposta)
+        jogoLazer,
         ficha               // Ficha informativa do cachorro
     ]
 };

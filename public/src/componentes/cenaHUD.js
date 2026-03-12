@@ -37,7 +37,7 @@ export class cenaHUD extends Phaser.Scene {
         criarBotao(0, "iconeBanho", "cenaBanho");         // Botão para cena de banho
         criarBotao(1, "iconeRacao", "cenaComida");        // Botão para cena de comida
         criarBotao(2, "iconeCuidados", "cenaCuidado");    // Botão para cena de cuidados
-        criarBotao(3, "iconeLazer", "cenaPrincipal");     // Botão para cena principal/lazer
+        criarBotao(3, "iconeLazer", "jogoLazer");     // Botão para cena principal/lazer
         criarBotao(4, "iconeVoltar", "cenaInicial");      // Botão para voltar ao menu inicial
     }
 
