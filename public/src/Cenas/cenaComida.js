@@ -9,13 +9,13 @@ export class cenaComida extends Phaser.Scene {
     create() {
         this.transicao = false;
 
-        if (!this.scene.isActive("CenaHUD")) {
-            this.scene.launch("CenaHUD");
-        } else if (this.scene.isSleeping("CenaHUD")) {
-            this.scene.wake("CenaHUD");
+        if (!this.scene.isActive("cenaHUD")) {
+            this.scene.launch("cenaHUD");
+        } else if (this.scene.isSleeping("cenaHUD")) {
+            this.scene.wake("cenaHUD");
         }
 
-        this.scene.bringToTop("CenaHUD");
+        this.scene.bringToTop("cenaHUD");
         this.preCarregarTexturasRacao();
 
         const passarPressionarEfeito = (alvo, escalaNormal, escalaPassar) => {
@@ -66,7 +66,7 @@ export class cenaComida extends Phaser.Scene {
             this.transicao = true;
             this.cameras.main.fadeOut(100, 0, 0, 0);
             this.cameras.main.once("camerafadeoutcomplete", () => {
-                this.scene.start("JogoRacao");
+                this.scene.start("jogoRacao");
             });
         });
 
@@ -78,19 +78,19 @@ export class cenaComida extends Phaser.Scene {
         passarPressionarEfeito(bilhete, 0.1, 0.13);
 
         bilhete.on("pointerdown", () => {
-            if (this.scene.isActive("Ficha")) {
-                this.scene.stop("Ficha");
+            if (this.scene.isActive("ficha")) {
+                this.scene.stop("ficha");
                 return;
             }
 
-            this.scene.launch("Ficha");
+            this.scene.launch("ficha");
             this.scene.bringToTop("Ficha");
-            this.scene.bringToTop("CenaHUD");
+            this.scene.bringToTop("cenaHUD");
         });
 
         this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-            if (this.scene.isActive("Ficha")) {
-                this.scene.stop("Ficha");
+            if (this.scene.isActive("ficha")) {
+                this.scene.stop("ficha");
             }
         });
     }

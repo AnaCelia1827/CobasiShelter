@@ -18,12 +18,12 @@ export class cenaBanho extends Phaser.Scene {
     }
 
     create() {
-        if (!this.scene.isActive("CenaHUD")) {
-            this.scene.launch("CenaHUD");
-        } else if (this.scene.isSleeping("CenaHUD")) {
-            this.scene.wake("CenaHUD");
+        if (!this.scene.isActive("cenaHUD")) {
+            this.scene.launch("cenaHUD");
+        } else if (this.scene.isSleeping("cenaHUD")) {
+            this.scene.wake("cenaHUD");
         }
-        this.scene.bringToTop("CenaHUD");
+        this.scene.bringToTop("cenaHUD");
 
         this.ferramentaAtiva = null;
         this.acumuladorAgua = 0;
