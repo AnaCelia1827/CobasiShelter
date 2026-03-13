@@ -1,4 +1,4 @@
-
+import{ jogoAlimentacao } from "./Cenas/jogoAlimentacao.js";
 import { cenaInicial } from "./Cenas/cenaInicial.js";
 import { cenaBanho } from "./Cenas/cenaBanho.js";
 import { cenaConfiguracoes } from "./Cenas/cenaConfiguracoes.js";
@@ -50,6 +50,7 @@ const config = {
         cenaCarregamento,   // Tela de carregamento inicial
         cenaInicial,        // Tela inicial (menu principal)
         cenaTutorial,
+        jogoAlimentacao,
         cenaConfiguracoes,  // Tela de configurações
         cenaBanho,          // Minijogo de banho do cachorro
         cenaComida,         // Cena de alimentação

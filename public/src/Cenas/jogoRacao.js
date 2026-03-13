@@ -12,6 +12,7 @@ import {
 
 import { Racao } from "../componentes/controleRacoes/racoes.js";
 import { cachorroGeral } from "../componentes/controleCachorro/cachorroGeral.js";
+import { jogoAlimentacao } from "./jogoAlimentacao.js";
 
 export class jogoRacao extends Phaser.Scene {
 
@@ -175,6 +176,7 @@ CACHORRO.`
                 );
 
                 this.time.delayedCall(2000, () => {
+                    this.scene.start("jogoAlimentacao");
 
                     console.log("beta");
 
