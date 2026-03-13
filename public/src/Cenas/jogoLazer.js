@@ -35,7 +35,7 @@ export class jogoLazer extends Phaser.Scene {
         this.cachorro.sprite.body.immovable = true;
 
         // Objeto que será lançado
-        this.objeto = this.physics.add.image(200, 500, "estanteVazia")
+        this.objeto = this.physics.add.image(200, 500, "bolaLaranja")
             .setScale(0.2)
             .setCollideWorldBounds(false);
 

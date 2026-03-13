@@ -3,6 +3,7 @@ import { Cachorro } from "../componentes/controleCachorro/cachorroAnimacao.js";
 
 // Define a cena "cenaComida"
 export class cenaComida extends Phaser.Scene {
+    
     constructor() {
         super({ key: "cenaComida" });
         this.transicao = false; // Flag para evitar múltiplas transições de cena

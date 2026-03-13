@@ -1,3 +1,4 @@
+
 // Importa o objeto cachorroGeral, que contém informações globais sobre o pet
 import { cachorroGeral } from "./cachorroGeral.js"
 
@@ -66,3 +67,4 @@ export class Cachorro {
     }
   }
 }
+

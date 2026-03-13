@@ -1,37 +1,46 @@
-// Importa o estado global do cachorro
-import { cachorroGeral } from "../controleCachorro/cachorroGeral.js";
+
 
 export class Racao {
+
+    static selecionada = null;
+
     constructor(scene, x, y, dados) {
+
         this.scene = scene;
 
-        // Informações da ração recebidas pelo parâmetro "dados"
-        this.nome = dados.nome;          // Nome da ração
-        this.fome = dados.fome;          // (Provavelmente usado para reduzir a fome do pet)
-        this.descricao = dados.descricao;// Texto explicativo da ração
-        this.id = dados.id;              // Identificador único da ração
+        this.nome = dados.nome;
+        this.idade = dados.idade;
+        
+        this.ingredientes = dados.ingredientes;
 
-        // OTIMIZAÇÃO: define tamanho fixo para o sprite da ração
-        // Isso desacopla o layout da resolução da textura e permite usar arquivos menores
-        this.sprite = scene.add.image(x, y, dados.sprite)
-            .setDisplaySize(144, 209)    // Define tamanho fixo
-            .setInteractive({ useHandCursor: true }); // Torna o sprite interativo (clicável)
+        this.exemplos = dados.exemplos;
+        this.descricao = dados.descricao;
+        this.id = dados.id;
 
-        // Evento de clique na ração
+        this.sprite = scene.add
+            .image(x, y, dados.sprite)
+            .setDisplaySize(144, 209)
+            .setInteractive({ useHandCursor: true });
+
         this.sprite.on("pointerdown", () => {
-            const pet = cachorroGeral.pet; // Acessa o estado global do cachorro
 
-            // Verifica se a ração corresponde ao ID do cachorro
-            if (pet.id === this.id) {
-                console.log(pet.id);       // Mostra ID do cachorro
-                console.log(this.id);      // Mostra ID da ração
-                console.log("racao correta"); // Mensagem de acerto
-            } else {
-                console.log("errado");     // Mensagem de erro
+            // remove destaque da anterior
+            if (Racao.selecionada) {
+                Racao.selecionada.sprite.clearTint();
             }
+            // seleciona atual
+            Racao.selecionada = this;
+
+            // destaque amarelo
+            this.sprite.setTint(0xffff00);
+
+            // atualiza painel
+            if (scene.atualizarPainel) {
+                scene.atualizarPainel(this);
+            }
+
         });
+
     }
 
-    // Método futuro para mostrar informações detalhadas da ração
-    mostrarInfo() {}
 }

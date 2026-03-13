@@ -78,3 +78,4 @@ export const racaoPequenaFilhote = {
   ingredientes: ["Proteínas de origem animal (frango/carne)", "Óleos ricos em ácidos graxos essenciais (ômega 3 e 6)", "Fibras naturais para digestão", "Vitaminas e minerais balanceados", "Sem corantes ou aromatizantes artificiais"],
   sprite: "racaoPF"
 }
+

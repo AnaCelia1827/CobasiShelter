@@ -1,4 +1,3 @@
-// Importa os dados das rações (cada tipo de ração com suas informações)
 import {
     racaoGrandeFilhote,
     racaoGrandeAdulto,
@@ -6,92 +5,198 @@ import {
     racaoMediaAdulto,
     racaoMediaFilhote,
     racaoMediaSenior,
-    racaoPequenaSenior,
     racaoPequenaAdulto,
-    racaoPequenaFilhote
+    racaoPequenaFilhote,
+    racaoPequenaSenior
 } from "../componentes/controleRacoes/dadosRacoes.js";
 
-// Importa a classe Racao, responsável por criar os objetos de ração na cena
 import { Racao } from "../componentes/controleRacoes/racoes.js";
+import { cachorroGeral } from "../componentes/controleCachorro/cachorroGeral.js";
 
-// Define a cena "jogoRacao", que é o minijogo de escolha de ração
 export class jogoRacao extends Phaser.Scene {
+
     constructor() {
         super({ key: "jogoRacao" });
     }
 
     create() {
-        // Se a HUD estiver ativa, coloca ela em "sleep" para não interferir
+
+        // desativa HUD
         if (this.scene.isActive("cenaHUD")) {
             this.scene.sleep("cenaHUD");
         }
 
-        // Função utilitária para aplicar efeitos visuais ao passar/clicar em botões
-        const passarPressionarEfeito = (alvo, escalaNormal, escalaPassar) => {
-            // Ao passar o mouse → aumenta escala
-            alvo.on("pointerover", () => {
+        // efeito hover
+        const hoverPressEffect = (target, scaleNormal, scaleHover) => {
+
+            target.on("pointerover", () => {
                 this.tweens.add({
-                    targets: alvo,
-                    scaleX: escalaPassar,
-                    scaleY: escalaPassar,
-                    duration: 200,
-                    ease: "Power2"
+                    targets: target,
+                    scaleX: scaleHover,
+                    scaleY: scaleHover,
+                    duration: 200
                 });
             });
 
-            // Ao clicar → reduz escala temporariamente (efeito de pressão)
-            alvo.on("pointerdown", () => {
+            target.on("pointerdown", () => {
                 this.tweens.add({
-                    targets: alvo,
-                    scaleX: 0.45,
-                    scaleY: 0.45,
-                    duration: 180,
-                    ease: "Power2",
-                    yoyo: true // volta ao tamanho original
+                    targets: target,
+                    scaleX: scaleNormal * 0.9,
+                    scaleY: scaleNormal * 0.9,
+                    duration: 150,
+                    yoyo: true
                 });
             });
 
-            // Ao retirar o mouse → volta para escala normal
-            alvo.on("pointerout", () => {
+            target.on("pointerout", () => {
                 this.tweens.add({
-                    targets: alvo,
-                    scaleX: escalaNormal,
-                    scaleY: escalaNormal,
-                    duration: 200,
-                    ease: "Power2"
+                    targets: target,
+                    scaleX: scaleNormal,
+                    scaleY: scaleNormal,
+                    duration: 200
                 });
             });
         };
 
-        // Fundo da cena (imagem limpa)
+        // FUNDO
         this.add
-            .image(this.scale.width / 2, this.scale.height / 2, "bgLimpo")
-            .setDisplaySize(this.scale.width, this.scale.height)
-            .setDepth(-1);
+        .image(this.scale.width / 2, this.scale.height / 2, "bgLimpo")
+        .setDisplaySize(this.scale.width, this.scale.height)
+        .setDepth(-1);
 
-        // Botão de voltar para cena de alimentação
-        const voltar = this.add.image(100, 100, "botaoVoltar").setScale(0.01).setInteractive({ useHandCursor: true });
-        passarPressionarEfeito(voltar, 0.01, 0.012);
+        // BOTÃO VOLTAR
+        const voltar = this.add
+        .image(100, 100, "botaoVoltar")
+        .setScale(0.01)
+        .setInteractive({ useHandCursor: true });
+
+        hoverPressEffect(voltar, 0.01, 0.012);
 
         voltar.on("pointerdown", () => {
-            // Ao voltar, reativa HUD se estiver em sleep
+
             if (this.scene.isSleeping("cenaHUD")) {
                 this.scene.wake("cenaHUD");
             }
-            // Vai para cena de alimentação
-            this.scene.start("cenaAlimentacao");
+
+            this.scene.start("cenaComida");
+
         });
 
-        // Estante vazia como fundo decorativo
-        this.add.image(500, 500, "estanteVazia").setScale(1.3).setDepth(-1);
+        // ESTANTE
+        this.add
+        .image(500, 500, "estanteVazia")
+        .setScale(1.3)
+        .setDepth(-1);
 
-        // Criação das rações (cada uma é um objeto da classe Racao)
+        // RAÇÕES
         this.r1 = new Racao(this, 300, 300, racaoGrandeAdulto);
         this.r2 = new Racao(this, 500, 300, racaoGrandeFilhote);
         this.r3 = new Racao(this, 700, 300, racaoGrandeSenior);
+
         this.r4 = new Racao(this, 300, 500, racaoMediaAdulto);
         this.r5 = new Racao(this, 500, 500, racaoMediaFilhote);
         this.r6 = new Racao(this, 700, 500, racaoMediaSenior);
 
+        this.r7 = new Racao(this, 300, 700, racaoPequenaAdulto);
+        this.r8 = new Racao(this, 500, 700, racaoPequenaFilhote);
+        this.r9 = new Racao(this, 700, 700, racaoPequenaSenior);
+
+        const pet = cachorroGeral.pet;
+
+        // PAINEL
+        const painel = this.add.container(1100, 400);
+
+        const fundo = this.add.graphics();
+
+        fundo.fillStyle(0xffffff, 1);
+        fundo.lineStyle(6, 0xff7a00);
+
+       
+
+        fundo.strokeRoundedRect(-250, -300, 600, 700, 20);
+        fundo.fillRoundedRect(-250, -300, 600, 700, 20);
+
+        // TEXTO CENTRALIZADO
+      const mensagem = this.add.text(50, 20, "Selecione uma ração.", {
+    fontFamily: '"Press Start 2P"',
+    fontSize: "18px",
+    color: "#000",
+    align: "center",
+    wordWrap: { width: 500 }
+})
+.setOrigin(0.5);
+
+        // FUNÇÃO QUE ATUALIZA O PAINEL
+        this.atualizarPainel = (racao) => {
+
+            mensagem.setText(
+
+`RAÇÃO SELECIONADA
+
+${racao.nome}
+
+${racao.descricao}`
+
+            );
+        };
+
+        // BOTÃO VERIFICAR
+        const verificar = this.add.text(0, 300, "VERIFICAR", {
+            fontFamily: '"Press Start 2P"',
+            fontSize: "18px",
+            backgroundColor: "#ffa500",
+            color: "#ffffff",
+            padding: { x: 25, y: 12 }
+        })
+        .setOrigin(0.5)
+        .setInteractive();
+
+        verificar.on("pointerdown", () => {
+
+            const racao = Racao.selecionada;
+
+            if (!racao) {
+
+                mensagem.setText("FALTA SELECIONAR UMA RAÇÃO.");
+                return;
+
+            }
+
+            if (racao.id === pet.id) {
+
+                mensagem.setText(
+
+`ACERTOU!
+
+ESSA É A RAÇÃO
+IDEAL PARA O
+CACHORRO.`
+
+                );
+
+                this.time.delayedCall(2000, () => {
+
+                    console.log("beta");
+
+                });
+
+            } else {
+
+                mensagem.setText(
+
+`ESSA RAÇÃO NÃO É IDEAL.
+
+ESCOLHA OUTRA
+RAÇÃO.`
+
+                );
+
+            }
+
+        });
+
+        painel.add([fundo, mensagem, verificar]);
+
     }
+
 }

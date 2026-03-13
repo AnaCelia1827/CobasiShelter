@@ -1,3 +1,5 @@
+import { gameState } from "../main.js";
+import { Barra } from "./Barras/barras.js";
 export class cenaHUD extends Phaser.Scene {
     constructor() {
         super({ key: "cenaHUD" });
@@ -13,6 +15,20 @@ export class cenaHUD extends Phaser.Scene {
         const centroY = this.scale.height / 2;              // Centro vertical da tela
         const topoY = Math.max(100, this.scale.height * 0.12); // Posição inicial dos botões
         const espaco = Math.max(90, this.scale.height * 0.18); // Espaçamento entre botões
+
+
+
+        this.add.image(100, 100, "iconeFome").setScale(1.5);
+        this.barraComida = new Barra(this, 230, 100, gameState.barras.comida);
+
+        this.add.image(100, 160, "iconeFelicidade").setScale(1.5);
+        this.barraLazer = new Barra(this, 230, 160, gameState.barras.lazer);
+
+        this.add.image(100, 220, "iconeSujeira").setScale(1.5);
+        this.barraLimpeza = new Barra(this, 230, 220, gameState.barras.limpeza);
+
+        this.add.image(100, 280, "iconeSaude").setScale(1.5);
+        this.barraSaude = new Barra(this, 230, 280, gameState.barras.saude);
 
         // Cria o retângulo branco que serve de fundo para o painel
         this.add
@@ -96,4 +112,16 @@ export class cenaHUD extends Phaser.Scene {
             this.transicao = false;
         });
     }
+
+     update() {
+    this.barraComida.valor  = gameState.barras.comida;
+    this.barraLazer.valor   = gameState.barras.felicidade;  
+    this.barraLimpeza.valor =  gameState.barras.limpeza; 
+    this.barraSaude.valor   = gameState.barras.saude;
+
+    this.barraComida.atualizarBarra();
+    this.barraLazer.atualizarBarra();
+    this.barraLimpeza.atualizarBarra();
+    this.barraSaude.atualizarBarra();
+}
 }
