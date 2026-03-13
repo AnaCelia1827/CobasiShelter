@@ -7,6 +7,7 @@ export class cenaCarregamento extends Phaser.Scene {
     preload() {
         // Tela Inicial
         this.load.image("bgInical", "assets/tela-inicial/bgInicial.png");
+        this.load.image("bgPrincipal", "assets/bgPrincipal.png");
         this.load.image("botaoJogarNormal", "assets/tela-inicial/botaoJogarNormal.png");
         this.load.image("botaoJogarCrescendo", "assets/tela-inicial/botaoJogarCrescendo.png");
         this.load.image("botaoJogarPressionado", "assets/tela-inicial/botaoJogarPressionado.png");
@@ -22,6 +23,21 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("configuracoes", "assets/tela-configuracoes/configuracoes.png");
         this.load.image("botaoOff", "assets/tela-configuracoes/botaoOff.png");
         this.load.image("botaoOn", "assets/tela-configuracoes/botaoOn.png");
+
+
+
+
+         //icons de barras
+        this.load.image("iconeFome", "assets/Icones/iconeFome.png");
+        this.load.image("iconeFelicidade", "assets/Icones/iconeFelicidade.png");
+        this.load.image("iconeSaude", "assets/Icones/iconeSaude.png");
+        this.load.image("iconeSujeira", "assets/Icones/iconeSujeira.png");
+
+
+         this.load.spritesheet("barra", "assets/Icones/BarraStatus.png", {
+            frameWidth: 144,
+            frameHeight: 32
+        });
         
         // HUD
         this.load.image("iconeBanho", "assets/iconeBanho.png");
@@ -32,12 +48,12 @@ export class cenaCarregamento extends Phaser.Scene {
 
         // Tela Cuidado
         this.load.image("bgCuidado", "assets/tela-cuidado/bgCuidado.png");
-        this.load.image("pulga", "assets/tela-cuidado/pulga.png");
+        this.load.spritesheet("pulga", "assets/tela-cuidado/pulga.png",{frameWidth:300, frameHeight: 300});
 
         // Cenas de gameplay
         this.load.image("bgRacao", "assets/tela-alimentacao/bgRacao.png");
         this.load.image("bgLimpo", "assets/bgLimpo.png");
-        this.load.image("bgGameScene", "assets/bgGameScene.png");
+       
         
         this.load.image("bgBanheiro", "assets/tela-banho/bgBanheiro.png");
         this.load.image("estanteVazia", "assets/tela-alimentacao/estanteVazia.png");

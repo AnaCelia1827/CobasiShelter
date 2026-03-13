@@ -2,90 +2,110 @@ import { cachorroGeral } from "./controleCachorro/cachorroGeral.js";
 import { Racao } from "./controleRacoes/racoes.js";
 
 export class Descricao extends Phaser.Scene {
-    constructor() {
-        super({ key: "Descricao" });
-    }
 
-    create() {
-        const pet = cachorroGeral.pet;
-        const racao = Racao.pet;
+constructor(){
+super({ key:"Descricao" })
+}
 
-        const painel = this.add.container(this.scale.width * 0.75, this.scale.height * 0.5);
+create(){
 
-        // caixa com borda laranja
-        const fundo = this.add.graphics();
-        fundo.fillStyle(0xffffff, 1);
-        fundo.lineStyle(6, 0xff7a00);
-        fundo.strokeRoundedRect(-200, -150, 400, 300, 20);
-        fundo.fillRoundedRect(-200, -150, 400, 300, 20);
+const pet = cachorroGeral.pet
 
-        // texto de feedback
-        const mensagem = this.add.text(-180, -120, "", {
-            fontFamily: '"Press Start 2P"',
-            fontSize: "12px",
-            color: "#000",
-            wordWrap: { width: 360 }
-        });
+const painel = this.add.container(
+this.scale.width * 0.5,
+this.scale.height * 0.5
+)
 
-        painel.add([fundo, mensagem]);
 
-        // botão verificar
-        const verificar = this.add.text(this.scale.width * 0.75, this.scale.height * 0.75, "Verificar", {
-            fontFamily: '"Press Start 2P"',
-            fontSize: "14px",
-            backgroundColor: "#ffa500",
-            color: "#000",
-            padding: { x: 10, y: 5 }
-        })
-        .setOrigin(0.5)
-        .setInteractive();
+// FUNDO
+const fundo = this.add.graphics()
 
-        verificar.on("pointerdown", () => {
+fundo.fillStyle(0xffffff,1)
+fundo.lineStyle(6,0xff7a00)
 
-            const racaoEscolhida = Racao.pet;
+fundo.strokeRoundedRect(-260,-180,520,360,20)
+fundo.fillRoundedRect(-260,-180,520,360,20)
 
-            if (!racaoEscolhida) {
-                mensagem.setText("Falta selecionar uma ração.");
-                return;
-            }
 
-            // mostra info da ração
-            mensagem.setText(
-                `Ração selecionada:
-Porte: ${racaoEscolhida.porte}
-Idade: ${racaoEscolhida.idade}`
-            );
+// TITULO
+const titulo = this.add.text(0,-140,"INFORMAÇÕES",{
+fontFamily:'"Press Start 2P"',
+fontSize:"20px",
+color:"#ff7a00"
+})
+.setOrigin(0.5)
 
-            // verifica se é correta
-            if (
-                racaoEscolhida.porte === pet.porte &&
-                racaoEscolhida.idade === pet.idade
-            ) {
 
-                mensagem.setText(
-                    "Acertou! Essa é a ração ideal para o cachorro."
-                );
+// TEXTO (ALINHADO À ESQUERDA)
+const mensagem = this.add.text(-220,-40,"Clique em verificar para analisar a ração.",{
+fontFamily:'"Press Start 2P"',
+fontSize:"16px",
+color:"#000000",
+align:"left",
+wordWrap:{width:440}
+})
+.setOrigin(0,0.5)
 
-              
 
-            } else {
+// BOTÃO CENTRALIZADO NO PAINEL
+const verificar = this.add.text(
+0,
+120,
+"VERIFICAR",
+{
+fontFamily:'"Press Start 2P"',
+fontSize:"18px",
+backgroundColor:"#ffa500",
+color:"#000",
+padding:{x:15,y:8}
+})
+.setOrigin(0.5)
+.setInteractive()
 
-                mensagem.setText(
-`Essa ração não é ideal.
 
-Cachorro:
-Porte: ${pet.porte}
-Idade: ${pet.idade}
 
-Ração escolhida:
-Porte: ${racaoEscolhida.porte}
-Idade: ${racaoEscolhida.idade}
+verificar.on("pointerdown",()=>{
 
-Escolha outra ração.`
-                );
+const racaoEscolhida = Racao.pet
 
-            }
+if(!racaoEscolhida){
 
-        });
-    }
+mensagem.setText(
+"FALTA SELECIONAR UMA RAÇÃO."
+)
+
+return
+}
+
+if(
+racaoEscolhida.id === pet.id
+){
+
+mensagem.setText(
+`ACERTOU!
+
+ESSA É A RAÇÃO IDEAL
+PARA O CACHORRO.
+
+PORTE: ${pet.porte}
+IDADE: ${pet.idade}`
+)
+
+}else{
+
+mensagem.setText(
+`ESSA RAÇÃO NÃO É IDEAL.
+
+ESCOLHA OUTRA RAÇÃO.`
+)
+
+}
+
+})
+
+
+painel.add([fundo,titulo,mensagem,verificar])
+
+}
+
 }

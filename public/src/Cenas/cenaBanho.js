@@ -287,6 +287,12 @@ export class cenaBanho extends Phaser.Scene {
                 // Troca textura para cachorro limpo
                 gameState.cachorro.setTexture("dogLimpo");
                 gameState.cachorro.play("dogLimpoAnim");
+
+                
+                  gameState.barras.limpeza = Phaser.Math.Clamp(
+              gameState.barras.limpeza -3, 0, 11
+            );
+               
                 this.tempoSecando = 0;
             }
             return;

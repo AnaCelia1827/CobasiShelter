@@ -7,12 +7,12 @@ export class Barra {
     }
 
     atualizarBarra() {
-        this.valor = Phaser.Math.Clamp(this.valor, 0, 9);
+        this.valor = Phaser.Math.Clamp(this.valor, 0, 10);
         this.sprite.setFrame(Math.floor(this.valor));
     }
 
     alterar(delta) {
-        this.valor = Phaser.Math.Clamp(this.valor + delta, 0, 9);
+        this.valor = Phaser.Math.Clamp(this.valor + delta, 0, 10);
         this.atualizarBarra();
     }
 }

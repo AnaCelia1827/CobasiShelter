@@ -18,7 +18,7 @@ export let gameState = {
         comida:  11,
         lazer:   11,
         limpeza: 11,
-        saude:    11,
+        saude: 11
     }
 };
 
