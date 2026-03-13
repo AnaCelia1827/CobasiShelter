@@ -186,20 +186,32 @@ Valter Lucas Garcia de Lima
 ## 1.2. Requisitos do Projeto
 
 *Os requisitos do projeto foram definidos para estruturar a experiência do jogador a partir da mecânica central de cuidado com animais domésticos, garantindo alinhamento entre jogabilidade e propósito social. O jogo deverá possuir gatos e cães como espécies principais, delimitando o universo temático e aproximando a experiência da realidade dos animais mais adotados. Essa escolha fortalece a proposta de conscientização sobre responsabilidade no cuidado e na adoção.*
-\# | Quadro 1- Requisitos do projeto
+\# | Quadro 1- Requisitos Funcionais do projeto
 --- | --- 
 1 | O jogo deve possuir gatos e cães como animais.
 2 | A tela inicial do jogo irá possuír botões de "Jogar", "Tutorial", "Sair" e uma engrenagem para alterar configurações.
 3 | O jogador deve tratar do animal (realizando suas necessidades como lavar, alimentar, medicar, brincar, etc.) a fim de progredir no jogo.
-4 | O jogo terá como mecânica principal o cuidado com os animais. Ao começar uma fase, animais descuidados aparecerão para o jogador tratar. 
+4 | A mecânica principal deve ser o cuidado com os animais, com animais descuidados aparecendo nas fases. 
 5 | Em certo momento do jogo, o jogador se depará com um animal totalmente limpo e não precisará tratar, esse animal conterá uma mensagem junto a ele conscientizando sobre a devolução de animais adotados.
-6 | O Jogo terá cenários para cada tipo de tratamento (ex: área de alimentação).
-7 | O jogo terá indicação visual no mouse para áreas interativas.
-8 | O jogador ganhará moedas ao tratar animais as quais podem ser usadas para melhorias.
-9 | O jogo deverá possuir uma Cena de Banho, onde o jogador poderá remover sujeira, lama e parasitas do animal através de interações como esfregar, enxaguar e aplicar shampoo.
-10 | A Cena de Banho deverá conter feedback visual (espuma, água escorrendo, animal reagindo positivamente ao ficar limpo).
-11 | O animal só será limpo após uma certa quantidade de sabão ser aplicado sobre o mesmo.
-12 | O jogador deverá ensaboar, enxaguar e secar o animal afim de completar o processo de limpeza.
+6 | O Jogo deve possuir cenários específicos para cada tipo de tratamento (ex: área de alimentação)
+7 | O jogador ganhará moedas ao tratar animais as quais podem ser usadas para melhorias.
+8 | O jogo deverá possuir uma Cena de Banho, onde o jogador poderá remover sujeira, lama e parasitas do animal através de interações como esfregar, enxaguar e aplicar shampoo.
+9 | O animal só será limpo após uma certa quantidade de sabão ser aplicado sobre o mesmo.
+10 | O jogador deverá ensaboar, enxaguar e secar o animal afim de completar o processo de limpeza.
+
+\# | **Quadro 2- Requisitos Não Funcionais do projeto**
+--- | ---
+1 | O jogo deve possuir indicação visual no mouse para áreas interativas.
+2 | A cena de Banho deve conter feedback visual (espuma, água escorrendo, reação positiva do animal).
+
+**Requisitos Funcionais:** São os requisitos que o sistema faz.
+Descrevem as funcionalidades, ações e comportamentos esperados.
+
+**Exemplo:** No requisito 3, o sistema deverá permitir que o jogador trate do animal, realizando ações como lavar, alimentar, medicar e brincar, com o objetivo de fazer o jogador progredir no jogo. Para isso, o sistema apresentará animais com diferentes necessidades e disponibilizará interações específicas para que o jogador resolva cada uma delas.
+
+**Requisitos Não Funcionais:** São os requisitos que descrevem como o sistema deve ser ou como ele deve funcionar, mas não são funcionalidades diretas.
+
+**Exemplo:** No requisito 10, a Cena de Banho deverá apresentar feedback visual durante as interações realizadas pelo jogador, permitindo que ele perceba claramente o progresso da limpeza do animal. Durante esse processo, ao aplicar sabão deverá surgir espuma sobre o animal, ao enxaguar deverão aparecer efeitos de água escorrendo e, conforme a sujeira for removida, o animal deverá demonstrar reações positivas, como expressões de satisfação ou mudanças em sua aparência.
 
 <div align="center">
   <p>Feito pela própia equipe(2026)</p>
@@ -221,7 +233,7 @@ Valter Lucas Garcia de Lima
 *O jogo tem como objetivo central promover o cuidado e o bem-estar dos animais, em especial dos cachorros, dentro do projeto Cobasi Cuida. A experiência é organizada em fases progressivas, cada uma apresentando novos desafios e diferentes perfis de cães, variando em raça, porte, idade e peso.*
 *O jogador assume o papel de cuidador responsável e, para avançar no jogo, precisa realizar uma série de atividades interativas por meio de minigames. Esses minigames simulam tarefas de cuidado, como encher o pote de ração, oferecer brinquedos, dar banho ou proporcionar momentos de lazer. Cada ação realizada contribui para o aumento da barra de felicidade, indicador visual que demonstra o nível de satisfação e bem-estar do animal.*
 
-*O progresso do jogador é medido pela sua capacidade de manter os cães felizes e saudáveis. A cada animal bem cuidado, o jogador recebe moedas virtuais como recompensa. Essas moedas desempenham um papel estratégico, pois permitem Comprar rações e equipamentos melhores, que facilitam os cuidados nas fases seguintes., Adquirir acessórios e itens de personalização, que tornam a experiência mais divertida e permitem enfeitar os animais, Desbloquear novos conteúdos e desafios, ampliando a diversidade de cães e atividades disponíveis.Assim, os objetivos do jogo se dividem em duas partes principais: o primeiro é garantir garantir o cuidado adequado dos animais, mantendo a barra de felicidade sempre elevado e o secundario é acumular moedas para investir em melhorias, acessórios e desbloqueios, tornando a jornada mais rica e recompensadora.*
+*O progresso do jogador é medido pela sua capacidade de manter os cães felizes e saudáveis. A cada animal bem cuidado, o jogador recebe moedas virtuais como recompensa. Essas moedas desempenham um papel estratégico, pois permitem Comprar rações e equipamentos melhores, que facilitam os cuidados nas fases seguintes. Adquirir acessórios e itens de personalização, que tornam a experiência mais divertida e permitem enfeitar os animais, desbloquear novos conteúdos e desafios, ampliando a diversidade de cães e atividades disponíveis.Assim, os objetivos do jogo se dividem em duas partes principais: o primeiro é garantir garantir o cuidado adequado dos animais, mantendo a barra de felicidade sempre elevado e o secundario é acumular moedas para investir em melhorias, acessórios e desbloqueios, tornando a jornada mais rica e recompensadora.*
 
 
 ## 2.2. Características do Jogo 
@@ -431,19 +443,73 @@ Fonte: material produzido pelos autores (2026).
 
 ## 3.6. Regras do jogo (sprint 3)
 
-*Descreva aqui as regras do seu jogo: objetivos/desafios, meios para se conseguir alcançar*
+O jogo é composto por diferentes **minigames** que simulam atividades de cuidado com animais domésticos. Em cada minigame, o jogador deve realizar determinadas ações para completar os desafios propostos. Ao concluir cada desafio com sucesso, o jogador recebe como recompensa Cobasi Coins, que representam o progresso dentro do jogo e incentivam a continuidade das atividades.
 
-*Ex. O jogador deve pilotar o carro e conseguir terminar a corrida dentro de um minuto sem bater em nenhum obstáculo.*
+No **minigame de banho**, o jogador deve limpar completamente o cachorro utilizando três ferramentas disponíveis: uma barra de sabão, um chuveiro e uma toalha. Para concluir o desafio, o jogador deve seguir corretamente a sequência das ações. Primeiro, deve aplicar o sabão sobre o animal, fazendo com que o cachorro fique coberto por espuma. Em seguida, deve utilizar o chuveiro para remover toda a espuma presente no animal. Após o enxágue completo, o cachorro ficará molhado, sendo necessário utilizar a toalha para secá-lo completamente. O minigame só é concluído quando o cachorro estiver totalmente limpo e seco. Após completar todas as etapas corretamente, o jogador recebe Cobasi Coins como recompensa.
 
-*Ex. O jogador deve concluir a fase dentro do tempo, para obter uma estrela. Se além disso ele coletar todas as moedas, ganha mais uma estrela. E se além disso ele coletar os três medalhões espalhados, ganha mais uma estrela, totalizando três. Ao final do jogo, obtendo três estrelas em todas as fases, desbloqueia o mundo secreto.*  
+No **minigame de alimentação**, o jogador deve controlar o cachorro para coletar apenas alimentos adequados, representados pelas rações que caem na tela. Durante a partida, também aparecem itens prejudiciais ao animal, como chocolate, que devem ser evitados. O jogador inicia o jogo com três vidas e perde uma vida sempre que coleta um item prejudicial. As rações são divididas em dois tipos: Standard, que concedem 10 pontos ao serem coletadas, e Super Premium, que concedem 25 pontos e ainda recuperam uma vida do jogador. O objetivo é atingir a marca de 200 pontos antes de perder todas as vidas. Caso o jogador perca as três vidas antes de alcançar essa pontuação, o minigame é encerrado. Ao completar o desafio e atingir a pontuação necessária, o jogador recebe Cobasi Coins como recompensa.
+
+No **minigame veterinário**, o jogador deve retirar todas as pulgas do animal utilizando uma pinça como ferramenta. O objetivo é remover todas as pulgas presentes no animal no menor tempo possível. O desempenho do jogador é avaliado por meio de um sistema de estrelas baseado no tempo de conclusão do desafio. Caso o jogador conclua o minigame em menos de 30 segundos, ele recebe três estrelas, indicando um desempenho excelente. Caso conclua entre 31 e 45 segundos, recebe duas estrelas, representando um bom desempenho. Caso leve mais de 45 segundos, recebe uma estrela, indicando que o nível foi concluído, porém com desempenho inferior. Após a conclusão do minigame, o jogador também recebe Cobasi Coins como recompensa.
+
+,0
 
 ## 3.7. Mecânicas do jogo (sprint 3)
 
-*Descreva aqui as formas de controle e interação que o jogador tem sobre o jogo: quais os comandos disponíveis, quais combinações de comandos, e quais as ações consequentes desses comandos. Utilize listas ou tabelas para organizar esta seção.*
+## 3.7.1 Detalhe das Mecânicas
 
-*Ex. Em um jogo de plataforma 2D para desktop, o jogador pode usar as teclas WASD para mecânicas de andar, mirar para cima, agachar, e as teclas JKL para atacar, correr, arremesar etc.*
+O jogo é composto por diferentes minigames que simulam atividades de cuidado com animais domésticos. Cada minigame apresenta mecânicas próprias que determinam como o jogador deve interagir com os elementos do jogo para completar os desafios propostos.
 
-*Ex. Em um jogo de puzzle para celular, o jogador pode tocar e arrastar sobre uma peça para movê-la sobre o tabuleiro, ou fazer um toque simples para rotacioná-la*
+De modo geral, o jogador interage com o jogo utilizando o mouse e o teclado, dependendo do tipo de atividade que está sendo realizada. Alguns minigames exigem o uso de ferramentas específicas para cuidar do animal, enquanto outros exigem movimentação e tomada de decisão rápida para alcançar o objetivo da fase.
+
+As mecânicas de cada minigame são apresentadas ao jogador no momento em que ele inicia a atividade, permitindo que ele compreenda facilmente como realizar as ações necessárias para concluir o desafio.
+
+## 3.7.2 Comandos disponíveis no **Minigame de Banho**
+
+Durante o minigame de banho, o jogador deverá limpar completamente o cachorro utilizando três ferramentas disponíveis: sabão, chuveiro e toalha. Para realizar as ações necessárias, o jogador utilizará apenas o mouse.
+
+Esse minigame possui as seguintes mecânicas:
+
+• Movimentação do mouse – movimentar o cursor pela tela para posicionar as ferramentas sobre o animal.
+
+• Botão direito do mouse (segurar) – permite que o jogador segure a ferramenta selecionada.
+
+• Arrastar o mouse sobre o animal – utilizar o objeto selecionado sobre o cachorro, passando o sabão, enxaguando com o chuveiro ou secando com a toalha.
+
+Para concluir o minigame, o jogador deverá utilizar corretamente as ferramentas e passar cada objeto por todo o corpo do animal até completar o processo de limpeza.
+
+## 3.7.3 Comandos disponíveis no **Minigame de Alimentação**
+
+Durante o minigame de alimentação, o jogador deverá controlar o cachorro para coletar apenas alimentos adequados, representados pelas rações que caem na tela, evitando itens prejudiciais como o chocolate.
+
+Esse minigame utiliza apenas o teclado para movimentação do personagem.
+
+As mecânicas são as seguintes:
+
+• Seta para a direita (→) – movimenta o cachorro para a direita.
+
+• Seta para a esquerda (←) – movimenta o cachorro para a esquerda.
+
+• Colisão com alimentos – ao encostar nas rações, o jogador acumula pontos.
+
+• Colisão com itens prejudiciais – ao encostar em itens como chocolate, o jogador perde uma vida.
+
+O objetivo do jogador é movimentar o animal corretamente para coletar as rações e evitar os itens prejudiciais até atingir a pontuação necessária para concluir o minigame.
+
+## 3.7.4 Comandos disponíveis no **Minigame Veterinário**
+
+No minigame veterinário, o jogador deverá remover as pulgas presentes no animal utilizando uma pinça como ferramenta. Para realizar essa atividade, o jogador utilizará apenas o mouse.
+
+Esse minigame possui as seguintes mecânicas:
+
+• Clique do mouse na pinça – permite que o jogador selecione e segure a ferramenta.
+
+• Movimentação do mouse – movimenta a pinça pela tela.
+
+• Clique do mouse sobre a pulga – remove a pulga do animal.
+
+• Clique duplo com o botão direito do mouse – solta a pinça.
+
+O objetivo do jogador é utilizar a pinça para remover todas as pulgas do animal o mais rápido possível, concluindo o desafio dentro do menor tempo possível.
 
 ## 3.8. Implementação Matemática de Animação/Movimento (sprint 4)
 
@@ -454,11 +520,11 @@ Fonte: material produzido pelos autores (2026).
 ## 4.1. Desenvolvimento preliminar do jogo 
  
 
- &ensp;*Durante a primeira fase de desenvolvimento, foram estabelecidas as prioridades do projeto, com foco na definição dos requisitos iniciais e na estruturação da narrativa principal. A equipe realizou sessões de brainstorming com o objetivo de consolidar a ideia central do jogo, definir suas mecânicas e organizar o escopo do sistema. A partir dessas definições, foi feita a organização inicial do software, com a implementação das primeiras funcionalidades e a distribuição de funções entre os membros da equipe, estabelecendo uma estrutura promissora para as próximas sprints.*
+ &ensp;*Durante a primeira fase de desenvolvimento, foram estabelecidas as prioridades do projeto com base nos requisitos funcionais definidos para o jogo, principalmente aqueles relacionados às mecânicas de cuidado com os animais (Requisitos 3 e 4). A equipe realizou sessões de brainstorming para consolidar a ideia central do jogo, definir como o jogador interagiria com os animais e estruturar o escopo do sistema. A partir dessas definições, foi feita a organização inicial do software, com a implementação das primeiras funcionalidades e a distribuição de funções entre os membros da equipe, estabelecendo uma estrutura promissora para as próximas sprints.*
 
-&ensp;*No desenvolvimento da narrativa, optou-se por um personagem principal que representa uma pessoa comum, aproximando o jogador da realidade proposta pelo jogo. As mecânicas centrais envolvem o resgate de animais e os cuidados prestados a eles, com o objetivo de sensibilizar o público quanto à importância da adoção responsável e de ensinar, de maneira lúdica e educativa, os cuidados necessários com os animais. Essa definição foi essencial para alinhar os elementos narrativos às funcionalidades técnicas implementadas.*
+&ensp;*No desenvolvimento da narrativa, optou-se por um personagem principal que representa uma pessoa comum, aproximando o jogador da realidade proposta pelo jogo. As mecânicas centrais envolvem o resgate e os cuidados com animais, conforme estabelecido no Requisito 3, no qual o jogador deve realizar ações como lavar, alimentar e cuidar dos animais para progredir no jogo. Essa definição foi essencial para alinhar os elementos narrativos às funcionalidades técnicas implementadas.*
 
-&ensp;*Em seguida, foi desenvolvida a estrutura técnica inicial do projeto, que incluiu a criação do cenário em pixel art e a implementação da tela inicial do jogo, com seus respectivos elementos visuais e interativos. Nesta primeira versão, foi entregue uma tela inicial funcional contendo os botões “Jogar”, "Sair",“Opções” e “Tutorial”, além de um sistema de navegação entre telas. Os botões possuem um feedback para o usuário saber que são clicáveis. Nessa primeira etapa focamos apenas em deixar o botão de configurações utilizável (símbolo de engrenagem), que ao ser selecionado abre uma tela para alterar diversas opções que serão implementadas em breve.*
+&ensp;*Em seguida, foi desenvolvida a estrutura técnica inicial do projeto, incluindo a implementação da tela inicial do jogo, conforme definido no Requisito 2, com seus respectivos elementos visuais e interativos. Nesta primeira versão, foi entregue uma tela inicial funcional contendo os botões “Jogar”, "Sair",“Opções” e “Tutorial”, além de um sistema de navegação entre telas. Os botões também apresentam feedback visual ao passar o mouse, permitindo que o jogador identifique elementos interativos na interface, atendendo ao requisito não funcional relacionado à indicação visual de áreas interativas . Nessa primeira etapa focamos apenas em deixar o botão de configurações utilizável (símbolo de engrenagem), que ao ser selecionado abre uma tela para alterar diversas opções que serão implementadas em breve.*
 
 <div align="center">
   <p>Tela Inicial</p>
@@ -497,7 +563,105 @@ Fonte: material produzido pelos autores (2026).
 
 ## 4.3. Desenvolvimento intermediário do jogo (sprint 3)
 
-*Descreva e ilustre aqui o desenvolvimento da versão intermediária do jogo, explicando brevemente o que foi entregue em termos de código e jogo. Utilize prints de tela para ilustrar. Indique as eventuais dificuldades e próximos passos.*
+A terceira sprint teve como objetivo a implementação e o aprimoramento de elementos fundamentais da jogabilidade do Cobasi Shelter, focando principalmente no desenvolvimento dos minigames que simulam diferentes formas de cuidado com animais domésticos. Nesta etapa do projeto, a equipe concentrou seus esforços na implementação das mecânicas principais dos minigames, no refinamento das interações do jogador com os objetos do jogo e na estrutura de recompensas utilizando Cobasi Coins.
+
+O desenvolvimento desta sprint foi essencial para transformar o protótipo inicial em uma versão mais completa e interativa do jogo, permitindo que os jogadores experimentem na prática as principais atividades relacionadas ao cuidado com os animais. A seguir, estão descritas as principais funcionalidades implementadas nesta fase do desenvolvimento.
+
+**Implementação do Minigame de Banho**
+
+Um dos principais avanços desta sprint foi o desenvolvimento do minigame de banho, no qual o jogador deve limpar completamente um cachorro utilizando diferentes ferramentas disponíveis no ambiente do banheiro.
+
+Neste minigame, o jogador utiliza o mouse para selecionar e utilizar três objetos principais: sabão, chuveiro e toalha. O processo de limpeza ocorre em três etapas:
+
+Aplicação do sabão sobre o animal, fazendo com que ele fique coberto por espuma;
+
+Utilização do chuveiro para remover todas as bolhas de sabão;
+
+Secagem completa do animal utilizando a toalha.
+
+O jogador deve passar cada ferramenta por todo o corpo do animal para que a etapa seja considerada concluída. Apenas após completar corretamente todas as fases do processo de limpeza o minigame é finalizado.
+
+Ao concluir o desafio com sucesso, o jogador recebe Cobasi Coins, que funcionam como sistema de recompensa dentro do jogo.
+
+**Cena do minigame de banho**
+
+<div align="center">
+<p>Minigame de Banho</p>
+<img src="other/sprint3-banho.png.png" width="800">
+<p>Feito pela própria equipe (2026)</p>
+</div>
+
+**Implementação do Minigame de Alimentação**
+
+Outro avanço importante desta sprint foi o desenvolvimento do minigame de alimentação, que tem como objetivo ensinar de forma lúdica quais alimentos são adequados ou prejudiciais para os animais.
+
+Neste minigame, o jogador controla o cachorro utilizando as setas do teclado, movimentando o animal para a direita ou para a esquerda na tela. Durante a partida, diferentes itens caem do topo da tela:
+
+Ração Standard, que concede 10 pontos;
+
+Ração Super Premium, que concede 25 pontos e recupera uma vida;
+
+Itens prejudiciais, como chocolate, que fazem o jogador perder uma vida.
+
+O jogador inicia o minigame com três vidas e deve coletar apenas os alimentos corretos enquanto evita os itens prejudiciais. O objetivo é atingir a pontuação de 200 pontos para concluir o desafio.
+
+Após atingir essa pontuação, o minigame é finalizado e o jogador recebe Cobasi Coins como recompensa.
+
+**Cena do minigame de alimentação**
+
+<div align="center">
+<p>Minigame de Alimentação</p>
+<img src="other/sprint3-alimentacao.png.png" width="800">
+<p>Feito pela própria equipe (2026)</p>
+</div>
+
+**Implementação do Minigame Veterinário**
+
+Também foi desenvolvido o minigame veterinário, no qual o jogador deve ajudar a cuidar da saúde do animal removendo pulgas com o auxílio de uma pinça.
+
+Neste minigame, o jogador utiliza o mouse para selecionar a pinça e movimentá-la pela tela. Ao posicionar a ferramenta sobre uma pulga, o jogador deve clicar para removê-la.
+
+O objetivo do minigame é retirar todas as pulgas do animal no menor tempo possível. Para avaliar o desempenho do jogador, foi implementado um sistema de classificação baseado em estrelas:
+
+3 estrelas – tempo inferior a 30 segundos;
+
+2 estrelas – tempo entre 31 e 45 segundos;
+
+1 estrela – tempo superior a 45 segundos.
+
+Após remover todas as pulgas e concluir o desafio, o jogador também recebe Cobasi Coins como recompensa.
+
+**Cena do minigame veterinário**
+
+<div align="center">
+<p>Minigame de Veterinário</p>
+<img src="other/sprint3-veterinario.png.png" width="800">
+<p>Feito pela própria equipe (2026)</p>
+</div>
+
+**Dificuldades encontradas durante a sprint**
+
+Durante o desenvolvimento desta sprint, a equipe enfrentou algumas dificuldades técnicas relacionadas principalmente à implementação das interações entre os objetos e os personagens dentro dos minigames. Um dos principais desafios foi ajustar corretamente as colisões e interações entre os elementos da tela, garantindo que as ações do jogador fossem registradas de forma precisa.
+
+Outro desafio foi a integração das diferentes mecânicas de controle entre os minigames, já que alguns utilizam o mouse enquanto outros utilizam o teclado. Além disso, a equipe também enfrentou dificuldades na organização do projeto no GitLab, principalmente no controle de versões e na sincronização do código entre os membros do grupo.
+
+Apesar desses desafios, foi possível implementar com sucesso as principais mecânicas dos minigames e estruturar uma base sólida para as próximas etapas do desenvolvimento.
+
+**Próximos passos**
+
+Para as próximas sprints, a equipe pretende continuar aprimorando a experiência do jogador, adicionando novos elementos ao jogo. Entre os próximos passos planejados estão:
+
+Implementação do quiz educativo ao final dos minigames;
+
+Aprimoramento das animações e feedbacks visuais durante as interações;
+
+Integração completa do sistema de Cobasi Coins;
+
+Melhorias na interface e na navegação entre telas;
+
+Correção de possíveis bugs e otimização do desempenho do jogo.
+
+Essas melhorias têm como objetivo tornar o Cobasi Shelter uma experiência mais completa, interativa e educativa, reforçando a proposta do jogo de ensinar sobre os cuidados necessários com animais domésticos de forma lúdica.
 
 ## 4.4. Desenvolvimento final do MVP (sprint 4)
 
@@ -520,14 +684,20 @@ Eles são essenciais para garantir a qualidade do produto, identificar bugs de f
 
 | pré-condição |descrição do teste | condição |
 | :--- | :---: | ---: |
-|Jogo deve apresentar a tela na proporção correta  | Abrir o jogo no navegador | Jogo apresenta aspectos visuais corretamente enquandrados na tela |
+|Jogo deve apresentar a tela na proporção de Notebook | Abrir o jogo no navegador | Jogo apresenta aspectos visuais enquandrados na tela |
 | Presença funcional de feedback do usuário | Realizar interações com as funcionalidades da tela de início | Assim que o mouse passa pelos botões eles aumentam de tamanho, indicando correta funcionalidade |
 | Botão "settings" deve gerar outra tela para configurações do jogo | clicar no botão para saber o resultado| Funcionalidade requisitada aparece perfeitamente
-|O botão "jogar" deve redirecionar para uma nova tela| Clicar no botão e esperar o resultado | O jogo é redirecionado para uma nova tela
+|O botão "jogar" deve redirecionar para a tela principal do jogo, onde será possível selecionar o Minigame desejado | Clicar no botão e esperar o resultado | O jogo é redirecionado para a tela principal do jogo
 | Deve ser possível segurar e mover o "sabão"| Clicar no sabão e arrastar sobre a tela| O "sabão" é movimentado com o mouse|
 | Ao passar o "sabão" sobre o cachorro, deve surgir "bolhas" como rastro para indicar limpeza| Clicar no sabão e arrastar sobre o cachorro| O efeito das "bolhas" surge sobre o cachorro como rastro de limpeza.| 
 | Deve ser possível segurar e mover o "chuveiro"| Clicar no "chuveiro" e arrastar sobre a tela| O "chuveiro" é movimentado com o mouse|
-|Ao arrastar o chuveiro sobre o cachorro, deve haver uma animação de água caindo que "limpa o sabão"| Arrastar o "chuveiro" sobre o cachorro com "sabão" sobreposto| O efeito da água caindo ocorre e "limpa o sabão|
+|Ao arrastar o chuveiro sobre o cachorro, deve haver uma animação de água caindo que "limpa o sabão"| Arrastar o "chuveiro" sobre o cachorro com "sabão" sobreposto| O efeito da água caindo ocorre e "limpa o sabão" e deixa o cachorro molhado|
+|Deve ser possível segurar e mover a "toalha"| Clicar na "toalha" e arrastar sobre a tela| A "toalha" é movimentada com o mouse| 
+|Ao arrastar a toalha sobre o cachorro, a animação de "cachorro molhado" deve sair de cena| Arrastar a "toalha" sobre o "cachorro molhado"| A animação de "cachorro limpo" entra em cena|
+|Deve ser possível segurar e mover a "pinça"| Clicar na "pinça" e arrastar sobre a tela| A "pinça" é movida pelo mouse|
+|Ao arrastar a "pinça" pela tela, deve ser possível clicar nas "pulgas"| Clicar com o botão direito do mouse nas "pulgas"| O click em cima de uma "pulga" faz com que a mesma desapareça|
+|Deve ser possível movimentar o cachorro| Movimentar o cachorro através das setas 'esquerda' e 'direita'| O cachorro se desloca de um lado para o outro|
+
 <div align="center">
   <p>Feito pela própia equipe(2026)</p>
 </div>
