@@ -104,10 +104,10 @@ export class cenaBanho extends Phaser.Scene {
 
     // Cria animações do cachorro e da água
     criarAnimacoes() {
-        if (!this.anims.exists("dogSujoAnim")) {
+        if (!this.anims.exists("cachorroSujoAnim")) {
             this.anims.create({
-                key: "dogSujoAnim",
-                frames: this.anims.generateFrameNumbers("dogSujo", { start: 0, end: 1 }),
+                key: "cachorroSujoAnim",
+                frames: this.anims.generateFrameNumbers("cachorroSujo", { start: 0, end: 1 }),
                 frameRate: 4,
                 repeat: -1
             });
@@ -122,19 +122,19 @@ export class cenaBanho extends Phaser.Scene {
             });
         }
 
-        if (!this.anims.exists("dogEspumaAnim")) {
+        if (!this.anims.exists("cachorroEspumaAnim")) {
             this.anims.create({
-                key: "dogEspumaAnim",
-                frames: this.anims.generateFrameNumbers("dogEspuma", { start: 0, end: 1 }),
+                key: "cachorroEspumaAnim",
+                frames: this.anims.generateFrameNumbers("cachorroEspuma", { start: 0, end: 1 }),
                 frameRate: 4,
                 repeat: -1
             });
         }
 
-        if (!this.anims.exists("dogLimpoAnim")) {
+        if (!this.anims.exists("cachorroLimpoAnim")) {
             this.anims.create({
-                key: "dogLimpoAnim",
-                frames: this.anims.generateFrameNumbers("dogLimpo", { start: 0, end: 1 }),
+                key: "cachorroLimpoAnim",
+                frames: this.anims.generateFrameNumbers("cachorroLimpo", { start: 0, end: 1 }),
                 frameRate: 4,
                 repeat: -1
             });
@@ -203,9 +203,9 @@ export class cenaBanho extends Phaser.Scene {
         this.limparGotas();
 
                 // Quando espuma suficiente é gerada, troca textura do cachorro
-        if (this.quantidadeEspuma >= 50 && gameState.cachorro.texture.key !== "dogEspuma") {
-            gameState.cachorro.setTexture("dogEspuma");   // Define textura de cachorro com espuma
-            gameState.cachorro.play("dogEspumaAnim");     // Inicia animação de cachorro ensaboado
+        if (this.quantidadeEspuma >= 50 && gameState.cachorro.texture.key !== "cachorroEspuma") {
+            gameState.cachorro.setTexture("cachorroEspuma");   // Define textura de cachorro com espuma
+            gameState.cachorro.play("cachorroEspumaAnim");     // Inicia animação de cachorro ensaboado
             this.quantidadeEspuma = 0;                    // Reseta contador de espuma
         }
     }
@@ -271,7 +271,7 @@ export class cenaBanho extends Phaser.Scene {
         gameState.toalha.body.reset(this.input.activePointer.x, this.input.activePointer.y);
 
         // Só funciona se o cachorro estiver com espuma
-        if (gameState.cachorro.texture.key !== "dogEspuma") {
+        if (gameState.cachorro.texture.key !== "cachorroEspuma") {
             this.tempoSecando = 0;
             return;
         }
@@ -285,8 +285,8 @@ export class cenaBanho extends Phaser.Scene {
             this.tempoSecando += 1;
             if (this.tempoSecando >= 90) {
                 // Troca textura para cachorro limpo
-                gameState.cachorro.setTexture("dogLimpo");
-                gameState.cachorro.play("dogLimpoAnim");
+                gameState.cachorro.setTexture("cachorroLimpo");
+                gameState.cachorro.play("cachorroLimpoAnim");
                 this.tempoSecando = 0;
             }
             return;
