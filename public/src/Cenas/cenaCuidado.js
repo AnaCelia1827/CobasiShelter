@@ -14,7 +14,7 @@ export class cenaCuidado extends Phaser.Scene {
         } else if (this.scene.isSleeping("cenaHUD")) {
             this.scene.wake("cenaHUD");
         }
-        this.scene.bringToTop("cenaHUD");
+    }
 
 
         this.cachorro = new Cachorro(this, 920, 600);

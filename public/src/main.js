@@ -3,6 +3,7 @@ import { cenaInicial } from "./Cenas/cenaInicial.js";
 import { cenaBanho } from "./Cenas/cenaBanho.js";
 import { cenaConfiguracoes } from "./Cenas/cenaConfiguracoes.js";
 import { cenaComida } from "./Cenas/cenaComida.js";
+import { cenaTutorial } from "./Cenas/cenaTutorial.js";
 import { cenaPrincipal } from "./Cenas/cenaPrincipal.js";
 import { jogoLazer } from "./Cenas/jogoLazer.js";
 import { cenaHUD } from "./componentes/cenaHUD.js";
@@ -44,20 +45,21 @@ const config = {
         }
     },
 
-    // Lista de cenas que compõem o jogo
-    scene: [
-        cenaCarregamento,   // Tela de carregamento inicial
-        cenaInicial,        // Tela inicial (menu principal)
-        cenaConfiguracoes,  // Tela de configurações
-        cenaBanho,          // Minijogo de banho do cachorro
-        cenaComida,         // Cena de alimentação
-        cenaCuidado,        // Cena de cuidados gerais
-        cenaPrincipal,      // Cena principal (provavelmente hub do jogo)
-        jogoRacao,          // Minijogo de escolha de ração
-        cenaHUD,            // HUD (interface sobreposta)
-        jogoLazer,         //
-        ficha               // Ficha informativa do cachorro
-    ]
+    // Lista de cenas que compõem o jogo
+    scene: [
+        cenaCarregamento,   // Tela de carregamento inicial
+        cenaInicial,        // Tela inicial (menu principal)
+        cenaTutorial,
+        cenaConfiguracoes,  // Tela de configurações
+        cenaBanho,          // Minijogo de banho do cachorro
+        cenaComida,         // Cena de alimentação
+        cenaCuidado,        // Cena de cuidados gerais
+        cenaPrincipal,      // Cena principal (provavelmente hub do jogo)
+        jogoRacao,          // Minijogo de escolha de ração
+        cenaHUD,            // HUD (interface sobreposta)
+        jogoLazer,
+        ficha               // Ficha informativa do cachorro
+    ]
 };
 
 // Inicializa o jogo com a configuração definida

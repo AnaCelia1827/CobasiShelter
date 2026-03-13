@@ -64,7 +64,7 @@ export class cenaInicial extends Phaser.Scene {
             window.innerWidth / 7 + 28, window.innerWidth / 3,
             "botaoJogarNormal", "botaoJogarCrescendo", "botaoJogarPressionado",
             0.085, 0.1, 0.08,
-            () => this.transitionTo("cenaPrincipal")
+            () => this.transitionTo("cenaTutorial")
         );
 
         // Botão Sair → fecha o jogo

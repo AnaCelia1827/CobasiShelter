@@ -24,6 +24,7 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("botaoOn", "assets/tela-configuracoes/botaoOn.png");
         
         // HUD
+        this.load.image("bgHUD", "assets/bgHUD.png");
         this.load.image("iconeBanho", "assets/iconeBanho.png");
         this.load.image("iconeRacao", "assets/iconeRacao.png");
         this.load.image("iconeCuidados", "assets/iconeCuidados.png");
@@ -32,7 +33,7 @@ export class cenaCarregamento extends Phaser.Scene {
 
         // Tela Cuidado
         this.load.image("bgCuidado", "assets/tela-cuidado/bgCuidado.png");
-        this.load.image("pulga", "assets/tela-cuidado/pulga.png");
+        this.load.spritesheet("pulga", "assets/tela-cuidado/pulga.png",{frameWidth:460, frameHeight:300});
 
         // Cenas de gameplay
         this.load.image("bgRacao", "assets/tela-alimentacao/bgRacao.png");
@@ -49,6 +50,20 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("sabao", "assets/tela-banho/barrasabao.png");
         this.load.image("toalha", "assets/tela-banho/toalha.png");
         this.load.image("bolhas", "assets/tela-banho/bolhas.png");
+        this.load.image("bolaLaranja","assets/bolaLaranja.png")
+
+        this.load.image("tutorial1", "assets/1")
+        this.load.image("tutorial2", "assets/2")
+        this.load.image("tutorial3", "assets/3")
+        this.load.image("tutorial4", "assets/4")
+        this.load.image("tutorial5", "assets/5")
+        this.load.image("tutorial6", "assets/6")
+        this.load.image("tutorial7", "assets/7")
+        this.load.image("tutorial8", "assets/8")
+        this.load.image("tutorial9", "assets/9")
+        this.load.image("tutorial10", "assets/10")
+        this.load.image("tutorial11", "assets/11")
+
 
         // OTIMIZACAO: usar texturas menores evita decode/upload inicial muito pesado na primeira entrada da cena de rações.
         this.load.image("racaoGA", "assets/Racoes/otimizadas/racaoGA.png");
