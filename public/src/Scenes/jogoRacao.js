@@ -1,13 +1,13 @@
 import {
     racaoGrandeFilhote,
     racaoGrandeAdulto,
-    racaoGrandeSenior,
+    racaoGrandeVelho,
     racaoMediaAdulto,
     racaoMediaFilhote,
-    racaoMediaSenior,
+    racaoMediaVelho,
     racaoPequenaAdulto,
     racaoPequenaFilhote,
-    racaoPequenaSenior
+    racaoPequenaVelho
 } from "../componentes/controleRacoes/dadosRacoes.js";
 
 import { Racao } from "../componentes/controleRacoes/racoes.js";
@@ -21,9 +21,10 @@ export class jogoRacao extends Phaser.Scene {
 
     create() {
 
+
         // desativa HUD
-if (this.scene.isActive("cenaHUD")) {
-    this.scene.sleep("cenaHUD");
+if (this.scene.isActive("hudScene")) {
+    this.scene.sleep("hudScene");
 }
 
 // efeito hover e clique
@@ -75,11 +76,11 @@ hoverPressEffect(voltar, 0.01, 0.012);
 
                     voltar.on("pointerdown", () => {
 
-                        if (this.scene.isSleeping("cenaHUD")) {
-                            this.scene.wake("cenaHUD");
+                        if (this.scene.isSleeping("hudScene")) {
+                            this.scene.wake("hudScene");
                         }
 
-                        this.scene.start("cenaHUD");
+                        this.scene.start("foodScene");
 
                     });
 
@@ -92,15 +93,15 @@ hoverPressEffect(voltar, 0.01, 0.012);
             // RAÇÕES
             this.r1 = new Racao(this, 300, 300, racaoGrandeAdulto);
             this.r2 = new Racao(this, 500, 300, racaoGrandeFilhote);
-            this.r3 = new Racao(this, 700, 300, racaoGrandeSenior);
+            this.r3 = new Racao(this, 700, 300, racaoGrandeVelho);
 
             this.r4 = new Racao(this, 300, 500, racaoMediaAdulto);
             this.r5 = new Racao(this, 500, 500, racaoMediaFilhote);
-            this.r6 = new Racao(this, 700, 500, racaoMediaSenior);
+            this.r6 = new Racao(this, 700, 500, racaoMediaVelho);
 
             this.r7 = new Racao(this, 300, 700, racaoPequenaAdulto);
             this.r8 = new Racao(this, 500, 700, racaoPequenaFilhote);
-            this.r9 = new Racao(this, 700, 700, racaoPequenaSenior);
+            this.r9 = new Racao(this, 700, 700, racaoPequenaVelho);
 
        
 

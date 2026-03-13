@@ -1,3 +1,5 @@
+
+
 // Importa o estado global do cachorro
 import { cachorroGeral } from "../controleCachorro/cachorroGeral.js";
 
@@ -35,3 +37,4 @@ export class Racao {
     // Método futuro para mostrar informações detalhadas da ração
     mostrarInfo() {}
 }
+

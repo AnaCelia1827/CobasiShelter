@@ -1,7 +1,9 @@
 // Importa os dados iniciais do cachorro (estado padrão e atributos)
+
 import { cachorroInicial } from "./dadosCachorros.js"
 
 class CachorroGeral {
+
 
   constructor() {
     // Cria o objeto "pet" copiando todos os dados do cachorro inicial
@@ -28,3 +30,4 @@ class CachorroGeral {
 // Exporta uma instância única de CachorroGeral
 // Isso funciona como um "singleton": todas as cenas compartilham o mesmo estado do cachorro
 export const cachorroGeral = new CachorroGeral()
+

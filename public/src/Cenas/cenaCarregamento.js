@@ -39,6 +39,7 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("bgRacao", "assets/tela-alimentacao/bgRacao.png");
         this.load.image("bgLimpo", "assets/bgLimpo.png");
         this.load.image("bgGameScene", "assets/bgGameScene.png");
+        
         this.load.image("bgBanheiro", "assets/tela-banho/bgBanheiro.png");
         this.load.image("estanteVazia", "assets/tela-alimentacao/estanteVazia.png");
         this.load.image("estanteRacao", "assets/tela-alimentacao/estanteRacao.png");
@@ -71,24 +72,27 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("racaoMA", "assets/Racoes/otimizadas/racaoMA.png");
         this.load.image("racaoMF", "assets/Racoes/otimizadas/racaoMF.png");
         this.load.image("racaoMV", "assets/Racoes/otimizadas/racaoMV.png");
+        this.load.image("racaoPA", "assets/Racoes/otimizadas/racaoPA.png");
+        this.load.image("racaoPF", "assets/Racoes/otimizadas/racaoPF.png");
+        this.load.image("racaoPV", "assets/Racoes/otimizadas/racaoPV.png");
 
         // Audio
         this.load.audio("musica", "assets/trilhaSonora.mp3");
 
         // Spritesheets
-        this.load.spritesheet("cachorro", "assets/dogLimpo.png", {
+        this.load.spritesheet("cachorro", "assets/cachorroLimpo.png", {
             frameWidth: 720,
             frameHeight: 960
         });
-        this.load.spritesheet("dogEspuma", "assets/dogEspumado.png", {
+        this.load.spritesheet("dogEspuma", "assets/cachorroEspumado.png", {
             frameWidth: 720,
             frameHeight: 960
         });
-        this.load.spritesheet("dogSujo", "assets/dogSujo.png", {
+        this.load.spritesheet("dogSujo", "assets/cachorroSujo.png", {
             frameWidth: 720,
             frameHeight: 960
         });
-        this.load.spritesheet("dogLimpo", "assets/dogLimpo.png", {
+        this.load.spritesheet("dogLimpo", "assets/cachorroLimpo.png", {
             frameWidth: 720,
             frameHeight: 960
         });
