@@ -12,7 +12,7 @@ import { jogoRacao } from "./Cenas/jogoRacao.js";
 import { ficha } from "./componentes/ficha.js";
 import { cenaCarregamento } from "./Cenas/cenaCarregamento.js";
 
-// Objeto global para armazenar estados do jogo (música, ferramentas, cachorro, etc.)
+// Objeto global para armazenar estados do jogo, usado nas barras
 export let gameState = {
 
      barras: {
@@ -49,8 +49,8 @@ const config = {
     scene: [
         cenaCarregamento,   // Tela de carregamento inicial
         cenaInicial,        // Tela inicial (menu principal)
-        cenaTutorial,
-        jogoAlimentacao,
+        cenaTutorial,       // Cena que passa os storytelling
+        jogoAlimentacao,    // MiniJogo para alimentar cachorro
         cenaConfiguracoes,  // Tela de configurações
         cenaBanho,          // Minijogo de banho do cachorro
         cenaComida,         // Cena de alimentação
@@ -58,7 +58,7 @@ const config = {
         cenaPrincipal,      // Cena principal (provavelmente hub do jogo)
         jogoRacao,          // Minijogo de escolha de ração
         cenaHUD,            // HUD (interface sobreposta)
-        jogoLazer,
+        jogoLazer,          //Minijogo de jogar a bola
         ficha               // Ficha informativa do cachorro
     ]
 };

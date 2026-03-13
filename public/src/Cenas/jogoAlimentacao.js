@@ -1,3 +1,4 @@
+import { gameState } from "../main.js";
 export class jogoAlimentacao extends Phaser.Scene {
     constructor() {
         super({ key: 'jogoAlimentacao' });
@@ -14,12 +15,26 @@ export class jogoAlimentacao extends Phaser.Scene {
     }
 
     create() {
-        if (!this.scene.isActive("cenaHUD")) {
-            this.scene.launch("cenaHUD");
-        } else if (this.scene.isSleeping("cenaHUD")) {
-            this.scene.wake("cenaHUD");
+        // CORREÇÃO: minigames não exibem o menu HUD completo — apenas botão de seta.
+        if (this.scene.isActive("cenaHUD")) {
+            this.scene.sleep("cenaHUD");
         }
-        this.scene.bringToTop("cenaHUD");
+
+        // Botão seta voltar
+        const botaoVoltar = this.add.text(60, 50, "←", {
+            fontFamily: "Arial",
+            fontSize: "52px",
+            color: "#ffffff",
+            stroke: "#000000",
+            strokeThickness: 6
+        }).setOrigin(0.5).setDepth(100).setInteractive({ useHandCursor: true });
+
+        botaoVoltar.on("pointerover", () => botaoVoltar.setStyle({ color: "#ffdd00" }));
+        botaoVoltar.on("pointerout",  () => botaoVoltar.setStyle({ color: "#ffffff" }));
+        botaoVoltar.on("pointerdown", () => {
+            if (this.scene.isSleeping("cenaHUD")) { this.scene.wake("cenaHUD"); }
+            this.scene.start("cenaComida");
+        });
 
         this.larguraTela = window.innerWidth;
         this.alturaTela = window.innerHeight;
@@ -169,13 +184,18 @@ export class jogoAlimentacao extends Phaser.Scene {
         this.atualizarHUDPontuacao();
         item.destroy();
 
-        // ✅ Verificação de vitória
+                // ✅ Verificação de vitória
         if (this.pontuacao >= 150) {
+            // Atualiza barra de comida no gameState
+            gameState.barras.comida = Phaser.Math.Clamp(
+                gameState.barras.limpeza - 11, 0, 11
+            );
             this.partidaEncerrada = true;
-            this.scene.start('cenaComida');
+            this.scene.start('cenaComida'); // Volta para cena de comida
         }
     }
 
+    // Trata item perdido (quando cai fora da tela)
     tratarItemPerdido(item) {
         const penalidade = item.getData('penalidade');
         if (penalidade > 0) {
@@ -185,25 +205,29 @@ export class jogoAlimentacao extends Phaser.Scene {
         item.destroy();
     }
 
-        alterarVidas(valor) {
+    // Altera vidas do jogador (cura ou dano)
+    alterarVidas(valor) {
         this.vidas = Phaser.Math.Clamp(this.vidas + valor, 0, this.vidasMaximas);
         this.atualizarHUDVidas();
 
         if (this.vidas <= 0) {
-            this.encerrarPartida();
+            this.encerrarPartida(); // Se vidas acabarem → game over
         }
     }
 
+    // Atualiza HUD de pontuação
     atualizarHUDPontuacao() {
         this.textoPontuacao.setText('Pontuacao: ' + this.pontuacao);
     }
 
+    // Atualiza HUD de vidas (mostra corações ativos)
     atualizarHUDVidas() {
         this.iconesVida.forEach((icone, index) => {
             icone.setVisible(index < this.vidas);
         });
     }
 
+    // Encerramento da partida (Game Over)
     encerrarPartida() {
         if (this.partidaEncerrada) {
             return;
@@ -212,16 +236,18 @@ export class jogoAlimentacao extends Phaser.Scene {
         this.partidaEncerrada = true;
         this.jogador.setVelocityX(0);
 
+        // Remove eventos ativos
         if (this.eventoSpawn) {
             this.eventoSpawn.remove(false);
         }
-
         if (this.eventoDificuldade) {
             this.eventoDificuldade.remove(false);
         }
 
+        // Limpa itens da tela
         this.itensComida.clear(true, true);
 
+        // Tela de Game Over
         this.add.rectangle(this.larguraTela / 2, this.alturaTela / 2, this.larguraTela, this.alturaTela, 0x000000, 0.55)
             .setDepth(20);
 
@@ -243,6 +269,7 @@ export class jogoAlimentacao extends Phaser.Scene {
             color: '#ffffff'
         }).setOrigin(0.5).setDepth(21);
 
+        // Reinicia partida ao pressionar espaço
         this.input.keyboard.once('keydown-SPACE', () => {
             this.scene.restart();
         });

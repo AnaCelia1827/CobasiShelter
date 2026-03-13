@@ -1,46 +1,44 @@
-
-
 export class Racao {
 
+    // Variável estática: guarda qual ração está selecionada no momento
     static selecionada = null;
 
     constructor(scene, x, y, dados) {
-
+        // Cena onde a ração será exibida
         this.scene = scene;
 
-        this.nome = dados.nome;
-        this.idade = dados.idade;
-        
-        this.ingredientes = dados.ingredientes;
+        // Informações da ração vindas do objeto "dados"
+        this.nome = dados.nome;             // Nome da ração
+        this.idade = dados.idade;           // Faixa etária indicada
+        this.ingredientes = dados.ingredientes; // Ingredientes principais
+        this.exemplos = dados.exemplos;     // Exemplos de uso
+        this.descricao = dados.descricao;   // Texto descritivo
+        this.id = dados.id;                 // Identificador único
 
-        this.exemplos = dados.exemplos;
-        this.descricao = dados.descricao;
-        this.id = dados.id;
-
+        // Cria sprite da ração na tela
         this.sprite = scene.add
-            .image(x, y, dados.sprite)
-            .setDisplaySize(144, 209)
-            .setInteractive({ useHandCursor: true });
+            .image(x, y, dados.sprite)      // Usa imagem definida em "dados.sprite"
+            .setDisplaySize(144, 209)       // Define tamanho fixo
+            .setInteractive({ useHandCursor: true }); // Torna clicável
 
+        // Evento de clique na ração
         this.sprite.on("pointerdown", () => {
 
-            // remove destaque da anterior
+            // Remove destaque da ração anterior, se houver
             if (Racao.selecionada) {
                 Racao.selecionada.sprite.clearTint();
             }
-            // seleciona atual
+
+            // Define esta ração como a selecionada
             Racao.selecionada = this;
 
-            // destaque amarelo
+            // Aplica destaque visual (tinta amarela)
             this.sprite.setTint(0xffff00);
 
-            // atualiza painel
+            // Atualiza painel lateral com informações da ração
             if (scene.atualizarPainel) {
                 scene.atualizarPainel(this);
             }
-
         });
-
     }
-
 }

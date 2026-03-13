@@ -1,3 +1,4 @@
+// Exportações das descrições das rações
 export const racaoGrandeFilhote = {
   nome: "Filhotes de Grande Porte",
   id: 1,

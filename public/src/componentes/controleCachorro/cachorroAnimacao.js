@@ -53,7 +53,7 @@ export class Cachorro {
   }
 
   // Atualiza a animação do cachorro de acordo com o estado atual do pet
-  atualizarAnimacao() { // "gambiarra pai" (comentário do autor original)
+  atualizarAnimacao() {
     if (this.pet.estado === "normal") {
       this.sprite.play("cachorro_normal")
     }

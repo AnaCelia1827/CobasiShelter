@@ -1,3 +1,4 @@
+// Importa os dados das rações disponíveis
 import {
     racaoGrandeFilhote,
     racaoGrandeAdulto,
@@ -10,10 +11,11 @@ import {
     racaoPequenaSenior
 } from "../componentes/controleRacoes/dadosRacoes.js";
 
+// Importa classe Racao e controle do cachorro
 import { Racao } from "../componentes/controleRacoes/racoes.js";
 import { cachorroGeral } from "../componentes/controleCachorro/cachorroGeral.js";
-import { jogoAlimentacao } from "./jogoAlimentacao.js";
 
+// Cena responsável pelo minigame de escolha da ração correta
 export class jogoRacao extends Phaser.Scene {
 
     constructor() {
@@ -21,15 +23,13 @@ export class jogoRacao extends Phaser.Scene {
     }
 
     create() {
-
-        // desativa HUD
+        // Desativa HUD (não aparece durante o minigame)
         if (this.scene.isActive("cenaHUD")) {
             this.scene.sleep("cenaHUD");
         }
 
-        // efeito hover
+        // Função utilitária para efeito hover/pressão em botões
         const hoverPressEffect = (target, scaleNormal, scaleHover) => {
-
             target.on("pointerover", () => {
                 this.tweens.add({
                     targets: target,
@@ -59,37 +59,31 @@ export class jogoRacao extends Phaser.Scene {
             });
         };
 
-        // FUNDO
-        this.add
-        .image(this.scale.width / 2, this.scale.height / 2, "bgLimpo")
-        .setDisplaySize(this.scale.width, this.scale.height)
-        .setDepth(-1);
+        // Fundo da cena
+        this.add.image(this.scale.width / 2, this.scale.height / 2, "bgLimpo")
+            .setDisplaySize(this.scale.width, this.scale.height)
+            .setDepth(-1);
 
-        // BOTÃO VOLTAR
-        const voltar = this.add
-        .image(100, 100, "botaoVoltar")
-        .setScale(0.01)
-        .setInteractive({ useHandCursor: true });
+        // Botão voltar
+        const voltar = this.add.image(100, 100, "botaoVoltar")
+            .setScale(0.01)
+            .setInteractive({ useHandCursor: true });
 
         hoverPressEffect(voltar, 0.01, 0.012);
 
         voltar.on("pointerdown", () => {
-
             if (this.scene.isSleeping("cenaHUD")) {
                 this.scene.wake("cenaHUD");
             }
-
             this.scene.start("cenaComida");
-
         });
 
-        // ESTANTE
-        this.add
-        .image(500, 500, "estanteVazia")
-        .setScale(1.3)
-        .setDepth(-1);
+        // Estante de rações
+        this.add.image(500, 500, "estanteVazia")
+            .setScale(1.3)
+            .setDepth(-1);
 
-        // RAÇÕES
+        // Instancia todas as rações disponíveis
         this.r1 = new Racao(this, 300, 300, racaoGrandeAdulto);
         this.r2 = new Racao(this, 500, 300, racaoGrandeFilhote);
         this.r3 = new Racao(this, 700, 300, racaoGrandeSenior);
@@ -102,46 +96,39 @@ export class jogoRacao extends Phaser.Scene {
         this.r8 = new Racao(this, 500, 700, racaoPequenaFilhote);
         this.r9 = new Racao(this, 700, 700, racaoPequenaSenior);
 
+        // Cachorro atual (para verificar qual ração é ideal)
         const pet = cachorroGeral.pet;
 
-        // PAINEL
+        // Painel lateral de informações
         const painel = this.add.container(1100, 400);
-
         const fundo = this.add.graphics();
 
         fundo.fillStyle(0xffffff, 1);
         fundo.lineStyle(6, 0xff7a00);
-
-       
-
         fundo.strokeRoundedRect(-250, -300, 600, 700, 20);
         fundo.fillRoundedRect(-250, -300, 600, 700, 20);
 
-        // TEXTO CENTRALIZADO
-      const mensagem = this.add.text(50, 20, "Selecione uma ração.", {
-    fontFamily: '"Press Start 2P"',
-    fontSize: "18px",
-    color: "#000",
-    align: "center",
-    wordWrap: { width: 500 }
-})
-.setOrigin(0.5);
+        // Texto centralizado no painel
+        const mensagem = this.add.text(50, 20, "Selecione uma ração.", {
+            fontFamily: '"Press Start 2P"',
+            fontSize: "18px",
+            color: "#000",
+            align: "center",
+            wordWrap: { width: 500 }
+        }).setOrigin(0.5);
 
-        // FUNÇÃO QUE ATUALIZA O PAINEL
+        // Função que atualiza painel com informações da ração selecionada
         this.atualizarPainel = (racao) => {
-
             mensagem.setText(
-
 `RAÇÃO SELECIONADA
 
 ${racao.nome}
 
 ${racao.descricao}`
-
             );
         };
 
-        // BOTÃO VERIFICAR
+        // Botão verificar escolha
         const verificar = this.add.text(0, 300, "VERIFICAR", {
             fontFamily: '"Press Start 2P"',
             fontSize: "18px",
@@ -153,52 +140,40 @@ ${racao.descricao}`
         .setInteractive();
 
         verificar.on("pointerdown", () => {
-
             const racao = Racao.selecionada;
 
             if (!racao) {
-
                 mensagem.setText("FALTA SELECIONAR UMA RAÇÃO.");
                 return;
-
             }
 
+            // Se a ração escolhida corresponde ao cachorro atual
             if (racao.id === pet.id) {
-
                 mensagem.setText(
-
 `ACERTOU!
 
 ESSA É A RAÇÃO
 IDEAL PARA O
 CACHORRO.`
-
                 );
 
+                // Após 2 segundos inicia minigame de alimentação
                 this.time.delayedCall(2000, () => {
                     this.scene.start("jogoAlimentacao");
-
                     console.log("beta");
-
                 });
 
             } else {
-
                 mensagem.setText(
-
 `ESSA RAÇÃO NÃO É IDEAL.
 
 ESCOLHA OUTRA
 RAÇÃO.`
-
                 );
-
             }
-
         });
 
+        // Adiciona elementos ao painel
         painel.add([fundo, mensagem, verificar]);
-
     }
-
 }
