@@ -1,120 +1,125 @@
 // Importa o objeto global gameState do arquivo principal
 import { gameState } from "../main.js";
 
-// Define a cena "cenaConfiguracoes", responsável pelas opções de configuração do jogo
+/**
+ * CENA: cenaConfiguracoes
+ *
+ * Funciona como um POPUP (sobreposição) sobre a cenaInicial.
+ * Ela não substitui a tela anterior — fica por cima dela.
+ * Por isso, na cenaInicial, deve ser chamada com scene.launch()
+ * em vez de scene.start().
+ *
+ * CORREÇÃO APLICADA:
+ * - Adicionado botão de fechar (X) que encerra apenas este popup,
+ *   retornando à cenaInicial sem reiniciá-la.
+ */
 export class cenaConfiguracoes extends Phaser.Scene {
     constructor() {
         super({ key: 'cenaConfiguracoes' });
     }
 
     create() {
-        // Música de fundo: cria e inicia se ainda não estiver tocando
+        // Garante que a música continue tocando ao abrir as configurações
         if (!gameState.musica) {
+            // Cria música se ainda não existir
             gameState.musica = this.sound.add('musica', { loop: true, volume: 0.5 });
         }
         if (!gameState.musica.isPlaying) {
-            gameState.musica.play();
+            gameState.musica.play(); // Inicia música se não estiver tocando
         }
 
-        // Fundo da cena
-        const fundo = this.add
-            .image(this.scale.width / 2, this.scale.height / 2, "bgInical")
-            .setDisplaySize(this.scale.width, this.scale.height)
-            .setDepth(-1);
-
-        // Retângulo translúcido para escurecer o fundo
-        const retanguloFundo = this.add.rectangle(
-            window.innerWidth / 2, window.innerHeight / 2,
-            window.innerWidth, window.innerHeight,
+        // Fundo semitransparente — dá o visual de popup sobre a cena anterior
+        this.add.rectangle(
+            this.scale.width / 2,
+            this.scale.height / 2,
+            this.scale.width,
+            this.scale.height,
             0x000000
-        ).setAlpha(0.5).setDepth(0);
+        ).setAlpha(0.6).setDepth(0);
 
-        // Botão Jogar (apenas visual, sem interatividade)
-        const botaoJogar = this.add.image(
-            window.innerWidth / 7 + 28, window.innerHeight / 2 + 100,
-            "botaoJogarNormal"
-        ).setScale(0.085).setDepth(1);
+        // Ícone decorativo de configurações
+        this.add.image(this.scale.width / 2, this.scale.height / 2, "configuracoes")
+            .setScale(0.8)
+            .setDepth(1);
 
-        // Botão Sair (apenas visual, sem interatividade)
-        const botaoSair = this.add.image(
-            window.innerWidth / 7 - 150, window.innerHeight / 2 + 300,
-            "botaoSairNormal"
-        ).setScale(0.065).setDepth(1);
-
-        // Botão Configurações (apenas visual, sem interatividade)
-        const botaoConfiguracoes = this.add.image(
-            window.innerWidth / 7 + 200, window.innerHeight / 2 + 300,
-            "botaoConfiguracoesNormal"
-        ).setScale(0.85).setDepth(1);
-
-        // Ícone de configurações
-        const iconeConfiguracoes = this.add.image(1000, 300, "configuracoes").setScale(0.8).setDepth(1);
-
-        // Botão de retorno ao menu inicial (interativo)
-        const botaoRetorno = this.add.image(200, 100, "retornoInicio")
-            .setScale(0.35)
+        // ─── BOTÃO FECHAR (X) ────────────────────────────────────────────────
+        // CORREÇÃO: antes não existia botão para fechar o popup.
+        // Este botão encerra apenas a cena de configurações e retorna à
+        // cenaInicial que estava rodando por baixo, sem reiniciá-la.
+        const botaoFechar = this.add.image(
+            this.scale.width / 2 + 260,
+            this.scale.height / 2 - 320,
+            "retornoInicio"
+        )
+            .setScale(0.3)
             .setInteractive({ useHandCursor: true })
-            .setDepth(2);
+            .setDepth(10);
 
-        // Efeito ao passar o mouse sobre o botão de retorno
-        botaoRetorno.on('pointerover', () => {
-            this.tweens.add({ targets: botaoRetorno, scale: 0.4, duration: 200, ease: 'Power2' });
+        // Efeito visual ao passar o mouse
+        botaoFechar.on('pointerover', () => {
+            this.tweens.add({ targets: botaoFechar, scale: 0.36, duration: 150, ease: 'Power2' });
         });
 
-        // Efeito ao retirar o mouse do botão de retorno
-        botaoRetorno.on('pointerout', () => {
-            this.tweens.add({ targets: botaoRetorno, scale: 0.35, duration: 200, ease: 'Power2' });
+        // Retorna ao tamanho normal ao sair com o mouse
+        botaoFechar.on('pointerout', () => {
+            this.tweens.add({ targets: botaoFechar, scale: 0.3, duration: 150, ease: 'Power2' });
         });
 
-        // Evento de clique no botão de retorno → volta para cena inicial
-        botaoRetorno.on('pointerdown', () => {
-            this.cameras.main.fadeOut(200, 0, 0, 0);
-            this.cameras.main.once('camerafadeoutcomplete', () => {
-                gameState.musica.stop(); // Para música ao sair
-                this.scene.start('cenaInicial');
-            });
+        // Fecha somente este popup; a cenaInicial continua intacta por baixo
+        botaoFechar.on('pointerdown', () => {
+            this.scene.stop('cenaConfiguracoes');
         });
 
-        // Alternar Música (liga/desliga)
-        gameState.alternarMusica = this.criarAlternar(1020, 215, true,
+        // ─── TOGGLES ─────────────────────────────────────────────────────────
+        // Alternar música
+        gameState.alternarMusica = this.criarAlternar(
+            this.scale.width / 2 + 20, this.scale.height / 2 - 85, true,
             () => { gameState.musica.resume(); },   // Ao ligar
-            () => { gameState.musica.pause(); }    // Ao desligar
+            () => { gameState.musica.pause(); }     // Ao desligar
         );
 
-        // Alternar Som (placeholder)
-        gameState.alternarSom = this.criarAlternar(1020, 265, true,
-            () => { console.log('Som ligado (placeholder)'); },
-            () => { console.log('Som desligado (placeholder)'); }
+        // Alternar som
+        gameState.alternarSom = this.criarAlternar(
+            this.scale.width / 2 + 20, this.scale.height / 2 - 35, true,
+            () => { console.log('Som ligado'); },
+            () => { console.log('Som desligado'); }
         );
 
-        // Alternar Vibração (placeholder)
-        gameState.alternarVibracao = this.criarAlternar(1020, 315, true,
-            () => { console.log('Vibração ligada (placeholder)'); },
-            () => { console.log('Vibração desligada (placeholder)'); }
+        // Alternar vibração
+        gameState.alternarVibracao = this.criarAlternar(
+            this.scale.width / 2 + 20, this.scale.height / 2 + 15, true,
+            () => { console.log('Vibracao ligada'); },
+            () => { console.log('Vibracao desligada'); }
         );
 
-        // Configuração da câmera
-        this.cameras.main.setBounds(0, 0, window.innerWidth, window.innerHeight);
-        this.cameras.main.fadeIn(200, 0, 0, 0);
+        // Efeito de fade-in ao abrir popup
+        this.cameras.main.fadeIn(150, 0, 0, 0);
     }
 
-    // Função para criar botões de alternar (liga/desliga)
+    /**
+     * Cria um par de botões liga/desliga.
+     *
+     * @param {number} x - Posição X
+     * @param {number} y - Posição Y
+     * @param {boolean} estadoInicial - true = começa ligado
+     * @param {function} aoLigar - Chamada ao ligar
+     * @param {function} aoDesligar - Chamada ao desligar
+     */
     criarAlternar(x, y, estadoInicial, aoLigar, aoDesligar) {
+        // Botão ligado
         const botaoLigado = this.add.image(x, y, "botaoOn")
-            .setScale(0.6)
-            .setInteractive({ useHandCursor: true })
-            .setDepth(3);
+            .setScale(0.6).setInteractive({ useHandCursor: true }).setDepth(3);
 
+        // Botão desligado
         const botaoDesligado = this.add.image(x, y, "botaoOff")
-            .setScale(0.6)
-            .setInteractive({ useHandCursor: true })
-            .setDepth(3);
+            .setScale(0.6).setInteractive({ useHandCursor: true }).setDepth(3);
 
+        // Estado inicial
         let ligado = estadoInicial;
         botaoLigado.setVisible(ligado);
         botaoDesligado.setVisible(!ligado);
 
-        // Evento de clique no botão ligado → desliga
+        // Evento ao clicar no botão ligado → desliga
         botaoLigado.on('pointerdown', () => {
             ligado = false;
             botaoLigado.setVisible(false);
@@ -122,7 +127,7 @@ export class cenaConfiguracoes extends Phaser.Scene {
             if (aoDesligar) aoDesligar();
         });
 
-        // Evento de clique no botão desligado → liga
+        // Evento ao clicar no botão desligado → liga
         botaoDesligado.on('pointerdown', () => {
             ligado = true;
             botaoDesligado.setVisible(false);
@@ -133,6 +138,5 @@ export class cenaConfiguracoes extends Phaser.Scene {
         return { botaoLigado, botaoDesligado };
     }
 
-    // Método update (não utilizado nesta cena)
     update() {}
 }

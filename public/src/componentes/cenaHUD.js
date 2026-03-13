@@ -1,5 +1,6 @@
 import { gameState } from "../main.js";
 import { Barra } from "./Barras/barras.js";
+
 export class cenaHUD extends Phaser.Scene {
     constructor() {
         super({ key: "cenaHUD" });
@@ -16,8 +17,7 @@ export class cenaHUD extends Phaser.Scene {
         const topoY = Math.max(100, this.scale.height * 0.12); // Posição inicial dos botões
         const espaco = Math.max(90, this.scale.height * 0.18); // Espaçamento entre botões
 
-
-
+        // Adiciona ícones e barras de status
         this.add.image(100, 100, "iconeFome").setScale(1.5);
         this.barraComida = new Barra(this, 230, 100, gameState.barras.comida);
 
@@ -53,8 +53,8 @@ export class cenaHUD extends Phaser.Scene {
         criarBotao(0, "iconeBanho", "cenaBanho");         // Botão para cena de banho
         criarBotao(1, "iconeRacao", "cenaComida");        // Botão para cena de comida
         criarBotao(2, "iconeCuidados", "cenaCuidado");    // Botão para cena de cuidados
-        criarBotao(3, "iconeLazer", "jogoLazer");     // Botão para cena principal/lazer
-        criarBotao(4, "iconeVoltar", "cenaInicial");      // Botão para voltar ao menu inicial
+        criarBotao(3, "iconeLazer", "jogoLazer");         // Botão para cena de lazer
+        criarBotao(4, "iconeVoltar", "cenaPrincipal");    // Botão para voltar ao menu principal
     }
 
     // Função responsável por transicionar entre cenas
@@ -113,15 +113,16 @@ export class cenaHUD extends Phaser.Scene {
         });
     }
 
-     update() {
-    this.barraComida.valor  = gameState.barras.comida;
-    this.barraLazer.valor   = gameState.barras.felicidade;  
-    this.barraLimpeza.valor =  gameState.barras.limpeza; 
-    this.barraSaude.valor   = gameState.barras.saude;
+    // Atualiza as barras de status em tempo real
+    update() {
+        this.barraComida.valor  = gameState.barras.comida;
+        this.barraLazer.valor   = gameState.barras.lazer; 
+        this.barraLimpeza.valor = gameState.barras.limpeza; 
+        this.barraSaude.valor   = gameState.barras.saude;
 
-    this.barraComida.atualizarBarra();
-    this.barraLazer.atualizarBarra();
-    this.barraLimpeza.atualizarBarra();
-    this.barraSaude.atualizarBarra();
-}
+        this.barraComida.atualizarBarra();
+        this.barraLazer.atualizarBarra();
+        this.barraLimpeza.atualizarBarra();
+        this.barraSaude.atualizarBarra();
+    }
 }

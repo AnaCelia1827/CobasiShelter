@@ -75,15 +75,19 @@ export class cenaInicial extends Phaser.Scene {
             () => this.game.destroy(true)
         );
 
-        // Botão Configurações → abre cena de configurações
+        // Botão Configurações → abre popup de configurações por cima desta cena
+        // CORREÇÃO: usamos scene.launch() para abrir as configurações como overlay,
+        // sem substituir (start) a cenaInicial. Assim o botão fechar funciona corretamente.
         criarBotao(
             window.innerWidth / 7 + 200, window.innerWidth / 2 - 100,
             "botaoConfiguracoesNormal", "botaoConfiguracoesCrescendo", "botaoConfiguracoesPressionado",
             0.85, 0.95, 0.75,
-            () => this.transitionTo("cenaConfiguracoes")
+            () => {
+                if (!this.scene.isActive("cenaConfiguracoes")) {
+                    this.scene.launch("cenaConfiguracoes");
+                }
+            }
         );
-
-        
 
         // Configuração da câmera (fade in inicial)
         this.cameras.main.setBounds(0, 0, this.scale.width, this.scale.height);

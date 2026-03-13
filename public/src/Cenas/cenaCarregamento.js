@@ -1,13 +1,15 @@
-//Exporta as imagens e sprites
+// Exporta a cena responsável por carregar todos os assets (imagens, sprites, sons, etc.)
 export class cenaCarregamento extends Phaser.Scene {
     constructor() {
+        // Define a chave da cena como "cenaCarregamento"
         super({ key: "cenaCarregamento" });
     }
 
     preload() {
         // Tela Inicial
-        this.load.image("bgInical", "assets/tela-inicial/bgInicial.png");
-        this.load.image("bgPrincipal", "assets/bgPrincipal.png");
+        this.load.image("bgInical", "assets/tela-inicial/bgInicial.png"); // Fundo da tela inicial
+        this.load.image("bgPrincipal", "assets/bgPrincipal.png");         // Fundo principal
+        // Botões da tela inicial em diferentes estados (normal, crescendo, pressionado)
         this.load.image("botaoJogarNormal", "assets/tela-inicial/botaoJogarNormal.png");
         this.load.image("botaoJogarCrescendo", "assets/tela-inicial/botaoJogarCrescendo.png");
         this.load.image("botaoJogarPressionado", "assets/tela-inicial/botaoJogarPressionado.png");
@@ -19,27 +21,24 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("botaoConfiguracoesPressionado", "assets/tela-inicial/botaoConfiguracoesPressionado.png");
 
         // Tela Configurações
-        this.load.image("retornoInicio", "assets/tela-configuracoes/retornoInicio.png");
-        this.load.image("configuracoes", "assets/tela-configuracoes/configuracoes.png");
-        this.load.image("botaoOff", "assets/tela-configuracoes/botaoOff.png");
-        this.load.image("botaoOn", "assets/tela-configuracoes/botaoOn.png");
+        this.load.image("retornoInicio", "assets/tela-configuracoes/retornoInicio.png"); // Botão de voltar
+        this.load.image("configuracoes", "assets/tela-configuracoes/configuracoes.png"); // Fundo de configurações
+        this.load.image("botaoOff", "assets/tela-configuracoes/botaoOff.png");           // Botão desligado
+        this.load.image("botaoOn", "assets/tela-configuracoes/botaoOn.png");             // Botão ligado
 
-
-
-
-         //icons de barras
+        // Ícones das barras de status
         this.load.image("iconeFome", "assets/Icones/iconeFome.png");
         this.load.image("iconeFelicidade", "assets/Icones/iconeFelicidade.png");
         this.load.image("iconeSaude", "assets/Icones/iconeSaude.png");
         this.load.image("iconeSujeira", "assets/Icones/iconeSujeira.png");
 
-
-         this.load.spritesheet("barra", "assets/Icones/BarraStatus.png", {
+        // Spritesheet da barra de status
+        this.load.spritesheet("barra", "assets/Icones/BarraStatus.png", {
             frameWidth: 144,
             frameHeight: 32
         });
-        
-        // HUD
+
+        // HUD (interface do jogo)
         this.load.image("bgHUD", "assets/bgHUD.png");
         this.load.image("iconeBanho", "assets/iconeBanho.png");
         this.load.image("iconeRacao", "assets/iconeRacao.png");
@@ -47,19 +46,13 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("iconeLazer", "assets/iconeLazer.png");
         this.load.image("iconeVoltar", "assets/iconeVoltar.png");
 
-        // Tela Cuidado
+        // Tela de Cuidado
         this.load.image("bgCuidado", "assets/tela-cuidado/bgCuidado.png");
-        this.load.spritesheet("pulga", "assets/tela-cuidado/pulga.png", {
-            frameWidth: 240,
-            frameHeight: 480
-        });
-
+        this.load.spritesheet("pulga", "assets/tela-cuidado/pulga.png",{frameWidth:300, frameHeight: 300});
 
         // Cenas de gameplay
         this.load.image("bgRacao", "assets/tela-alimentacao/bgRacao.png");
         this.load.image("bgLimpo", "assets/bgLimpo.png");
-       
-        
         this.load.image("bgBanheiro", "assets/tela-banho/bgBanheiro.png");
         this.load.image("estanteVazia", "assets/tela-alimentacao/estanteVazia.png");
         this.load.image("estanteRacao", "assets/tela-alimentacao/estanteRacao.png");
@@ -70,22 +63,22 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("sabao", "assets/tela-banho/barrasabao.png");
         this.load.image("toalha", "assets/tela-banho/toalha.png");
         this.load.image("bolhas", "assets/tela-banho/bolhas.png");
-        this.load.image("bolaLaranja","assets/bolaLaranja.png")
+        this.load.image("bolaLaranja","assets/bolaLaranja.png");
 
-        this.load.image("tutorial1", "assets/1")
-        this.load.image("tutorial2", "assets/2")
-        this.load.image("tutorial3", "assets/3")
-        this.load.image("tutorial4", "assets/4")
-        this.load.image("tutorial5", "assets/5")
-        this.load.image("tutorial6", "assets/6")
-        this.load.image("tutorial7", "assets/7")
-        this.load.image("tutorial8", "assets/8")
-        this.load.image("tutorial9", "assets/9")
-        this.load.image("tutorial10", "assets/10")
-        this.load.image("tutorial11", "assets/11")
+        // Tela de storytelling/tutorial
+        this.load.image("tutorial1", "assets/1");
+        this.load.image("tutorial2", "assets/2");
+        this.load.image("tutorial3", "assets/3");
+        this.load.image("tutorial4", "assets/4");
+        this.load.image("tutorial5", "assets/5");
+        this.load.image("tutorial6", "assets/6");
+        this.load.image("tutorial7", "assets/7");
+        this.load.image("tutorial8", "assets/8");
+        this.load.image("tutorial9", "assets/9");
+        this.load.image("tutorial10", "assets/10");
+        this.load.image("tutorial11", "assets/11");
 
-
-        // OTIMIZACAO: usar texturas menores evita decode/upload inicial muito pesado na primeira entrada da cena de rações.
+        // Rações refinadas
         this.load.image("racaoGA", "assets/Racoes/otimizadas/racaoGA.png");
         this.load.image("racaoGF", "assets/Racoes/otimizadas/racaoGF.png");
         this.load.image("racaoGV", "assets/Racoes/otimizadas/racaoGV.png");
@@ -96,10 +89,10 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("racaoPF", "assets/Racoes/otimizadas/racaoPF.png");
         this.load.image("racaoPV", "assets/Racoes/otimizadas/racaoPV.png");
 
-        // Audio
+        // Áudio
         this.load.audio("musica", "assets/trilhaSonora.mp3");
 
-        // Spritesheets
+        // Spritesheets do cachorro e água
         this.load.spritesheet("cachorro", "assets/dogLimpo.png", {
             frameWidth: 720,
             frameHeight: 960
@@ -123,6 +116,7 @@ export class cenaCarregamento extends Phaser.Scene {
     }
 
     create() {
+        // Após carregar todos os assets, inicia a cena inicial do jogo
         this.scene.start("cenaInicial");
     }
 }

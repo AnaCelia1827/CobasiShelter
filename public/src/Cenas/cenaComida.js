@@ -122,7 +122,8 @@ export class cenaComida extends Phaser.Scene {
         const chavesPreCarregadas = [
             "bgLimpo", "estanteVazia", "botaoVoltar",
             "racaoGA", "racaoGF", "racaoGV",
-            "racaoMA", "racaoMF", "racaoMV"
+            "racaoMA", "racaoMF", "racaoMV",
+            "racaoPA", "racaoPF", "racaoPV"
         ];
 
         // Cria sprites invisíveis para forçar carregamento
