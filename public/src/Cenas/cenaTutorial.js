@@ -11,6 +11,9 @@ export class cenaTutorial extends Phaser.Scene {
     }
 
     create() {
+        // Reinicia o índice sempre que a cena começar
+        this.currentIndex = 1;
+
         // Mostra a primeira textura
         this.image = this.add.image(
             this.cameras.main.centerX,
@@ -20,7 +23,7 @@ export class cenaTutorial extends Phaser.Scene {
 
         // Cria um timer que troca a textura a cada 2 segundos
         this.time.addEvent({
-            delay: 2000, // 2 segundos
+            delay: 2000,
             callback: () => {
                 this.currentIndex++;
 
@@ -32,7 +35,7 @@ export class cenaTutorial extends Phaser.Scene {
 
                 this.image.setTexture(`tutorial${this.currentIndex}`);
             },
-            loop: true // repete até que seja interrompido
+            loop: true
         });
     }
 }
