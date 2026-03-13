@@ -66,9 +66,7 @@ Idade: ${racaoEscolhida.idade}`
                     "Acertou! Essa é a ração ideal para o cachorro."
                 );
 
-                this.time.delayedCall(2000, () => {
-                    this.scene.start("MiniGamePegarRacao");
-                });
+              
 
             } else {
 
