@@ -188,21 +188,45 @@ Valter Lucas Garcia de Lima
 *Os requisitos do projeto foram definidos para estruturar a experiência do jogador a partir da mecânica central de cuidado com animais domésticos, garantindo alinhamento entre jogabilidade e propósito social. O jogo deverá possuir gatos e cães como espécies principais, delimitando o universo temático e aproximando a experiência da realidade dos animais mais adotados. Essa escolha fortalece a proposta de conscientização sobre responsabilidade no cuidado e na adoção.*
 \# | Quadro 1- Requisitos Funcionais do projeto
 --- | --- 
-1 | O jogo deve possuir gatos e cães como animais.
-2 | A tela inicial do jogo irá possuír botões de "Jogar", "Tutorial", "Sair" e uma engrenagem para alterar configurações.
-3 | O jogador deve tratar do animal (realizando suas necessidades como lavar, alimentar, medicar, brincar, etc.) a fim de progredir no jogo.
-4 | A mecânica principal deve ser o cuidado com os animais, com animais descuidados aparecendo nas fases. 
-5 | Em certo momento do jogo, o jogador se depará com um animal totalmente limpo e não precisará tratar, esse animal conterá uma mensagem junto a ele conscientizando sobre a devolução de animais adotados.
-6 | O Jogo deve possuir cenários específicos para cada tipo de tratamento (ex: área de alimentação)
-7 | O jogador ganhará moedas ao tratar animais as quais podem ser usadas para melhorias.
-8 | O jogo deverá possuir uma Cena de Banho, onde o jogador poderá remover sujeira, lama e parasitas do animal através de interações como esfregar, enxaguar e aplicar shampoo.
-9 | O animal só será limpo após uma certa quantidade de sabão ser aplicado sobre o mesmo.
-10 | O jogador deverá ensaboar, enxaguar e secar o animal afim de completar o processo de limpeza.
+1 | O jogo deve possuir gatos e cães como animais disponíveis.
+2 | A tela inicial do jogo deve possuir botões de "Jogar", "Tutorial", "Sair" e um ícone de engrenagem para configurações.
+3 | Ao clicar em "Jogar" pela primeira vez, o jogo deve iniciar uma cutscene interativa mostrando a história do primeiro resgate.
+4 | A cutscene deve possuir botões para avançar e voltar nas cenas da história.
+5 | Após a cutscene, o jogo deve transicionar para uma tela com HUD mostrando os status do cachorro (Felicidade, Fome, Limpeza e Saúde).
+6 | A tela do jogo deve conter botões interativos que levam às áreas responsáveis por melhorar cada status do animal.
+7 | O jogador deve cuidar do animal (lavar, alimentar, medicar, brincar, etc.) para progredir no jogo.
+8 | A mecânica principal do jogo deve ser o cuidado com animais resgatados em más condições.
+9 | Em determinado momento do jogo, o jogador encontrará um animal já limpo, acompanhado de uma mensagem de conscientização sobre devolução de animais adotados.
+10 | O jogo deve possuir um cenário específico localizado em uma área de banho.
+11 | O jogador deve ganhar moedas ao tratar os animais, que poderão ser usadas para melhorias.
+12 | O jogo deve possuir uma cena de banho onde o jogador pode remover sujeira através de interações como esfregar, enxaguar e aplicar shampoo.
+13 | O animal só será considerado limpo após uma quantidade mínima de sabão ser aplicada.
+14 | O jogador deve ensaboar, enxaguar e secar o animal para completar o processo de limpeza.
+15 | O jogo deve possuir uma área específica para alimentação.
+16 | Na área de alimentação o jogador deve ter acesso a diferentes tipos de ração com descrição de cada uma.
+17 | A área de alimentação deve possuir uma estante clicável contendo as rações disponíveis.
+18 | A área de alimentação deve conter um quiz educativo sobre alimentação correta de animais.
+19 | Após acertar a ração correta, o jogo deve iniciar o "mini-game da ração".
+20 | No mini-game da ração, pacotes de ração e chocolates devem cair na tela.
+21 | No mini-game da ração, os pacotes de ração devem fornecer pontos e os chocolates devem fazer o jogador perder vida.
+22 | O jogador deve possuir 3 vidas no mini-game da ração, finalizando ao perder todas ou ao clicar na seta de voltar.
+23 | O jogo deve possuir uma área de cuidados.
+24 | A área de cuidados deve possuir um mini-game para retirada de pulgas.
+25 | O mini-game das pulgas deve avaliar a velocidade com que o jogador remove todas as pulgas.
+26 | O jogo deve possuir uma área de lazer para os animais.
 
 \# | **Quadro 2- Requisitos Não Funcionais do projeto**
 --- | ---
-1 | O jogo deve possuir indicação visual no mouse para áreas interativas.
-2 | A cena de Banho deve conter feedback visual (espuma, água escorrendo, reação positiva do animal).
+1 | O jogo deve possuir indicação visual no cursor do mouse para áreas interativas.
+2 | A cena de banho deve possuir feedback visual, como espuma, água escorrendo e reação positiva do animal.
+3 | O jogo deve possuir interface intuitiva, permitindo que o jogador compreenda as ações disponíveis sem necessidade de explicações complexas.
+4 | O jogo deve apresentar tempo de carregamento reduzido entre as cenas, garantindo fluidez na experiência do jogador.
+5 | O jogo deve possuir organização visual clara da HUD, permitindo que o jogador visualize facilmente os status do animal.
+6 | O jogo deve manter consistência visual entre cenários, menus e elementos gráficos.
+7 | O jogo deve possuir controles responsivos, garantindo que as ações do jogador sejam executadas rapidamente após a interação.
+8 | O jogo deve possuir compatibilidade com resolução de tela padrão de computadores, mantendo a interface corretamente ajustada.
+9 | O jogo deve manter desempenho estável, evitando travamentos ou quedas significativas de desempenho durante a execução.
+10 | O jogo deve apresentar textos e informações legíveis, utilizando fontes e tamanhos adequados para facilitar a leitura pelo jogador.
 
 **Requisitos Funcionais:** São os requisitos que o sistema faz.
 Descrevem as funcionalidades, ações e comportamentos esperados.
@@ -340,7 +364,7 @@ Descrevem as funcionalidades, ações e comportamentos esperados.
 
 <br>
 <div align="center">
-<p> Figura 1: Tela principal da área de lazer, sem o Hud.
+<p> Figura 1: Tela de menu principal do jogo.
 <img src="other/telaprincipal.png">
 Fonte: material produzido pelos autores (2026).
 <br>
@@ -361,7 +385,7 @@ Fonte: material produzido pelos autores (2026).
 <div align="center">
 <p> Figura 3: Tela do banheiro, apresentando o pet no ambiente de higiene com itens interativos.
 <img src="other/bath.png">
-Fonte: fundo feito por ChatGPT, sprites produzidas pelos autores (2026).
+Fonte: Produzido pelos autores (2026)
 <br>
 </div>
 
@@ -369,7 +393,7 @@ Fonte: fundo feito por ChatGPT, sprites produzidas pelos autores (2026).
 <br>
 <div align="center">
 <p> Figura 4: Personagem protagonista do jogo, representada por uma mulher jovem e empoderada que cuidará dos pets.</p>
-<img src="other/protagonista.png" width="300>
+<img src="..\assets\Personagens\Protagonista.png" width="300>
 Fonte: material produzido pelos autores (2026).
 <br>
 
@@ -381,7 +405,7 @@ Fonte: material produzido pelos autores (2026).
 <div align="center">
 <p> Figura 5: Personal Pet, personagem secundário do jogo, responsável por auxiliar o jogador durante a narrativa do jogo.
 </p>
-<img src="other/personalpet.png" width="300>
+<img src="..\assets\Personagens\personalpet.png" width="300>
 Fonte: material produzido pelos autores (2026).
 
 
@@ -401,41 +425,19 @@ Fonte: material produzido pelos autores (2026).
 2 | tema de combate | cena de combate com inimigos comuns | Hans Zimmer
 3 | ... 
 
-## 3.4. Inventário e Bestiário (sprint 3)
-
-### 3.4.1. Inventário
-
-*\<opcional\> Caso seu jogo utilize itens ou poderes para os personagens obterem, descreva-os aqui, indicando títulos, imagens, meios de obtenção e funções no jogo. Utilize listas ou tabelas para organizar esta seção. Caso utilize material de terceiros em licença Creative Commons, não deixe de citar os autores/fontes.* 
-
-*Exemplo de tabela*
-\# | item |  | como obter | função | efeito sonoro
---- | --- | --- | --- | --- | ---
-1 | moeda | <img src="../assets/coin.png"> | há muitas espalhadas em todas as fases | acumula dinheiro para comprar outros itens | som de moeda
-2 | madeira | <img src="../assets/wood.png"> | há muitas espalhadas em todas as fases | acumula madeira para construir casas | som de madeiras
-3 | ... 
-
-### 3.4.2. Bestiário
-
-*\<opcional\> Caso seu jogo tenha inimigos, descreva-os aqui, indicando nomes, imagens, momentos de aparição, funções e impactos no jogo. Utilize listas ou tabelas para organizar esta seção. Caso utilize material de terceiros em licença Creative Commons, não deixe de citar os autores/fontes.* 
-
-*Exemplo de tabela*
-\# | inimigo |  | ocorrências | função | impacto | efeito sonoro
---- | --- | --- | --- | --- | --- | ---
-1 | robô terrestre | <img src="../assets/inimigo2.PNG"> |  a partir da fase 1 | ataca o personagem vindo pelo chão em sua direção, com velocidade constante, atirando parafusos | se encostar no inimigo ou no parafuso arremessado, o personagem perde 1 ponto de vida | sons de tiros e engrenagens girando
-2 | robô voador | <img src="../assets/inimigo1.PNG"> | a partir da fase 2 | ataca o personagem vindo pelo ar, fazendo movimento em 'V' quando se aproxima | se encostar, o personagem perde 3 pontos de vida | som de hélice
-3 | ... 
-
+## 3.4. Inventário e Bestiário
+*Não se aplica ao projeto*
 ## 3.5. Gameflow (Diagrama de cenas)
 
 
 *No desenvolvimento de jogos, o diagrama de cenas é uma ferramenta visual utilizada no GDD (Game Design Document) para organizar e representar a estrutura do jogo. Ele mostra, de forma esquemática, todas as telas ou cenas existentes — como menu inicial, tutorial, fases, configurações, pausa e game over (e como elas se conectam entre si).*
 
-*Esse diagrama ajuda a equipe a entender o fluxo de navegação do jogador, indicando quais ações levam de uma cena para outra. Além disso, facilita o planejamento da programação, da interface e da experiência do usuário, evitando erros de estrutura e retrabalho. Assim, o diagrama de cenas funciona como um “mapa” do jogo, tornando o projeto mais claro, organizado e eficiente durante o desenvolvimento.*
+*Esse diagrama ajuda a equipe a entender o fluxo de navegação do jogador, indicando quais ações levam de uma cena para outra. Além disso, facilita o planejamento da programação, da interface e da experidência do usuário, evitando erros de estrutura e retrabalho. Assim, o diagrama de cenas funciona como um “mapa” do jogo, tornando o projeto mais claro, organizado e eficiente durante o desenvolvimento.*
 
 <div align="center">
   <p>Diagrama de Cenas</p>
   <a href="https://miro.com/app/board/uXjVG8ZyQIk=/?share_link_id=884951366758">
-    <img src="other/diagramacenas.jpeg" width="800">
+    <img src="other/diagramacenas.png" width="800">
   </a>
   <p>Feito pela própia equipe(2026)</p>
     
@@ -451,9 +453,7 @@ No **minigame de alimentação**, o jogador deve controlar o cachorro para colet
 
 No **minigame veterinário**, o jogador deve retirar todas as pulgas do animal utilizando uma pinça como ferramenta. O objetivo é remover todas as pulgas presentes no animal no menor tempo possível. O desempenho do jogador é avaliado por meio de um sistema de estrelas baseado no tempo de conclusão do desafio. Caso o jogador conclua o minigame em menos de 30 segundos, ele recebe três estrelas, indicando um desempenho excelente. Caso conclua entre 31 e 45 segundos, recebe duas estrelas, representando um bom desempenho. Caso leve mais de 45 segundos, recebe uma estrela, indicando que o nível foi concluído, porém com desempenho inferior. Após a conclusão do minigame, o jogador também recebe Cobasi Coins como recompensa.
 
-,0
-
-## 3.7. Mecânicas do jogo (sprint 3)
+## 3.7. Mecânicas do jogo
 
 ## 3.7.1 Detalhe das Mecânicas
 
@@ -528,7 +528,7 @@ O objetivo do jogador é utilizar a pinça para remover todas as pulgas do anima
 
 <div align="center">
   <p>Tela Inicial</p>
-  <img src="other/telainicial.png" width="800">
+  <img src="other/telaprincipal.png" width="800">
   <p>Feito pela própia equipe(2026)</p>
 </div>
 
@@ -546,13 +546,13 @@ O objetivo do jogador é utilizar a pinça para remover todas as pulgas do anima
 
 <div align="center">
   <p>Tela de lazer Geral</p>
-  <img src="other/telagddHud.png" width="800">
+  <img src="other/bgHUD.png" width="800">
   <p>Feito pela própia equipe(2026)</p>
 </div>
 
 <div align="center">
   <p>Tela de Banho</p>
-  <img src="other/telabanheiro.png" width="800">
+  <img src="other/bath.png" width="800">
  
   <p>Feito pela própia equipe(2026)</p>
 </div>
@@ -587,7 +587,7 @@ Ao concluir o desafio com sucesso, o jogador recebe Cobasi Coins, que funcionam 
 
 <div align="center">
 <p>Minigame de Banho</p>
-<img src="other/sprint3-banho.png.png" width="800">
+<img src="other/bath.png" width="800">
 <p>Feito pela própria equipe (2026)</p>
 </div>
 
@@ -611,7 +611,7 @@ Após atingir essa pontuação, o minigame é finalizado e o jogador recebe Coba
 
 <div align="center">
 <p>Minigame de Alimentação</p>
-<img src="other/sprint3-alimentacao.png.png" width="800">
+<img src="other/sprint3-alimentacao.png" width="800">
 <p>Feito pela própria equipe (2026)</p>
 </div>
 
@@ -687,12 +687,19 @@ Eles são essenciais para garantir a qualidade do produto, identificar bugs de f
 |Jogo deve apresentar a tela na proporção de Notebook | Abrir o jogo no navegador | Jogo apresenta aspectos visuais enquandrados na tela |
 | Presença funcional de feedback do usuário | Realizar interações com as funcionalidades da tela de início | Assim que o mouse passa pelos botões eles aumentam de tamanho, indicando correta funcionalidade |
 | Botão "settings" deve gerar outra tela para configurações do jogo | clicar no botão para saber o resultado| Funcionalidade requisitada aparece perfeitamente
+| O áudio não deve ser reproduzido quando estiver desativado | Desativar o áudio e realizar ações no jogo | Nenhum som é reproduzido |
+| Reativar o áudio deve restaurar os sons do jogo | Ativar novamente o áudio nas configurações | Os sons do jogo voltam a ser reproduzidos |
+| O cursor não deve indicar interação em áreas não interativas | Passar o mouse sobre partes vazias da tela | O cursor permanece no estado padrão |
 |O botão "jogar" deve redirecionar para a tela principal do jogo, onde será possível selecionar o Minigame desejado | Clicar no botão e esperar o resultado | O jogo é redirecionado para a tela principal do jogo
 | Deve ser possível segurar e mover o "sabão"| Clicar no sabão e arrastar sobre a tela| O "sabão" é movimentado com o mouse|
+| Objetos interativos devem permanecer selecionáveis após uso | Utilizar um objeto e tentar selecioná-lo novamente | O objeto continua funcional |
 | Ao passar o "sabão" sobre o cachorro, deve surgir "bolhas" como rastro para indicar limpeza| Clicar no sabão e arrastar sobre o cachorro| O efeito das "bolhas" surge sobre o cachorro como rastro de limpeza.| 
 | Deve ser possível segurar e mover o "chuveiro"| Clicar no "chuveiro" e arrastar sobre a tela| O "chuveiro" é movimentado com o mouse|
 |Ao arrastar o chuveiro sobre o cachorro, deve haver uma animação de água caindo que "limpa o sabão"| Arrastar o "chuveiro" sobre o cachorro com "sabão" sobreposto| O efeito da água caindo ocorre e "limpa o sabão" e deixa o cachorro molhado|
-|Deve ser possível segurar e mover a "toalha"| Clicar na "toalha" e arrastar sobre a tela| A "toalha" é movimentada com o mouse| 
+|Deve ser possível segurar e mover a "toalha"| Clicar na "toalha" e arrastar sobre a tela| A "toalha" é movimentada com o mouse|
+| A toalha não deve secar o cachorro antes de ser molhado | Arrastar a toalha sobre o cachorro seco | Nenhuma mudança visual ocorre |
+| As pulgas não devem desaparecer ao clicar fora delas | Clicar em áreas da tela onde não há pulgas | Nenhuma pulga desaparece |
+| O cachorro deve parar de se mover ao soltar a tecla de movimentação no minigame da ração | Pressionar e soltar a tecla de movimentação | O cachorro interrompe o movimento | 
 |Ao arrastar a toalha sobre o cachorro, a animação de "cachorro molhado" deve sair de cena| Arrastar a "toalha" sobre o "cachorro molhado"| A animação de "cachorro limpo" entra em cena|
 |Deve ser possível segurar e mover a "pinça"| Clicar na "pinça" e arrastar sobre a tela| A "pinça" é movida pelo mouse|
 |Ao arrastar a "pinça" pela tela, deve ser possível clicar nas "pulgas"| Clicar com o botão direito do mouse nas "pulgas"| O click em cima de uma "pulga" faz com que a mesma desapareça|
