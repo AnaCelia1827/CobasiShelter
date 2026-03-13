@@ -83,16 +83,7 @@ export class cenaInicial extends Phaser.Scene {
             () => this.transitionTo("cenaConfiguracoes")
         );
 
-        const mask = this.add.rectangle(
-    window.innerWidth / 2,
-    window.innerHeight / 2,
-    300,
-    120,
-    0xffffff
-);
-mask.setDepth(1);
-
-botaoJogar.setDepth(2);
+        
 
         // Configuração da câmera (fade in inicial)
         this.cameras.main.setBounds(0, 0, this.scale.width, this.scale.height);

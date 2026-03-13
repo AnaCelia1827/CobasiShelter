@@ -49,7 +49,10 @@ export class cenaCarregamento extends Phaser.Scene {
 
         // Tela Cuidado
         this.load.image("bgCuidado", "assets/tela-cuidado/bgCuidado.png");
-        this.load.spritesheet("pulga", "assets/tela-cuidado/pulga.png",{frameWidth:300, frameHeight: 300});
+        this.load.spritesheet("pulga", "assets/tela-cuidado/pulga.png", {
+            frameWidth: 240,
+            frameHeight: 480
+        });
 
 
         // Cenas de gameplay

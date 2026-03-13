@@ -143,7 +143,10 @@ export class cenaCuidado extends Phaser.Scene {
         pulga.setActive(true).setVisible(true);
         pulga.body.setAllowGravity(false);
         pulga.body.stop();
-        pulga.setScale(0.12).setDepth(10);
+        pulga
+            .setOrigin(0.5, 0.5)
+            .setScale(0.15)
+            .setDepth(10);
         pulga.play("pulgaAnim", true);
 
         this.moverPulga(pulga);
@@ -277,7 +280,8 @@ export class cenaCuidado extends Phaser.Scene {
 
         this.anims.create({
             key: "pulgaAnim",
-            frames: this.anims.generateFrameNumbers("pulga", { start: 0, end: 1 }),
+            // Usa os quadros da mesma coluna para evitar jitter horizontal causado pelo padding desigual.
+            frames: this.anims.generateFrameNumbers("pulga", { frames: [0, 2] }),
             frameRate: 7,
             repeat: -1
         });
