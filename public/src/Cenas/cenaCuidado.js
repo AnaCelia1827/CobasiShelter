@@ -1,4 +1,4 @@
-// Importa o objeto global gameState do arquivo principal
+//  o objeto global gameState do arquivo principal
 import { gameState } from "../main.js";
 
 // Cena responsável pelo minigame de remover pulgas

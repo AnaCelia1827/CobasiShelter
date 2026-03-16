@@ -113,6 +113,17 @@ export class cenaCarregamento extends Phaser.Scene {
             frameWidth: 480,
             frameHeight: 480
         });
+
+        //Imagens jogo Alimentação
+        
+        this.load.image('bgFoodScene', 'assets/tela-alimentacao/fundoracao.png');
+        this.load.image('dogPlayer', 'assets/dogPlayer.png');
+        this.load.image('foodNormal', 'assets/foodNormal.png');
+        this.load.image('foodSuperPremium', 'assets/foodSuperPremium.png');
+        this.load.image('foodChocolate', 'assets/foodChocolate.png');
+        this.load.image('heart', 'assets/heart.png');
+        this.load.image('retornoInicio', 'assets/retornoInicio.png');
+    
     }
 
     create() {

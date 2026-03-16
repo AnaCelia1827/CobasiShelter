@@ -5,7 +5,7 @@ export class jogoAlimentacao extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('bgFoodScene', 'assets/kitchen.png');
+        this.load.image('bgFoodScene', 'assets/tela-alimentação/bgRacao.png');
         this.load.image('dogPlayer', 'assets/dogPlayer.png');
         this.load.image('foodNormal', 'assets/foodNormal.png');
         this.load.image('foodSuperPremium', 'assets/foodSuperPremium.png');
@@ -55,7 +55,7 @@ export class jogoAlimentacao extends Phaser.Scene {
         this.jogador = this.physics.add.sprite(this.larguraTela / 2, this.chaoY, 'dogPlayer');
         this.jogador.setCollideWorldBounds(true);
         this.jogador.body.allowGravity = false;
-        this.jogador.setScale(0.1);
+        this.jogador.setScale(0.15);
         this.velocidadeJogador = 560;
 
         this.physics.world.setBounds(0, 0, this.larguraTela, this.alturaTela);
@@ -63,16 +63,16 @@ export class jogoAlimentacao extends Phaser.Scene {
         this.itensComida = this.physics.add.group();
         this.physics.add.overlap(this.jogador, this.itensComida, this.coletarItem, null, this);
 
-        this.textoPontuacao = this.add.text(20, 20, 'Pontuacao: 0', {
-            fontFamily: 'Arial',
-            fontSize: '32px',
+        this.textoPontuacao = this.add.text (100, 45, 'Pontuacao: 0', {
+            fontFamily: '"Press Start 2P"',
+            fontSize: "18px",
             color: '#1f1f1f'
         }).setDepth(10);
 
         this.iconesVida = [];
         for (let i = 0; i < this.vidasMaximas; i++) {
-            const coracao = this.add.image(this.larguraTela - 40 - (i * 45), 35, 'heart')
-                .setScale(0.15)
+            const coracao = this.add.image(this.larguraTela - 40 - (i * 60), 35, 'heart')
+                .setScale(0.25)
                 .setDepth(10);
             this.iconesVida.push(coracao);
         }
@@ -100,7 +100,7 @@ export class jogoAlimentacao extends Phaser.Scene {
     update() {
         if (this.partidaEncerrada) return;
 
-        this.jogador.y = this.chaoY;
+        //this.jogador.y = this.chaoY;
         this.jogador.body.velocity.y = 0;
 
         const indoEsquerda = this.cursors.left.isDown || this.teclaA.isDown;
