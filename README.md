@@ -10,10 +10,10 @@
 
 ## Bardot Studios
 
-## 👨‍🎓 Integrantes: 
+## 👨‍🎓 Integrantes:  
 - <a href="https://www.linkedin.com/in/ana-célia-amaral-354a553a4">Ana Célia Augusta Santos</a>
 - <a href="https://www.linkedin.com/in/anita-fratelli-258398314/">Anita Fratelli Sonobe Silveira</a>
-- Davi Viana Tricarico</a> 
+- <a href="https://www.linkedin.com/in/davi-tricarico-248b1a3b1">Davi Viana Tricarico</a>
 - <a href="https://www.linkedin.com/in/gustavo-luz-250708220">Gustavo Luz Fantasia Barbosa</a> 
 - <a href="https://www.linkedin.com/in/isaac-nicolas-alves-da-silva-9787592a4">Isaac Nicolas Alves Silva</a>
 - <a href="https://www.linkedin.com/in/joão-pedro-poveda-43263b265">Joao Pedro Fuzzo Poveda</a>
@@ -24,15 +24,15 @@
 ### Orientador(a) 
 - <a href="https://www.linkedin.com/in/fabiana-martins-de-oliveira-8993b0b2/">Fabiana Martins de Oliveira</a>
 ### Instrutores
-- <a href="https://www.linkedin.com/in/victorbarq/">Nome do instrutor 1</a>
-- <a href="https://www.linkedin.com/in/victorbarq/">Nome do instrutor 2</a> 
-- <a href="https://www.linkedin.com/in/victorbarq/">Nome do instrutor 3</a> 
-- <a href="https://www.linkedin.com/in/victorbarq/">Nome do instrutor 4</a>
-- <a href="https://www.linkedin.com/in/victorbarq/">Nome do instrutor 5</a> 
+- <a href="https://www.linkedin.com/in/juliastateri/">Julia Stateri</a>
+- <a href="https://www.linkedin.com/in/geraldo-magela-severino-vasconcelos-22b1b220/">Geraldo Magela Severino Vasconcelos</a> 
+- <a href="https://www.linkedin.com/in/silva-wesley/">Wesley da Silva Santos</a> 
+- <a href="https://www.linkedin.com/in/vanunes/">Vanessa Tavares Nunes</a>
+- <a href="https://www.linkedin.com/in/fabiocassiosouza/">Fábio Cássio de Souza</a> 
 
 ## 📜 Descrição
 
-Um jogo satisfatório no estilo "cleaning/grooming simulator" onde o jogador recebe animais abandonados em estados diversos (sujos, machucados, com parasitas) e os trata através de interações táteis até ficarem saudáveis. Cada animal tratado gera coins que podem ser convertidos em valor real (cupons Cobasi) ou usados dentro do jogo. Foca principalmente em conscientizar/informar o usuário sobre o sistema de adoção presente na Cobasi (o qual não é tão conhecido como o esperado), além capacitar o tutor e ensinar a aprimorar a qualidade de vida do pet.
+Um jogo satisfatório no estilo "cleaning/grooming simulator" onde o jogador recebe animais abandonados em estados diversos (sujos, machucados, com parasitas) e os trata através de interações táteis até ficarem saudáveis. Cada animal tratado gera coins que podem ser usados dentro do jogo. Foca principalmente em conscientizar/informar o usuário sobre o sistema de adoção presente na Cobasi (o qual não é tão conhecido como o esperado), além capacitar o tutor e ensinar a aprimorar a qualidade de vida do pet.
 
 
 ## 📁 Estrutura de pastas
