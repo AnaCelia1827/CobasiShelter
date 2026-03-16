@@ -4,116 +4,112 @@ import { Barra } from "./Barras/barras.js";
 export class cenaHUD extends Phaser.Scene {
     constructor() {
         super({ key: "cenaHUD" });
-        this.transicao = false; // Flag para evitar múltiplas transições simultâneas
+        this.transicao = false;
     }
 
     create() {
-        this.transicao = false; // Reseta flag de transição
+        this.transicao = false;
 
-        // Configuração do painel lateral (HUD)
-        const larguraPainel = 200;                          // Largura do painel
-        const painelX = this.scale.width - larguraPainel / 2; // Posição X (lado direito da tela)
-        const centroY = this.scale.height / 2;              // Centro vertical da tela
-        const topoY = Math.max(100, this.scale.height * 0.12); // Posição inicial dos botões
-        const espaco = Math.max(90, this.scale.height * 0.18); // Espaçamento entre botões
+        // Configuração inicial do painel
+        const larguraPainel = this.scale.width * 0.2;
+        const painelX = this.scale.width - larguraPainel / 2;
+        const centroY = this.scale.height / 2;
+        const topoY = Math.max(100, this.scale.height * 0.12);
+        const espaco = Math.max(90, this.scale.height * 0.18);
 
-        // Adiciona ícones e barras de status
-        this.add.image(100, 100, "iconeFome").setScale(1.5);
+        // Ícones e barras
+        this.iconeFome = this.add.image(100, 100, "iconeFome").setScale(1.5);
         this.barraComida = new Barra(this, 230, 100, gameState.barras.comida);
 
-        this.add.image(100, 160, "iconeFelicidade").setScale(1.5);
+        this.iconeFelicidade = this.add.image(100, 160, "iconeFelicidade").setScale(1.5);
         this.barraLazer = new Barra(this, 230, 160, gameState.barras.lazer);
 
-        this.add.image(100, 220, "iconeSujeira").setScale(1.5);
+        this.iconeSujeira = this.add.image(100, 220, "iconeSujeira").setScale(1.5);
         this.barraLimpeza = new Barra(this, 230, 220, gameState.barras.limpeza);
 
-        this.add.image(100, 280, "iconeSaude").setScale(1.5);
+        this.iconeSaude = this.add.image(100, 280, "iconeSaude").setScale(1.5);
         this.barraSaude = new Barra(this, 230, 280, gameState.barras.saude);
 
-        // Cria o retângulo branco que serve de fundo para o painel
-        this.add
-            .rectangle(painelX, centroY, larguraPainel, this.scale.height, 0xffffff, 1)
+        // Fundo do painel
+        this.painel = this.add.rectangle(painelX, centroY, larguraPainel, this.scale.height, 0xffffff, 1)
             .setOrigin(0.5, 0.5)
-            .setScrollFactor(0); // Fixa o painel na tela (não se move com a câmera)
+            .setScrollFactor(0);
 
-        // Função utilitária para criar botões no painel
+        // Botões
+        this.botoes = [];
         const criarBotao = (indice, textura, cenaAlvo) => {
-            const y = topoY + indice * espaco; // Calcula posição Y do botão
-            const botao = this.add
-                .image(painelX, y, textura) // Cria imagem do botão
-                .setInteractive({ useHandCursor: true }) // Torna clicável
-                .setScale(0.7) // Define escala
-                .setScrollFactor(0); // Fixa na tela
-
-            // Evento de clique → chama transição para cena alvo
+            const y = topoY + indice * espaco;
+            const botao = this.add.image(painelX, y, textura)
+                .setInteractive({ useHandCursor: true })
+                .setScale(0.7)
+                .setScrollFactor(0);
             botao.on("pointerdown", () => this.transicionarPara(cenaAlvo));
+            this.botoes.push({ botao, indice, cenaAlvo });
         };
 
-        // Criação dos botões do HUD
-        criarBotao(0, "iconeBanho", "cenaBanho");         // Botão para cena de banho
-        criarBotao(1, "iconeRacao", "cenaComida");        // Botão para cena de comida
-        criarBotao(2, "iconeCuidados", "cenaCuidado");    // Botão para cena de cuidados
-        criarBotao(3, "iconeLazer", "jogoLazer");         // Botão para cena de lazer
-        criarBotao(4, "iconeVoltar", "cenaPrincipal");    // Botão para voltar ao menu principal
+        criarBotao(0, "iconeBanho", "cenaBanho");
+        criarBotao(1, "iconeRacao", "cenaComida");
+        criarBotao(2, "iconeCuidados", "cenaCuidado");
+        criarBotao(3, "iconeLazer", "jogoLazer");
+        criarBotao(4, "iconeVoltar", "cenaPrincipal");
+
+        // >>> Listener de resize <<<
+        this.scale.on("resize", (gameSize) => {
+            const width = gameSize.width;
+            const height = gameSize.height;
+
+            const larguraPainel = width * 0.2;
+            const painelX = width - larguraPainel / 2;
+            const centroY = height / 2;
+            const topoY = Math.max(100, height * 0.12);
+            const espaco = Math.max(90, height * 0.18);
+
+            this.cameras.resize(width, height);
+
+            // Atualiza painel
+            this.painel.setSize(larguraPainel, height).setPosition(painelX, centroY);
+
+            // Atualiza botões
+            this.botoes.forEach(({ botao, indice }) => {
+                const y = topoY + indice * espaco;
+                botao.setPosition(painelX, y);
+            });
+        });
     }
 
-    // Função responsável por transicionar entre cenas
     transicionarPara(cenaAlvo) {
-        if (this.transicao) {
-            return; // Evita transições simultâneas
-        }
-
-        // Verifica se a cena alvo existe
+        if (this.transicao) return;
         if (!this.scene.manager.keys[cenaAlvo]) {
             console.error(`Cena não registrada: ${cenaAlvo}`);
             return;
         }
 
-        // Obtém todas as cenas ativas
         const cenasAtivas = this.scene.manager.getScenes(true);
-
-        // Identifica a cena de jogo ativa (exclui HUD e ficha)
-        const cenaJogo = cenasAtivas.find((cena) => {
+        const cenaJogo = cenasAtivas.find(cena => {
             const chave = cena.scene.key;
             return chave !== "cenaHUD" && chave !== "ficha";
         });
 
-        // Se já está na cena alvo, não faz nada
-        if (cenaJogo?.scene.key === cenaAlvo) {
-            return;
-        }
+        if (cenaJogo?.scene.key === cenaAlvo) return;
 
-        // Marca transição como ativa
         this.transicao = true;
-
-        // Faz fade out da tela
         this.cameras.main.fadeOut(300, 0, 0, 0);
         this.cameras.main.once("camerafadeoutcomplete", () => {
-            // Para todas as cenas ativas, exceto HUD e a cena alvo
-            cenasAtivas.forEach((cena) => {
+            cenasAtivas.forEach(cena => {
                 const chave = cena.scene.key;
                 if (chave !== "cenaHUD" && chave !== cenaAlvo) {
                     this.scene.stop(chave);
                 }
             });
-
-            // Se a cena alvo não está ativa, inicia ela
             if (!this.scene.isActive(cenaAlvo)) {
                 this.scene.launch(cenaAlvo);
             }
-
-            // Garante que o HUD fique por cima
             this.scene.bringToTop("cenaHUD");
-
-            // Faz fade in da nova cena
             this.cameras.main.fadeIn(300, 0, 0, 0);
-
-            // Libera flag de transição
             this.transicao = false;
         });
     }
 
-    // Atualiza as barras de status em tempo real
     update() {
         this.barraComida.valor  = gameState.barras.comida;
         this.barraLazer.valor   = gameState.barras.lazer; 

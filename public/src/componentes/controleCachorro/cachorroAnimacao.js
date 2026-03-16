@@ -13,8 +13,7 @@ export class Cachorro {
     this.pet = cachorroGeral.pet
 
     // Cria o sprite do cachorro na cena, na posição (x, y), com a textura "cachorro"
-    this.sprite = scene.add.sprite(x, y, "cachorro").setScale(0.5);
-
+    this.sprite = scene.add.sprite(x, y, "cachorro");
     // Cria as animações do cachorro (se ainda não existirem)
     this.criarAnimacoes()
 

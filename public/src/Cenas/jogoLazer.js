@@ -5,15 +5,13 @@ import { Cachorro } from "../componentes/controleCachorro/cachorroAnimacao.js";
 export class jogoLazer extends Phaser.Scene {
     constructor() {
         super({ key: "jogoLazer" });
-        // Contador de jogadas — incrementa toda vez que a bola é lançada
-        this.acertos = 0;
+        this.acertos = 0; // Contador de jogadas
     }
 
     create() {
-        // Define gravidade padrão para objetos com física
         this.physics.world.gravity.y = 300;
 
-        // Garante que a HUD esteja ativa
+        // HUD
         if (!this.scene.isActive("cenaHUD")) {
             this.scene.launch("cenaHUD");
         } else if (this.scene.isSleeping("cenaHUD")) {
@@ -21,7 +19,7 @@ export class jogoLazer extends Phaser.Scene {
         }
         this.scene.bringToTop("cenaHUD");
 
-        // Música de fundo
+        // Música
         if (!gameState.musica) {
             gameState.musica = this.sound.add("musica", { loop: true, volume: 0.5 });
         }
@@ -29,17 +27,17 @@ export class jogoLazer extends Phaser.Scene {
             gameState.musica.play();
         }
 
-        // Fundo da cena (por enquanto reutiliza o do banheiro)
-        this.add.image(this.scale.width / 2, this.scale.height / 2, "bgBanheiro")
+        // Fundo
+        this.fundo = this.add.image(this.scale.width / 2, this.scale.height / 2, "bgBanheiro")
             .setDisplaySize(this.scale.width, this.scale.height);
 
-        // Instancia cachorro
+        // Cachorro
         this.cachorro = new Cachorro(this, 920, 600);
         this.physics.add.existing(this.cachorro.sprite);
         this.cachorro.sprite.body.setAllowGravity(false);
         this.cachorro.sprite.body.immovable = true;
 
-        // Bola interativa
+        // Bola
         this.objeto = this.physics.add.image(200, 500, "bolaLaranja")
             .setScale(0.2)
             .setCollideWorldBounds(false);
@@ -47,24 +45,18 @@ export class jogoLazer extends Phaser.Scene {
         this.objeto.body.setAllowGravity(false);
         this.posicaoInicial = { x: 200, y: 500 };
 
-        // Reinicia contador de jogadas
         this.acertos = 0;
-
-        // Gráfico para desenhar trajetória
         this.trajetoria = this.add.graphics();
 
-        // Configura bola como arrastável
         this.objeto.setInteractive({ useHandCursor: true });
         this.input.setDraggable(this.objeto);
 
-        // Evento de arrastar bola
         this.input.on("drag", (pointer, gameObject, dragX, dragY) => {
             gameObject.x = dragX;
             gameObject.y = dragY;
             this.desenharTrajetoria(gameObject);
         });
 
-        // Ao soltar a bola → conta jogada
         this.input.on("dragend", (pointer, gameObject) => {
             const forcaX = (this.posicaoInicial.x - gameObject.x) * 3;
             const forcaY = (this.posicaoInicial.y - gameObject.y) * 3;
@@ -72,10 +64,7 @@ export class jogoLazer extends Phaser.Scene {
             gameObject.body.setVelocity(forcaX, forcaY);
             this.trajetoria.clear();
 
-            // Incrementa contador
             this.acertos++;
-
-            // A cada 4 jogadas → reduz barra de lazer
             if (this.acertos % 4 === 0) {
                 gameState.barras.lazer = Phaser.Math.Clamp(
                     gameState.barras.lazer - 11, 0, 11
@@ -83,15 +72,31 @@ export class jogoLazer extends Phaser.Scene {
             }
         });
 
-        // Colisão bola ↔ cachorro
         this.physics.add.overlap(this.objeto, this.cachorro.sprite, () => {
             this.resetarObjeto();
             this.teleportarCachorro();
         });
+
+        // >>> Listener de resize <<<
+        this.scale.on("resize", (gameSize) => {
+            const largura = gameSize.width;
+            const altura = gameSize.height;
+
+            this.cameras.resize(largura, altura);
+
+            // Fundo
+            this.fundo.setDisplaySize(largura, altura).setPosition(largura / 2, altura / 2);
+
+            // Cachorro reposicionado proporcionalmente
+            this.cachorro.sprite.setPosition(largura * 0.7, altura * 0.8);
+
+            // Bola volta para posição inicial relativa
+            this.posicaoInicial = { x: largura * 0.2, y: altura * 0.8 };
+            this.resetarObjeto();
+        });
     }
 
     update() {
-        // Se bola sair da tela → reseta
         if (
             this.objeto.y > this.scale.height + 50 ||
             this.objeto.x < -50 ||
@@ -101,7 +106,6 @@ export class jogoLazer extends Phaser.Scene {
         }
     }
 
-    // Desenha trajetória prevista da bola
     desenharTrajetoria(gameObject) {
         this.trajetoria.clear();
         this.trajetoria.lineStyle(2, 0xff0000, 1);
@@ -129,7 +133,6 @@ export class jogoLazer extends Phaser.Scene {
         this.trajetoria.strokePath();
     }
 
-    // Reseta bola para posição inicial
     resetarObjeto() {
         this.objeto.setPosition(this.posicaoInicial.x, this.posicaoInicial.y);
         this.objeto.body.stop();
@@ -137,9 +140,9 @@ export class jogoLazer extends Phaser.Scene {
         this.objeto.body.setAllowGravity(false);
     }
 
-    // Teleporta cachorro para posição aleatória
     teleportarCachorro() {
-        const novaX = Phaser.Math.Between(200, 1000);
-        this.cachorro.sprite.setPosition(novaX, 600);
+        const novaX = Phaser.Math.Between(200, this.scale.width - 200);
+        const novaY = this.scale.height * 0.8;
+        this.cachorro.sprite.setPosition(novaX, novaY);
     }
 }
