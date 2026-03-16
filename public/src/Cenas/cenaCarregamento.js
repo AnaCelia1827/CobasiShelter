@@ -39,7 +39,7 @@ export class cenaCarregamento extends Phaser.Scene {
         });
 
         // HUD (interface do jogo)
-        this.load.image("bgHUD", "assets/bgHUD.png");
+        this.load.image("bgHUD", "assets/bg.HUD.png");
         this.load.image("iconeBanho", "assets/iconeBanho.png");
         this.load.image("iconeRacao", "assets/iconeRacao.png");
         this.load.image("iconeCuidados", "assets/iconeCuidados.png");
