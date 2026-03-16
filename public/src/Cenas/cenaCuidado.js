@@ -16,52 +16,83 @@ export class cenaCuidado extends Phaser.Scene {
     }
 
     create() {
-        // Garante que a cena HUD esteja ativa
-        if (!this.scene.isActive("cenaHUD")) {
-            this.scene.launch("cenaHUD");
-        } else if (this.scene.isSleeping("cenaHUD")) {
-            this.scene.wake("cenaHUD");
-        }
-        this.scene.bringToTop("cenaHUD");
-
-        // Fundo da cena
-        this.add.image(this.scale.width / 2, this.scale.height / 2, "bgCuidado")
-            .setDisplaySize(this.scale.width, this.scale.height);
-
-        // Garante que animação da pulga e textura da pinça existam
-        this.garantirAnimacaoPulga();
-        this.garantirTexturaPinca();
-
-        // Reinicia variáveis de estado
-        this.tempoInicialMs = this.time.now;
-        this.pulgasRemovidas = 0;
-        this.pontuacao = 0;
-        this.minigameFinalizado = false;
-        this.pincaEquipada = false;
-        this.bonusMeioGanho = false;
-
-        // Inicializa moedas se não existirem
-        gameState.cobasiCoins = gameState.cobasiCoins ?? 0;
-
-        // Grupo de pulgas com física
-        this.pulgas = this.physics.add.group({
-            classType: Phaser.Physics.Arcade.Sprite,
-            maxSize: this.totalPulgas
-        });
-
-        // Cria elementos da cena
-        this.criarTextosInfo();    // Placar (tempo, progresso, dica)
-        this.criarFerramentaPinca(); // Pinça interativa
-        this.spawnPulgasIniciais();  // Pulgas iniciais
-
-        // Timer que atualiza o tempo a cada 100ms
-        this.timerEvent = this.time.addEvent({
-            delay: 100,
-            callback: this.atualizarTextoTempo,
-            callbackScope: this,
-            loop: true
-        });
+    // HUD
+    if (!this.scene.isActive("cenaHUD")) {
+        this.scene.launch("cenaHUD");
+    } else if (this.scene.isSleeping("cenaHUD")) {
+        this.scene.wake("cenaHUD");
     }
+    this.scene.bringToTop("cenaHUD");
+
+    // Fundo
+    this.fundo = this.add.image(this.scale.width / 2, this.scale.height / 2, "bgCuidado")
+        .setDisplaySize(this.scale.width, this.scale.height);
+
+    // Garante animações
+    this.garantirAnimacaoPulga();
+    this.garantirTexturaPinca();
+
+    // Reset variáveis
+    this.tempoInicialMs = this.time.now;
+    this.pulgasRemovidas = 0;
+    this.pontuacao = 0;
+    this.minigameFinalizado = false;
+    this.pincaEquipada = false;
+    this.bonusMeioGanho = false;
+
+    gameState.cobasiCoins = gameState.cobasiCoins ?? 0;
+
+    // Grupo de pulgas
+    this.pulgas = this.physics.add.group({
+        classType: Phaser.Physics.Arcade.Sprite,
+        maxSize: this.totalPulgas
+    });
+
+    // Elementos
+    this.criarTextosInfo();
+    this.criarFerramentaPinca();
+    this.spawnPulgasIniciais();
+
+    // Timer
+    this.timerEvent = this.time.addEvent({
+        delay: 100,
+        callback: this.atualizarTextoTempo,
+        callbackScope: this,
+        loop: true
+    });
+
+    // >>> Listener de resize <<<
+    this.scale.on("resize", (gameSize) => {
+        const largura = gameSize.width;
+        const altura = gameSize.height;
+
+        this.cameras.resize(largura, altura);
+
+        // Fundo
+        this.fundo.setDisplaySize(largura, altura).setPosition(largura / 2, altura / 2);
+
+        // Textos
+        const direita = largura - 20;
+        this.textoTempo.setPosition(direita, 30);
+        this.textoProgresso.setPosition(direita, 72);
+        this.textoDica.setPosition(direita, 110);
+
+        // Pinça
+        if (this.pinca) {
+            this.pinca.setPosition(140, altura - 120);
+        }
+
+        // Pulgas continuam sendo recriadas em posições aleatórias
+        this.pulgas.children.iterate((pulga) => {
+            if (pulga && pulga.active) {
+                const x = Phaser.Math.Between(120, largura - 280);
+                const y = Phaser.Math.Between(100, altura - 100);
+                pulga.setPosition(x, y);
+            }
+        });
+    });
+}
+
 
     update() {
         // Só funciona se pinça estiver equipada e minigame não finalizado

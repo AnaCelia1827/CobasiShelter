@@ -1,4 +1,5 @@
 import { gameState } from "../main.js";
+
 export class jogoAlimentacao extends Phaser.Scene {
     constructor() {
         super({ key: 'jogoAlimentacao' });
@@ -15,13 +16,12 @@ export class jogoAlimentacao extends Phaser.Scene {
     }
 
     create() {
-        // CORREÇÃO: minigames não exibem o menu HUD completo — apenas botão de seta.
         if (this.scene.isActive("cenaHUD")) {
             this.scene.sleep("cenaHUD");
         }
 
-        // Botão seta voltar
-        const botaoVoltar = this.add.text(60, 50, "←", {
+        // Botão voltar
+        this.botaoVoltar = this.add.text(60, 50, "←", {
             fontFamily: "Arial",
             fontSize: "52px",
             color: "#ffffff",
@@ -29,15 +29,15 @@ export class jogoAlimentacao extends Phaser.Scene {
             strokeThickness: 6
         }).setOrigin(0.5).setDepth(100).setInteractive({ useHandCursor: true });
 
-        botaoVoltar.on("pointerover", () => botaoVoltar.setStyle({ color: "#ffdd00" }));
-        botaoVoltar.on("pointerout",  () => botaoVoltar.setStyle({ color: "#ffffff" }));
-        botaoVoltar.on("pointerdown", () => {
+        this.botaoVoltar.on("pointerover", () => this.botaoVoltar.setStyle({ color: "#ffdd00" }));
+        this.botaoVoltar.on("pointerout",  () => this.botaoVoltar.setStyle({ color: "#ffffff" }));
+        this.botaoVoltar.on("pointerdown", () => {
             if (this.scene.isSleeping("cenaHUD")) { this.scene.wake("cenaHUD"); }
             this.scene.start("cenaComida");
         });
 
-        this.larguraTela = window.innerWidth;
-        this.alturaTela = window.innerHeight;
+        this.larguraTela = this.scale.width;
+        this.alturaTela = this.scale.height;
         this.chaoY = this.alturaTela - 90;
 
         this.pontuacao = 0;
@@ -48,7 +48,7 @@ export class jogoAlimentacao extends Phaser.Scene {
         this.intervaloMinimoSpawn = 420;
         this.partidaEncerrada = false;
 
-        this.add.image(this.larguraTela / 2, this.alturaTela / 2, 'bgFoodScene')
+        this.fundo = this.add.image(this.larguraTela / 2, this.alturaTela / 2, 'bgFoodScene')
             .setDisplaySize(this.larguraTela, this.alturaTela)
             .setDepth(-1);
 
@@ -78,7 +78,6 @@ export class jogoAlimentacao extends Phaser.Scene {
         }
         this.atualizarHUDVidas();
 
-
         this.cursors = this.input.keyboard.createCursorKeys();
         this.teclaA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.teclaD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -94,6 +93,26 @@ export class jogoAlimentacao extends Phaser.Scene {
                 this.intervaloSpawn = Math.max(this.intervaloSpawn - 90, this.intervaloMinimoSpawn);
                 this.criarEventoSpawn();
             }
+        });
+
+        // >>> Listener de resize <<<
+        this.scale.on("resize", (gameSize) => {
+            this.larguraTela = gameSize.width;
+            this.alturaTela = gameSize.height;
+            this.chaoY = this.alturaTela - 90;
+
+            this.cameras.resize(this.larguraTela, this.alturaTela);
+
+            this.fundo.setDisplaySize(this.larguraTela, this.alturaTela).setPosition(this.larguraTela / 2, this.alturaTela / 2);
+            this.jogador.setPosition(this.larguraTela / 2, this.chaoY);
+            this.textoPontuacao.setPosition(20, 20);
+
+            this.iconesVida.forEach((icone, i) => {
+                icone.setPosition(this.larguraTela - 40 - (i * 45), 35);
+            });
+
+            this.botaoVoltar.setPosition(60, 50);
+            this.physics.world.setBounds(0, 0, this.larguraTela, this.alturaTela);
         });
     }
 
@@ -170,7 +189,7 @@ export class jogoAlimentacao extends Phaser.Scene {
         return { tipo: 'superPremium', key: 'foodSuperPremium', pontos: 25, penalidade: 5, dano: 0, cura: 1 };
     }
 
-    coletarItem(jogador, item) {
+        coletarItem(jogador, item) {
         if (this.partidaEncerrada) return;
 
         this.pontuacao += item.getData('pontos');
@@ -184,11 +203,11 @@ export class jogoAlimentacao extends Phaser.Scene {
         this.atualizarHUDPontuacao();
         item.destroy();
 
-                // ✅ Verificação de vitória
+        // ✅ Verificação de vitória
         if (this.pontuacao >= 150) {
             // Atualiza barra de comida no gameState
             gameState.barras.comida = Phaser.Math.Clamp(
-                gameState.barras.limpeza - 11, 0, 11
+                gameState.barras.comida - 11, 0, 11
             );
             this.partidaEncerrada = true;
             this.scene.start('cenaComida'); // Volta para cena de comida

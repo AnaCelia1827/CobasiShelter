@@ -19,6 +19,7 @@ export class cenaComida extends Phaser.Scene {
             this.scene.wake("cenaHUD");
         }
         this.scene.bringToTop("cenaHUD");
+        const posicao = (this.scale.width-this.scale.width*0.2)/2
 
         // Pré-carrega texturas da ração para evitar travamentos
         this.preCarregarTexturasRacao();
@@ -61,12 +62,12 @@ export class cenaComida extends Phaser.Scene {
 
         // Fundo da cena (imagem da cozinha/ração)
         this.add
-            .image(this.scale.width / 2, this.scale.height / 2, "bgRacao")
-            .setDisplaySize(this.scale.width, this.scale.height)
+            .image(posicao, this.scale.height / 2, "bgRacao")
+            .setDisplaySize(this.scale.width-this.scale.width*0.2, this.scale.height)
             .setDepth(-1);
 
         // Estante de ração interativa
-        const estante = this.add.image(300, 600, "estanteRacao").setScale(0.5).setInteractive({ useHandCursor: true });
+        const estante = this.add.image(posicao-(posicao*2)*0.3, this.scale.height/2+this.scale.height*0.2, "estanteRacao").setScale(posicao*0.1).setInteractive({ useHandCursor: true });
         passarPressionarEfeito(estante, 0.5, 0.6);
 
         // Evento de clique na estante → transição para minijogo da ração
@@ -83,13 +84,15 @@ export class cenaComida extends Phaser.Scene {
         });
 
         // Ícone de pote de ração vazio
-        this.add.image(700, 750, "racaoVazia").setScale(0.2).setDepth(100);
+        this.add.image((posicao)+posicao*0.1,this.scale.height/2+this.scale.height*0.4, "racaoVazia").setScale((this.scale.width - this.scale.width * 0.2) * 0.00018).setDepth(100);
 
         // Instancia o cachorro na cena
-        this.cachorro = new Cachorro(this, 920, 600);
+        this.cachorro = new Cachorro(this, (posicao)+posicao*0.5,this.scale.height/2+this.scale.height*0.2);
+        this.cachorro.sprite.setScale((this.scale.width - this.scale.width * 0.2) * 0.0005);
+
 
         // Bilhete interativo (abre ficha informativa)
-        const bilhete = this.add.image(1350, 100, "mineFicha").setScale(0.1).setInteractive({ useHandCursor: true });
+        const bilhete = this.add.image(posicao+posicao*0.7,this.scale.height/2-this.scale.height*0.3, "mineFicha").setScale(0.1).setInteractive({ useHandCursor: true });
         passarPressionarEfeito(bilhete, 0.1, 0.13);
 
         // Evento de clique no bilhete → abre/fecha ficha

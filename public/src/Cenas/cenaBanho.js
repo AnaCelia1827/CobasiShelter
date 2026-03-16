@@ -14,76 +14,91 @@ export class cenaBanho extends Phaser.Scene {
         this.limiteMovimento = 30;         // Distância mínima para gerar espuma
         this.ultimoX = 0;                  // Última posição X do sabão
         this.ultimoY = 0;                  // Última posição Y do sabão
-
-        // Posições iniciais das ferramentas
-        this.posicaoInicialSabao = { x: 600, y: 720 };
-        this.posicaoInicialChuveiro = { x: 770, y: 750 };
-        this.posicaoInicialToalha = { x: 940, y: 720 };
     }
 
     create() {
-        // Garante que a cena HUD esteja ativa
-        if (!this.scene.isActive("cenaHUD")) {
-            this.scene.launch("cenaHUD");
-        } else if (this.scene.isSleeping("cenaHUD")) {
-            this.scene.wake("cenaHUD");
-        }
-        this.scene.bringToTop("cenaHUD");
-
-        // Reset das variáveis
-        this.ferramentaAtiva = null;
-        this.acumuladorAgua = 0;
-        this.tempoSecando = 0;
-        this.quantidadeEspuma = 0;
-
-        // Cria o fundo do banheiro
-        gameState.banheiro = this.add.image(this.scale.width / 2, this.scale.height / 2, "bgBanheiro")
-            .setDisplaySize(this.scale.width, this.scale.height);
-
-        // Cria o cachorro sujo
-        gameState.cachorro = this.physics.add.sprite(this.scale.width / 2, this.scale.height / 2, "dogSujo").setScale(0.5);
-        gameState.cachorro.setImmovable(true);
-        gameState.cachorro.body.allowGravity = false;
-
-        // Cria animações e inicia a animação do cachorro sujo
-        this.criarAnimacoes();
-        gameState.cachorro.play("dogSujoAnim");
-
-        // Cria ferramentas (sabão, chuveiro e toalha) como objetos interativos
-        gameState.sabao = this.add.follower(new Phaser.Curves.Path(400, 500), this.posicaoInicialSabao.x, this.posicaoInicialSabao.y, "sabao")
-            .setInteractive().setDepth(3).setScale(0.12);
-
-        gameState.chuveiro = this.add.follower(new Phaser.Curves.Path(400, 500), this.posicaoInicialChuveiro.x, this.posicaoInicialChuveiro.y, "chuveiro")
-            .setInteractive().setDepth(3).setScale(0.25);
-
-        gameState.toalha = this.add.follower(new Phaser.Curves.Path(400, 500), this.posicaoInicialToalha.x, this.posicaoInicialToalha.y, "toalha")
-            .setInteractive().setDepth(3).setScale(0.2);
-
-        // Adiciona física às ferramentas
-        this.physics.add.existing(gameState.sabao);
-        gameState.sabao.body.setSize(gameState.sabao.displayWidth, gameState.sabao.displayHeight);
-
-        this.physics.add.existing(gameState.chuveiro);
-        gameState.chuveiro.body.setSize(gameState.chuveiro.displayWidth, gameState.chuveiro.displayHeight);
-
-        this.physics.add.existing(gameState.toalha);
-        gameState.toalha.body.setSize(gameState.toalha.displayWidth, gameState.toalha.displayHeight);
-
-        // Cria grupos de partículas
-        gameState.bolhas = this.physics.add.group({ maxSize: 80 });
-        gameState.gotas = this.physics.add.group({ maxSize: 160 });
-
-        // Define colisão entre gotas e bolhas (recicla objetos)
-        this.physics.add.overlap(gameState.gotas, gameState.bolhas, (gota, bolha) => {
-            this.reciclarObjeto(gota);
-            this.reciclarObjeto(bolha);
-        });
-
-        // Eventos de clique para alternar ferramentas
-        gameState.sabao.on("pointerdown", () => this.alternarFerramenta("sabao"));
-        gameState.chuveiro.on("pointerdown", () => this.alternarFerramenta("chuveiro"));
-        gameState.toalha.on("pointerdown", () => this.alternarFerramenta("toalha"));
+    // HUD
+    if (!this.scene.isActive("cenaHUD")) {
+        this.scene.launch("cenaHUD");
+    } else if (this.scene.isSleeping("cenaHUD")) {
+        this.scene.wake("cenaHUD");
     }
+    this.scene.bringToTop("cenaHUD");
+
+    const posicao = (this.scale.width - this.scale.width * 0.2) / 2;
+    this.posicaoInicialSabao = { x: posicao-posicao*0.4, y: this.scale.height / 2+(this.scale.height / 2)*0.8 };
+    this.posicaoInicialChuveiro = { x: posicao, y: this.scale.height / 2+(this.scale.height / 2)*0.8 };
+    this.posicaoInicialToalha = { x: posicao+posicao*0.4, y: this.scale.height / 2+(this.scale.height / 2)*0.8 };
+
+    const escalaBase = Math.min(this.scale.width - this.scale.width * 0.2, this.scale.height) * 0.0005;
+
+    // Reset
+    this.ferramentaAtiva = null;
+    this.acumuladorAgua = 0;
+    this.tempoSecando = 0;
+    this.quantidadeEspuma = 0;
+
+    // Fundo
+    gameState.banheiro = this.add.image(posicao, this.scale.height / 2, "bgBanheiro")
+        .setDisplaySize(this.scale.width - this.scale.width * 0.2, this.scale.height);
+
+    // Cachorro
+    gameState.cachorro = this.physics.add.sprite(posicao, this.scale.height / 2, "dogSujo").setScale(escalaBase);
+    gameState.cachorro.setImmovable(true);
+    gameState.cachorro.body.allowGravity = false;
+
+    this.criarAnimacoes();
+    gameState.cachorro.play("dogSujoAnim");
+
+    // Ferramentas
+    gameState.sabao = this.add.follower(new Phaser.Curves.Path(posicao, this.scale.height / 2), this.posicaoInicialSabao.x, this.posicaoInicialSabao.y, "sabao")
+        .setInteractive().setDepth(3).setScale(0.12);
+
+    gameState.chuveiro = this.add.follower(new Phaser.Curves.Path(400, 500), this.posicaoInicialChuveiro.x, this.posicaoInicialChuveiro.y, "chuveiro")
+        .setInteractive().setDepth(3).setScale(0.25);
+
+    gameState.toalha = this.add.follower(new Phaser.Curves.Path(400, 500), this.posicaoInicialToalha.x, this.posicaoInicialToalha.y, "toalha")
+        .setInteractive().setDepth(3).setScale(0.2);
+
+    this.physics.add.existing(gameState.sabao);
+    this.physics.add.existing(gameState.chuveiro);
+    this.physics.add.existing(gameState.toalha);
+
+    // Grupos
+    gameState.bolhas = this.physics.add.group({ maxSize: 80 });
+    gameState.gotas = this.physics.add.group({ maxSize: 160 });
+
+    this.physics.add.overlap(gameState.gotas, gameState.bolhas, (gota, bolha) => {
+        this.reciclarObjeto(gota);
+        this.reciclarObjeto(bolha);
+    });
+
+    gameState.sabao.on("pointerdown", () => this.alternarFerramenta("sabao"));
+    gameState.chuveiro.on("pointerdown", () => this.alternarFerramenta("chuveiro"));
+    gameState.toalha.on("pointerdown", () => this.alternarFerramenta("toalha"));
+
+    // >>> Listener de resize <<<
+    this.scale.on("resize", (gameSize) => {
+        const width = gameSize.width;
+        const height = gameSize.height;
+        const posicao = (width - width * 0.2) / 2;
+        const escalaBase = Math.min(width - width * 0.2, height) * 0.0005;
+
+        this.cameras.resize(width, height);
+
+        // Fundo
+        gameState.banheiro.setDisplaySize(width - width * 0.2, height).setPosition(posicao, height / 2);
+
+        // Cachorro
+        gameState.cachorro.setPosition(posicao, height / 2).setScale(escalaBase);
+
+        // Ferramentas
+        gameState.sabao.setPosition(posicao, height / 2);
+        gameState.chuveiro.setPosition(posicao, height / 2);
+        gameState.toalha.setPosition(posicao, height / 2);
+    });
+}
+
 
     criarAnimacoes() {
         // Animação cachorro sujo
