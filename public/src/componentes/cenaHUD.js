@@ -16,8 +16,25 @@ export class cenaHUD extends Phaser.Scene {
         const centroY = this.scale.height / 2;
         const topoY = Math.max(100, this.scale.height * 0.12);
         const espaco = Math.max(90, this.scale.height * 0.18);
-
-        // Ícones e barras
+          
+        //adiciona cobasi Coins 
+        this.coinIcon = this.add.image(1440, 50, "cobasiCoin") 
+        .setScale(0.65) 
+        .setScrollFactor(0) 
+        .setDepth(1000); 
+        
+        // Texto das moedas 
+        this.coinText = this.add.text(1440, 45, 
+            gameState.cobasiCoins, 
+            { 
+                fontFamily: '"Press Start 2P"', 
+                fontSize: "16px", 
+                color: "#ffffff" 
+            }) 
+        .setScrollFactor(0) 
+         .setDepth(1000); 
+        
+         // Ícones e barras
         this.iconeFome = this.add.image(100, 100, "iconeFome").setScale(1.5);
         this.barraComida = new Barra(this, 230, 100, gameState.barras.comida);
 
@@ -47,11 +64,11 @@ export class cenaHUD extends Phaser.Scene {
             this.botoes.push({ botao, indice, cenaAlvo });
         };
 
-        criarBotao(0, "iconeBanho", "cenaBanho");
-        criarBotao(1, "iconeRacao", "cenaComida");
-        criarBotao(2, "iconeCuidados", "cenaCuidado");
-        criarBotao(3, "iconeLazer", "jogoLazer");
-        criarBotao(4, "iconeVoltar", "cenaPrincipal");
+        criarBotao(0.5, "iconeBanho", "cenaBanho");
+        criarBotao(1.5, "iconeRacao", "cenaComida");
+        criarBotao(2.5, "iconeCuidados", "cenaCuidado");
+        criarBotao(3.5, "iconeLazer", "jogoLazer");
+        criarBotao(4.5, "iconeVoltar", "cenaPrincipal");
 
         // >>> Listener de resize <<<
         this.scale.on("resize", (gameSize) => {
@@ -120,5 +137,8 @@ export class cenaHUD extends Phaser.Scene {
         this.barraLazer.atualizarBarra();
         this.barraLimpeza.atualizarBarra();
         this.barraSaude.atualizarBarra();
+         // Atualiza moedas 
+
+        this.coinText.setText(gameState.cobasiCoins); 
     }
 }
