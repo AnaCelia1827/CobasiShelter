@@ -287,8 +287,13 @@ export class cenaBanho extends Phaser.Scene {
                 this.tempoSecando = 0;
             }
             return;
-        }
+        };
+         if (!gameState.recompensas.banho) { 
 
+                gameState.cobasiCoins += 20; 
+
+                gameState.recompensas.banho = true; 
+         }
         this.tempoSecando = 0;
     }
 
