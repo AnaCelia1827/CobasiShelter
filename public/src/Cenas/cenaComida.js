@@ -19,7 +19,8 @@ export class cenaComida extends Phaser.Scene {
             this.scene.wake("cenaHUD");
         }
         this.scene.bringToTop("cenaHUD");
-        const posicao = (this.scale.width-this.scale.width*0.2)/2
+        const posicaoX = (this.scale.width-this.scale.width*0.2)
+        const posicaoY = this.scale.height
 
         // Pré-carrega texturas da ração para evitar travamentos
         this.preCarregarTexturasRacao();

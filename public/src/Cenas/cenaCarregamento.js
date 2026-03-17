@@ -45,7 +45,7 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("iconeCuidados", "assets/iconeCuidados.png");
         this.load.image("iconeLazer", "assets/iconeLazer.png");
         this.load.image("iconeVoltar", "assets/iconeVoltar.png");
-
+        this.load.image("cobasiCoin", "assets/moeda.png"); 
         // Tela de Cuidado
         this.load.image("bgCuidado", "assets/tela-cuidado/bgCuidado.png");
         this.load.spritesheet("pulga", "assets/tela-cuidado/pulga.png",{frameWidth:300, frameHeight: 300});

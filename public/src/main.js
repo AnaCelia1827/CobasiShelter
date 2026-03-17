@@ -19,7 +19,12 @@ export let gameState = {
         lazer:   11,
         limpeza: 11,
         saude:   11
-    }
+    },
+      cobasiCoins: 20, 
+      recompensas: { 
+      banho: false 
+
+     } 
 };
 
 // Configuração principal do Phaser

@@ -31,6 +31,15 @@ export class cenaPrincipal extends Phaser.Scene {
             .setDisplaySize(posicaoX, posicaoY)
             .setDepth(-1);
 
+        this.scale.on("resize", (tamanhoTela) => {
+            const { width: largura, height: altura } = tamanhoTela;
+
+            // Ajusta câmera
+            this.cameras.resize(largura, altura);
+
+            
+
+        });
         // Configuração da câmera
         this.cameras.main.setBounds(0, 0, this.scale.width, this.scale.height);
         this.cameras.main.fadeIn(200, 0, 0, 0);

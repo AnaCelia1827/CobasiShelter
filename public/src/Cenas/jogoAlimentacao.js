@@ -205,13 +205,32 @@ export class jogoAlimentacao extends Phaser.Scene {
 
         // ✅ Verificação de vitória
         if (this.pontuacao >= 150) {
+            gameState.cobasiCoins += 20; 
             // Atualiza barra de comida no gameState
             gameState.barras.comida = Phaser.Math.Clamp(
                 gameState.barras.comida - 11, 0, 11
             );
             this.partidaEncerrada = true;
+             // Texto de recompensa 
+
+            this.add.text(this.larguraTela / 2, this.alturaTela / 2, "+20 CobasiCoins!", { 
+
+            fontFamily: '"Press Start 2P"', 
+
+            fontSize: "28px", 
+
+            color: "#020202" 
+
+              }).setOrigin(0.5).setDepth(50); 
+
+             // Espera 2 segundos antes de sair do minigame 
+
+            this.time.delayedCall(2000, () => { 
+
+             
             this.scene.start('cenaComida'); // Volta para cena de comida
-        }
+        });
+    }
     }
 
     // Trata item perdido (quando cai fora da tela)
