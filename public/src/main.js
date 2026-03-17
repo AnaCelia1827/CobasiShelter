@@ -25,9 +25,8 @@ export let gameState = {
 // Configuração principal do Phaser
 const config = {
     type: Phaser.AUTO,
-
-    // Largura limitada (80% da tela, até 1000px)
-    width: Math.min(window.innerWidth * 0.8, 1000),
+    
+    width: window.innerWidth,
 
     // Altura sempre igual à altura total da janela
     height: window.innerHeight,
@@ -69,11 +68,3 @@ const config = {
 
 // Inicializa o jogo
 const game = new Phaser.Game(config);
-
-// Listener para atualizar tamanho dinamicamente
-window.addEventListener("resize", () => {
-    const newWidth = Math.min(window.innerWidth * 0.8, 1000); // largura limitada
-    const newHeight = window.innerHeight;                     // altura total
-
-    game.scale.resize(newWidth, newHeight);
-});

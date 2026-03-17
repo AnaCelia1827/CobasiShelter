@@ -11,7 +11,7 @@ export class cenaHUD extends Phaser.Scene {
         this.transicao = false;
 
         // Configuração inicial do painel
-        const larguraPainel = this.scale.width * 0.2;
+        const larguraPainel = this.scale.width * 0.15;
         const painelX = this.scale.width - larguraPainel / 2;
         const centroY = this.scale.height / 2;
         const topoY = Math.max(100, this.scale.height * 0.12);

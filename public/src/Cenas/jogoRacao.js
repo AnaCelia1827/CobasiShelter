@@ -36,14 +36,15 @@ export class jogoRacao extends Phaser.Scene {
                 this.tweens.add({ targets: target, scaleX: scaleNormal, scaleY: scaleNormal, duration: 200 });
             });
         };
+        const posicao = (this.scale.width - this.scale.width * 0.2) / 2;
 
         // Fundo
-        this.fundo = this.add.image(this.scale.width / 2, this.scale.height / 2, "bgLimpo")
-            .setDisplaySize(this.scale.width, this.scale.height)
+        this.fundo = this.add.image(posicao, this.scale.height / 2, "bgLimpo")
+            .setDisplaySize(posicao, this.scale.height)
             .setDepth(-1);
 
         // Botão voltar
-        this.voltar = this.add.image(100, 100, "botaoVoltar")
+        this.voltar = this.add.image(posicao-(posicao*2)*0.5, (this.scale.height / 2)- (this.scale.height / 2)*0.5, "botaoVoltar")
             .setScale(0.01)
             .setInteractive({ useHandCursor: true });
         hoverPressEffect(this.voltar, 0.01, 0.012);

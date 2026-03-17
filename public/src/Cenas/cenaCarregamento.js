@@ -7,7 +7,7 @@ export class cenaCarregamento extends Phaser.Scene {
 
     preload() {
         // Tela Inicial
-        this.load.image("bgInical", "assets/tela-inicial/bgInicial.png"); // Fundo da tela inicial
+        this.load.image("bgInicial", "assets/tela-inicial/bgInicial.png"); // Fundo da tela inicial
         this.load.image("bgPrincipal", "assets/bgPrincipal.png");         // Fundo principal
         // Botões da tela inicial em diferentes estados (normal, crescendo, pressionado)
         this.load.image("botaoJogarNormal", "assets/tela-inicial/botaoJogarNormal.png");

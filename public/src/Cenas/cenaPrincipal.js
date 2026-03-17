@@ -22,25 +22,17 @@ export class cenaPrincipal extends Phaser.Scene {
             gameState.musica.play();
         }
 
+        const posicaoX = this.scale.width - this.scale.width * 0.15;
+        const posicaoY = this.scale.height;
+
         // Fundo da cena principal (responsivo)
         this.bg = this.add
-            .image(this.scale.width / 2, this.scale.height / 2, "bgHUD")
-            .setDisplaySize(this.scale.width, this.scale.height)
+            .image(posicaoX/2, posicaoY/2, "bgHUD")
+            .setDisplaySize(posicaoX, posicaoY)
             .setDepth(-1);
 
         // Configuração da câmera
         this.cameras.main.setBounds(0, 0, this.scale.width, this.scale.height);
         this.cameras.main.fadeIn(200, 0, 0, 0);
-
-        // Listener para redimensionamento da tela
-        this.scale.on("resize", (gameSize) => {
-            const width = gameSize.width;   // largura limitada pelo main.js
-            const height = gameSize.height; // altura total da tela
-
-            this.cameras.resize(width, height);
-
-            // Ajusta fundo
-            this.bg.setDisplaySize(width, height).setPosition(width / 2, height / 2);
-        });
     }
 }

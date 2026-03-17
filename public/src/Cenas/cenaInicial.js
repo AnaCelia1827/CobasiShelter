@@ -1,7 +1,7 @@
 // Importa o objeto global gameState do arquivo principal
 import { gameState } from "../main.js";
 
-// Define a cena "cenaInicial", que é a tela principal do jogo
+// Define a cena "CenaInicial", que é a tela principal do jogo
 export class cenaInicial extends Phaser.Scene {
     constructor() {
         super({ key: "cenaInicial" });
@@ -10,7 +10,7 @@ export class cenaInicial extends Phaser.Scene {
 
     create() {
         // Para garantir que a HUD não fique ativa ao iniciar
-        this.scene.stop("cenaHUD");
+        this.scene.stop("enaHUD");
         this.transicao = false;
 
         // Música de fundo: cria e inicia se ainda não estiver tocando
@@ -22,17 +22,17 @@ export class cenaInicial extends Phaser.Scene {
         }
 
         // Fundo da cena inicial (responsivo)
-        this.bg = this.add
-            .image(this.scale.width / 2, this.scale.height / 2, "bgInical")
+        this.fundo = this.add
+            .image(this.scale.width / 2, this.scale.height / 2, "bgInicial")
             .setDisplaySize(this.scale.width, this.scale.height);
 
         // Função utilitária para criar botões com troca de textura e animação de escala
-        const criarBotao = (x, y, texturaNormal, texturaOver, texturaDown, escalaBase, escalaHover, escalaDown, callback) => {
+        const criarBotao = (x, y, texturaNormal, texturaSobre, texturaPressionado, escalaBase, escalaAumentada, escalaPressionada, callback) => {
             const botao = this.add.image(x, y, texturaNormal).setScale(escalaBase).setInteractive({ useHandCursor: true });
 
             botao.on("pointerover", () => {
-                botao.setTexture(texturaOver);
-                this.tweens.add({ targets: botao, scale: escalaHover, duration: 150, ease: "Power2" });
+                botao.setTexture(texturaSobre);
+                this.tweens.add({ targets: botao, scale: escalaAumentada, duration: 150, ease: "Power2" });
             });
 
             botao.on("pointerout", () => {
@@ -41,13 +41,13 @@ export class cenaInicial extends Phaser.Scene {
             });
 
             botao.on("pointerdown", () => {
-                botao.setTexture(texturaDown);
-                this.tweens.add({ targets: botao, scale: escalaDown, duration: 100, ease: "Power2" });
+                botao.setTexture(texturaPressionado);
+                this.tweens.add({ targets: botao, scale: escalaPressionada, duration: 100, ease: "Power2" });
             });
 
             botao.on("pointerup", () => {
-                botao.setTexture(texturaOver);
-                this.tweens.add({ targets: botao, scale: escalaHover, duration: 100, ease: "Power2" });
+                botao.setTexture(texturaSobre);
+                this.tweens.add({ targets: botao, scale: escalaAumentada, duration: 100, ease: "Power2" });
                 if (callback) callback();
             });
 
@@ -56,30 +56,30 @@ export class cenaInicial extends Phaser.Scene {
 
         // Escalas adaptativas (baseadas no tamanho da tela)
         const escalaBase = Math.min(this.scale.width, this.scale.height) * 0.00008;
-        const escalaHover = escalaBase * 1.2;
-        const escalaDown = escalaBase * 0.9;
+        const escalaAumentada = escalaBase * 1.2;
+        const escalaPressionada = escalaBase * 0.9;
 
         // Botão Jogar
         this.botaoJogar = criarBotao(
             this.scale.width * 0.162, this.scale.height * 0.6,
             "botaoJogarNormal", "botaoJogarCrescendo", "botaoJogarPressionado",
-            escalaBase, escalaHover, escalaDown,
-            () => this.transitionTo("cenaTutorial")
+            escalaBase, escalaAumentada, escalaPressionada,
+            () => this.transicaoPara("cenaTutorial")
         );
 
         // Botão Sair
         this.botaoSair = criarBotao(
             this.scale.width * 0.05, this.scale.height * 0.9,
             "botaoSairNormal", "botaoSairCrescendo", "botaoSairPressionado",
-            escalaBase, escalaHover, escalaDown,
+            escalaBase, escalaAumentada, escalaPressionada,
             () => this.game.destroy(true)
         );
 
         // Botão Configurações
-        this.botaoConfig = criarBotao(
+        this.botaoConfiguracoes = criarBotao(
             this.scale.width * 0.28, this.scale.height * 0.9,
             "botaoConfiguracoesNormal", "botaoConfiguracoesCrescendo", "botaoConfiguracoesPressionado",
-            escalaBase * 10, escalaHover * 10, escalaDown * 10, // Config maior
+            escalaBase * 10, escalaAumentada * 10, escalaPressionada * 10, // Config maior
             () => {
                 if (!this.scene.isActive("cenaConfiguracoes")) {
                     this.scene.launch("cenaConfiguracoes");
@@ -92,22 +92,25 @@ export class cenaInicial extends Phaser.Scene {
         this.cameras.main.fadeIn(200, 0, 0, 0);
 
         // Listener para redimensionamento da tela
-        this.scale.on("resize", (gameSize) => {
-            const width = gameSize.width;
-            const height = gameSize.height;
+        this.scale.on("resize", (tamanhoTela) => {
+            const { width: largura, height: altura } = tamanhoTela;
 
-            this.cameras.resize(width, height);
-            this.bg.setDisplaySize(width, height).setPosition(width / 2, height / 2);
+            // Atualiza fundo
+            this.fundo.setPosition(largura / 2, altura / 2).setDisplaySize(largura, altura);
 
-            // Reposiciona os botões proporcionalmente
-            this.botaoJogar.setPosition(width * 0.15, height * 0.33);
-            this.botaoSair.setPosition(width * 0.15, height * 0.5);
-            this.botaoConfig.setPosition(width * 0.25, height * 0.5);
+            // Recalcula escalas
+            const escalaBase = Math.min(largura, altura) * 0.00008;
+
+            // Atualiza botões
+            this.botaoJogar.setPosition(largura * 0.162, altura * 0.6).setScale(escalaBase);
+            this.botaoSair.setPosition(largura * 0.05, altura * 0.9).setScale(escalaBase);
+            this.botaoConfiguracoes.setPosition(largura * 0.28, altura * 0.9).setScale(escalaBase * 10);
+
         });
     }
 
     // Função para transição entre cenas com efeito de fade
-    transitionTo(sceneKey) {
+    transicaoPara(chaveCena) {
         if (this.transicao) return;
 
         this.transicao = true;
@@ -116,7 +119,7 @@ export class cenaInicial extends Phaser.Scene {
             if (gameState.musica?.isPlaying) {
                 gameState.musica.stop();
             }
-            this.scene.start(sceneKey);
+            this.scene.start(chaveCena);
         });
     }
 }

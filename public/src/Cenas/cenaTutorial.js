@@ -1,18 +1,18 @@
 /**
- * CENA: cenaTutorial
+ * CENA: CenaTutorial
  *
  * Exibe uma sequência de imagens que contam a história do jogo.
- * Agora responsiva: imagens e botões se adaptam ao redimensionamento da tela.
+ * Responsiva: imagens e botões se adaptam ao redimensionamento da tela.
  */
 export class cenaTutorial extends Phaser.Scene {
     constructor() {
         super({ key: 'cenaTutorial' });
         this.indiceAtual = 1;
-        this.totalCenas = 11;
+        this.totalImagens = 11;
     }
 
     preload() {
-        for (let i = 1; i <= this.totalCenas; i++) {
+        for (let i = 1; i <= this.totalImagens; i++) {
             this.load.image(`tutorial${i}`, `assets/tutorial${i}.png`);
         }
     }
@@ -21,18 +21,18 @@ export class cenaTutorial extends Phaser.Scene {
         this.indiceAtual = 1;
 
         // Imagem centralizada e responsiva
-        this.imagemTutorial = this.add.image(
-            this.cameras.main.centerX,
-            this.cameras.main.centerY,
+        this.imagemAtual = this.add.image(
+            this.scale.width / 2,
+            this.scale.height / 2,
             `tutorial${this.indiceAtual}`
         ).setOrigin(0.5).setDepth(0)
          .setDisplaySize(this.scale.width, this.scale.height);
 
         // Texto de progresso
         this.textoProgresso = this.add.text(
-            this.cameras.main.centerX,
-            this.cameras.main.height - 40,
-            `${this.indiceAtual} / ${this.totalCenas}`,
+            this.scale.width / 2,
+            this.scale.height - 40,
+            `${this.indiceAtual} / ${this.totalImagens}`,
             {
                 fontFamily: 'Arial',
                 fontSize: '22px',
@@ -44,10 +44,10 @@ export class cenaTutorial extends Phaser.Scene {
 
         // Botão anterior
         this.botaoAnterior = this.add.text(
-            80, this.cameras.main.centerY,
+            80, this.scale.height / 2,
             '◀',
             {
-                fontFamily: 'Arial',
+                fonteFamilia: 'Arial',
                 fontSize: '52px',
                 color: '#ffffff',
                 stroke: '#000000',
@@ -57,14 +57,14 @@ export class cenaTutorial extends Phaser.Scene {
 
         this.botaoAnterior.on('pointerover', () => this.botaoAnterior.setStyle({ color: '#ffdd00' }));
         this.botaoAnterior.on('pointerout',  () => this.botaoAnterior.setStyle({ color: '#ffffff' }));
-        this.botaoAnterior.on('pointerdown', () => this.irParaCena(this.indiceAtual - 1));
+        this.botaoAnterior.on('pointerdown', () => this.irParaImagem(this.indiceAtual - 1));
 
         // Botão próximo
         this.botaoProximo = this.add.text(
-            this.cameras.main.width - 80, this.cameras.main.centerY,
+            this.scale.width - 80, this.scale.height / 2,
             '▶',
             {
-                fontFamily: 'Arial',
+                fonteFamilia: 'Arial',
                 fontSize: '52px',
                 color: '#ffffff',
                 stroke: '#000000',
@@ -74,32 +74,32 @@ export class cenaTutorial extends Phaser.Scene {
 
         this.botaoProximo.on('pointerover', () => this.botaoProximo.setStyle({ color: '#ffdd00' }));
         this.botaoProximo.on('pointerout',  () => this.botaoProximo.setStyle({ color: '#ffffff' }));
-        this.botaoProximo.on('pointerdown', () => this.irParaCena(this.indiceAtual + 1));
+        this.botaoProximo.on('pointerdown', () => this.irParaImagem(this.indiceAtual + 1));
 
         this.atualizarBotoes();
 
         // Listener para redimensionamento da tela
-        this.scale.on("resize", (gameSize) => {
-            const width = gameSize.width;
-            const height = gameSize.height;
+        this.scale.on("resize", (tamanhoTela) => {
+            const { width: largura, height: altura } = tamanhoTela;
 
-            this.cameras.resize(width, height);
+            // Ajusta câmera
+            this.cameras.resize(largura, altura);
 
             // Ajusta imagem
-            this.imagemTutorial.setPosition(width / 2, height / 2)
-                               .setDisplaySize(width, height);
+            this.imagemAtual.setPosition(largura / 2, altura / 2)
+                            .setDisplaySize(largura, altura);
 
             // Ajusta texto de progresso
-            this.textoProgresso.setPosition(width / 2, height - 40);
+            this.textoProgresso.setPosition(largura / 2, altura - 40);
 
             // Ajusta botões
-            this.botaoAnterior.setPosition(80, height / 2);
-            this.botaoProximo.setPosition(width - 80, height / 2);
+            this.botaoAnterior.setPosition(80, altura / 2);
+            this.botaoProximo.setPosition(largura - 80, altura / 2);
         });
     }
 
-    irParaCena(novoIndice) {
-        if (novoIndice > this.totalCenas) {
+    irParaImagem(novoIndice) {
+        if (novoIndice > this.totalImagens) {
             this.cameras.main.fadeOut(300, 0, 0, 0);
             this.cameras.main.once('camerafadeoutcomplete', () => {
                 this.scene.start('cenaPrincipal');
@@ -109,15 +109,15 @@ export class cenaTutorial extends Phaser.Scene {
         if (novoIndice < 1) return;
 
         this.indiceAtual = novoIndice;
-        this.imagemTutorial.setTexture(`tutorial${this.indiceAtual}`);
-        this.textoProgresso.setText(`${this.indiceAtual} / ${this.totalCenas}`);
+        this.imagemAtual.setTexture(`tutorial${this.indiceAtual}`);
+        this.textoProgresso.setText(`${this.indiceAtual} / ${this.totalImagens}`);
         this.atualizarBotoes();
     }
 
     atualizarBotoes() {
         this.botaoAnterior.setVisible(this.indiceAtual > 1);
 
-        if (this.indiceAtual === this.totalCenas) {
+        if (this.indiceAtual === this.totalImagens) {
             this.botaoProximo.setText('JOGAR ▶')
                 .setStyle({ fontSize: '32px', color: '#88ff88' });
         } else {
