@@ -1,33 +1,33 @@
 // Importa a classe Cachorro, responsável pela animação e controle do cachorro
 import { Cachorro } from "../componentes/controleCachorro/cachorroAnimacao.js";
 
-// Define a cena "cenaComida"
 export class cenaComida extends Phaser.Scene {
     
     constructor() {
         super({ key: "cenaComida" });
-        this.transicao = false; // Flag para evitar múltiplas transições de cena
+        this.transicao = false;
     }
 
     create() {
-        this.transicao = false; // Reseta flag de transição
+        this.transicao = false;
 
-        // Garante que a cena HUD esteja ativa
+        // HUD
         if (!this.scene.isActive("cenaHUD")) {
             this.scene.launch("cenaHUD");
         } else if (this.scene.isSleeping("cenaHUD")) {
             this.scene.wake("cenaHUD");
         }
         this.scene.bringToTop("cenaHUD");
-        const posicaoX = (this.scale.width-this.scale.width*0.2)
-        const posicaoY = this.scale.height
 
-        // Pré-carrega texturas da ração para evitar travamentos
+        const posicaoX = (this.scale.width - this.scale.width * 0.2);
+        const posicaoY = this.scale.height;
+
         this.preCarregarTexturasRacao();
 
-        // Função auxiliar para aplicar efeitos visuais ao passar o mouse e clicar
+        // Função auxiliar para hover/click dinâmico
         const passarPressionarEfeito = (alvo, escalaNormal, escalaPassar) => {
-            // Aumenta escala ao passar o mouse
+            alvo.removeAllListeners();
+
             alvo.on("pointerover", () => {
                 this.tweens.add({
                     targets: alvo,
@@ -38,18 +38,16 @@ export class cenaComida extends Phaser.Scene {
                 });
             });
 
-            // Reduz escala ao clicar (efeito de pressão)
             alvo.on("pointerdown", () => {
                 this.tweens.add({
                     targets: alvo,
                     scaleX: escalaNormal * 0.9,
                     scaleY: escalaNormal * 0.9,
                     duration: 150,
-                    yoyo: true // volta ao tamanho original
+                    yoyo: true
                 });
             });
 
-            // Retorna à escala normal ao sair com o mouse
             alvo.on("pointerout", () => {
                 this.tweens.add({
                     targets: alvo,
@@ -61,68 +59,87 @@ export class cenaComida extends Phaser.Scene {
             });
         };
 
-        // Fundo da cena (imagem da cozinha/ração)
-        this.add
-            .image(posicao, this.scale.height / 2, "bgRacao")
-            .setDisplaySize(this.scale.width-this.scale.width*0.2, this.scale.height)
+        // Fundo
+        this.fundo = this.add.image(posicaoX / 2, posicaoY / 2, "bgRacao")
+            .setDisplaySize(posicaoX, posicaoY)
             .setDepth(-1);
 
-        // Estante de ração interativa
-        const estante = this.add.image(posicao-(posicao*2)*0.3, this.scale.height/2+this.scale.height*0.2, "estanteRacao").setScale(posicao*0.1).setInteractive({ useHandCursor: true });
-        passarPressionarEfeito(estante, 0.5, 0.6);
+        // Estante
+        const estante = this.add.image(posicaoX * 0.2, posicaoY / 2 + posicaoY * 0.14, "estanteRacao")
+            .setScale(posicaoY * 0.0007)
+            .setInteractive({ useHandCursor: true });
+        passarPressionarEfeito(estante, estante.scaleX, estante.scaleX * 1.1);
 
-        // Evento de clique na estante → transição para minijogo da ração
         estante.on("pointerdown", () => {
-            if (this.transicao) {
-                return; // Evita múltiplos cliques
-            }
-
-            this.transicao = true;
-            this.cameras.main.fadeOut(100, 0, 0, 0); // Faz fade out da tela
+            this.cameras.main.fadeOut(100, 0, 0, 0);
             this.cameras.main.once("camerafadeoutcomplete", () => {
-                this.scene.start("jogoRacao"); // Inicia cena do minijogo
+                this.scene.start("jogoRacao");
             });
         });
 
-        // Ícone de pote de ração vazio
-        this.add.image((posicao)+posicao*0.1,this.scale.height/2+this.scale.height*0.4, "racaoVazia").setScale((this.scale.width - this.scale.width * 0.2) * 0.00018).setDepth(100);
+        // Pote vazio
+        const racaoVazia = this.add.image((posicaoX / 2) + (posicaoX / 2) * 0.1, posicaoY / 2 + posicaoY * 0.4, "racaoVazia")
+            .setScale(posicaoY * 0.00002)
+            .setDepth(100);
 
-        // Instancia o cachorro na cena
-        this.cachorro = new Cachorro(this, (posicao)+posicao*0.5,this.scale.height/2+this.scale.height*0.2);
-        this.cachorro.sprite.setScale((this.scale.width - this.scale.width * 0.2) * 0.0005);
+        // Cachorro
+        this.cachorro = new Cachorro(this, (posicaoX / 2) + (posicaoX / 2) * 0.4, (posicaoY / 2) + (posicaoY / 2) * 0.25);
+        this.cachorro.sprite.setScale(posicaoY * 0.0007);
 
+        // Bilhete
+        const bilhete = this.add.image((posicaoX / 2) + (posicaoX / 2) * 0.7, posicaoY / 2 - posicaoY * 0.3, "mineFicha")
+            .setScale(posicaoY*0.0001)
+            .setInteractive({ useHandCursor: true });
+        passarPressionarEfeito(bilhete, bilhete.scaleX, bilhete.scaleX * 1.3);
 
-        // Bilhete interativo (abre ficha informativa)
-        const bilhete = this.add.image(posicao+posicao*0.7,this.scale.height/2-this.scale.height*0.3, "mineFicha").setScale(0.1).setInteractive({ useHandCursor: true });
-        passarPressionarEfeito(bilhete, 0.1, 0.13);
-
-        // Evento de clique no bilhete → abre/fecha ficha
         bilhete.on("pointerdown", () => {
             if (this.scene.isActive("ficha")) {
-                this.scene.stop("ficha"); // Fecha ficha se já estiver aberta
+                this.scene.stop("ficha");
                 return;
             }
-
-            this.scene.launch("ficha"); // Abre ficha
-            this.scene.bringToTop("Ficha"); // Garante que fique visível
+            this.scene.launch("ficha");
+            this.scene.bringToTop("ficha");
             this.scene.bringToTop("cenaHUD");
         });
 
-        // Evento ao encerrar a cena → fecha ficha se estiver aberta
         this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
             if (this.scene.isActive("ficha")) {
                 this.scene.stop("ficha");
             }
         });
+
+        // >>> Listener de resize ajustado <<<
+        this.scale.on("resize", (tamanhoTela) => {
+            const { width: largura, height: altura } = tamanhoTela;
+            const posicaoX = largura - largura * 0.2;
+            const posicaoY = altura;
+
+            // Fundo
+            this.fundo.setDisplaySize(posicaoX, altura).setPosition(posicaoX / 2, altura / 2);
+
+            // Estante
+            estante.setPosition(posicaoX * 0.2, altura / 2 + altura * 0.14);
+            estante.setScale(posicaoY * 0.0007);
+            passarPressionarEfeito(estante, estante.scaleX, estante.scaleX * 1.1);
+
+            // Pote vazio
+            racaoVazia.setPosition((posicaoX / 2) + (posicaoX / 2) * 0.1, altura / 2 + altura * 0.4);
+            racaoVazia.setScale(posicaoY * 0.00002);
+
+            // Cachorro
+            this.cachorro.sprite.setPosition((posicaoX / 2) + (posicaoX / 2) * 0.4, (posicaoY / 2) + (posicaoY / 2) * 0.25);
+            this.cachorro.sprite.setScale(posicaoY * 0.0007);
+
+            // Bilhete
+            bilhete.setPosition((posicaoX / 2) + (posicaoX / 2) * 0.7, altura / 2 - altura * 0.3);
+            bilhete.setScale(posicaoY*0.0001);
+            passarPressionarEfeito(bilhete, bilhete.scaleX, bilhete.scaleX * 1.3);
+        });
     }
 
-    // Pré-carrega texturas da ração para evitar travamentos
     preCarregarTexturasRacao() {
-        if (this.registry.get("texturas_racao_precarregadas")) {
-            return; // Se já foi pré-carregado, não faz nada
-        }
+        if (this.registry.get("texturas_racao_precarregadas")) return;
 
-        // Lista de texturas que serão pré-carregadas
         const chavesPreCarregadas = [
             "bgLimpo", "estanteVazia", "botaoVoltar",
             "racaoGA", "racaoGF", "racaoGV",
@@ -130,12 +147,10 @@ export class cenaComida extends Phaser.Scene {
             "racaoPA", "racaoPF", "racaoPV"
         ];
 
-        // Cria sprites invisíveis para forçar carregamento
         const spritesPreCarregados = chavesPreCarregadas.map((chave, indice) =>
             this.add.image(2 + indice, 2, chave).setScale(0.001).setAlpha(0.001).setDepth(-9999)
         );
 
-        // Após pequeno delay, destrói sprites e marca como pré-carregado
         this.time.delayedCall(50, () => {
             spritesPreCarregados.forEach((sprite) => sprite.destroy());
             this.registry.set("texturas_racao_precarregadas", true);

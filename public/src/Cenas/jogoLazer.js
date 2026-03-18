@@ -27,23 +27,27 @@ export class jogoLazer extends Phaser.Scene {
             gameState.musica.play();
         }
 
+        const posicaoX = this.scale.width - this.scale.width * 0.2;
+        const posicaoY = this.scale.height;
+
         // Fundo
-        this.fundo = this.add.image(this.scale.width / 2, this.scale.height / 2, "bgBanheiro")
-            .setDisplaySize(this.scale.width, this.scale.height);
+        this.fundo = this.add.image(posicaoX / 2, posicaoY / 2, "bgLazer")
+            .setDisplaySize(posicaoX, posicaoY);
 
         // Cachorro
-        this.cachorro = new Cachorro(this, 920, 600);
+        this.cachorro = new Cachorro(this, posicaoX / 2, (posicaoY / 2)+(posicaoY / 2)*0.25);
         this.physics.add.existing(this.cachorro.sprite);
+        this.cachorro.sprite.setScale(posicaoY*0.0006)
         this.cachorro.sprite.body.setAllowGravity(false);
         this.cachorro.sprite.body.immovable = true;
 
         // Bola
-        this.objeto = this.physics.add.image(200, 500, "bolaLaranja")
-            .setScale(0.2)
+        this.objeto = this.physics.add.image(posicaoX*0.1, ((posicaoY / 2)+(posicaoY / 2)*0.25), "bolaLaranja")
+            .setScale(posicaoY*0.0002)
             .setCollideWorldBounds(false);
 
         this.objeto.body.setAllowGravity(false);
-        this.posicaoInicial = { x: 200, y: 500 };
+        this.posicaoInicial = { x: posicaoX*0.1, y: ((posicaoY / 2)+(posicaoY / 2)*0.25) };
 
         this.acertos = 0;
         this.trajetoria = this.add.graphics();
@@ -77,23 +81,32 @@ export class jogoLazer extends Phaser.Scene {
             this.teleportarCachorro();
         });
 
-        // >>> Listener de resize <<<
-        this.scale.on("resize", (gameSize) => {
-            const largura = gameSize.width;
-            const altura = gameSize.height;
+        // >>> Listener de resize<<<
+        this.scale.on("resize", (tamanhoTela) => {
+            const { width: largura, height: altura } = tamanhoTela;
 
-            this.cameras.resize(largura, altura);
+            // Atualiza posição inicial da bola
+            this.posicaoInicial = { 
+                x: largura * 0.1, 
+                y: (altura / 2) + (altura / 2) * 0.25 
+            };
 
-            // Fundo
-            this.fundo.setDisplaySize(largura, altura).setPosition(largura / 2, altura / 2);
+            // Atualiza fundo
+            this.fundo
+            .setDisplaySize(largura - largura * 0.2, altura)
+            .setPosition((largura - largura * 0.2) / 2, altura / 2);
 
-            // Cachorro reposicionado proporcionalmente
-            this.cachorro.sprite.setPosition(largura * 0.7, altura * 0.8);
+            // Atualiza bola
+            this.objeto.setPosition(this.posicaoInicial.x, this.posicaoInicial.y).setScale(posicaoY*0.0002);
 
-            // Bola volta para posição inicial relativa
-            this.posicaoInicial = { x: largura * 0.2, y: altura * 0.8 };
-            this.resetarObjeto();
+            // Atualiza cachorro (usando sprite!)
+            this.cachorro.sprite.setPosition(
+                (largura - largura * 0.2) / 2, 
+                (altura / 2) + (altura / 2) * 0.25
+            );
+            this.cachorro.sprite.setScale(altura * 0.0006);
         });
+
     }
 
     update() {

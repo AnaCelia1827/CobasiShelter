@@ -36,11 +36,12 @@ export class jogoRacao extends Phaser.Scene {
                 this.tweens.add({ targets: target, scaleX: scaleNormal, scaleY: scaleNormal, duration: 200 });
             });
         };
-        const posicao = (this.scale.width - this.scale.width * 0.2) / 2;
+        const posicaoX = this.scale.width - this.scale.width * 0.2;
+        const posicaoY = this.scale.height;
 
         // Fundo
-        this.fundo = this.add.image(posicao, this.scale.height / 2, "bgLimpo")
-            .setDisplaySize(posicao, this.scale.height)
+        this.fundo = this.add.image(posicaoX/2, this.scale.height / 2, "bgLimpo")
+            .setDisplaySize(posicaoX, this.scale.height)
             .setDepth(-1);
 
         // Botão voltar
