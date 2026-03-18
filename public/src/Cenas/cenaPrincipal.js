@@ -22,7 +22,7 @@ export class cenaPrincipal extends Phaser.Scene {
             gameState.musica.play();
         }
 
-        const posicaoX = this.scale.width - this.scale.width * 0.15;
+        const posicaoX = this.scale.width - this.scale.width * 0.2;
         const posicaoY = this.scale.height;
 
         // Fundo da cena principal (responsivo)
@@ -35,9 +35,9 @@ export class cenaPrincipal extends Phaser.Scene {
             const { width: largura, height: altura } = tamanhoTela;
 
             // Ajusta câmera
-            this.cameras.resize(largura, altura);
+            this.bg.setDisplaySize((largura - largura * 0.2), altura).setPosition((largura - largura * 0.2)/2, altura / 2);
 
-            
+
 
         });
         // Configuração da câmera

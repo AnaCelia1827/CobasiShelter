@@ -4,96 +4,131 @@ import { Barra } from "./Barras/barras.js";
 export class cenaHUD extends Phaser.Scene {
     constructor() {
         super({ key: "cenaHUD" });
-        this.transicao = false;
+        this.transicao = false; // Flag para evitar múltiplas transições simultâneas
     }
 
     create() {
         this.transicao = false;
 
-        // Configuração inicial do painel
-        const larguraPainel = this.scale.width * 0.15;
+        // Configuração inicial do painel lateral
+        const larguraPainel = this.scale.width * 0.2;
         const painelX = this.scale.width - larguraPainel / 2;
         const centroY = this.scale.height / 2;
-        const topoY = Math.max(100, this.scale.height * 0.12);
-        const espaco = Math.max(90, this.scale.height * 0.18);
-          
-        //adiciona cobasi Coins 
-        this.coinIcon = this.add.image(1440, 50, "cobasiCoin") 
-        .setScale(0.65) 
-        .setScrollFactor(0) 
-        .setDepth(1000); 
-        
-        // Texto das moedas 
-        this.coinText = this.add.text(1440, 45, 
-            gameState.cobasiCoins, 
-            { 
-                fontFamily: '"Press Start 2P"', 
-                fontSize: "16px", 
-                color: "#ffffff" 
-            }) 
-        .setScrollFactor(0) 
-         .setDepth(1000); 
-        
-         // Ícones e barras
-        this.iconeFome = this.add.image(100, 100, "iconeFome").setScale(1.5);
-        this.barraComida = new Barra(this, 230, 100, gameState.barras.comida);
 
-        this.iconeFelicidade = this.add.image(100, 160, "iconeFelicidade").setScale(1.5);
-        this.barraLazer = new Barra(this, 230, 160, gameState.barras.lazer);
+        // Ícone e texto das moedas
+        this.coinIcon = this.add.image(this.scale.width - this.scale.width*0.1, this.scale.height*0.05, "cobasiCoin")
+            .setScale(this.scale.height*0.0008)
+            .setScrollFactor(0)
+            .setDepth(1000);
 
-        this.iconeSujeira = this.add.image(100, 220, "iconeSujeira").setScale(1.5);
-        this.barraLimpeza = new Barra(this, 230, 220, gameState.barras.limpeza);
+        this.coinText = this.add.text(this.scale.width - this.scale.width*0.09, this.scale.height*0.045,
+            gameState.cobasiCoins,
+            {
+                fontFamily: '"Press Start 2P"',
+                fontSize: "16px",
+                color: "#ffffff"
+            })
+            .setScrollFactor(0)
+            .setDepth(1000)
+            .setScale(this.scale.height*0.0013);
 
-        this.iconeSaude = this.add.image(100, 280, "iconeSaude").setScale(1.5);
-        this.barraSaude = new Barra(this, 230, 280, gameState.barras.saude);
+        // Ícones e barras de status
+        this.iconeFome = this.add.image(this.scale.width*0.05, this.scale.height*0.1, "iconeFome").setScale(this.scale.height*0.002);
+        this.barraComida = new Barra(this, this.scale.width*0.15, this.scale.height*0.1, gameState.barras.comida);
+        this.barraComida.sprite.setScale(this.scale.height*0.002);
 
-        // Fundo do painel
+        this.iconeFelicidade = this.add.image(this.scale.width*0.05, this.scale.height*0.2, "iconeFelicidade").setScale(this.scale.height*0.002);
+        this.barraLazer = new Barra(this, this.scale.width*0.15, this.scale.height*0.2, gameState.barras.lazer);
+        this.barraLazer.sprite.setScale(this.scale.height*0.002);
+
+        this.iconeSujeira = this.add.image(this.scale.width*0.05, this.scale.height*0.3, "iconeSujeira").setScale(this.scale.height*0.002);
+        this.barraLimpeza = new Barra(this, this.scale.width*0.15, this.scale.height*0.3, gameState.barras.limpeza);
+        this.barraLimpeza.sprite.setScale(this.scale.height*0.002);
+
+        this.iconeSaude = this.add.image(this.scale.width*0.05, this.scale.height*0.4, "iconeSaude").setScale(this.scale.height*0.002);
+        this.barraSaude = new Barra(this, this.scale.width*0.15, this.scale.height*0.4, gameState.barras.saude);
+        this.barraSaude.sprite.setScale(this.scale.height*0.002);
+
+        // Fundo do painel lateral
         this.painel = this.add.rectangle(painelX, centroY, larguraPainel, this.scale.height, 0xffffff, 1)
             .setOrigin(0.5, 0.5)
             .setScrollFactor(0);
 
-        // Botões
+        // Botões do painel
         this.botoes = [];
-        const criarBotao = (indice, textura, cenaAlvo) => {
-            const y = topoY + indice * espaco;
-            const botao = this.add.image(painelX, y, textura)
-                .setInteractive({ useHandCursor: true })
-                .setScale(0.7)
-                .setScrollFactor(0);
-            botao.on("pointerdown", () => this.transicionarPara(cenaAlvo));
-            this.botoes.push({ botao, indice, cenaAlvo });
-        };
 
-        criarBotao(0.5, "iconeBanho", "cenaBanho");
-        criarBotao(1.5, "iconeRacao", "cenaComida");
-        criarBotao(2.5, "iconeCuidados", "cenaCuidado");
-        criarBotao(3.5, "iconeLazer", "jogoLazer");
-        criarBotao(4.5, "iconeVoltar", "cenaPrincipal");
+        const botaoBanho = this.add.image(painelX, this.scale.height*0.2, "iconeBanho")
+            .setInteractive({ useHandCursor: true })
+            .setScale(this.scale.height*0.001)
+            .setScrollFactor(0);
+        botaoBanho.on("pointerdown", () => this.transicionarPara("cenaBanho"));
+        this.botoes.push({ botao: botaoBanho, cenaAlvo: "cenaBanho" });
 
-        // >>> Listener de resize <<<
-        this.scale.on("resize", (gameSize) => {
-            const width = gameSize.width;
-            const height = gameSize.height;
+        const botaoRacao = this.add.image(painelX, this.scale.height*0.4, "iconeRacao")
+            .setInteractive({ useHandCursor: true })
+            .setScale(this.scale.height*0.001)
+            .setScrollFactor(0);
+        botaoRacao.on("pointerdown", () => this.transicionarPara("cenaComida"));
+        this.botoes.push({ botao: botaoRacao, cenaAlvo: "cenaComida" });
 
-            const larguraPainel = width * 0.2;
-            const painelX = width - larguraPainel / 2;
-            const centroY = height / 2;
-            const topoY = Math.max(100, height * 0.12);
-            const espaco = Math.max(90, height * 0.18);
+        const botaoCuidados = this.add.image(painelX, this.scale.height*0.6, "iconeCuidados")
+            .setInteractive({ useHandCursor: true })
+            .setScale(this.scale.height*0.001)
+            .setScrollFactor(0);
+        botaoCuidados.on("pointerdown", () => this.transicionarPara("cenaCuidado"));
+        this.botoes.push({ botao: botaoCuidados, cenaAlvo: "cenaCuidado" });
 
-            this.cameras.resize(width, height);
+        const botaoLazer = this.add.image(painelX, this.scale.height*0.8, "iconeLazer")
+            .setInteractive({ useHandCursor: true })
+            .setScale(this.scale.height*0.001)
+            .setScrollFactor(0);
+        botaoLazer.on("pointerdown", () => this.transicionarPara("jogoLazer"));
+        this.botoes.push({ botao: botaoLazer, cenaAlvo: "jogoLazer" });
 
-            // Atualiza painel
-            this.painel.setSize(larguraPainel, height).setPosition(painelX, centroY);
+        const botaoVoltar = this.add.image(painelX, this.scale.height*0.95, "iconeVoltar")
+            .setInteractive({ useHandCursor: true })
+            .setScale(this.scale.height*0.001)
+            .setScrollFactor(0);
+        botaoVoltar.on("pointerdown", () => this.transicionarPara("cenaPrincipal"));
+        this.botoes.push({ botao: botaoVoltar, cenaAlvo: "cenaPrincipal" });
+
+        // Listener de resize para ajustar elementos dinamicamente
+        this.scale.on("resize", (tamanhoTela) => {
+            const { width: largura, height: altura } = tamanhoTela;
+
+            const larguraPainel = largura * 0.2;
+            const painelX = largura - larguraPainel / 2;
+            const centroY = altura / 2;
+
+            this.painel.setSize(larguraPainel, altura).setPosition(painelX, centroY);
 
             // Atualiza botões
-            this.botoes.forEach(({ botao, indice }) => {
-                const y = topoY + indice * espaco;
-                botao.setPosition(painelX, y);
-            });
+            this.botoes[0].botao.setPosition(painelX, altura * 0.2).setScale(altura * 0.001);
+            this.botoes[1].botao.setPosition(painelX, altura * 0.4).setScale(altura * 0.001);
+            this.botoes[2].botao.setPosition(painelX, altura * 0.6).setScale(altura * 0.001);
+            this.botoes[3].botao.setPosition(painelX, altura * 0.8).setScale(altura * 0.001);
+            this.botoes[4].botao.setPosition(painelX, altura * 0.95).setScale(altura * 0.001);
+
+            // Atualiza moedas
+            this.coinIcon.setPosition(largura - largura*0.1, altura * 0.05).setScale(altura * 0.0008);
+            this.coinText.setPosition(largura - largura*0.09, altura * 0.05).setScale(altura*0.0013);
+
+            // Atualiza ícones e barras
+            this.iconeFome.setPosition(largura * 0.05, altura * 0.1).setScale(altura * 0.002);
+            this.barraComida.sprite.setPosition(largura * 0.15, altura * 0.1).setScale(altura * 0.002);
+
+            this.iconeFelicidade.setPosition(largura * 0.05, altura * 0.2).setScale(altura * 0.002);
+            this.barraLazer.sprite.setPosition(largura * 0.15, altura * 0.2).setScale(altura * 0.002);
+
+            this.iconeSujeira.setPosition(largura * 0.05, altura * 0.3).setScale(altura * 0.002);
+            this.barraLimpeza.sprite.setPosition(largura * 0.15, altura * 0.3).setScale(altura * 0.002);
+
+            this.iconeSaude.setPosition(largura * 0.05, altura * 0.4).setScale(altura * 0.002);
+            this.barraSaude.sprite.setPosition(largura * 0.15, altura * 0.4).setScale(altura * 0.002);
         });
     }
 
+    // Função de transição de cenas com fade e parada da música
     transicionarPara(cenaAlvo) {
         if (this.transicao) return;
         if (!this.scene.manager.keys[cenaAlvo]) {
@@ -127,18 +162,22 @@ export class cenaHUD extends Phaser.Scene {
         });
     }
 
+
+    // Atualização contínua dos elementos do HUD
     update() {
+        // Atualiza valores das barras com base no estado do jogo
         this.barraComida.valor  = gameState.barras.comida;
-        this.barraLazer.valor   = gameState.barras.lazer; 
-        this.barraLimpeza.valor = gameState.barras.limpeza; 
+        this.barraLazer.valor   = gameState.barras.lazer;
+        this.barraLimpeza.valor = gameState.barras.limpeza;
         this.barraSaude.valor   = gameState.barras.saude;
 
+        // Re-renderiza as barras
         this.barraComida.atualizarBarra();
         this.barraLazer.atualizarBarra();
         this.barraLimpeza.atualizarBarra();
         this.barraSaude.atualizarBarra();
-         // Atualiza moedas 
 
-        this.coinText.setText(gameState.cobasiCoins); 
+        // Atualiza quantidade de moedas exibida
+        this.coinText.setText(gameState.cobasiCoins);
     }
 }
