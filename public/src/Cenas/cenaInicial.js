@@ -10,7 +10,7 @@ export class cenaInicial extends Phaser.Scene {
 
     create() {
         // Para garantir que a HUD não fique ativa ao iniciar
-        this.scene.stop("enaHUD");
+        this.scene.stop("cenaHUD");
         this.transicao = false;
 
         // Música de fundo: cria e inicia se ainda não estiver tocando
