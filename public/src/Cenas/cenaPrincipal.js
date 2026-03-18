@@ -27,7 +27,7 @@ export class cenaPrincipal extends Phaser.Scene {
 
         // Fundo da cena principal (responsivo)
         this.bg = this.add
-            .image(posicaoX/2, posicaoY/2, "bgHUD")
+            .image(posicaoX/2, posicaoY/2, "bgPrincipal")
             .setDisplaySize(posicaoX, posicaoY)
             .setDepth(-1);
 
@@ -36,8 +36,6 @@ export class cenaPrincipal extends Phaser.Scene {
 
             // Ajusta câmera
             this.bg.setDisplaySize((largura - largura * 0.2), altura).setPosition((largura - largura * 0.2)/2, altura / 2);
-
-
 
         });
         // Configuração da câmera

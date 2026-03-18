@@ -33,20 +33,20 @@ export class cenaHUD extends Phaser.Scene {
             .setScale(this.scale.height*0.0013);
 
         // Ícones e barras de status
-        this.iconeFome = this.add.image(this.scale.width*0.05, this.scale.height*0.1, "iconeFome").setScale(this.scale.height*0.002);
-        this.barraComida = new Barra(this, this.scale.width*0.15, this.scale.height*0.1, gameState.barras.comida);
+        this.iconeFome = this.add.image(this.scale.width*0.05, this.scale.height*0.08, "iconeFome").setScale(this.scale.height*0.002);
+        this.barraComida = new Barra(this, this.scale.width*0.15, this.scale.height*0.08, gameState.barras.comida);
         this.barraComida.sprite.setScale(this.scale.height*0.002);
 
-        this.iconeFelicidade = this.add.image(this.scale.width*0.05, this.scale.height*0.2, "iconeFelicidade").setScale(this.scale.height*0.002);
-        this.barraLazer = new Barra(this, this.scale.width*0.15, this.scale.height*0.2, gameState.barras.lazer);
+        this.iconeFelicidade = this.add.image(this.scale.width*0.05, this.scale.height*0.16, "iconeFelicidade").setScale(this.scale.height*0.002);
+        this.barraLazer = new Barra(this, this.scale.width*0.15, this.scale.height*0.16, gameState.barras.lazer);
         this.barraLazer.sprite.setScale(this.scale.height*0.002);
 
-        this.iconeSujeira = this.add.image(this.scale.width*0.05, this.scale.height*0.3, "iconeSujeira").setScale(this.scale.height*0.002);
-        this.barraLimpeza = new Barra(this, this.scale.width*0.15, this.scale.height*0.3, gameState.barras.limpeza);
+        this.iconeSujeira = this.add.image(this.scale.width*0.05, this.scale.height*0.24, "iconeSujeira").setScale(this.scale.height*0.002);
+        this.barraLimpeza = new Barra(this, this.scale.width*0.15, this.scale.height*0.24, gameState.barras.limpeza);
         this.barraLimpeza.sprite.setScale(this.scale.height*0.002);
 
-        this.iconeSaude = this.add.image(this.scale.width*0.05, this.scale.height*0.4, "iconeSaude").setScale(this.scale.height*0.002);
-        this.barraSaude = new Barra(this, this.scale.width*0.15, this.scale.height*0.4, gameState.barras.saude);
+        this.iconeSaude = this.add.image(this.scale.width*0.05, this.scale.height*0.32, "iconeSaude").setScale(this.scale.height*0.002);
+        this.barraSaude = new Barra(this, this.scale.width*0.15, this.scale.height*0.32, gameState.barras.saude);
         this.barraSaude.sprite.setScale(this.scale.height*0.002);
 
         // Fundo do painel lateral
@@ -100,32 +100,34 @@ export class cenaHUD extends Phaser.Scene {
             const painelX = largura - larguraPainel / 2;
             const centroY = altura / 2;
 
+            // Painel lateral
             this.painel.setSize(larguraPainel, altura).setPosition(painelX, centroY);
 
-            // Atualiza botões
+            // Botões (mantendo proporções verticais)
             this.botoes[0].botao.setPosition(painelX, altura * 0.2).setScale(altura * 0.001);
             this.botoes[1].botao.setPosition(painelX, altura * 0.4).setScale(altura * 0.001);
             this.botoes[2].botao.setPosition(painelX, altura * 0.6).setScale(altura * 0.001);
             this.botoes[3].botao.setPosition(painelX, altura * 0.8).setScale(altura * 0.001);
             this.botoes[4].botao.setPosition(painelX, altura * 0.95).setScale(altura * 0.001);
 
-            // Atualiza moedas
-            this.coinIcon.setPosition(largura - largura*0.1, altura * 0.05).setScale(altura * 0.0008);
-            this.coinText.setPosition(largura - largura*0.09, altura * 0.05).setScale(altura*0.0013);
+            // Moedas
+            this.coinIcon.setPosition(largura - largura * 0.1, altura * 0.05).setScale(altura * 0.0008);
+            this.coinText.setPosition(largura - largura * 0.09, altura * 0.045).setScale(altura * 0.0013);
 
-            // Atualiza ícones e barras
-            this.iconeFome.setPosition(largura * 0.05, altura * 0.1).setScale(altura * 0.002);
-            this.barraComida.sprite.setPosition(largura * 0.15, altura * 0.1).setScale(altura * 0.002);
+            // Ícones e barras (ajustados para espaçamento proporcional)
+            this.iconeFome.setPosition(largura * 0.05, altura * 0.08).setScale(altura * 0.002);
+            this.barraComida.sprite.setPosition(largura * 0.15, altura * 0.08).setScale(altura * 0.002);
 
-            this.iconeFelicidade.setPosition(largura * 0.05, altura * 0.2).setScale(altura * 0.002);
-            this.barraLazer.sprite.setPosition(largura * 0.15, altura * 0.2).setScale(altura * 0.002);
+            this.iconeFelicidade.setPosition(largura * 0.05, altura * 0.16).setScale(altura * 0.002);
+            this.barraLazer.sprite.setPosition(largura * 0.15, altura * 0.16).setScale(altura * 0.002);
 
-            this.iconeSujeira.setPosition(largura * 0.05, altura * 0.3).setScale(altura * 0.002);
-            this.barraLimpeza.sprite.setPosition(largura * 0.15, altura * 0.3).setScale(altura * 0.002);
+            this.iconeSujeira.setPosition(largura * 0.05, altura * 0.24).setScale(altura * 0.002);
+            this.barraLimpeza.sprite.setPosition(largura * 0.15, altura * 0.24).setScale(altura * 0.002);
 
-            this.iconeSaude.setPosition(largura * 0.05, altura * 0.4).setScale(altura * 0.002);
-            this.barraSaude.sprite.setPosition(largura * 0.15, altura * 0.4).setScale(altura * 0.002);
+            this.iconeSaude.setPosition(largura * 0.05, altura * 0.32).setScale(altura * 0.002);
+            this.barraSaude.sprite.setPosition(largura * 0.15, altura * 0.32).setScale(altura * 0.002);
         });
+
     }
 
     // Função de transição de cenas com fade e parada da música
