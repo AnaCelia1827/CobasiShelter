@@ -64,7 +64,7 @@ export class cenaInicial extends Phaser.Scene {
             this.scale.width * 0.162, this.scale.height * 0.6,
             "botaoJogarNormal", "botaoJogarCrescendo", "botaoJogarPressionado",
             escalaBase, escalaAumentada, escalaPressionada,
-            () => this.transicaoPara("cenaTutorial")
+            () => this.transicaoPara("jogoRacao")
         );
 
         // Botão Sair
