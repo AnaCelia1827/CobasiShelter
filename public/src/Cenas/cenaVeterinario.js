@@ -1,12 +1,11 @@
-// Importa o objeto global gameState e a classe Cachorro
-import { gameState } from "../main.js";
-import { Cachorro } from "../componentes/controleCachorro/cachorroAnimacao.js";
+import { gameState } from "../main.js"
+import { GerenciadorCachorros } from "../componentes/controleCachorro/gerenciadorCachorros.js"
+import { cachorrosBase } from "../componentes/controleCachorro/cachorrosBase.js"
 
 export class cenaVeterinario extends Phaser.Scene {
     constructor() {
         super({ key: "cenaVeterinario" });
-        this.acertos = 0; 
-        this.achouPulga = false; 
+        this.achouPulga = false;
     }
 
     create() {
@@ -18,9 +17,7 @@ export class cenaVeterinario extends Phaser.Scene {
             this.achouPulga = false;
         }
 
-        // HUD e Música (Mantidos iguais)
         if (!this.scene.isActive("cenaHUD")) this.scene.launch("cenaHUD");
-        else if (this.scene.isSleeping("cenaHUD")) this.scene.wake("cenaHUD");
         this.scene.bringToTop("cenaHUD");
 
         if (!gameState.musica) gameState.musica = this.sound.add("musica", { loop: true, volume: 0.5 });
@@ -29,16 +26,24 @@ export class cenaVeterinario extends Phaser.Scene {
         const posicaoX = this.scale.width - this.scale.width * 0.2;
         const posicaoY = this.scale.height;
 
-        // 1. Fundo
+        // 👇 usa estado atual do cachorro (sincronizado com CenaBanho e outras)
+        // cachorrosBase[0].estado não deve ser sobrescrito para preservar progresso
+
+        this.gerenciadorCachorros = new GerenciadorCachorros(this)
+
+        this.cachorro = this.gerenciadorCachorros.criarCachorro(
+            posicaoX / 2,
+            posicaoY / 2.3,
+            cachorrosBase[0]
+        )
+        this.physics.add.existing(this.cachorro.sprite)
+        this.cachorro.sprite.setScale(posicaoY * 0.0006)
+        this.cachorro.sprite.body.setAllowGravity(false)
+        this.cachorro.sprite.body.immovable = true
+
+
         this.fundo = this.add.image(posicaoX / 2, posicaoY / 2, "bgVeterinario")
             .setDisplaySize(posicaoX, posicaoY);
-
-        // 2. Cachorro
-        this.cachorro = new Cachorro(this, posicaoX / 2, posicaoY / 2.3);
-        this.physics.add.existing(this.cachorro.sprite);
-        this.cachorro.sprite.setScale(posicaoY * 0.0006);
-        this.cachorro.sprite.body.setAllowGravity(false);
-        this.cachorro.sprite.body.immovable = true;
 
         // 3. Texto de Instrução
         this.textoInstrucao = this.add.text(posicaoX / 2, posicaoY * 0.12, "Ache as pulgas e retire elas.", {
@@ -53,13 +58,12 @@ export class cenaVeterinario extends Phaser.Scene {
         .setDepth(20)
         .setVisible(false); 
 
-        // 4. Imagem da Pulga
-        this.pulga = this.add.image(0, 0, "pulga1")
-            .setOrigin(0.5, 0.5) 
-            .setScale(0)   
-            .setDepth(11);
-
-        // 5. Lupa
+        this.cachorro = this.gerenciadorCachorros.criarCachorro(
+            posicaoX / 2,
+            posicaoY / 2.3,
+            cachorrosBase[0]
+        )
+        
         const lupaX = posicaoX / 2;
         const lupaY = posicaoY - (posicaoY * 0.15); 
 

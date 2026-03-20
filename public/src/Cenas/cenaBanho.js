@@ -1,5 +1,7 @@
 // Importa o objeto global gameState do arquivo principal
 import { gameState } from "../main.js";
+import { cachorrosBase } from "../componentes/controleCachorro/cachorrosBase.js";
+import { GerenciadorCachorros } from "../componentes/controleCachorro/gerenciadorCachorros.js";
 
 export class cenaBanho extends Phaser.Scene {
     constructor() {
@@ -12,7 +14,9 @@ export class cenaBanho extends Phaser.Scene {
         this.limiteMovimento = 30;
         this.ultimoX = 0;
         this.ultimoY = 0;
-        this.estadoCachorro = "sujo"; 
+        this.estadoCachorro = cachorrosBase[0]?.estado || "sujo";
+        this.gerenciadorCachorros = null;
+        this.cachorro = null;
     }
 
     create() {
@@ -35,20 +39,26 @@ export class cenaBanho extends Phaser.Scene {
         this.acumuladorAgua = 0;
         this.tempoSecando = 0;
         this.quantidadeEspuma = 0;
-        this.estadoCachorro = "sujo";
+        this.estadoCachorro = cachorrosBase[0]?.estado || "sujo";
+        cachorrosBase[0].estado = this.estadoCachorro;
 
         // Fundo
         gameState.banheiro = this.add.image(posicao, this.scale.height / 2, "bgBanheiro")
             .setDisplaySize(this.scale.width - this.scale.width * 0.2, this.scale.height);
 
-        // Cachorro
-        gameState.cachorro = this.physics.add.sprite(posicao, this.scale.height / 2, "dogSujo").setScale(escalaBase);
-        gameState.cachorro.setImmovable(true);
-        gameState.cachorro.body.allowGravity = false;
-        gameState.cachorro.escalaBase = escalaBase; 
+        // Cachorro (usando Gerenciador / sprite único cachorrCaramelo)
+        this.gerenciadorCachorros = new GerenciadorCachorros(this);
+        this.cachorro = this.gerenciadorCachorros.criarCachorro(posicao, this.scale.height / 2, cachorrosBase[0]);
 
-        this.criarAnimacoes();
-        gameState.cachorro.play("dogSujoAnim");
+        this.cachorro.sprite.setScale(escalaBase);
+        this.physics.add.existing(this.cachorro.sprite);
+        this.cachorro.sprite.body.setAllowGravity(false);
+        this.cachorro.sprite.body.immovable = true;
+
+        gameState.cachorro = this.cachorro.sprite;
+
+        this.atualizarEstadoCachorroAnimacao();
+
 
         // Ferramentas
         gameState.sabao = this.add.follower(new Phaser.Curves.Path(posicao, this.scale.height / 2), this.posicaoInicialSabao.x, this.posicaoInicialSabao.y, "sabao")
@@ -120,15 +130,30 @@ export class cenaBanho extends Phaser.Scene {
     }
 
     animarCachorro() {
-        const escala = gameState.cachorro.escalaBase;
+        const target = this.cachorro?.sprite || gameState.cachorro;
+        const escala = target?.escalaBase || 1;
         this.tweens.add({
-            targets: gameState.cachorro,
+            targets: target,
             scaleY: escala * 0.85, 
             scaleX: escala * 1.15, 
             duration: 150,
             yoyo: true, 
             ease: "Quad.easeInOut"
         });
+    }
+
+    atualizarEstadoCachorroAnimacao() {
+        if (!this.cachorro) return;
+
+        const estadoAnim = (this.estadoCachorro === "limpo")
+            ? "limpo"
+            : (this.estadoCachorro === "sujo")
+                ? "sujo"
+                : "ensaboado";
+
+        this.cachorro.mudarEstado(estadoAnim);
+        cachorrosBase[0].estado = this.estadoCachorro;
+        gameState.cachorro = this.cachorro.sprite;
     }
 
     criarExplosaoBrilhos() {
@@ -151,17 +176,8 @@ export class cenaBanho extends Phaser.Scene {
     }
 
     criarAnimacoes() {
-        if (!this.anims.exists("dogSujoAnim")) {
-            this.anims.create({ key: "dogSujoAnim", frames: this.anims.generateFrameNumbers("dogSujo", { start: 0, end: 1 }), frameRate: 4, repeat: -1 });
-        }
         if (!this.anims.exists("aguaAnim")) {
             this.anims.create({ key: "aguaAnim", frames: this.anims.generateFrameNumbers("agua", { start: 0, end: 5 }), frameRate: 8, repeat: -1 });
-        }
-        if (!this.anims.exists("dogEspumaAnim")) {
-            this.anims.create({ key: "dogEspumaAnim", frames: this.anims.generateFrameNumbers("dogEspuma", { start: 0, end: 1 }), frameRate: 4, repeat: -1 });
-        }
-        if (!this.anims.exists("dogLimpoAnim")) {
-            this.anims.create({ key: "dogLimpoAnim", frames: this.anims.generateFrameNumbers("dogLimpo", { start: 0, end: 1 }), frameRate: 4, repeat: -1 });
         }
     }
 
@@ -238,6 +254,7 @@ export class cenaBanho extends Phaser.Scene {
 
         if (this.estadoCachorro === "sujo" && this.quantidadeEspuma >= 50) {
             this.estadoCachorro = "ensaboado";
+            this.atualizarEstadoCachorroAnimacao();
             this.cameras.main.flash(200, 255, 255, 255); 
             this.animarCachorro(); 
             this.mostrarTextoFlutuante("Pronto!\nUse o chuveiro.", gameState.cachorro.x, gameState.cachorro.y - 150, "#88ff88");
@@ -249,13 +266,12 @@ export class cenaBanho extends Phaser.Scene {
 
         if (this.estadoCachorro === "lavando" && this.quantidadeEspuma <= 0) {
             this.estadoCachorro = "molhado";
+            this.atualizarEstadoCachorroAnimacao();
             
             gameState.bolhas.children.iterate((bolha) => {
                 if (bolha && bolha.active) this.reciclarObjeto(bolha);
             });
 
-            gameState.cachorro.setTexture("dogEspuma"); 
-            gameState.cachorro.play("dogEspumaAnim"); 
             this.animarCachorro(); 
 
             this.mostrarTextoFlutuante("Agora use\na toalha!", gameState.cachorro.x, gameState.cachorro.y - 150, "#88ff88");
@@ -298,6 +314,7 @@ export class cenaBanho extends Phaser.Scene {
 
         if (estaNoCachorro && this.estadoCachorro === "ensaboado") {
             this.estadoCachorro = "lavando";
+            cachorrosBase[0].estado = "lavando";
         }
 
         if (this.estadoCachorro === "lavando" || this.estadoCachorro === "ensaboado") {
@@ -329,8 +346,7 @@ export class cenaBanho extends Phaser.Scene {
             if (this.tempoSecando >= 90) {
                 // VITÓRIA!
                 this.estadoCachorro = "limpo";
-                gameState.cachorro.setTexture("dogLimpo");
-                gameState.cachorro.play("dogLimpoAnim");
+                this.atualizarEstadoCachorroAnimacao();
                 
                 this.animarCachorro(); 
                 this.criarExplosaoBrilhos(); 

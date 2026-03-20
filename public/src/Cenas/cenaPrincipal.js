@@ -1,45 +1,71 @@
-// Importa o objeto global gameState do arquivo principal
-import { gameState } from "../main.js";
+// Importa o estado global
+import { gameState } from "../main.js"
 
-// Define a cena "cenaPrincipal", que é a tela de gameplay principal
+// Imports do sistema de cachorro
+import { GerenciadorCachorros } from "../componentes/controleCachorro/gerenciadorCachorros.js"
+import { cachorrosBase } from "../componentes/controleCachorro/cachorrosBase.js"
+
+
+// Define a cena principal
 export class cenaPrincipal extends Phaser.Scene {
     constructor() {
-        super({ key: "cenaPrincipal" });
+        super({ key: "cenaPrincipal" })
     }
 
     create() {
-        // Garante que a HUD esteja ativa (se não estiver, inicia)
+        // HUD
         if (!this.scene.isActive("cenaHUD")) {
-            this.scene.launch("cenaHUD");
+            this.scene.launch("cenaHUD")
         }
-        this.scene.bringToTop("cenaHUD");
+        this.scene.bringToTop("cenaHUD")
 
-        // Música de fundo
+        // Música
         if (!gameState.musica) {
-            gameState.musica = this.sound.add("musica", { loop: true, volume: 0.5 });
+            gameState.musica = this.sound.add("musica", { loop: true, volume: 0.5 })
         }
         if (!gameState.musica.isPlaying) {
-            gameState.musica.play();
+            gameState.musica.play()
         }
 
-        const posicaoX = this.scale.width - this.scale.width * 0.2;
-        const posicaoY = this.scale.height;
+        const largura = this.scale.width
+        const altura = this.scale.height
 
-        // Fundo da cena principal (responsivo)
+        const posicaoX = largura - largura * 0.2
+        const posicaoY = altura
+
+        // Fundo
         this.bg = this.add
-            .image(posicaoX/2, posicaoY/2, "bgPrincipal")
+            .image(posicaoX / 2, posicaoY / 2, "bgPrincipal")
             .setDisplaySize(posicaoX, posicaoY)
-            .setDepth(-1);
+            .setDepth(-1)
 
+        // Criar cachorro
+        this.gerenciadorCachorros = new GerenciadorCachorros(this)
+        this.cachorro = this.gerenciadorCachorros.criarCachorro(
+            posicaoX / 2,
+            posicaoY / 2.3,
+            cachorrosBase[0]
+        )
+
+        this.cachorro.sprite.setScale(posicaoY * 0.0006)
+
+        // Resize
         this.scale.on("resize", (tamanhoTela) => {
-            const { width: largura, height: altura } = tamanhoTela;
+            const { width: largura, height: altura } = tamanhoTela
 
-            // Ajusta câmera
-            this.bg.setDisplaySize((largura - largura * 0.2), altura).setPosition((largura - largura * 0.2)/2, altura / 2);
+            this.bg
+                .setDisplaySize(largura - largura * 0.2, altura)
+                .setPosition((largura - largura * 0.2) / 2, altura / 2)
 
-        });
-        // Configuração da câmera
-        this.cameras.main.setBounds(0, 0, this.scale.width, this.scale.height);
-        this.cameras.main.fadeIn(200, 0, 0, 0);
+            // Corrigido: usa altura nova
+            this.cachorro.sprite.setScale(altura * 0.0006)
+
+            this.cachorro.sprite.setPosition((largura - largura * 0.2) / 2, altura / 2)
+        })
+
+
+        // Câmera
+        this.cameras.main.setBounds(0, 0, largura, altura)
+        this.cameras.main.fadeIn(200, 0, 0, 0)
     }
 }

@@ -1,4 +1,4 @@
-import { cachorroGeral } from "./controleCachorro/cachorroGeral.js";
+import { cachorrosBase } from "./controleCachorro/cachorrosBase.js";
 
 export class ficha extends Phaser.Scene {
     constructor() {
@@ -7,7 +7,7 @@ export class ficha extends Phaser.Scene {
 
     create() {
         // Obtém o cachorro atual do jogo
-        const pet = cachorroGeral.pet;
+        const pet = cachorrosBase[0];
 
         // Cria um container centralizado para agrupar os elementos da ficha
         const fichaContainer = this.add.container(
