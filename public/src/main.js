@@ -3,7 +3,7 @@ import { cenaInicial } from "./Cenas/cenaInicial.js";
 import { cenaBanho } from "./Cenas/cenaBanho.js";
 import { cenaConfiguracoes } from "./Cenas/cenaConfiguracoes.js";
 import { cenaComida } from "./Cenas/cenaComida.js";
-import { cenaTutorial } from "./Cenas/cenaTutorial.js";
+//import { cenaTutorial } from "./Cenas/cenaTutorial.js";
 import { cenaPrincipal } from "./Cenas/cenaPrincipal.js";
 import { jogoLazer } from "./Cenas/jogoLazer.js";
 import { cenaHUD } from "./componentes/cenaHUD.js";
@@ -58,7 +58,7 @@ const config = {
     scene: [
         cenaCarregamento,
         cenaInicial,
-        cenaTutorial,
+        //cenaTutorial,
         jogoAlimentacao,
         cenaConfiguracoes,
         cenaBanho,
