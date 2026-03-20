@@ -49,7 +49,8 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("cobasiCoin", "assets/moeda.png"); 
         // Tela de Cuidado
         this.load.image("bgCuidado", "assets/tela-cuidado/bgCuidado.png");
-        this.load.spritesheet("pulga", "assets/tela-cuidado/pulga.png",{frameWidth:300, frameHeight: 300});
+        this.load.image("pulga1", "assets/tela-cuidado/pulga1.png");
+
 
         // Cenas de gameplay
         this.load.image("bgRacao", "assets/tela-alimentacao/bgRacao.png");
@@ -65,6 +66,8 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("toalha", "assets/tela-banho/toalha.png");
         this.load.image("bolhas", "assets/tela-banho/bolhas.png");
         this.load.image("bolaLaranja","assets/bolaLaranja.png");
+        this.load.image("bgVeterinario", "assets/tela-veterinario/bgVeterinario.png");
+        this.load.image("lupa", "assets/tela-veterinario/lupa.png")
 
         // Tela de storytelling/tutorial
         this.load.image("tutorial1", "assets/1");

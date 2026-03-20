@@ -29,7 +29,7 @@ export class cenaCuidado extends Phaser.Scene {
         .setDisplaySize(this.scale.width, this.scale.height);
 
     // Garante animações
-    this.garantirAnimacaoPulga();
+    //this.garantirAnimacaoPulga();
     this.garantirTexturaPinca();
 
     // Reset variáveis
@@ -173,14 +173,14 @@ export class cenaCuidado extends Phaser.Scene {
         const x = Phaser.Math.Between(120, this.scale.width - 280);
         const y = Phaser.Math.Between(100, this.scale.height - 100);
 
-        const pulga = this.pulgas.get(x, y, "pulga");
+        const pulga = this.pulgas.get(x, y, "pulga1");
         if (!pulga) return;
 
         pulga.setActive(true).setVisible(true);
         pulga.body.setAllowGravity(false);
         pulga.body.stop();
         pulga.setScale(0.12).setDepth(10);
-        pulga.play("pulgaAnim", true);
+        //pulga.play("pulgaAnim", true);
 
         this.moverPulga(pulga);
     }
@@ -319,18 +319,6 @@ export class cenaCuidado extends Phaser.Scene {
         this.add.text(cx, cy + 80, `Coins: +${moedas}`, {
             fontSize: "30px", color: "#9be564"
         }).setOrigin(0.5).setDepth(71);
-    }
-
-    // Garante que a animação da pulga exista
-    garantirAnimacaoPulga() {
-        if (this.anims.exists("pulgaAnim")) return;
-
-        this.anims.create({
-            key: "pulgaAnim",
-            frames: this.anims.generateFrameNumbers("pulga", { start: 0, end: 1 }),
-            frameRate: 7,
-            repeat: -1
-        });
     }
 
     // Gera textura da pinça dinamicamente (desenho via código)
