@@ -70,17 +70,17 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("lupa", "assets/tela-veterinario/lupa.png")
 
         // Tela de storytelling/tutorial
-        this.load.image("tutorial1", "assets/1");
-        this.load.image("tutorial2", "assets/2");
-        this.load.image("tutorial3", "assets/3");
-        this.load.image("tutorial4", "assets/4");
-        this.load.image("tutorial5", "assets/5");
-        this.load.image("tutorial6", "assets/6");
-        this.load.image("tutorial7", "assets/7");
-        this.load.image("tutorial8", "assets/8");
-        this.load.image("tutorial9", "assets/9");
-        this.load.image("tutorial10", "assets/10");
-        this.load.image("tutorial11", "assets/11");
+        this.load.image("tutorial1", "assets/tutorial1.png");
+        this.load.image("tutorial2", "assets/tutorial2.png");
+        this.load.image("tutorial3", "assets/tutorial3.png");
+        this.load.image("tutorial4", "assets/tutorial4.png");
+        this.load.image("tutorial5", "assets/tutorial5.png");
+        this.load.image("tutorial6", "assets/tutorial6.png");
+        this.load.image("tutorial7", "assets/tutorial7.png");
+        this.load.image("tutorial8", "assets/tutorial8.png");
+        this.load.image("tutorial9", "assets/tutorial9.png");
+        this.load.image("tutorial10", "assets/tutorial10.png");
+        this.load.image("tutorial11", "assets/tutorial11.png");
 
         // Rações refinadas
         this.load.image("racaoGA", "assets/Racoes/otimizadas/racaoGA.png");
@@ -105,21 +105,9 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.audio("musica", "assets/trilhaSonora.mp3");
 
         // Spritesheets do cachorro e água
-        this.load.spritesheet("cachorro", "assets/dogLimpo.png", {
-            frameWidth: 720,
-            frameHeight: 960
-        });
-        this.load.spritesheet("dogEspuma", "assets/dogEspumado.png", {
-            frameWidth: 720,
-            frameHeight: 960
-        });
-        this.load.spritesheet("dogSujo", "assets/dogSujo.png", {
-            frameWidth: 720,
-            frameHeight: 960
-        });
-        this.load.spritesheet("dogLimpo", "assets/dogLimpo.png", {
-            frameWidth: 720,
-            frameHeight: 960
+        this.load.spritesheet("cachorroCaramelo", "assets/cachorroCaramelo.png", {
+            frameWidth: 626,
+            frameHeight: 655
         });
         this.load.spritesheet("agua", "assets/tela-banho/agua.png", {
             frameWidth: 480,

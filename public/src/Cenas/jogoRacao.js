@@ -13,7 +13,7 @@ import {
 
 // Importa classe Racao e controle do cachorro
 import { Racao } from "../componentes/controleRacoes/racoes.js";
-import { cachorroGeral } from "../componentes/controleCachorro/cachorroGeral.js";
+import { cachorrosBase } from "../componentes/controleCachorro/cachorrosBase.js";
 
 export class jogoRacao extends Phaser.Scene {
     constructor() {
@@ -95,7 +95,7 @@ export class jogoRacao extends Phaser.Scene {
         this.r9 = new Racao(this, this.scale.width*0.37, this.scale.height*0.845, racaoPequenaSenior);
         this.r9.sprite.setScale(0.125)
 
-        const pet = cachorroGeral.pet;
+        const pet = cachorrosBase[0];
 
         // Template das informações das rações
         this.fundoTemplateRacao = this.add.image(this.scale.width*0.7, this.scale.height*0.52,"fundoTemplateRacao")
