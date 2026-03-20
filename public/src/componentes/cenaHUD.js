@@ -75,8 +75,8 @@ export class cenaHUD extends Phaser.Scene {
             .setInteractive({ useHandCursor: true })
             .setScale(this.scale.height*0.001)
             .setScrollFactor(0);
-        botaoCuidados.on("pointerdown", () => this.transicionarPara("cenaCuidado"));
-        this.botoes.push({ botao: botaoCuidados, cenaAlvo: "cenaCuidado" });
+        botaoCuidados.on("pointerdown", () => this.transicionarPara("cenaVeterinario"));
+        this.botoes.push({ botao: botaoCuidados, cenaAlvo: "cenaVeterinario" });
 
         const botaoLazer = this.add.image(painelX, this.scale.height*0.8, "iconeLazer")
             .setInteractive({ useHandCursor: true })
