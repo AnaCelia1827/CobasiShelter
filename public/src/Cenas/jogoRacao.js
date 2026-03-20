@@ -59,7 +59,7 @@ export class jogoRacao extends Phaser.Scene {
             this.scale.width*0.15, this.scale.height*0.145,
             "botaoStandard", "botaoStandardPressionado",
             0.5, 0.55, 0.45,
-            () => this.transicaoPara("jogoRacao")
+            () => this.transicaoPara("")
         );
 
         // Botão SuperPremium
@@ -67,7 +67,7 @@ export class jogoRacao extends Phaser.Scene {
             this.scale.width*0.35, this.scale.height*0.15,
             "botaoSuperPremium", "botaoSuperPremiumPressionado",
             0.5, 0.55, 0.45,
-            () => this.game.destroy(true)
+            () => this.transicaoPara("")
         );
 
         // Estante
@@ -75,37 +75,119 @@ export class jogoRacao extends Phaser.Scene {
             .setScale(1.2)
             .setDepth(-1);
 
-        // Rações
-        this.r1 = new Racao(this, this.scale.width*0.13, this.scale.height*0.37, racaoGrandeAdulto);
-        this.r1.sprite.setScale(0.125);
-        this.r2 = new Racao(this, this.scale.width*0.25, this.scale.height*0.37, racaoGrandeFilhote);
-        this.r2.sprite.setScale(0.125)
-        this.r3 = new Racao(this, this.scale.width*0.37, this.scale.height*0.37, racaoGrandeSenior);
-        this.r3.sprite.setScale(0.125)
-        this.r4 = new Racao(this, this.scale.width*0.13, this.scale.height*0.605, racaoMediaAdulto);
-        this.r4.sprite.setScale(0.125)
-        this.r5 = new Racao(this, this.scale.width*0.25, this.scale.height*0.605, racaoMediaFilhote);
-        this.r5.sprite.setScale(0.125)
-        this.r6 = new Racao(this, this.scale.width*0.37, this.scale.height*0.605, racaoMediaSenior);
-        this.r6.sprite.setScale(0.125)
-        this.r7 = new Racao(this, this.scale.width*0.13, this.scale.height*0.845, racaoPequenaAdulto);
-        this.r7.sprite.setScale(0.125)
-        this.r8 = new Racao(this, this.scale.width*0.25, this.scale.height*0.845, racaoPequenaFilhote);
-        this.r8.sprite.setScale(0.125)
-        this.r9 = new Racao(this, this.scale.width*0.37, this.scale.height*0.845, racaoPequenaSenior);
-        this.r9.sprite.setScale(0.125)
+        // Grupo Super Premium (visível no início)
+        this.racoesSuperPremium = [
+            new Racao(this, this.scale.width * 0.13, this.scale.height * 0.37,  racaoGrandeAdulto),
+            new Racao(this, this.scale.width * 0.25, this.scale.height * 0.37,  racaoGrandeFilhote),
+            new Racao(this, this.scale.width * 0.37, this.scale.height * 0.37,  racaoGrandeSenior),
+            new Racao(this, this.scale.width * 0.13, this.scale.height * 0.605, racaoMediaAdulto),
+            new Racao(this, this.scale.width * 0.25, this.scale.height * 0.605, racaoMediaFilhote),
+            new Racao(this, this.scale.width * 0.37, this.scale.height * 0.605, racaoMediaSenior),
+            new Racao(this, this.scale.width * 0.13, this.scale.height * 0.845, racaoPequenaAdulto),
+            new Racao(this, this.scale.width * 0.25, this.scale.height * 0.845, racaoPequenaFilhote),
+            new Racao(this, this.scale.width * 0.37, this.scale.height * 0.845, racaoPequenaSenior),
+        ];
+        this.racoesSuperPremium.forEach(r => r.sprite.setScale(0.125));
+
+        // Grupo Standard (oculto no início — troque os dados quando tiver os sprites)
+        this.racoesStandard = [
+            new Racao(this, this.scale.width * 0.13, this.scale.height * 0.37,  racaoGrandeAdulto),
+            new Racao(this, this.scale.width * 0.25, this.scale.height * 0.37,  racaoGrandeFilhote),
+            new Racao(this, this.scale.width * 0.37, this.scale.height * 0.37,  racaoGrandeSenior),
+            new Racao(this, this.scale.width * 0.13, this.scale.height * 0.605, racaoMediaAdulto),
+            new Racao(this, this.scale.width * 0.25, this.scale.height * 0.605, racaoMediaFilhote),
+            new Racao(this, this.scale.width * 0.37, this.scale.height * 0.605, racaoMediaSenior),
+            new Racao(this, this.scale.width * 0.13, this.scale.height * 0.845, racaoPequenaAdulto),
+            new Racao(this, this.scale.width * 0.25, this.scale.height * 0.845, racaoPequenaFilhote),
+            new Racao(this, this.scale.width * 0.37, this.scale.height * 0.845, racaoPequenaSenior),
+        ];
+        this.racoesStandard.forEach(r => {
+            r.sprite.setScale(0.125);
+            r.sprite.setVisible(false);
+        });
 
         const pet = cachorroGeral.pet;
 
         // Template das informações das rações
-        this.fundoTemplateRacao = this.add.image(this.scale.width*0.7, this.scale.height*0.52,"fundoTemplateRacao")
-        .setScale(this.scale.height*0.001)
-        this.textoInicial = this.add.text(this.scale.width*0.57, this.scale.height*0.39, 
-            "Compre sua ração!\n\nEscolha o tipo de ração ideal\n para seu pet entre\nSuper Premium e Standard", {
-            fontSize: "20px",
-            color: "#000000",
-            fontFamily:'"Press Start 2P"',
+        this.fundoTemplateRacao = this.add.image(
+            this.scale.width*0.7, 
+            this.scale.height*0.52,
+            "fundoTemplateRacao")
+        .setScale(this.scale.height*0.001);
+
+        // Container invisível para centralizar o texto no template
+        this.containerTexto = this.add.container(
+            this.fundoTemplateRacao.x,
+            this.fundoTemplateRacao.y
+        );
+
+        const titulo = this.add.text(0, -200, "Compre sua ração!", 
+        {
+            fontSize: "30px",
+            color: "#000",
+            fontFamily: '"Press Start 2P"',
             align: "center"
+        }).setOrigin(0.5);
+
+        const subtitulo = this.add.text(0, 0, 
+            "Escolha o tipo de\n\nração ideal para seu\n\npet entre Super\n\nPremium e Standard", 
+            {
+                fontSize: "20px",
+                color: "#000",
+                fontFamily: '"Press Start 2P"',
+                align: "center",
+                wordWrap: { width: 450 }
+            }).setOrigin(0.5);
+
+        // Adiciona tudo no container
+        this.containerTexto.add([titulo, subtitulo]);
+
+        this.botaoComprar = criarBotao(
+        this.scale.width*0.7, this.scale.height*0.84,
+        "botaoComprar", "botaoComprarPressionado",
+        0.35, 0.4, 0.30,
+        () => this.transicaoPara("")
+        )
+        .setScale(0.35); 
+
+        // Adicina as informações de composição das rações
+        this.composicaoRacao = this.add.image(
+            this.scale.width*0.74, 
+            this.scale.height*0.45,
+            "composicaoRacao")
+            .setScale(this.scale.height*0.001)
+            .setVisible(false);
+
+            // Torna todas as rações clicáveis
+        const todasRacoes = [...this.racoesSuperPremium, ...this.racoesStandard];
+
+        todasRacoes.forEach((racao) => {
+            racao.sprite.setInteractive({ useHandCursor: true });
+
+            racao.sprite.on("pointerover", () => {
+                this.tweens.add({ targets: racao.sprite, scale: 0.14, duration: 100, ease: "Power2" });
+            });
+
+            racao.sprite.on("pointerout", () => {
+                this.tweens.add({ targets: racao.sprite, scale: 0.125, duration: 100, ease: "Power2" });
+            });
+
+            racao.sprite.on("pointerup", () => {
+                this.tweens.add({
+                    targets: this.containerTexto,
+                    alpha: 0,
+                    duration: 200,
+                    ease: "Power2",
+                    onComplete: () => this.containerTexto.setVisible(false)
+                });
+                this.composicaoRacao.setAlpha(0).setVisible(true);
+                this.tweens.add({
+                    targets: this.composicaoRacao,
+                    alpha: 1,
+                    duration: 200,
+                    ease: "Power2"
+                });
+            });
         });
 
         // >>> Listener de resize <<<
@@ -114,11 +196,9 @@ export class jogoRacao extends Phaser.Scene {
             const altura = gameSize.height;
 
             this.cameras.resize(largura, altura);
-
             this.fundo.setDisplaySize(largura, altura).setPosition(largura / 2, altura / 2);
             this.voltar.setPosition(100, 100);
             this.estante.setPosition(largura / 2, altura / 2);
-
             this.painel.setPosition(largura - 300, altura / 2);
         });
     }
