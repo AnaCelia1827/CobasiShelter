@@ -10,7 +10,13 @@ export class cenaVeterinario extends Phaser.Scene {
     }
 
     create() {
-        this.achouPulga = false;
+        // --- NOVIDADE 1: Lendo o cérebro global ---
+        // Se a lupa já foi usada no passado, bloqueia imediatamente.
+        if (gameState.lupaJaUsada) {
+            this.achouPulga = true;
+        } else {
+            this.achouPulga = false;
+        }
 
         // HUD e Música (Mantidos iguais)
         if (!this.scene.isActive("cenaHUD")) this.scene.launch("cenaHUD");
@@ -34,7 +40,7 @@ export class cenaVeterinario extends Phaser.Scene {
         this.cachorro.sprite.body.setAllowGravity(false);
         this.cachorro.sprite.body.immovable = true;
 
-        // 3. Texto de Instrução (Criado invisível inicialmente)
+        // 3. Texto de Instrução
         this.textoInstrucao = this.add.text(posicaoX / 2, posicaoY * 0.12, "Ache as pulgas e retire elas.", {
             fontFamily: '"Press Start 2P", Arial', 
             fontSize: "20px",
@@ -60,11 +66,19 @@ export class cenaVeterinario extends Phaser.Scene {
         this.lupa = this.add.image(lupaX, lupaY, "lupa")
             .setOrigin(0.5, 0.5) 
             .setScale(0.8) 
-            .setDepth(10)
-            .setInteractive({ useHandCursor: true });
+            .setDepth(10);
+            
+        // --- NOVIDADE 2: Controle de Interação ---
+        // Só deixa o jogador clicar e arrastar a lupa se ela AINDA NÃO foi usada
+        if (!gameState.lupaJaUsada) {
+            this.lupa.setInteractive({ useHandCursor: true });
+            this.input.setDraggable(this.lupa);
+        } else {
+            // Opcional: Deixa a lupa um pouquinho transparente pra mostrar que está desativada
+            this.lupa.setAlpha(0.5); 
+        }
         
         // --- LÓGICA DE ARRASTAR E EFEITOS DA LUPA ---
-        this.input.setDraggable(this.lupa);
 
         // Quando CLICA / COMEÇA a segurar a lupa
         this.lupa.on('dragstart', () => {
@@ -75,7 +89,7 @@ export class cenaVeterinario extends Phaser.Scene {
 
         // Enquanto ARRASTA a lupa
         this.lupa.on('drag', (pointer, dragX, dragY) => {
-            if (this.achouPulga) return; // Se já achou a pulga, a lupa trava no lugar (é isso que causa o "congelamento" intencional)
+            if (this.achouPulga) return; 
 
             this.lupa.x = dragX;
             this.lupa.y = dragY;
@@ -105,6 +119,9 @@ export class cenaVeterinario extends Phaser.Scene {
         if (this.achouPulga) return;
         this.achouPulga = true;
 
+        // --- NOVIDADE 3: Salvando o progresso no cérebro ---
+        gameState.lupaJaUsada = true; // Avisa que a lupa foi usada com sucesso!
+
         // O texto continua visível enquanto o zoom acontece
         this.textoInstrucao.setVisible(true);
 
@@ -114,14 +131,12 @@ export class cenaVeterinario extends Phaser.Scene {
         // Animação da Pulga
         this.tweens.add({
             targets: this.pulga,
-            
-            scale: 1.9, 
+            scale: 1.5, 
             duration: 600, 
             ease: 'Back.easeOut', 
             onComplete: () => {
                 this.time.delayedCall(1500, () => {
                     
-                   
                     gameState.cachorroTemPulga = true; 
                     
                     // Vai para a próxima tela
