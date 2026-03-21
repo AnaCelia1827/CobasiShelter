@@ -103,7 +103,7 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("fundoTemplateRacao", "assets/fundoTemplateRacao.png");
         this.load.image("botaoComprar", "assets/botaoComprar.png");
         this.load.image("botaoComprarPressionado", "assets/botaoComprarPressionado.png");
-        this.load.image("composicaoRacao", "assets/composicaoRacao.png");
+        this.load.image("composicaoRacao", "assets/tela-racao/composicaoRacao.png");
 
         // Áudio
         this.load.audio("musica", "assets/trilhaSonora.mp3");
@@ -132,6 +132,7 @@ export class cenaCarregamento extends Phaser.Scene {
 
     create() {
         // Após carregar todos os assets, inicia a cena inicial do jogo
-        this.scene.start("cenaInicial");
+        // this.scene.start("cenaInicial"); // <- descomente esta linha para voltar ao fluxo normal
+        this.scene.start("cenaComida"); // <- comente esta linha para voltar ao fluxo normal
     }
 }

@@ -11,28 +11,28 @@ import { cenaCuidado } from "./Cenas/cenaCuidado.js";
 import { jogoRacao } from "./Cenas/jogoRacao.js";
 import { ficha } from "./componentes/ficha.js";
 import { cenaCarregamento } from "./Cenas/cenaCarregamento.js";
-import {cenaVeterinario } from "./Cenas/cenaVeterinario.js";
+import { cenaVeterinario } from "./Cenas/cenaVeterinario.js";
 
 // Objeto global para armazenar estados do jogo
 export let gameState = {
     barras: {
-        comida:  11,
-        lazer:   11,
+        comida: 11,
+        lazer: 11,
         limpeza: 11,
-        saude:   11
+        saude: 11
     },
-      cobasiCoins: 20, 
-      recompensas: { 
-      banho: false 
+    cobasiCoins: 20,
+    recompensas: {
+        banho: false
 
-     },
- 
+    },
+
 };
 
 // Configuração principal do Phaser
 const config = {
     type: Phaser.AUTO,
-    
+
     width: window.innerWidth,
 
     // Altura sempre igual à altura total da janela

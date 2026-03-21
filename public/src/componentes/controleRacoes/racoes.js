@@ -7,13 +7,8 @@ export class Racao {
         // Cena onde a ração será exibida
         this.scene = scene;
 
-        // Informações da ração vindas do objeto "dados"
-        this.nome = dados.nome;             // Nome da ração
-        this.idade = dados.idade;           // Faixa etária indicada
-        this.ingredientes = dados.ingredientes; // Ingredientes principais
-        this.exemplos = dados.exemplos;     // Exemplos de uso
-        this.descricao = dados.descricao;   // Texto descritivo
-        this.id = dados.id;                 // Identificador único
+        // Copia todas as informações do objeto "dados" para a instância
+        Object.assign(this, dados);
 
         // Cria sprite da ração na tela
         this.sprite = scene.add

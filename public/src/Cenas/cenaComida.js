@@ -21,7 +21,7 @@ export class cenaComida extends Phaser.Scene {
         const posicaoX = (this.scale.width - this.scale.width * 0.2);
         const posicaoY = this.scale.height;
 
-        this.preCarregarTexturasRacao();
+
 
         const passarPressionarEfeito = (alvo, escalaNormal, escalaPassar) => {
             alvo.removeAllListeners();
@@ -48,6 +48,15 @@ export class cenaComida extends Phaser.Scene {
             .setInteractive({ useHandCursor: true });
 
         passarPressionarEfeito(estante, estante.scaleX, estante.scaleX * 1.1);
+
+        estante.on("pointerdown", () => {
+            const cenaHUD = this.scene.manager.getScene("cenaHUD");
+            if (cenaHUD && cenaHUD.transicionarPara) {
+                cenaHUD.transicionarPara("jogoRacao");
+            } else {
+                this.scene.start("jogoRacao");
+            }
+        });
 
         const racaoVazia = this.add.image((posicaoX / 2) + (posicaoX / 2) * 0.1, posicaoY / 2 + posicaoY * 0.4, "racaoVazia")
             .setScale(posicaoY * 0.00002);
