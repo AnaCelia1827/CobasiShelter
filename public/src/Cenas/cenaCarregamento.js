@@ -94,13 +94,16 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("racaoPF", "assets/Racoes/otimizadas/racaoPF.png");
         this.load.image("racaoPV", "assets/Racoes/otimizadas/racaoPV.png");
 
-        // Botões Standard e Super Premium
+        // Sprites da cena jogoRacao.js
         this.load.image("botaoStandard", "assets/botaoStandardNormal.png");
         this.load.image("botaoStandardPressionado", "assets/botaoStandardPressionado.png");
         this.load.image("botaoSuperPremium", "assets/botaoSuperPremiumNormal.png");
         this.load.image("botaoSuperPremiumPressionado", "assets/botaoSuperPremiumPressionado.png");
         this.load.image("templateRacao", "assets/templateRacao.png");
         this.load.image("fundoTemplateRacao", "assets/fundoTemplateRacao.png");
+        this.load.image("botaoComprar", "assets/botaoComprar.png");
+        this.load.image("botaoComprarPressionado", "assets/botaoComprarPressionado.png");
+        this.load.image("composicaoRacao", "assets/composicaoRacao.png");
 
         // Áudio
         this.load.audio("musica", "assets/trilhaSonora.mp3");
