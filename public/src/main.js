@@ -1,17 +1,17 @@
-import { jogoAlimentacao } from "./Cenas/jogoAlimentacao.js";
-import { cenaInicial } from "./Cenas/cenaInicial.js";
-import { cenaBanho } from "./Cenas/cenaBanho.js";
-import { cenaConfiguracoes } from "./Cenas/cenaConfiguracoes.js";
-import { cenaComida } from "./Cenas/cenaComida.js";
-import { cenaTutorial } from "./Cenas/cenaTutorial.js";
-import { cenaPrincipal } from "./Cenas/cenaPrincipal.js";
-import { jogoLazer } from "./Cenas/jogoLazer.js";
-import { cenaHUD } from "./componentes/cenaHUD.js";
-import { cenaCuidado } from "./Cenas/cenaCuidado.js";
-import { jogoRacao } from "./Cenas/jogoRacao.js";
+import { jogoAlimentacao } from "./cenas/jogoAlimentacao.js";
+import { cenaInicial } from "./cenas/cenaInicial.js";
+import { cenaBanho } from "./cenas/cenaBanho.js";
+import { cenaConfiguracoes } from "./cenas/cenaConfiguracoes.js";
+import { cenaComida } from "./cenas/cenaComida.js";
+import { cenaTutorial } from "./cenas/cenaTutorial.js";
+import { cenaPrincipal } from "./cenas/cenaPrincipal.js";
+import { jogoLazer } from "./cenas/jogoLazer.js";
+import { HUD } from "./componentes/HUD.js";
+import { cenaCuidado } from "./cenas/cenaCuidado.js";
+import { jogoRacao } from "./cenas/jogoRacao.js";
 import { ficha } from "./componentes/ficha.js";
-import { cenaCarregamento } from "./Cenas/cenaCarregamento.js";
-import { cenaVeterinario } from "./Cenas/cenaVeterinario.js";
+import { cenaCarregamento } from "./cenas/cenaCarregamento.js";
+import {cenaVeterinario } from "./cenas/cenaVeterinario.js";
 
 // Objeto global para armazenar estados do jogo
 export let gameState = {
@@ -27,6 +27,9 @@ export let gameState = {
 
     },
 
+     },
+     pulga: true
+ 
 };
 
 // Configuração principal do Phaser
@@ -68,7 +71,7 @@ const config = {
         cenaVeterinario,
         cenaPrincipal,
         jogoRacao,
-        cenaHUD,
+        HUD,
         jogoLazer,
         ficha
     ]

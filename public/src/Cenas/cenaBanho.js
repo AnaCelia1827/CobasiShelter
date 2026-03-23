@@ -20,18 +20,14 @@ export class cenaBanho extends Phaser.Scene {
     }
 
     create() {
-        if (!this.scene.isActive("cenaHUD")) {
-            this.scene.launch("cenaHUD");
-        } else if (this.scene.isSleeping("cenaHUD")) {
-            this.scene.wake("cenaHUD");
+        if (!this.scene.isActive("HUD")) {
+            this.scene.launch("HUD");
+        } else if (this.scene.isSleeping("HUD")) {
+            this.scene.wake("HUD");
         }
-        this.scene.bringToTop("cenaHUD");
+        this.scene.bringToTop("HUD");
 
         const posicao = (this.scale.width - this.scale.width * 0.2) / 2;
-        this.posicaoInicialSabao = { x: posicao - posicao * 0.4, y: this.scale.height / 2 + (this.scale.height / 2) * 0.8 };
-        this.posicaoInicialChuveiro = { x: posicao, y: this.scale.height / 2 + (this.scale.height / 2) * 0.8 };
-        this.posicaoInicialToalha = { x: posicao + posicao * 0.4, y: this.scale.height / 2 + (this.scale.height / 2) * 0.8 };
-
         const escalaBase = Math.min(this.scale.width - this.scale.width * 0.2, this.scale.height) * 0.0005;
 
         // Reset geral
@@ -46,11 +42,21 @@ export class cenaBanho extends Phaser.Scene {
         gameState.banheiro = this.add.image(posicao, this.scale.height / 2, "bgBanheiro")
             .setDisplaySize(this.scale.width - this.scale.width * 0.2, this.scale.height);
 
-        // Cachorro (usando Gerenciador / sprite único cachorrCaramelo)
+        // Cachorro dentro de um container
         this.gerenciadorCachorros = new GerenciadorCachorros(this);
-        this.cachorro = this.gerenciadorCachorros.criarCachorro(posicao, this.scale.height / 2, cachorrosBase[0]);
+        this.cachorro = this.gerenciadorCachorros.criarCachorro(0, 0, cachorrosBase[0]);
 
-        this.cachorro.sprite.setScale(escalaBase);
+        const elementosContainer = [this.cachorro.sprite];
+
+        // Pulgas só aparecem se gameState.pulga === true
+        if (gameState.pulga === true) {
+            this.pulgas = this.add.image(0, 0, "pulgas").setScale(this.scale.height * 0.0002);
+            elementosContainer.push(this.pulgas);
+        }
+
+        this.containerCachorro = this.add.container(posicao, this.scale.height / 2, elementosContainer);
+        this.containerCachorro.setScale(escalaBase);
+
         this.physics.add.existing(this.cachorro.sprite);
         this.cachorro.sprite.body.setAllowGravity(false);
         this.cachorro.sprite.body.immovable = true;
@@ -59,18 +65,21 @@ export class cenaBanho extends Phaser.Scene {
 
         this.atualizarEstadoCachorroAnimacao();
 
-
         // Ferramentas
+        this.posicaoInicialSabao = { x: posicao - posicao * 0.4, y: this.scale.height / 2 + (this.scale.height / 2) * 0.8 };
+        this.posicaoInicialChuveiro = { x: posicao, y: this.scale.height / 2 + (this.scale.height / 2) * 0.8 };
+        this.posicaoInicialToalha = { x: posicao + posicao * 0.4, y: this.scale.height / 2 + (this.scale.height / 2) * 0.8 };
+
         gameState.sabao = this.add.follower(new Phaser.Curves.Path(posicao, this.scale.height / 2), this.posicaoInicialSabao.x, this.posicaoInicialSabao.y, "sabao")
             .setInteractive({ useHandCursor: true }).setDepth(3).setScale(0.12);
         gameState.sabao.escalaOriginal = 0.12;
 
         gameState.chuveiro = this.add.follower(new Phaser.Curves.Path(400, 500), this.posicaoInicialChuveiro.x, this.posicaoInicialChuveiro.y, "chuveiro")
-            .setInteractive({ useHandCursor: true }).setDepth(3).setScale(0.25);
+        .setInteractive({ useHandCursor: true }).setDepth(3).setScale(0.25);
         gameState.chuveiro.escalaOriginal = 0.25;
 
         gameState.toalha = this.add.follower(new Phaser.Curves.Path(400, 500), this.posicaoInicialToalha.x, this.posicaoInicialToalha.y, "toalha")
-            .setInteractive({ useHandCursor: true }).setDepth(3).setScale(0.2);
+        .setInteractive({ useHandCursor: true }).setDepth(3).setScale(0.2);
         gameState.toalha.escalaOriginal = 0.2;
 
         this.physics.add.existing(gameState.sabao);
@@ -99,14 +108,14 @@ export class cenaBanho extends Phaser.Scene {
 
             this.cameras.resize(width, height);
             gameState.banheiro.setDisplaySize(width - width * 0.2, height).setPosition(posicao, height / 2);
-            gameState.cachorro.setPosition(posicao, height / 2).setScale(escalaBase);
-            gameState.cachorro.escalaBase = escalaBase; 
-            
+            this.containerCachorro.setPosition(posicao, height / 2).setScale(escalaBase);
+
             gameState.sabao.setPosition(posicao, height / 2);
             gameState.chuveiro.setPosition(posicao, height / 2);
             gameState.toalha.setPosition(posicao, height / 2);
         });
     }
+
 
     // --- EFEITOS VISUAIS (JUICE) ---
     mostrarTextoFlutuante(texto, x, y, cor = "#ffffff") {

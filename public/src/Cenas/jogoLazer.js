@@ -10,10 +10,10 @@ export class jogoLazer extends Phaser.Scene {
     create() {
         this.physics.world.gravity.y = 300;
 
-        if (!this.scene.isActive("cenaHUD")) {
-            this.scene.launch("cenaHUD");
+        if (!this.scene.isActive("HUD")) {
+            this.scene.launch("HUD");
         }
-        this.scene.bringToTop("cenaHUD");
+        this.scene.bringToTop("HUD");
 
         if (!gameState.musica) {
             gameState.musica = this.sound.add("musica", { loop: true, volume: 0.5 });

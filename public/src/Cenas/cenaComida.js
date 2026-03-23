@@ -11,17 +11,15 @@ export class cenaComida extends Phaser.Scene {
     create() {
         this.transicao = false;
 
-        if (!this.scene.isActive("cenaHUD")) {
-            this.scene.launch("cenaHUD");
-        } else if (this.scene.isSleeping("cenaHUD")) {
-            this.scene.wake("cenaHUD");
+        if (!this.scene.isActive("HUD")) {
+            this.scene.launch("HUD");
+        } else if (this.scene.isSleeping("HUD")) {
+            this.scene.wake("HUD");
         }
-        this.scene.bringToTop("cenaHUD");
+        this.scene.bringToTop("HUD");
 
         const posicaoX = (this.scale.width - this.scale.width * 0.2);
         const posicaoY = this.scale.height;
-
-
 
         const passarPressionarEfeito = (alvo, escalaNormal, escalaPassar) => {
             alvo.removeAllListeners();

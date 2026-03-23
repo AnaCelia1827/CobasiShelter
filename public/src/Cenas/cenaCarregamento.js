@@ -47,6 +47,8 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("iconeLazer", "assets/iconeLazer.png");
         this.load.image("iconeVoltar", "assets/iconeVoltar.png");
         this.load.image("cobasiCoin", "assets/moeda.png"); 
+
+        this.load.image("pulgas", "assets/pulgas.png")
         // Tela de Cuidado
         this.load.image("bgCuidado", "assets/tela-cuidado/bgCuidado.png");
         this.load.image("pulga1", "assets/tela-cuidado/pulga1.png");
@@ -109,7 +111,11 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.audio("musica", "assets/trilhaSonora.mp3");
 
         // Spritesheets do cachorro e água
-        this.load.spritesheet("cachorroCaramelo", "assets/cachorroCaramelo.png", {
+        this.load.spritesheet("cachorroCaramelo", "assets/cachorroHeroi.png", {
+            frameWidth: 626,
+            frameHeight: 655
+        });
+        this.load.spritesheet("cachorroHeroi", "assets/cachorroHeroi.png", {
             frameWidth: 626,
             frameHeight: 655
         });

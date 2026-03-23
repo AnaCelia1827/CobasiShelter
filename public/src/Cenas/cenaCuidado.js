@@ -21,7 +21,7 @@ export class cenaCuidado extends Phaser.Scene {
 
     create() {
          // Para garantir que a HUD não fique ativa ao iniciar
-        this.scene.stop("cenaHUD");
+        this.scene.stop("HUD");
         this.transicao = false;
 
 
@@ -378,6 +378,8 @@ export class cenaCuidado extends Phaser.Scene {
         const segundos = Math.ceil((this.time.now - this.tempoInicialMs) / 1000);
         const estrelas = this.calcularEstrelas(segundos);
         const moedas = this.calcularMoedas(estrelas);
+
+        gameState.pulga = false;
 
         gameState.cobasiCoins += moedas;
         this.mostrarPainelResultado(segundos, estrelas, moedas);

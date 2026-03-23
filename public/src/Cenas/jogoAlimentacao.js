@@ -16,8 +16,8 @@ export class jogoAlimentacao extends Phaser.Scene {
     }
 
     create() {
-        if (this.scene.isActive("cenaHUD")) {
-            this.scene.sleep("cenaHUD");
+        if (this.scene.isActive("HUD")) {
+            this.scene.sleep("HUD");
         }
 
         // Botão voltar
