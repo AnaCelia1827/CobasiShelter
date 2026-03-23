@@ -14,8 +14,8 @@ export class cenaVeterinario extends Phaser.Scene {
         // --- Estado global ---
         this.achouPulga = gameState.lupaJaUsada || false;
 
-        if (!this.scene.isActive("cenaHUD")) this.scene.launch("cenaHUD");
-        this.scene.bringToTop("cenaHUD");
+        if (!this.scene.isActive("HUD")) this.scene.launch("HUD");
+        this.scene.bringToTop("HUD");
 
         if (!gameState.musica) {
             gameState.musica = this.sound.add("musica", { loop: true, volume: 0.5 });

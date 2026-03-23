@@ -1,9 +1,9 @@
 import { gameState } from "../main.js";
-import { Barra } from "./Barras/barras.js";
+import { Barra } from "./barras/barras.js";
 
-export class cenaHUD extends Phaser.Scene {
+export class HUD extends Phaser.Scene {
     constructor() {
-        super({ key: "cenaHUD" });
+        super({ key: "HUD" });
         this.transicao = false; // Flag para evitar múltiplas transições simultâneas
     }
 
