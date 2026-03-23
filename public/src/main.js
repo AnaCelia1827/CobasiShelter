@@ -16,14 +16,16 @@ import {cenaVeterinario } from "./cenas/cenaVeterinario.js";
 // Objeto global para armazenar estados do jogo
 export let gameState = {
     barras: {
-        comida:  11,
-        lazer:   11,
+        comida: 11,
+        lazer: 11,
         limpeza: 11,
-        saude:   11
+        saude: 11
     },
-      cobasiCoins: 20, 
-      recompensas: { 
-      banho: false 
+    cobasiCoins: 20,
+    recompensas: {
+        banho: false
+
+    },
 
      },
      pulga: true
@@ -33,7 +35,7 @@ export let gameState = {
 // Configuração principal do Phaser
 const config = {
     type: Phaser.AUTO,
-    
+
     width: window.innerWidth,
 
     // Altura sempre igual à altura total da janela
