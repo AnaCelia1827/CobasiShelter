@@ -181,5 +181,22 @@ export class HUD extends Phaser.Scene {
 
         // Atualiza quantidade de moedas exibida
         this.coinText.setText(gameState.cobasiCoins);
+
+        // Verifica se todas as barras estão a 0 e evolui o cachorro
+        this.verificarManutencaoCachorro();
+    }
+
+    verificarManutencaoCachorro() {
+        // Verifica se todas as barras chegaram a 0
+        const barrasZero = 
+            gameState.barras.comida <= 0 &&
+            gameState.barras.lazer <= 0 &&
+            gameState.barras.limpeza <= 0 &&
+            gameState.barras.saude <= 0
+
+        // Se todas as barras estão em 0 e ainda é Caramelo, volta para cenaPrincipal
+        if (barrasZero && gameState.pets.cachorroCaramelo === true && !this.transicao) {
+            this.transicionarPara("cenaPrincipal")
+        }
     }
 }

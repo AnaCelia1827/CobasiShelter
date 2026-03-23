@@ -16,19 +16,20 @@ import {cenaVeterinario } from "./cenas/cenaVeterinario.js";
 // Objeto global para armazenar estados do jogo
 export let gameState = {
     barras: {
-        comida: 11,
-        lazer: 11,
-        limpeza: 11,
+        comida: 0,
+        lazer: 0,
+        limpeza: 0,
         saude: 11
     },
     cobasiCoins: 20,
     recompensas: {
         banho: false
-
     },
-
-     },
-     pulga: true
+    pets: {
+        cachorroCaramelo: true,
+        cachorroHeroi: false
+    },
+    pulga: true
  
 };
 

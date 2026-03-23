@@ -111,7 +111,7 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.audio("musica", "assets/trilhaSonora.mp3");
 
         // Spritesheets do cachorro e água
-        this.load.spritesheet("cachorroCaramelo", "assets/cachorroHeroi.png", {
+        this.load.spritesheet("cachorroCaramelo", "assets/cachorroCaramelo.png", {
             frameWidth: 626,
             frameHeight: 655
         });
@@ -139,6 +139,6 @@ export class cenaCarregamento extends Phaser.Scene {
     create() {
         // Após carregar todos os assets, inicia a cena inicial do jogo
         // this.scene.start("cenaInicial"); // <- descomente esta linha para voltar ao fluxo normal
-        this.scene.start("cenaComida"); // <- comente esta linha para voltar ao fluxo normal
+        this.scene.start("cenaInicial"); // <- comente esta linha para voltar ao fluxo normal
     }
 }

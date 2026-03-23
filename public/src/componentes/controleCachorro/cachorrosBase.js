@@ -4,9 +4,19 @@ export const cachorrosBase = [
     nome: "Adriel",
     peso: "8KG",
     idade: "1 ano",
-    porte: "medio",
+    porte: "grande",
     estado: "sujo",
-    racao: "pequena",
+    racao: "grande",
     historia: "Encontrado na chuva forte"
   },
+  {
+    id: 2,
+    nome: "Héroi",
+    peso: "4KG",
+    idade: "1 ano",
+    porte: "medio",
+    estado: "sujo",
+    racao: "medio",
+    historia: "Ele caiu na porrada com três mendigo"
+  }
 ]

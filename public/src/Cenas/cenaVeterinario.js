@@ -22,7 +22,7 @@ export class cenaVeterinario extends Phaser.Scene {
         }
         if (!gameState.musica.isPlaying) gameState.musica.play();
 
-        const posicaoX = this.scale.width;
+        const posicaoX = this.scale.width- this.scale.width*0.2;
         const posicaoY = this.scale.height;
 
         // --- Fundo (primeiro!) ---

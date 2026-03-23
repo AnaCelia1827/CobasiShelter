@@ -72,4 +72,11 @@ export class cenaPrincipal extends Phaser.Scene {
         this.cameras.main.setBounds(0, 0, largura, altura)
         this.cameras.main.fadeIn(200, 0, 0, 0)
     }
+
+    update() {
+        // Verifica continuamente se todas as barras estão completas para evoluir o cachorro
+        if (this.gerenciadorCachorros) {
+            this.gerenciadorCachorros.verificarCompletude()
+        }
+    }
 }
