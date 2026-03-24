@@ -12,6 +12,8 @@ import { jogoRacao } from "./cenas/jogoRacao.js";
 import { ficha } from "./componentes/ficha.js";
 import { cenaCarregamento } from "./cenas/cenaCarregamento.js";
 import {cenaVeterinario } from "./cenas/cenaVeterinario.js";
+import {cenaRacaoSuperPremium } from "./cenas/cenaRacaoSuperPremium.js";
+
 
 // Objeto global para armazenar estados do jogo
 export let gameState = {
@@ -74,7 +76,8 @@ const config = {
         jogoRacao,
         HUD,
         jogoLazer,
-        ficha
+        ficha,
+        cenaRacaoSuperPremium
     ]
 };
 
