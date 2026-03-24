@@ -98,9 +98,6 @@ export class cenaPrincipal extends Phaser.Scene {
             // 2. Ajusta escala e posição do container (Cachorro + Pulga)
             this.containerCachorro.setScale(novaPosicaoY * 0.0006)
             this.containerCachorro.setPosition(novaPosicaoX / 2, novaPosicaoY * 0.7)
-
-            // 3. Atualiza os limites da câmera para não quebrar a visão após o resize
-            this.cameras.main.setBounds(0, 0, novaLargura, novaAltura)
         })
 
         // Câmera Inicial

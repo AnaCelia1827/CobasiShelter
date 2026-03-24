@@ -27,9 +27,6 @@ export class cenaBanho extends Phaser.Scene {
         }
         this.scene.bringToTop("HUD");
 
-        const posicao = (this.scale.width - this.scale.width * 0.2) / 2;
-        const escalaBase = Math.min(this.scale.width - this.scale.width * 0.2, this.scale.height) * 0.0005;
-
         // Reset geral
         this.ferramentaAtiva = null;
         this.acumuladorAgua = 0;
@@ -39,8 +36,7 @@ export class cenaBanho extends Phaser.Scene {
         cachorrosBase[0].estado = this.estadoCachorro;
 
         // Fundo
-        gameState.banheiro = this.add.image(posicao, this.scale.height / 2, "bgBanheiro")
-            .setDisplaySize(this.scale.width - this.scale.width * 0.2, this.scale.height);
+        gameState.banheiro = this.add.image(0, 0, "bgBanheiro").setOrigin(0.5);
 
         // Cachorro dentro de um container
         this.gerenciadorCachorros = new GerenciadorCachorros(this);
@@ -48,14 +44,26 @@ export class cenaBanho extends Phaser.Scene {
 
         const elementosContainer = [this.cachorro.sprite];
 
-        // Pulgas só aparecem se gameState.pulga === true
-        if (gameState.pulga === true) {
-            this.pulgas = this.add.image(0, 0, "pulgas").setScale(this.scale.height * 0.0002);
-            elementosContainer.push(this.pulgas);
+        // ==========================================
+        // SISTEMA DE PULGAS ANIMADAS
+        // ==========================================
+        if (!this.anims.exists("pulgaAnim")) {
+            this.anims.create({
+                key: "pulgaAnim",
+                frames: this.anims.generateFrameNumbers("pulgas", { start: 0, end: 1 }), 
+                frameRate: 1,  
+                repeat: -1     
+            });
         }
 
-        this.containerCachorro = this.add.container(posicao, this.scale.height / 2, elementosContainer);
-        this.containerCachorro.setScale(escalaBase);
+        // Cria o sprite animado (escala será tratada no reposicionamento)
+        this.pulgas = this.add.sprite(0, 0, "pulgas").setOrigin(0.5);
+        this.pulgas.play("pulgaAnim");
+        this.pulgas.setVisible(gameState.pulga); 
+        elementosContainer.push(this.pulgas); 
+        // ==========================================
+
+        this.containerCachorro = this.add.container(0, 0, elementosContainer);
 
         this.physics.add.existing(this.cachorro.sprite);
         this.cachorro.sprite.body.setAllowGravity(false);
@@ -65,22 +73,15 @@ export class cenaBanho extends Phaser.Scene {
 
         this.atualizarEstadoCachorroAnimacao();
 
-        // Ferramentas
-        this.posicaoInicialSabao = { x: posicao - posicao * 0.4, y: this.scale.height / 2 + (this.scale.height / 2) * 0.8 };
-        this.posicaoInicialChuveiro = { x: posicao, y: this.scale.height / 2 + (this.scale.height / 2) * 0.8 };
-        this.posicaoInicialToalha = { x: posicao + posicao * 0.4, y: this.scale.height / 2 + (this.scale.height / 2) * 0.8 };
-
-        gameState.sabao = this.add.follower(new Phaser.Curves.Path(posicao, this.scale.height / 2), this.posicaoInicialSabao.x, this.posicaoInicialSabao.y, "sabao")
-            .setInteractive({ useHandCursor: true }).setDepth(3).setScale(0.12);
-        gameState.sabao.escalaOriginal = 0.12;
-
-        gameState.chuveiro = this.add.follower(new Phaser.Curves.Path(400, 500), this.posicaoInicialChuveiro.x, this.posicaoInicialChuveiro.y, "chuveiro")
-        .setInteractive({ useHandCursor: true }).setDepth(3).setScale(0.25);
-        gameState.chuveiro.escalaOriginal = 0.25;
-
-        gameState.toalha = this.add.follower(new Phaser.Curves.Path(400, 500), this.posicaoInicialToalha.x, this.posicaoInicialToalha.y, "toalha")
-        .setInteractive({ useHandCursor: true }).setDepth(3).setScale(0.2);
-        gameState.toalha.escalaOriginal = 0.2;
+        // Ferramentas criadas temporariamente (serão posicionadas pelo reposicionarElementos)
+        gameState.sabao = this.add.follower(new Phaser.Curves.Path(0, 0), 0, 0, "sabao")
+            .setInteractive({ useHandCursor: true }).setDepth(3);
+        
+        gameState.chuveiro = this.add.follower(new Phaser.Curves.Path(0, 0), 0, 0, "chuveiro")
+            .setInteractive({ useHandCursor: true }).setDepth(3);
+        
+        gameState.toalha = this.add.follower(new Phaser.Curves.Path(0, 0), 0, 0, "toalha")
+            .setInteractive({ useHandCursor: true }).setDepth(3);
 
         this.physics.add.existing(gameState.sabao);
         this.physics.add.existing(gameState.chuveiro);
@@ -100,22 +101,70 @@ export class cenaBanho extends Phaser.Scene {
         gameState.chuveiro.on("pointerdown", () => this.alternarFerramenta("chuveiro"));
         gameState.toalha.on("pointerdown", () => this.alternarFerramenta("toalha"));
 
+        // Organiza as animações
+        this.criarAnimacoes();
+
+        // Faz o posicionamento inicial baseado no tamanho atual da tela
+        this.reposicionarElementos(this.scale.width, this.scale.height);
+
+        // Atualiza dinamicamente se a tela for redimensionada
         this.scale.on("resize", (gameSize) => {
-            const width = gameSize.width;
-            const height = gameSize.height;
-            const posicao = (width - width * 0.2) / 2;
-            const escalaBase = Math.min(width - width * 0.2, height) * 0.0005;
-
-            this.cameras.resize(width, height);
-            gameState.banheiro.setDisplaySize(width - width * 0.2, height).setPosition(posicao, height / 2);
-            this.containerCachorro.setPosition(posicao, height / 2).setScale(escalaBase);
-
-            gameState.sabao.setPosition(posicao, height / 2);
-            gameState.chuveiro.setPosition(posicao, height / 2);
-            gameState.toalha.setPosition(posicao, height / 2);
+            this.cameras.resize(gameSize.width, gameSize.height);
+            this.reposicionarElementos(gameSize.width, gameSize.height);
         });
     }
 
+    // --- RESPONSIVIDADE ---
+    reposicionarElementos(width, height) {
+        // Assume que o HUD tira 20% da largura na direita
+        const areaUtilX = width * 0.8; 
+        const centroX = areaUtilX / 2;
+        const centroY = height / 2;
+
+        const escalaBase = Math.min(areaUtilX, height) * 0.0005;
+
+        // Fundo
+        if (gameState.banheiro) {
+            gameState.banheiro.setDisplaySize(areaUtilX, height);
+            gameState.banheiro.setPosition(centroX, centroY);
+        }
+
+        // Cachorro (Container) e pulgas
+        if (this.containerCachorro) {
+            this.containerCachorro.setPosition(centroX, height * 0.6);
+            this.containerCachorro.setScale(escalaBase);
+            
+            // Proporção original para as pulgas:
+            if (this.pulgas) {
+                this.pulgas.setScale(height * 0.0015); 
+            }
+        }
+
+        // Recalcula posições iniciais das ferramentas
+        const yFerramentas = height * 0.85;
+        this.posicaoInicialSabao = { x: centroX - (areaUtilX * 0.25), y: yFerramentas };
+        this.posicaoInicialChuveiro = { x: centroX, y: yFerramentas };
+        this.posicaoInicialToalha = { x: centroX + (areaUtilX * 0.25), y: yFerramentas };
+
+        // Escala dinâmica para ferramentas (mantendo proporções do seu código original)
+        const escalaReferencia = Math.min(areaUtilX, height) * 0.0004;
+        
+        const ajustarFerramenta = (ferramenta, proporcaoOrig, posInicial, nome) => {
+            if (ferramenta) {
+                ferramenta.escalaOriginal = escalaReferencia * proporcaoOrig;
+                // Só reposiciona imediatamente se não estiver segurando a ferramenta
+                if (this.ferramentaAtiva !== nome) {
+                    if (ferramenta.stopFollow) ferramenta.stopFollow();
+                    ferramenta.setPosition(posInicial.x, posInicial.y);
+                    ferramenta.setScale(ferramenta.escalaOriginal);
+                }
+            }
+        };
+
+        ajustarFerramenta(gameState.sabao, (0.12 / 0.25), this.posicaoInicialSabao, "sabao");
+        ajustarFerramenta(gameState.chuveiro, 1, this.posicaoInicialChuveiro, "chuveiro"); // Base (0.25)
+        ajustarFerramenta(gameState.toalha, (0.2 / 0.25), this.posicaoInicialToalha, "toalha");
+    }
 
     // --- EFEITOS VISUAIS (JUICE) ---
     mostrarTextoFlutuante(texto, x, y, cor = "#ffffff") {
@@ -132,7 +181,7 @@ export class cenaBanho extends Phaser.Scene {
             targets: txt,
             y: y - 100, 
             alpha: 0,   
-            duration: 3000, // <-- AUMENTADO PARA 3 SEGUNDOS
+            duration: 3000, 
             ease: "Power1",
             onComplete: () => txt.destroy() 
         });
@@ -261,12 +310,17 @@ export class cenaBanho extends Phaser.Scene {
         this.atualizarToalha();
         this.limparGotas();
 
+        // Atualiza a visibilidade da pulga em tempo real
+        if (this.pulgas) {
+            this.pulgas.setVisible(gameState.pulga);
+        }
+
         if (this.estadoCachorro === "sujo" && this.quantidadeEspuma >= 50) {
             this.estadoCachorro = "ensaboado";
             this.atualizarEstadoCachorroAnimacao();
             this.cameras.main.flash(200, 255, 255, 255); 
             this.animarCachorro(); 
-            this.mostrarTextoFlutuante("Pronto!\nUse o chuveiro.", gameState.cachorro.x, gameState.cachorro.y - 150, "#88ff88");
+            this.mostrarTextoFlutuante("Pronto!\nUse o chuveiro.", this.containerCachorro.x, this.containerCachorro.y - 150, "#88ff88");
             
             this.animarFerramenta(gameState.sabao, false);
             this.retornarPosicaoInicial("sabao");
@@ -283,7 +337,7 @@ export class cenaBanho extends Phaser.Scene {
 
             this.animarCachorro(); 
 
-            this.mostrarTextoFlutuante("Agora use\na toalha!", gameState.cachorro.x, gameState.cachorro.y - 150, "#88ff88");
+            this.mostrarTextoFlutuante("Agora use\na toalha!", this.containerCachorro.x, this.containerCachorro.y - 150, "#88ff88");
             
             this.animarFerramenta(gameState.chuveiro, false);
             this.retornarPosicaoInicial("chuveiro");
@@ -302,7 +356,9 @@ export class cenaBanho extends Phaser.Scene {
         gameState.sabao.body.reset(this.input.activePointer.x, this.input.activePointer.y);
 
         const moveu = Math.abs(gameState.sabao.x - this.ultimoX) > this.limiteMovimento || Math.abs(gameState.sabao.y - this.ultimoY) > this.limiteMovimento;
-        const estaNoCachorro = this.physics.overlap(gameState.sabao, gameState.cachorro);
+        
+        // Verifica overlap com o cachorro de forma mais segura
+        const estaNoCachorro = Phaser.Math.Distance.Between(gameState.sabao.x, gameState.sabao.y, this.containerCachorro.x, this.containerCachorro.y) < 150;
 
         if (estaNoCachorro && this.estadoCachorro === "sujo" && this.quantidadeEspuma < 50 && moveu) {
             this.criarBolha();
@@ -319,7 +375,7 @@ export class cenaBanho extends Phaser.Scene {
         gameState.chuveiro.y = this.input.activePointer.y;
         gameState.chuveiro.body.reset(this.input.activePointer.x, this.input.activePointer.y);
 
-        const estaNoCachorro = this.physics.overlap(gameState.chuveiro, gameState.cachorro);
+        const estaNoCachorro = Phaser.Math.Distance.Between(gameState.chuveiro.x, gameState.chuveiro.y, this.containerCachorro.x, this.containerCachorro.y) < 150;
 
         if (estaNoCachorro && this.estadoCachorro === "ensaboado") {
             this.estadoCachorro = "lavando";
@@ -347,7 +403,7 @@ export class cenaBanho extends Phaser.Scene {
 
         if (this.estadoCachorro !== "molhado") return;
 
-        const estaNoCachorro = this.physics.overlap(gameState.toalha, gameState.cachorro);
+        const estaNoCachorro = Phaser.Math.Distance.Between(gameState.toalha.x, gameState.toalha.y, this.containerCachorro.x, this.containerCachorro.y) < 150;
 
         if (estaNoCachorro) {
             this.tempoSecando += 1;
@@ -365,7 +421,7 @@ export class cenaBanho extends Phaser.Scene {
                 if (!gameState.recompensas.banho) { 
                     gameState.cobasiCoins += 20; 
                     gameState.recompensas.banho = true; 
-                    this.mostrarTextoFlutuante("+20 Moedas!", gameState.cachorro.x, gameState.cachorro.y - 100, "#ffd700");
+                    this.mostrarTextoFlutuante("+20 Moedas!", this.containerCachorro.x, this.containerCachorro.y - 100, "#ffd700");
                 }
 
                 gameState.sabao.disableInteractive();

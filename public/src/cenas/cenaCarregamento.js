@@ -86,15 +86,15 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("tutorial11", "assets/tutorial11.png");
 
         // Rações refinadas
-        this.load.image("racaoGA", "assets/Racoes/otimizadas/racaoGA.png");
-        this.load.image("racaoGF", "assets/Racoes/otimizadas/racaoGF.png");
-        this.load.image("racaoGV", "assets/Racoes/otimizadas/racaoGV.png");
-        this.load.image("racaoMA", "assets/Racoes/otimizadas/racaoMA.png");
-        this.load.image("racaoMF", "assets/Racoes/otimizadas/racaoMF.png");
-        this.load.image("racaoMV", "assets/Racoes/otimizadas/racaoMV.png");
-        this.load.image("racaoPA", "assets/Racoes/otimizadas/racaoPA.png");
-        this.load.image("racaoPF", "assets/Racoes/otimizadas/racaoPF.png");
-        this.load.image("racaoPV", "assets/Racoes/otimizadas/racaoPV.png");
+        this.load.image("racaoGA", "assets/Racoes/racaoGA.png");
+        this.load.image("racaoGF", "assets/Racoes/racaoGF.png");
+        this.load.image("racaoGV", "assets/Racoes/racaoGV.png");
+        this.load.image("racaoMA", "assets/Racoes/racaoMA.png");
+        this.load.image("racaoMF", "assets/Racoes/racaoMF.png");
+        this.load.image("racaoMV", "assets/Racoes/racaoMV.png");
+        this.load.image("racaoPA", "assets/Racoes/racaoPA.png");
+        this.load.image("racaoPF", "assets/Racoes/racaoPF.png");
+        this.load.image("racaoPV", "assets/Racoes/racaoPV.png");
 
         // Sprites da cena jogoRacao.js
         this.load.image("botaoStandard", "assets/botaoStandardNormal.png");
@@ -106,6 +106,8 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("botaoComprar", "assets/botaoComprar.png");
         this.load.image("botaoComprarPressionado", "assets/botaoComprarPressionado.png");
         this.load.image("composicaoRacao", "assets/tela-racao/composicaoRacao.png");
+        this.load.image("estanteRacao", "assets/tela-alimentacao/estanteRacao.png");
+        this.load.image("estanteStandard", "assets/tela-alimentacao/estanteStandard.png");
 
         // Áudio
         this.load.audio("musica", "assets/trilhaSonora.mp3");
@@ -143,6 +145,6 @@ export class cenaCarregamento extends Phaser.Scene {
     create() {
         // Após carregar todos os assets, inicia a cena inicial do jogo
         // this.scene.start("cenaInicial"); // <- descomente esta linha para voltar ao fluxo normal
-        this.scene.start("jogoRacaoStandart"); // <- comente esta linha para voltar ao fluxo normal
+        this.scene.start("cenaInicial"); // <- comente esta linha para voltar ao fluxo normal
     }
 }

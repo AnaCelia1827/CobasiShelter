@@ -12,11 +12,10 @@ import {
 
 // Importa classe Racao e controle do cachorro
 import { Racao } from "../componentes/controleRacoes/racoes.js";
-import { cachorrosBase } from "../componentes/controleCachorro/cachorrosBase.js";
 
-export class jogoRacaoStandart extends Phaser.Scene {
+export class cenaRacaoStandart extends Phaser.Scene {
     constructor() {
-        super({ key: "jogoRacaoStandart" });
+        super({ key: "cenaRacaoStandart" });
     }
 
     create() {
@@ -75,7 +74,7 @@ export class jogoRacaoStandart extends Phaser.Scene {
             largura * 0.40, altura * 0.155,
             "botaoSuperPremium", "botaoSuperPremiumPressionado",
             0.35, 0.4, 0.3,
-            () => this.transicaoPara("")
+            () => this.transicaoPara("cenaRacaoSuperPremium")
         );
 
         // Estante à esquerda
