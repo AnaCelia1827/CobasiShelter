@@ -67,14 +67,14 @@ export class cenaRacaoStandart extends Phaser.Scene {
             largura * 0.20, altura * 0.15,
             "botaoStandard", "botaoStandardPressionado",
             0.35, 0.4, 0.30,
-            () => this.transicaoPara("")
+            () => this.scene.start("")
         );
 
         this.botaoSuperPremium = criarBotao(
             largura * 0.40, altura * 0.155,
             "botaoSuperPremium", "botaoSuperPremiumPressionado",
             0.35, 0.4, 0.3,
-            () => this.transicaoPara("cenaRacaoSuperPremium")
+            () => this.scene.start("cenaRacaoSuperPremium")
         );
 
         // Estante à esquerda
@@ -141,7 +141,7 @@ export class cenaRacaoStandart extends Phaser.Scene {
             centroDireitaX, altura * 0.85, 
             "botaoComprar", "botaoComprarPressionado",
             0.35, 0.4, 0.30,
-            () => this.transicaoPara("")
+            () => this.scene.start("")
         ).setScale(0.35).setVisible(false).setAlpha(0);
 
         this.containerInfo = this.add.container(centroDireitaX, altura * 0.47)
