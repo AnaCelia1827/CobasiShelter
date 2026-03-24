@@ -80,9 +80,13 @@ export class cenaPrincipal extends Phaser.Scene {
 
         // Escala do container (afeta ambos)
         this.containerCachorro.setScale(posicaoY * 0.0006)
-
-        // --- AJUSTE AQUI: Resize dinâmico otimizado ---
+        
+     // --- AJUSTE AQUI: Resize dinâmico otimizado ---
+        // Adicionando uma checagem se as cameras existem e a cena está ativa
         this.scale.on("resize", (gameSize) => {
+            // Se a cena não estiver ativa ou a câmera não existir, ignora o resize
+            if (!this.scene.isActive() || !this.cameras || !this.cameras.main) return;
+
             const novaLargura = gameSize.width
             const novaAltura = gameSize.height
 
@@ -91,18 +95,26 @@ export class cenaPrincipal extends Phaser.Scene {
             const novaPosicaoY = novaAltura
 
             // 1. Ajusta o Fundo
-            this.bg
+            if(this.bg){
+               this.bg
                 .setDisplaySize(novaPosicaoX, novaPosicaoY)
                 .setPosition(novaPosicaoX / 2, novaPosicaoY / 2)
+            }
 
             // 2. Ajusta escala e posição do container (Cachorro + Pulga)
-            this.containerCachorro.setScale(novaPosicaoY * 0.0006)
-            this.containerCachorro.setPosition(novaPosicaoX / 2, novaPosicaoY * 0.7)
+            if(this.containerCachorro){
+               this.containerCachorro.setScale(novaPosicaoY * 0.0006)
+               this.containerCachorro.setPosition(novaPosicaoX / 2, novaPosicaoY * 0.7)
+            }
 
             // 3. Atualiza os limites da câmera para não quebrar a visão após o resize
             this.cameras.main.setBounds(0, 0, novaLargura, novaAltura)
-        })
+        }, this); // <-- Importante: O ", this" no final amarra o evento ao contexto correto.
 
+        // Limpa o evento de resize quando a cena for fechada/parada para evitar vazamento de memória e bugs
+        this.events.on('shutdown', () => {
+            this.scale.removeAllListeners('resize');
+        });
         // Câmera Inicial
         this.cameras.main.setBounds(0, 0, largura, altura)
         this.cameras.main.fadeIn(200, 0, 0, 0)

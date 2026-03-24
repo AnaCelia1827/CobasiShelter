@@ -6,6 +6,7 @@ import { cenaComida } from "./cenas/cenaComida.js";
 import { cenaTutorial } from "./cenas/cenaTutorial.js";
 import { cenaPrincipal } from "./cenas/cenaPrincipal.js";
 import { jogoLazer } from "./cenas/jogoLazer.js";
+import {cenaLazer} from "./cenas/cenaLazer.js";
 import { HUD } from "./componentes/HUD.js";
 import { cenaCuidado } from "./cenas/cenaCuidado.js";
 import { jogoRacao } from "./cenas/jogoRacao.js";
@@ -76,6 +77,7 @@ const config = {
         jogoRacao,
         HUD,
         jogoLazer,
+        cenaLazer,
         ficha,
         cenaRacaoSuperPremium
     ]

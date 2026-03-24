@@ -82,8 +82,8 @@ export class HUD extends Phaser.Scene {
             .setInteractive({ useHandCursor: true })
             .setScale(this.scale.height*0.001)
             .setScrollFactor(0);
-        botaoLazer.on("pointerdown", () => this.transicionarPara("jogoLazer"));
-        this.botoes.push({ botao: botaoLazer, cenaAlvo: "jogoLazer" });
+        botaoLazer.on("pointerdown", () => this.transicionarPara("cenaLazer"));
+        this.botoes.push({ botao: botaoLazer, cenaAlvo: "cenaLazer" });
 
         const botaoVoltar = this.add.image(painelX, this.scale.height*0.95, "iconeVoltar")
             .setInteractive({ useHandCursor: true })
