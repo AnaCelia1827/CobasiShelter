@@ -48,7 +48,7 @@ export class cenaComida extends Phaser.Scene {
         passarPressionarEfeito(estante, estante.scaleX, estante.scaleX * 1.1);
 
         estante.on("pointerdown", () => {
-            const cenaHUD = this.scene.manager.getScene("cenaHUD");
+            const cenaHUD = this.scene.manager.getScene("HUD");
             if (cenaHUD && cenaHUD.transicionarPara) {
                 cenaHUD.transicionarPara("jogoRacao");
             } else {

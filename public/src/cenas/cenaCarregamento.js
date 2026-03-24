@@ -143,6 +143,6 @@ export class cenaCarregamento extends Phaser.Scene {
     create() {
         // Após carregar todos os assets, inicia a cena inicial do jogo
         // this.scene.start("cenaInicial"); // <- descomente esta linha para voltar ao fluxo normal
-        this.scene.start("cenaInicial"); // <- comente esta linha para voltar ao fluxo normal
+        this.scene.start("jogoRacaoStandart"); // <- comente esta linha para voltar ao fluxo normal
     }
 }
