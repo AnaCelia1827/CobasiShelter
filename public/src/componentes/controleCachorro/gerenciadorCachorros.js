@@ -45,12 +45,12 @@ export class GerenciadorCachorros {
     gameState.barras.lazer = 11
     gameState.barras.limpeza = 11
     gameState.barras.saude = 11
+
+    gameState.pulga = true
     
     if (this.cachorroAtual) {
       this.cachorroAtual.mudarSprite("cachorroHeroi")
     }
-    
-    console.log("Parabéns! Seu cachorro evoluiu para o Herói!")
   }
 
   mudarParaCachorroCaramelo() {
@@ -60,7 +60,5 @@ export class GerenciadorCachorros {
     if (this.cachorroAtual) {
       this.cachorroAtual.mudarSprite("cachorroCaramelo")
     }
-    
-    console.log("Seu cachorro voltou ao estado normal...")
   }
 }

@@ -18,7 +18,7 @@ export let gameState = {
     barras: {
         comida: 0,
         lazer: 0,
-        limpeza: 0,
+        limpeza: 11,
         saude: 11
     },
     cobasiCoins: 20,

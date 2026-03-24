@@ -5,7 +5,7 @@ export class Barra {
         // Valor inicial da barra (entre 0 e 10)
         this.valor = valor;
         // Cria o sprite da barra na posição (x, y) usando o spritesheet "barra"
-        this.sprite = scene.add.sprite(x, y, "barras").setScale(1.5);
+        this.sprite = scene.add.sprite(x, y, "barra").setScale(1.5);
         // Atualiza a barra para refletir o valor inicial
         this.atualizarBarra();
     }
