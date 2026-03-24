@@ -1,5 +1,6 @@
 import { GerenciadorCachorros } from "../componentes/controleCachorro/gerenciadorCachorros.js"
 import { cachorrosBase } from "../componentes/controleCachorro/cachorrosBase.js"
+import { gameState } from "../main.js";
 
 export class cenaComida extends Phaser.Scene {
     
@@ -41,26 +42,43 @@ export class cenaComida extends Phaser.Scene {
             .setDisplaySize(posicaoX, posicaoY)
             .setDepth(-1);
 
-        const estante = this.add.image(posicaoX * 0.2, posicaoY / 2 + posicaoY * 0.14, "estanteRacao")
-            .setScale(posicaoY * 0.0007)
+        const estante = this.add.image(posicaoX * 0.25, posicaoY * 0.68, "estanteRacao")
+            .setScale(posicaoY * 0.0006)
             .setInteractive({ useHandCursor: true });
 
         passarPressionarEfeito(estante, estante.scaleX, estante.scaleX * 1.1);
 
         estante.on("pointerdown", () => {
-            const cenaHUD = this.scene.manager.getScene("cenaHUD");
+            const cenaHUD = this.scene.manager.getScene("HUD");
             if (cenaHUD && cenaHUD.transicionarPara) {
-                cenaHUD.transicionarPara("jogoRacao");
+                cenaHUD.transicionarPara("cenaRacaoSuperPremium");
             } else {
-                this.scene.start("jogoRacao");
+                this.scene.start("cenaRacaoSuperPremium");
             }
         });
 
-        const racaoVazia = this.add.image((posicaoX / 2) + (posicaoX / 2) * 0.1, posicaoY / 2 + posicaoY * 0.4, "racaoVazia")
-            .setScale(posicaoY * 0.00002);
+        // Adiciona a ficha de informações do cachorro
+        gameState.bilhete = this.add.image(
+            this.scale.width * 0.7, 
+            this.scale.height * 0.25,
+            'mineFicha')
+        .setScale(0.15)
+        .setInteractive({ useHandCursor:true });
+        passarPressionarEfeito(gameState.bilhete, 0.15, 0.18);
 
-        // 👇 usa estado atual do cachorro (sincronizado com CenaBanho e outras)
-        // cachorrosBase[0].estado não deve ser sobrescrito para preservar progresso
+        gameState.bilhete.on('pointerdown', () => {
+        if(this.scene.isActive('ficha'))
+        {
+            this.scene.stop('ficha')
+        } 
+        else
+        {
+            this.scene.launch('ficha')
+        }
+    });
+
+        const racaoVazia = this.add.image((posicaoX / 2) + (posicaoX / 2) * 0.1, posicaoY / 2 + posicaoY * 0.4, "racaoVazia")
+            .setScale(posicaoY * 0.0002);
 
         this.gerenciadorCachorros = new GerenciadorCachorros(this)
 
