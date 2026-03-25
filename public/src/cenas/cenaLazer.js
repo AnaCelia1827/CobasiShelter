@@ -10,9 +10,9 @@ export class cenaLazer extends Phaser.Scene {
     create() {
         // HUD
         if (!this.scene.isActive("HUD")) {
-            this.scene.launch("HUD")
+            this.scene.launch("HUD");
         }
-        this.scene.bringToTop("HUD")
+        this.scene.bringToTop("HUD");
 
         if (!gameState.musica) gameState.musica = this.sound.add("musica", { loop: true, volume: 0.5 });
         if (!gameState.musica.isPlaying) gameState.musica.play();
@@ -88,7 +88,11 @@ export class cenaLazer extends Phaser.Scene {
         this.petiscoBtn.on('pointerout', () => {
             this.petiscoBtn.setScale(0.2); 
         });
-       
+
+        // 4. TELA DE INSTRUÇÕES (Aparece apenas na primeira vez)
+        if (!gameState.instrucoesLazerVistas) {
+            this.mostrarInstrucoes(posicaoX, posicaoY);
+        }
     }
     
     update(){
@@ -101,5 +105,54 @@ export class cenaLazer extends Phaser.Scene {
         if (this.pulgas) {
             this.pulgas.setVisible(gameState.pulga);
         }
+    }
+
+    // ================= MÉTODOS ADICIONAIS =================
+
+    /**
+   /**
+   /**
+    /**
+     * Cria um overlay escuro e exibe a imagem de instruções.
+     * Clicar na tela fecha as instruções e salva no gameState.
+     */
+    mostrarInstrucoes(posicaoX, posicaoY) {
+        // Traz a cena de Lazer para cima do HUD temporariamente
+        this.scene.bringToTop();
+
+        // Vamos centralizar na tela TODA (e não só na área jogável) para ficar mais elegante
+        const centroX = this.scale.width / 2;
+        const centroY = this.scale.height / 2;
+
+        const fundoEscuro = this.add.rectangle(centroX, centroY, 8000, 8000, 0x000000, 0.7)
+            .setDepth(100)
+            .setInteractive();
+
+        const telaInstrucao = this.add.image(centroX, centroY, 'instrucaoLazer')
+            .setDepth(101)
+            .setInteractive({ useHandCursor: true }); 
+
+        // --- AJUSTE DE TAMANHO DA IMAGEM ---
+        const limiteLargura = this.scale.width * 0.8;
+        const limiteAltura = this.scale.height * 0.8;
+
+        const escalaX = limiteLargura / telaInstrucao.width;
+        const escalaY = limiteAltura / telaInstrucao.height;
+
+        const escalaFinal = Math.min(escalaX, escalaY);
+        telaInstrucao.setScale(escalaFinal);
+        // ------------------------------------
+
+        const fecharInstrucoes = () => {
+            fundoEscuro.destroy();
+            telaInstrucao.destroy();
+            gameState.instrucoesLazerVistas = true; 
+            
+            // DEVOLVE O HUD PARA O TOPO QUANDO FECHAR
+            this.scene.bringToTop("HUD");
+        };
+
+        fundoEscuro.on('pointerdown', fecharInstrucoes);
+        telaInstrucao.on('pointerdown', fecharInstrucoes);
     }
 }
