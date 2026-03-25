@@ -27,7 +27,8 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
         const pet = cachorrosBase[0];
 
         // Deixa o HUD invisível
-        this.scene.stop("cenaHUD");
+        this.scene.stop("HUD");
+
         this.transicao = false;
 
         // Função predefinida de feedback ao passar o cursor em cima
@@ -64,17 +65,16 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
                 align: "center"
             }).setOrigin(0.5);  
 
-            // Adiciona a ficha de informações do cachorro
-            gameState.bilhete = this.add.image(
-                this.scale.width*0.95,
-                this.scale.height*0.3,
-                'mineFicha')
-            .setScale(0.15)
-            .setInteractive({ useHandCursor:true });
-            passarPressionarEfeito(gameState.bilhete, 0.15, 0.18);
+        // Adiciona a ficha de informações do cachorro
+        gameState.bilhete = this.add.image(
+            this.scale.width*0.95,
+            this.scale.height*0.3,
+            'mineFicha')
+        .setScale(0.15)
+        .setInteractive({ useHandCursor:true });
+        passarPressionarEfeito(gameState.bilhete, 0.15, 0.18);
 
-            gameState.bilhete.on('pointerdown', () => {
-
+        gameState.bilhete.on('pointerdown', () => {
             if(this.scene.isActive('ficha')){
                 this.scene.stop('ficha')
             } 
@@ -121,7 +121,10 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
             this.scale.width * 0.15, this.scale.height * 0.145,
             "botaoStandard", "botaoStandardPressionado",
             0.5, 0.55, 0.45,
-            () => this.transicaoPara("")
+            () => {
+                // Se você tiver uma lógica de transição personalizada, substitua aqui
+                this.scene.start("cenaRacaoStandart") 
+            }
         );
 
         // Botão SuperPremium
@@ -129,7 +132,7 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
             this.scale.width * 0.35, this.scale.height * 0.15,
             "botaoSuperPremium", "botaoSuperPremiumPressionado",
             0.5, 0.55, 0.45,
-            () => this.transicaoPara("")
+            () => {} // Já estamos nela, não faz nada
         );
 
         // Estante
@@ -150,6 +153,7 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
             new Racao(this, this.scale.width * 0.37, this.scale.height * 0.845, racaoPequenaSenior),
         ];
         this.racoesSuperPremium.forEach(r => r.sprite.setScale(0.38));
+
 
         // Grupo Standard (oculto no início — troque os dados quando tiver os sprites)
         this.racoesStandard = [
@@ -204,6 +208,10 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
                 this.textoGordura.setText(racao.nutrientes ? racao.nutrientes.gordura : "");
 
                 this.imagemRacaoInfo.setTexture(racao.sprite.texture.key);
+                // Limpa o texto de feedback de erro se o jogador clicar em outra ração
+                if (this.textoFeedback) {
+                    this.textoFeedback.setText("");
+                }
 
                 // Mostra o container (tudo junto) com fade
                 this.composicaoRacao.setVisible(true); // Garante visibilidade interna
@@ -227,8 +235,8 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
         this.fundoTemplateRacao = this.add.image(
             this.scale.width * 0.68,
             this.scale.height * 0.47,
-            "fundoTemplateRacao")
-            .setScale(this.scale.height * 0.00085);
+            "fundoTemplateRacao"
+        ).setScale(this.scale.height * 0.00085);
 
         // Container invisível para centralizar o texto no template
         this.containerTexto = this.add.container(
@@ -256,15 +264,56 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
 
         // Adiciona o texto inicial no container
         this.containerTexto.add([titulo, subtitulo]);
+        // === TEXTO DE FEEDBACK ===
+        this.textoFeedback = this.add.text(
+            this.scale.width * 0.68, 
+            this.scale.height * 0.83, // Fica abaixo do botão
+            "",
+            {
+                fontSize: "14px",
+                color: "#ff0000",
+                fontFamily: '"Press Start 2P"',
+                align: "center",
+                wordWrap: { width: 350 }
+            }
+        ).setOrigin(0.5);
 
+        // === BOTÃO COMPRAR ===
         this.botaoComprar = criarBotao(
             this.scale.width * 0.68, this.scale.height * 0.75,
             "botaoComprar", "botaoComprarPressionado",
             0.25, 0.27, 0.23,
-            () => this.transicaoPara("")
+            () => {
+                // 1. Verifica se alguma ração foi selecionada
+                if (!Racao.selecionada) {
+                    this.textoFeedback.setText("SELECIONE UMA RAÇÃO PRIMEIRO!");
+                    this.textoFeedback.setColor("#ff0000"); // Vermelho
+                    return;
+                }
+
+                // 2. Compara o ID da ração com o ID do cachorro
+                if (Racao.selecionada.id === pet.id) {
+                    // Acertou!
+                    this.textoFeedback.setText("ACERTOU! ESSA É A RAÇÃO IDEAL!\nRedirecionando...");
+                    this.textoFeedback.setColor("#006600"); // Verde
+
+                    // Desativa o botão
+                    this.botaoComprar.disableInteractive();
+
+                    // Aguarda 1.5s e muda de cena
+                    this.time.delayedCall(1500, () => {
+                        Racao.selecionada = null; // Limpa a ração selecionada
+                        this.scene.start("jogoAlimentacao"); // Redireciona
+                    });
+                } else {
+                    // Errou!
+                    this.textoFeedback.setText("ESSA RAÇÃO NÃO É IDEAL.\nESCOLHA OUTRA RAÇÃO.");
+                    this.textoFeedback.setColor("#ff0000"); // Vermelho
+                }
+            }
         ).setScale(0.25);
 
-        // Tentativa de aplicação de responsividade (Container com as informações e imagens ao clicar na ração)
+        // Container com as informações e imagens ao clicar na ração
         this.containerInfo = this.add.container(
             this.scale.width * 0.68,
             this.scale.height * 0.43

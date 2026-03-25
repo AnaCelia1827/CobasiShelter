@@ -76,18 +76,51 @@ export class cenaComida extends Phaser.Scene {
             this.scene.launch('ficha')
         }
     });
-
         const racaoVazia = this.add.image((posicaoX / 2) + (posicaoX / 2) * 0.1, posicaoY / 2 + posicaoY * 0.4, "racaoVazia")
             .setScale(posicaoY * 0.0002);
 
+        // ==========================================
+        // SISTEMA DE CACHORRO + PULGAS NO CONTAINER
+        // ==========================================
         this.gerenciadorCachorros = new GerenciadorCachorros(this)
 
-        this.cachorro = this.gerenciadorCachorros.criarCachorro(
-            (posicaoX / 2) + (posicaoX / 2) * 0.4,
-            (posicaoY / 2) + (posicaoY / 2) * 0.25,
-            cachorrosBase[0]
-        )
+        // Criamos o cachorro na posição 0,0 porque ele vai para dentro do container
+        this.cachorro = this.gerenciadorCachorros.criarCachorro(0, 0, cachorrosBase[0])
+        const elementosContainer = [this.cachorro.sprite];
 
-        this.cachorro.sprite.setScale(posicaoY * 0.0007)
+        // Cria a animação da pulga (se ainda não existir)
+        if (!this.anims.exists("pulgaAnim")) {
+            this.anims.create({
+                key: "pulgaAnim",
+                frames: this.anims.generateFrameNumbers("pulgas", { start: 0, end: 1 }), 
+                frameRate: 1,  
+                repeat: -1     
+            });
+        }
+
+        // Cria o sprite animado da pulga
+        this.pulgas = this.add.sprite(0, 0, "pulgas")
+            .setOrigin(0.5)
+            .setScale(posicaoY * 0.0015); // Mantendo a proporção visual das outras cenas
+
+        this.pulgas.play("pulgaAnim");
+        this.pulgas.setVisible(gameState.pulga); 
+        elementosContainer.push(this.pulgas); 
+
+        // Calcula a posição onde o cachorro deveria estar
+        const dogX = (posicaoX / 2) + (posicaoX / 2) * 0.4;
+        const dogY = (posicaoY / 2) + (posicaoY / 2) * 0.25;
+
+        // Cria o container com o cachorro e as pulgas
+        this.containerCachorro = this.add.container(dogX, dogY, elementosContainer);
+        this.containerCachorro.setScale(posicaoY * 0.0007);
+        // ==========================================
+    }
+
+    update() {
+        // Atualiza a visibilidade da pulga em tempo real
+        if (this.pulgas) {
+            this.pulgas.setVisible(gameState.pulga);
+        }
     }
 }

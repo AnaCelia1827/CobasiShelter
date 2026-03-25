@@ -102,14 +102,10 @@ export class cenaPrincipal extends Phaser.Scene {
             }
 
             // 2. Ajusta escala e posição do container (Cachorro + Pulga)
-            if(this.containerCachorro){
-               this.containerCachorro.setScale(novaPosicaoY * 0.0006)
-               this.containerCachorro.setPosition(novaPosicaoX / 2, novaPosicaoY * 0.7)
-            }
+            this.containerCachorro.setScale(novaPosicaoY * 0.0006)
+            this.containerCachorro.setPosition(novaPosicaoX / 2, novaPosicaoY * 0.7)
+        })
 
-            // 3. Atualiza os limites da câmera para não quebrar a visão após o resize
-            this.cameras.main.setBounds(0, 0, novaLargura, novaAltura)
-        }, this); // <-- Importante: O ", this" no final amarra o evento ao contexto correto.
 
         // Limpa o evento de resize quando a cena for fechada/parada para evitar vazamento de memória e bugs
         this.events.on('shutdown', () => {
