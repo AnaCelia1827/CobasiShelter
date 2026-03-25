@@ -125,18 +125,9 @@ export class cenaRacaoStandart extends Phaser.Scene {
 
         this.containerTexto.add([titulo, subtitulo]);
 
-        // TEXTO DE PREÇO (NOVO) - Fica acima do botão
-        this.textoPreco = this.add.text(centroDireitaX, altura * 0.77, "", {
-            fontFamily: '"Press Start 2P"',
-            fontSize: "16px",
-            color: "#000000",
-            align: "center"
-        }).setOrigin(0.5).setVisible(false).setAlpha(0);
-
-        // BOTÃO COMPRAR - Vinculado à função de compra
-        this.botaoComprar = criarBotao(
+        this.botaoComprarStandard = criarBotao(
             centroDireitaX, altura * 0.85, 
-            "botaoComprar", "botaoComprarPressionado",
+            "botaoComprarStandard", "botaoComprarStandardPressionado",
             0.35, 0.4, 0.30,
             () => this.executarCompra()
         ).setVisible(false).setAlpha(0);
@@ -199,12 +190,11 @@ export class cenaRacaoStandart extends Phaser.Scene {
                 this.composicaoRacao.setVisible(true);
                 
                 this.containerInfo.setAlpha(0).setVisible(true);
-                this.botaoComprar.setVisible(true);
-                this.textoPreco.setVisible(true);
+                this.botaoComprarStandard.setVisible(true);
                 
                 // INCLUINDO textoPreco NO TWEEN (NOVO)
                 this.tweens.add({ 
-                    targets: [this.containerInfo, this.botaoComprar, this.textoPreco], 
+                    targets: [this.containerInfo, this.botaoComprarStandard], 
                     alpha: 1, 
                     duration: 250, 
                     ease: "Power2" 
@@ -228,8 +218,7 @@ export class cenaRacaoStandart extends Phaser.Scene {
             this.containerTexto.setPosition(w * 0.70, h * 0.55);
             
             this.containerInfo.setPosition(w * 0.70, h * 0.47).setScale(h * 0.0009);
-            this.botaoComprar.setPosition(w * 0.70, h * 0.85);
-            this.textoPreco.setPosition(w * 0.70, h * 0.77); // Reposiciona o texto de preço
+            this.botaoComprarStandard.setPosition(w * 0.70, h * 0.85);
 
             const novasColunas = [w * 0.18, w * 0.30, w * 0.42];
             const novasLinhas = [h * 0.37, h * 0.605, h * 0.845];

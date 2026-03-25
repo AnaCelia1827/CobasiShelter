@@ -20,6 +20,8 @@ import { ficha } from "../componentes/ficha.js";
 export class cenaRacaoSuperPremium extends Phaser.Scene {
     constructor() {
         super({ key: "cenaRacaoSuperPremium" });
+        this.transicao = false;
+
     }
 
     create() {
@@ -28,7 +30,6 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
 
         // Deixa o HUD invisível
         this.scene.stop("HUD");
-
         this.transicao = false;
 
         // Função predefinida de feedback ao passar o cursor em cima
@@ -116,13 +117,23 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
             .setDisplaySize(this.scale.width, this.scale.height)
             .setDepth(-1);
 
+        // Efeito de transição
+        this.cameras.main.setBounds(0, 0, this.scale.width, this.scale.height);
+        this.cameras.main.fadeIn(200, 0, 0, 0);
+
+        // Botão voltar
+        this.botaoVoltar = criarBotao(
+            this.scale.width*0.95, this.scale.height*0.9, "iconeVoltar", "iconeVoltar",
+            1.5, 1.6, 1.4,
+            () => this.transicaoPara("cenaComida")
+        );
+
         // Botão Standard
         this.botaoStandard = criarBotao(
             this.scale.width * 0.15, this.scale.height * 0.145,
             "botaoStandard", "botaoStandardPressionado",
             0.5, 0.55, 0.45,
             () => {
-                // Se você tiver uma lógica de transição personalizada, substitua aqui
                 this.scene.start("cenaRacaoStandart") 
             }
         );
@@ -187,6 +198,8 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
             });
 
             racao.sprite.on("pointerup", () => {
+                Racao.selecionada = racao;
+                this.botaoComprarSuperPremium.setVisible(true);
                 this.tweens.add({
                     targets: this.containerTexto,
                     alpha: 0,
@@ -194,6 +207,7 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
                     ease: "Power2",
                     onComplete: () => this.containerTexto.setVisible(false)
                 });
+
                 // Preenche o template com os dados da ração clicada
                 this.textoTipo.setText(racao.tipo || "Super Premium");
                 this.textoPorte.setText(racao.porte || "-");
@@ -264,6 +278,7 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
 
         // Adiciona o texto inicial no container
         this.containerTexto.add([titulo, subtitulo]);
+
         // === TEXTO DE FEEDBACK ===
         this.textoFeedback = this.add.text(
             this.scale.width * 0.68, 
@@ -279,9 +294,9 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
         ).setOrigin(0.5);
 
         // === BOTÃO COMPRAR ===
-        this.botaoComprar = criarBotao(
+        this.botaoComprarSuperPremium = criarBotao(
             this.scale.width * 0.68, this.scale.height * 0.75,
-            "botaoComprar", "botaoComprarPressionado",
+            "botaoComprarSuperPremium", "botaoComprarSuperPremiumPressionado",
             0.25, 0.27, 0.23,
             () => {
                 // 1. Verifica se alguma ração foi selecionada
@@ -298,12 +313,12 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
                     this.textoFeedback.setColor("#006600"); // Verde
 
                     // Desativa o botão
-                    this.botaoComprar.disableInteractive();
+                    this.botaoComprarSuperPremium.disableInteractive();
 
                     // Aguarda 1.5s e muda de cena
                     this.time.delayedCall(1500, () => {
                         Racao.selecionada = null; // Limpa a ração selecionada
-                        this.scene.start("jogoAlimentacao"); // Redireciona
+                        this.transicaoPara("jogoAlimentacao"); // Redireciona
                     });
                 } else {
                     // Errou!
@@ -390,4 +405,19 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
             this.estante.setPosition(largura / 4, altura * 0.6);
         });
     }
+
+    // Transição do botão comprar para cena do mini game de alimentação
+    transicaoPara(chaveCena) {
+        if (this.transicao) return;
+
+        this.transicao = true;
+        this.cameras.main.fadeOut(300, 0, 0, 0);
+        this.cameras.main.once("camerafadeoutcomplete", () => {
+            if (this.scene.isActive("ficha")) {
+                this.scene.stop("ficha");
+            }
+            this.scene.start(chaveCena);
+        });
+    }
+
 };

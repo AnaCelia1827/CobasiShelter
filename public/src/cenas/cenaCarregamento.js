@@ -115,11 +115,14 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("botaoSuperPremiumPressionado", "assets/botaoSuperPremiumPressionado.png");
         this.load.image("templateRacao", "assets/templateRacao.png");
         this.load.image("fundoTemplateRacao", "assets/fundoTemplateRacao.png");
-        this.load.image("botaoComprar", "assets/botaoComprar.png");
-        this.load.image("botaoComprarPressionado", "assets/botaoComprarPressionado.png");
         this.load.image("composicaoRacao", "assets/tela-racao/composicaoRacao.png");
         this.load.image("estanteRacao", "assets/tela-alimentacao/estanteRacao.png");
         this.load.image("estanteStandard", "assets/tela-alimentacao/estanteStandard.png");
+        this.load.image("botaoComprarSuperPremium", "assets/botaoComprarSuperPremium.png");
+        this.load.image("botaoComprarSuperPremiumPressionado", "assets/botaoComprarSuperPremiumPressionado.png");
+        this.load.image("botaoComprarStandard", "assets/botaoComprarStandard.png");
+        this.load.image("botaoComprarStandardPressionado", "assets/botaoComprarStandardPressionado.png");
+
 
         //Cenas feedback
         this.load.image("avisoConclusao", "assets/Feedback/avisoConclusao.png");
