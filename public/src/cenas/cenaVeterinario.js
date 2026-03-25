@@ -18,10 +18,14 @@ export class cenaVeterinario extends Phaser.Scene {
         if (!this.scene.isActive("HUD")) this.scene.launch("HUD");
         this.scene.bringToTop("HUD");
 
-        if (!gameState.musica) {
-            gameState.musica = this.sound.add("musica", { loop: true, volume: 0.5 });
+        if (!gameState.musicaMenuPrincipal) {
+            gameState.musicaMenuPrincipal = this.sound.add("musicaMenuPrincipal", { loop: true, volume: 1.0 });
         }
-        if (!gameState.musica.isPlaying) gameState.musica.play();
+        if (gameState.musicaTutorial?.isPlaying) {
+            gameState.musicaTutorial.stop();
+        }
+        if (!gameState.musicaMenuPrincipal.isPlaying) gameState.musicaMenuPrincipal.play();
+        gameState.musica = gameState.musicaMenuPrincipal;
 
         // --- Fundo ---
         this.fundo = this.add.image(0, 0, "bgVeterinario");

@@ -20,12 +20,16 @@ export class jogoLazer extends Phaser.Scene {
         this.physics.world.gravity.y = 800;
 
         // --------------- MÚSICA ----------------
-        if (!gameState.musica) {
-            gameState.musica = this.sound.add("musica", { loop: true, volume: 0.5 });
+        if (!gameState.musicaMenuPrincipal) {
+            gameState.musicaMenuPrincipal = this.sound.add("musicaMenuPrincipal", { loop: true, volume: 0.5 });
         }
-        if (!gameState.musica.isPlaying) {
-            gameState.musica.play();
+        if (gameState.musicaTutorial?.isPlaying) {
+            gameState.musicaTutorial.stop();
         }
+        if (!gameState.musicaMenuPrincipal.isPlaying) {
+            gameState.musicaMenuPrincipal.play();
+        }
+        gameState.musica = gameState.musicaMenuPrincipal;
 
         const largura = this.scale.width;
         const altura = this.scale.height;
