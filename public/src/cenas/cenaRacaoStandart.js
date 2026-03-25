@@ -347,5 +347,5 @@ export class cenaRacaoStandart extends Phaser.Scene {
             }
             this.scene.start(chaveCena);
         });
-    }
+    };
 }
