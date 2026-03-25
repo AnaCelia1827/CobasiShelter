@@ -18,13 +18,18 @@ export class cenaPrincipal extends Phaser.Scene {
         }
         this.scene.bringToTop("HUD")
 
-        // Música de fundo
-        if (!gameState.musica) {
-            gameState.musica = this.sound.add("musica", { loop: true, volume: 0.5 })
+        // Música de fundo (principal)
+        if (!gameState.musicaMenuPrincipal) {
+            gameState.musicaMenuPrincipal = this.sound.add("musicaMenuPrincipal", { loop: true, volume: 5.0 })
         }
-        if (!gameState.musica.isPlaying) {
-            gameState.musica.play()
+        if (gameState.musicaTutorial?.isPlaying) {
+            gameState.musicaTutorial.stop();
         }
+        if (!gameState.musicaMenuPrincipal.isPlaying) {
+            gameState.musicaMenuPrincipal.play()
+        }
+        gameState.musica = gameState.musicaMenuPrincipal;
+
 
         const largura = this.scale.width
         const altura = this.scale.height

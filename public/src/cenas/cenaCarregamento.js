@@ -139,7 +139,9 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("instrucaoSegundaFase", "assets/Feedback/instrucaoSegundaFase.png");
 
         // Áudio
-        this.load.audio("musica", "assets/trilhaSonora.mp3");
+        this.load.audio("musicaMenuPrincipal", "assets/Sons/menu-principal.m4a");
+        this.load.audio("musica", "assets/Sons/menu-principal.m4a");
+        this.load.audio("musicaTutorial", "assets/Sons/musica-cutscene.m4a");
 
         // Spritesheets do cachorro e água
         this.load.spritesheet("pulgas", "assets/pulgaCachorro.png", {

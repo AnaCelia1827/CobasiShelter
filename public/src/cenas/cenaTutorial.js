@@ -4,6 +4,8 @@
  * Exibe uma sequência de imagens que contam a história do jogo.
  * Responsiva: imagens e botões se adaptam ao redimensionamento da tela.
  */
+import { gameState } from "../main.js"
+
 export class cenaTutorial extends Phaser.Scene {
     constructor() {
         super({ key: 'cenaTutorial' });
@@ -18,6 +20,17 @@ export class cenaTutorial extends Phaser.Scene {
     }
 
     create() {
+           if (!gameState.musicaTutorial) {
+            gameState.musicaTutorial = this.sound.add("musicaTutorial", { loop: true, volume: 4.5 });
+        }
+        if (gameState.musicaMenuPrincipal?.isPlaying) {
+            gameState.musicaMenuPrincipal.stop();
+        }
+        if (!gameState.musicaTutorial.isPlaying) {
+            gameState.musicaTutorial.play();
+        }
+        gameState.musica = gameState.musicaTutorial;
+
         this.indiceAtual = 1;
 
         // Imagem centralizada e responsiva
