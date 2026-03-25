@@ -6,6 +6,7 @@ import { cenaComida } from "./cenas/cenaComida.js";
 import { cenaTutorial } from "./cenas/cenaTutorial.js";
 import { cenaPrincipal } from "./cenas/cenaPrincipal.js";
 import { jogoLazer } from "./cenas/jogoLazer.js";
+import {cenaLazer} from "./cenas/cenaLazer.js";
 import { HUD } from "./componentes/HUD.js";
 import { cenaCuidado } from "./cenas/cenaCuidado.js";
 import { jogoRacao } from "./cenas/jogoRacao.js";
@@ -14,6 +15,7 @@ import { cenaCarregamento } from "./cenas/cenaCarregamento.js";
 import {cenaVeterinario } from "./cenas/cenaVeterinario.js";
 import {cenaRacaoStandart } from "./cenas/cenaRacaoStandart.js";
 import {cenaRacaoSuperPremium } from "./cenas/cenaRacaoSuperPremium.js";
+
 
 // Objeto global para armazenar estados do jogo
 export let gameState = {
@@ -76,8 +78,9 @@ const config = {
         jogoRacao,
         HUD,
         jogoLazer,
-        ficha,
         cenaRacaoStandart,
+        cenaLazer,
+        ficha,
         cenaRacaoSuperPremium
     ]
 };

@@ -28,6 +28,7 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
 
         // Deixa o HUD invisível
         this.scene.stop("HUD");
+
         this.transicao = false;
 
         // Função predefinida de feedback ao passar o cursor em cima
@@ -153,7 +154,8 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
         ];
         this.racoesSuperPremium.forEach(r => r.sprite.setScale(0.38));
 
-        // Grupo Standard (oculto no início)
+
+        // Grupo Standard (oculto no início — troque os dados quando tiver os sprites)
         this.racoesStandard = [
             new Racao(this, this.scale.width * 0.13, this.scale.height * 0.37, racaoGrandeFilhote),
             new Racao(this, this.scale.width * 0.25, this.scale.height * 0.37, racaoGrandeAdulto),
@@ -192,7 +194,6 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
                     ease: "Power2",
                     onComplete: () => this.containerTexto.setVisible(false)
                 });
-                
                 // Preenche o template com os dados da ração clicada
                 this.textoTipo.setText(racao.tipo || "Super Premium");
                 this.textoPorte.setText(racao.porte || "-");
@@ -207,7 +208,6 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
                 this.textoGordura.setText(racao.nutrientes ? racao.nutrientes.gordura : "");
 
                 this.imagemRacaoInfo.setTexture(racao.sprite.texture.key);
-
                 // Limpa o texto de feedback de erro se o jogador clicar em outra ração
                 if (this.textoFeedback) {
                     this.textoFeedback.setText("");
@@ -264,7 +264,6 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
 
         // Adiciona o texto inicial no container
         this.containerTexto.add([titulo, subtitulo]);
-
         // === TEXTO DE FEEDBACK ===
         this.textoFeedback = this.add.text(
             this.scale.width * 0.68, 
@@ -335,22 +334,34 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
 
         // Porte 
         this.textoPorte = this.add.text(100, -165, "", {
-            fontSize: "20px", color: "#006600", fontFamily: '"Press Start 2P"'
+            fontSize: "20px", 
+            color: "#006600", 
+            fontFamily: '"Press Start 2P"'
         }).setOrigin(0, 0.5);
 
         // Idade 
         this.textoIdade = this.add.text(100, -120, "", {
-            fontSize: "20px", color: "#006600", fontFamily: '"Press Start 2P"'
+            fontSize: "20px", 
+            color: "#006600", 
+            fontFamily: '"Press Start 2P"'
         }).setOrigin(0, 0.5);
 
         // Mini descrição 1
         this.textoChar1 = this.add.text(105, -54, "", {
-            fontSize: "19px", color: "#000", fontFamily: '"Press Start 2P"', align: "center", wordWrap: { width: 500 }
+            fontSize: "19px", 
+            color: "#000", 
+            fontFamily: '"Press Start 2P"', 
+            align: "center", 
+            wordWrap: { width: 500 }
         }).setOrigin(0.5);
 
         // Mini descrição 2
         this.textoChar2 = this.add.text(105, 18, "", {
-            fontSize: "19px", color: "#000", fontFamily: '"Press Start 2P"', align: "center", wordWrap: { width: 500 }
+            fontSize: "19px", 
+            color: "#000", 
+            fontFamily: '"Press Start 2P"', 
+            align: "center", 
+            wordWrap: { width: 500 }
         }).setOrigin(0.5);
 
         // Porcentagens nutricionais

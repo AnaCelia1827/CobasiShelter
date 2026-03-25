@@ -51,9 +51,9 @@ export class cenaComida extends Phaser.Scene {
         estante.on("pointerdown", () => {
             const cenaHUD = this.scene.manager.getScene("HUD");
             if (cenaHUD && cenaHUD.transicionarPara) {
-                cenaHUD.transicionarPara("cenaRacaoStandart");
+                cenaHUD.transicionarPara("cenaRacaoSuperPremium");
             } else {
-                this.scene.start("cenaRacaoStandart");
+                this.scene.start("cenaRacaoSuperPremium");
             }
         });
 
@@ -67,13 +67,15 @@ export class cenaComida extends Phaser.Scene {
         passarPressionarEfeito(gameState.bilhete, 0.15, 0.18);
 
         gameState.bilhete.on('pointerdown', () => {
-            if(this.scene.isActive('ficha')) {
-                this.scene.stop('ficha')
-            } else {
-                this.scene.launch('ficha')
-            }
-        });
-
+        if(this.scene.isActive('ficha'))
+        {
+            this.scene.stop('ficha')
+        } 
+        else
+        {
+            this.scene.launch('ficha')
+        }
+    });
         const racaoVazia = this.add.image((posicaoX / 2) + (posicaoX / 2) * 0.1, posicaoY / 2 + posicaoY * 0.4, "racaoVazia")
             .setScale(posicaoY * 0.0002);
 

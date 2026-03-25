@@ -9,7 +9,6 @@ export class cenaCarregamento extends Phaser.Scene {
         // Tela Inicial
         this.load.image("bgInicial", "assets/tela-inicial/bgInicial.png"); // Fundo da tela inicial
         this.load.image("bgPrincipal", "assets/tela-principal/bgPrincipal.png");         // Fundo principal
-        this.load.image("bgLazer", "assets/bgLazer.png")
         // Botões da tela inicial em diferentes estados (normal, crescendo, pressionado)
         this.load.image("botaoJogarNormal", "assets/tela-inicial/botaoJogarNormal.png");
         this.load.image("botaoJogarCrescendo", "assets/tela-inicial/botaoJogarCrescendo.png");
@@ -40,7 +39,6 @@ export class cenaCarregamento extends Phaser.Scene {
         });
 
         // HUD (interface do jogo)
-        this.load.image("bgHUD", "assets/bg.HUD.png");
         this.load.image("iconeBanho", "assets/iconeBanho.png");
         this.load.image("iconeRacao", "assets/iconeRacao.png");
         this.load.image("iconeCuidados", "assets/iconeCuidados.png");
@@ -71,6 +69,11 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("bolaLaranja","assets/bolaLaranja.png");
         this.load.image("bgVeterinario", "assets/tela-veterinario/bgVeterinario.png");
         this.load.image("lupa", "assets/tela-veterinario/lupa.png")
+        this.load.image("petisco", "assets/tela-lazer/petisco.png");
+        this.load.image("obstaculo", "assets/tela-lazer/obstaculo.png"); 
+        this.load.image("bgLazer", "assets/tela-lazer/bgLazer.png");
+        this.load.image("camaElastica", "assets/tela-lazer/camaElastica.png");
+
 
         // Tela de storytelling/tutorial
         this.load.image("tutorial1", "assets/tutorial1.png");
@@ -129,6 +132,11 @@ export class cenaCarregamento extends Phaser.Scene {
             frameWidth: 480,
             frameHeight: 480
         });
+            this.load.spritesheet("cachorroCorrendo", "assets/tela-lazer/cachorroCorrendo.png", {
+            frameWidth: 445,
+            frameHeight: 280 
+        });
+
 
         //Imagens jogo Alimentação
         
