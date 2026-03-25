@@ -1,5 +1,6 @@
 import { gameState } from "../main.js";
 import { Racao } from "../componentes/controleRacoes/racoes.js";
+import { ficha } from "../componentes/ficha.js";
 
 // Importando APENAS os dados da linha Standart
 import {
@@ -20,6 +21,7 @@ export class cenaRacaoStandart extends Phaser.Scene {
         const centroEsquerdaX = largura * 0.30;
         const centroDireitaX = largura * 0.70;
 
+        // Função predefinida para criar botões
         const criarBotao = (x, y, texturaNormal, texturaPressionado, escalaBase, escalaAumentada, escalaPressionada, callback) => {
             const botao = this.add.image(x, y, texturaNormal).setScale(escalaBase).setInteractive({ useHandCursor: true });
 
@@ -47,21 +49,69 @@ export class cenaRacaoStandart extends Phaser.Scene {
             return botao;
         };
 
+        // Função predefinida de feedback ao passar o cursor em cima
+        const passarPressionarEfeito = (alvo, escalaNormal, escalaPassar) => {
+            alvo.removeAllListeners();
+
+            alvo.on("pointerover", () => {
+                this.tweens.add({ targets: alvo, scaleX: escalaPassar, scaleY: escalaPassar, duration: 200 });
+            });
+
+            alvo.on("pointerdown", () => {
+                this.tweens.add({ targets: alvo, scaleX: escalaNormal * 0.9, scaleY: escalaNormal * 0.9, duration: 150, yoyo: true });
+            });
+
+            alvo.on("pointerout", () => {
+                this.tweens.add({ targets: alvo, scaleX: escalaNormal, scaleY: escalaNormal, duration: 200 });
+            });
+        }; 
+
         // Fundo
         this.fundo = this.add.image(largura / 2, altura / 2, "bgLimpo")
             .setDisplaySize(largura, altura)
             .setDepth(-1);
 
-        // ==========================================
-        // HUD DE MOEDAS (NOVO)
-        // ==========================================
-        this.textoMoedas = this.add.text(largura * 0.95, altura * 0.05, `MOEDAS: ${gameState.cobasiCoins}`, {
-            fontFamily: '"Press Start 2P"',
-            fontSize: "20px",
-            color: "#FFD700", // Cor dourada
-            stroke: "#000000",
-            strokeThickness: 4
-        }).setOrigin(1, 0); // Alinhado pelo canto superior direito
+        // Botão voltar
+        this.botaoVoltar = criarBotao(
+            this.scale.width*0.95, this.scale.height*0.9, "iconeVoltar", "iconeVoltar",
+            1.5, 1.6, 1.4,
+            () => this.transicaoPara("cenaComida")
+        );
+
+        // Adiciona as moedas do jogador em tempo real
+        this.add.image(
+            this.scale.width*0.95, 
+            this.scale.height*0.06,
+           "cobasiCoin").setScale(0.7);
+
+        this.add.text(
+            this.scale.width*0.97, 
+            this.scale.height*0.06, 
+            gameState.cobasiCoins,
+            {
+                fontSize: "20px",
+                color: "#ffffff",
+                fontFamily: '"Press Start 2P"',
+                align: "center"
+            }).setOrigin(0.5);  
+        
+        // Adiciona a ficha de informações do cachorro
+        gameState.bilhete = this.add.image(
+            this.scale.width*0.95,
+            this.scale.height*0.3,
+            'mineFicha')
+        .setScale(0.15)
+        .setInteractive({ useHandCursor:true });
+        passarPressionarEfeito(gameState.bilhete, 0.15, 0.18);
+
+        gameState.bilhete.on('pointerdown', () => {
+            if(this.scene.isActive('ficha')){
+                this.scene.stop('ficha')
+            } 
+            else{
+                this.scene.launch('ficha')
+            }
+        });
 
         // ==========================================
         // COLUNA ESQUERDA (Botões, Estante e Rações)
@@ -282,6 +332,20 @@ export class cenaRacaoStandart extends Phaser.Scene {
             duration: 1500,
             ease: "Power2",
             onComplete: () => feedback.destroy()
+        });
+    }
+
+    // Transição do botão comprar para cena do mini game de alimentação
+    transicaoPara(chaveCena) {
+        if (this.transicao) return;
+
+        this.transicao = true;
+        this.cameras.main.fadeOut(300, 0, 0, 0);
+        this.cameras.main.once("camerafadeoutcomplete", () => {
+            if (this.scene.isActive("ficha")) {
+                this.scene.stop("ficha");
+            }
+            this.scene.start(chaveCena);
         });
     }
 }
