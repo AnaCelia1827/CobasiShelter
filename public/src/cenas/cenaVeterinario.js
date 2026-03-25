@@ -232,6 +232,10 @@ export class cenaVeterinario extends Phaser.Scene {
             this.cachorro.update(time, delta);
         }
 
+        if (gameState.trocar) {
+            this.gerenciadorCachorros.mudarParaCachorroHeroi()
+        }
+
         // Atualiza a visibilidade das pulgas "normais" em tempo real
         if (this.pulgas) {
             this.pulgas.setVisible(gameState.pulga);
