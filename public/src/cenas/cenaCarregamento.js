@@ -98,6 +98,15 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("racaoPA", "assets/Racoes/racaoPA.png");
         this.load.image("racaoPF", "assets/Racoes/racaoPF.png");
         this.load.image("racaoPV", "assets/Racoes/racaoPV.png");
+        this.load.image("standardGA", "assets/Racoes/standardGA.png");
+        this.load.image("standartGF", "assets/Racoes/standartGF.png");
+        this.load.image("standartGV", "assets/Racoes/standartGV.png");
+        this.load.image("standartMA", "assets/Racoes/standartMA.png");
+        this.load.image("standartMF", "assets/Racoes/standartMF.png");
+        this.load.image("standartMV", "assets/Racoes/standartMV.png");
+        this.load.image("standartPA", "assets/Racoes/standartPA.png");
+        this.load.image("standartPF", "assets/Racoes/standartPF.png");
+        this.load.image("standartPV", "assets/Racoes/standartPV.png");
 
         // Sprites da cena jogoRacao.js
         this.load.image("botaoStandard", "assets/botaoStandardNormal.png");
@@ -114,6 +123,20 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("botaoComprarStandard", "assets/botaoComprarStandard.png");
         this.load.image("botaoComprarStandardPressionado", "assets/botaoComprarStandardPressionado.png");
 
+
+        //Cenas feedback
+        this.load.image("avisoConclusao", "assets/Feedback/avisoConclusao.png");
+        this.load.image("feeedback3estrelas", "assets/Feedback/feedbackMineGame.png");
+        this.load.image("feedback2estrelas", "assets/Feedback/feedbackMinegame2.png");
+        this.load.image("feedback1estrela", "assets/Feedback/feedbackMinegame3.png");
+        this.load.image("instrucaoDescricaoBanho", "assets/Feedback/instrucaoBanho.png");
+        this.load.image("instrucaoRacao", "assets/Feedback/instrucaoDescricaoRacao.png");
+        this.load.image("instrucaoLazer", "assets/Feedback/instrucaoLazer.png");
+        this.load.image("instrucaoBanho", "assets/Feedback/instrucaoBanho.png");
+        this.load.image("instrucaoMissao", "assets/Feedback/instrucaoMissao.png");
+        this.load.image("instrucaoPulgas", "assets/Feedback/instrucaoPulgas.png");
+        this.load.image("instrucaoRacao", "assets/Feedback/instrucaoRacao.png");
+        this.load.image("instrucaoSegundaFase", "assets/Feedback/instrucaoSegundaFase.png");
 
         // Áudio
         this.load.audio("musica", "assets/trilhaSonora.mp3");

@@ -277,7 +277,7 @@ export class jogoLazer extends Phaser.Scene {
         const meioX = this.cameras.main.worldView.x + (this.scale.width / 2);
         const meioY = this.scale.height / 2;
 
-        this.add.text(meioX, meioY, 'FASE CONCLUIDA!', {
+        this.add.image(meioX, meioY, '', {
             fontFamily: '"Press Start 2P", monospace', 
             fontSize: '40px', 
             fill: '#00ff00',

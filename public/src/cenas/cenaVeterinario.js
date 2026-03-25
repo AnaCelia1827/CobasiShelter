@@ -1,9 +1,8 @@
-import { gameState } from "../main.js"
-import { GerenciadorCachorros } from "../componentes/controleCachorro/gerenciadorCachorros.js"
-import { cachorrosBase } from "../componentes/controleCachorro/cachorrosBase.js"
+import { gameState } from "../main.js";
+import { GerenciadorCachorros } from "../componentes/controleCachorro/gerenciadorCachorros.js";
+import { cachorrosBase } from "../componentes/controleCachorro/cachorrosBase.js";
 
 export class cenaVeterinario extends Phaser.Scene {
-    
     constructor() {
         super({ key: "cenaVeterinario" });
         this.achouPulga = false;
@@ -12,7 +11,6 @@ export class cenaVeterinario extends Phaser.Scene {
     }
 
     create() {
-
         // --- Estado global ---
         this.achouPulga = gameState.lupaJaUsada || false;
         this.lupaSendoArrastada = false;
@@ -25,7 +23,7 @@ export class cenaVeterinario extends Phaser.Scene {
         }
         if (!gameState.musica.isPlaying) gameState.musica.play();
 
-        // --- Fundo (será redimensionado e posicionado na função reposicionarElementos) ---
+        // --- Fundo ---
         this.fundo = this.add.image(0, 0, "bgVeterinario");
 
         // --- Gerenciador ---
@@ -34,7 +32,6 @@ export class cenaVeterinario extends Phaser.Scene {
         // ==========================================
         // SISTEMA DE CACHORRO + PULGAS NO CONTAINER
         // ==========================================
-        // Cria o cachorro na posição 0,0 para ir para dentro do container
         this.cachorro = this.gerenciadorCachorros.criarCachorro(0, 0, cachorrosBase[0]);
 
         this.physics.add.existing(this.cachorro.sprite);
@@ -61,7 +58,6 @@ export class cenaVeterinario extends Phaser.Scene {
 
         // Cria o container com o cachorro e as pulgas
         this.containerCachorro = this.add.container(0, 0, elementosContainer);
-        // ==========================================
 
         // --- Pulga Alvo da Lupa ---
         this.pulgaAlvo = this.add.image(0, 0, "pulga1")
@@ -69,7 +65,7 @@ export class cenaVeterinario extends Phaser.Scene {
             .setDepth(15)
             .setVisible(false);
 
-        // --- Texto ---
+        // --- Texto de Instrução da Lupa ---
         this.textoInstrucao = this.add.text(
             0, 0,
             "Ache as pulgas e retire elas.",
@@ -99,11 +95,10 @@ export class cenaVeterinario extends Phaser.Scene {
             this.lupa.setAlpha(0.5);
         }
 
-        // --- Eventos ---
+        // --- Eventos da Lupa ---
         this.lupa.on('dragstart', () => {
             if (this.achouPulga) return;
             this.lupaSendoArrastada = true;
-            // Usa a escala responsiva calculada, mas 15% maior pra dar efeito visual
             this.lupa.setScale(this.escalaLupaBase * 1.15); 
             this.textoInstrucao.setVisible(true);
         });
@@ -114,7 +109,6 @@ export class cenaVeterinario extends Phaser.Scene {
             this.lupa.x = dragX;
             this.lupa.y = dragY;
 
-            // Distância calculada com base no container agora
             const distancia = Phaser.Math.Distance.Between(
                 this.lupa.x,
                 this.lupa.y,
@@ -130,11 +124,9 @@ export class cenaVeterinario extends Phaser.Scene {
         this.lupa.on('dragend', () => {
             if (this.achouPulga) return;
             this.lupaSendoArrastada = false;
-            // Volta para a escala responsiva normal
             this.lupa.setScale(this.escalaLupaBase); 
             this.textoInstrucao.setVisible(false);
             
-            // Retorna a lupa para a posição inicial caso tenha soltado sem achar
             this.reposicionarElementos(this.scale.width, this.scale.height);
         });
 
@@ -146,22 +138,26 @@ export class cenaVeterinario extends Phaser.Scene {
             this.cameras.resize(gameSize.width, gameSize.height);
             this.reposicionarElementos(gameSize.width, gameSize.height);
         });
+
+        // ==========================================
+        // CHAMA A TELA DE INSTRUÇÕES (A correção entra aqui!)
+        // ==========================================
+        if (!gameState.instrucoesPulgasVistas) {
+            this.mostrarInstrucoes();
+        }
     }
 
     // --- FUNÇÃO DE RESPONSIVIDADE ---
     reposicionarElementos(width, height) {
-        // Assume que o HUD tira 20% da largura na direita
         const areaUtilX = width * 0.8; 
         const centroX = areaUtilX / 2;
         const centroY = height / 2;
 
-        // Fundo
         if (this.fundo) {
             this.fundo.setDisplaySize(areaUtilX, height);
             this.fundo.setPosition(centroX, centroY);
         }
 
-        // Cachorro (Container) e pulgas
         if (this.containerCachorro) {
             this.containerCachorro.setPosition(centroX, height / 2.3);
             this.containerCachorro.setScale(height * 0.0006); 
@@ -171,28 +167,22 @@ export class cenaVeterinario extends Phaser.Scene {
             }
         }
 
-        // Pulga Alvo
         if (this.pulgaAlvo && !this.achouPulga) {
             this.pulgaAlvo.setPosition(centroX, height / 2.3);
         }
 
-        // Texto
         if (this.textoInstrucao) {
             this.textoInstrucao.setPosition(centroX, height * 0.12);
         }
 
-        // Lupa
         if (this.lupa) {
-            // Calcula a escala responsiva baseada no tamanho da tela
             this.escalaLupaBase = Math.min(areaUtilX, height) * 0.0012; 
 
-            // Só reposiciona e altera a escala base se não estiver arrastando/não achou a pulga
             if (!this.achouPulga) {
                 if (!this.lupaSendoArrastada) {
                     this.lupa.setPosition(centroX, height * 0.85);
                     this.lupa.setScale(this.escalaLupaBase);
                 } else {
-                    // Mantém a proporção de "zoom" se a tela for redimensionada enquanto arrasta
                     this.lupa.setScale(this.escalaLupaBase * 1.15);
                 }
             }
@@ -204,12 +194,11 @@ export class cenaVeterinario extends Phaser.Scene {
         if (this.achouPulga) return;
 
         this.achouPulga = true;
-        this.lupaSendoArrastada = false; // Garante que parou de arrastar
+        this.lupaSendoArrastada = false; 
         gameState.lupaJaUsada = true;
 
         this.textoInstrucao.setVisible(true);
 
-        // Mostra pulga alvo
         this.pulgaAlvo.setVisible(true);
         this.pulgaAlvo.setPosition(this.lupa.x, this.lupa.y);
 
@@ -233,12 +222,51 @@ export class cenaVeterinario extends Phaser.Scene {
         }
 
         if (gameState.trocar) {
-            this.gerenciadorCachorros.mudarParaCachorroHeroi()
+            this.gerenciadorCachorros.mudarParaCachorroHeroi();
         }
 
-        // Atualiza a visibilidade das pulgas "normais" em tempo real
         if (this.pulgas) {
             this.pulgas.setVisible(gameState.pulga);
         }
+    }
+
+    // ========================================================
+    //                 TELA DE INSTRUÇÕES
+    // ========================================================
+    mostrarInstrucoes() {
+        this.scene.bringToTop();
+
+        const centroX = this.scale.width / 2;
+        const centroY = this.scale.height / 2;
+
+        const fundoEscuro = this.add.rectangle(centroX, centroY, 8000, 8000, 0x000000, 0.7)
+            .setDepth(100)
+            .setInteractive();
+
+        const telaInstrucao = this.add.image(centroX, centroY, "instrucaoPulgas")
+            .setDepth(101)
+            .setInteractive({ useHandCursor: true }); 
+
+        const limiteLargura = this.scale.width * 0.8;
+        const limiteAltura = this.scale.height * 0.8;
+
+        const escalaX = limiteLargura / telaInstrucao.width;
+        const escalaY = limiteAltura / telaInstrucao.height;
+
+        const escalaFinal = Math.min(escalaX, escalaY);
+        telaInstrucao.setScale(escalaFinal);
+
+        const fecharInstrucoes = () => {
+            fundoEscuro.destroy();
+            telaInstrucao.destroy();
+            
+            // Variável corrigida para a cena do veterinário!
+            gameState.instrucoesPulgasVistas = true; 
+            
+            this.scene.bringToTop("HUD");
+        };
+
+        fundoEscuro.on('pointerdown', fecharInstrucoes);
+        telaInstrucao.on('pointerdown', fecharInstrucoes);
     }
 }

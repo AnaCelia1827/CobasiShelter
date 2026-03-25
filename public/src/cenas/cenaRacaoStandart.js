@@ -1,17 +1,12 @@
-import {
-    racaoGrandeFilhote,
-    racaoGrandeAdulto,
-    racaoGrandeSenior,
-    racaoMediaAdulto,
-    racaoMediaFilhote,
-    racaoMediaSenior,
-    racaoPequenaAdulto,
-    racaoPequenaFilhote,
-    racaoPequenaSenior
-} from "../componentes/controleRacoes/dadosRacoes.js";
-
-// Importa classe Racao e controle do cachorro
+import { gameState } from "../main.js";
 import { Racao } from "../componentes/controleRacoes/racoes.js";
+
+// Importando APENAS os dados da linha Standart
+import {
+    standartGrandeFilhote, standartGrandeAdulto, standartGrandeSenior,
+    standartMediaFilhote, standartMediaAdulto, standartMediaSenior,
+    standartPequenaFilhote, standartPequenaAdulto, standartPequenaSenior
+} from "../componentes/controleRacoes/dadosRacoes.js";
 
 export class cenaRacaoStandart extends Phaser.Scene {
     constructor() {
@@ -22,7 +17,6 @@ export class cenaRacaoStandart extends Phaser.Scene {
         const largura = this.scale.width;
         const altura = this.scale.height;
 
-        // Sem HUD, usamos o espaço total: 30% para a esquerda (estante) e 70% para a direita (informações)
         const centroEsquerdaX = largura * 0.30;
         const centroDireitaX = largura * 0.70;
 
@@ -53,21 +47,31 @@ export class cenaRacaoStandart extends Phaser.Scene {
             return botao;
         };
 
-        // Fundo ocupando a tela toda
+        // Fundo
         this.fundo = this.add.image(largura / 2, altura / 2, "bgLimpo")
             .setDisplaySize(largura, altura)
             .setDepth(-1);
 
         // ==========================================
+        // HUD DE MOEDAS (NOVO)
+        // ==========================================
+        this.textoMoedas = this.add.text(largura * 0.95, altura * 0.05, `MOEDAS: ${gameState.cobasiCoins}`, {
+            fontFamily: '"Press Start 2P"',
+            fontSize: "20px",
+            color: "#FFD700", // Cor dourada
+            stroke: "#000000",
+            strokeThickness: 4
+        }).setOrigin(1, 0); // Alinhado pelo canto superior direito
+
+        // ==========================================
         // COLUNA ESQUERDA (Botões, Estante e Rações)
         // ==========================================
 
-        // Botões centralizados em relação à estante
         this.botaoStandard = criarBotao(
             largura * 0.20, altura * 0.15,
             "botaoStandard", "botaoStandardPressionado",
             0.35, 0.4, 0.30,
-            () => this.scene.start("")
+            () => { /* Já estamos na cena Standard */ }
         );
 
         this.botaoSuperPremium = criarBotao(
@@ -77,54 +81,38 @@ export class cenaRacaoStandart extends Phaser.Scene {
             () => this.scene.start("cenaRacaoSuperPremium")
         );
 
-        // Estante à esquerda
         this.estante = this.add.image(centroEsquerdaX, altura * 0.6, "estanteVazia")
-            .setScale(1) // Adicionado 1 para evitar erro caso vazio
+            .setScale(1)
             .setDepth(-1);
 
-        // Posições X das rações recalculadas para alinhar com o centroEsquerdaX (0.30)
         const colunasRacao = [largura * 0.18, largura * 0.30, largura * 0.42];
         const linhasRacao = [altura * 0.37, altura * 0.605, altura * 0.845];
 
-        // Grupo Super Premium
-        this.racoesSuperPremium = [
-            new Racao(this, colunasRacao[0], linhasRacao[0], racaoGrandeFilhote),
-            new Racao(this, colunasRacao[1], linhasRacao[0], racaoGrandeAdulto),
-            new Racao(this, colunasRacao[2], linhasRacao[0], racaoGrandeSenior),
-            new Racao(this, colunasRacao[0], linhasRacao[1], racaoMediaFilhote),
-            new Racao(this, colunasRacao[1], linhasRacao[1], racaoMediaAdulto),
-            new Racao(this, colunasRacao[2], linhasRacao[1], racaoMediaSenior),
-            new Racao(this, colunasRacao[0], linhasRacao[2], racaoPequenaFilhote),
-            new Racao(this, colunasRacao[1], linhasRacao[2], racaoPequenaAdulto),
-            new Racao(this, colunasRacao[2], linhasRacao[2], racaoPequenaSenior),
-        ];
-        this.racoesSuperPremium.forEach(r => r.sprite.setScale(0.125));
-
-        // Grupo Standard
+        // Grupo Standard (Visível)
         this.racoesStandard = [
-            new Racao(this, colunasRacao[0], linhasRacao[0], racaoGrandeFilhote),
-            new Racao(this, colunasRacao[1], linhasRacao[0], racaoGrandeAdulto),
-            new Racao(this, colunasRacao[2], linhasRacao[0], racaoGrandeSenior),
-            new Racao(this, colunasRacao[0], linhasRacao[1], racaoMediaFilhote),
-            new Racao(this, colunasRacao[1], linhasRacao[1], racaoMediaAdulto),
-            new Racao(this, colunasRacao[2], linhasRacao[1], racaoMediaSenior),
-            new Racao(this, colunasRacao[0], linhasRacao[2], racaoPequenaFilhote),
-            new Racao(this, colunasRacao[1], linhasRacao[2], racaoPequenaAdulto),
-            new Racao(this, colunasRacao[2], linhasRacao[2], racaoPequenaSenior),
+            new Racao(this, colunasRacao[0], linhasRacao[0], standartGrandeFilhote),
+            new Racao(this, colunasRacao[1], linhasRacao[0], standartGrandeAdulto),
+            new Racao(this, colunasRacao[2], linhasRacao[0], standartGrandeSenior),
+            new Racao(this, colunasRacao[0], linhasRacao[1], standartMediaFilhote),
+            new Racao(this, colunasRacao[1], linhasRacao[1], standartMediaAdulto),
+            new Racao(this, colunasRacao[2], linhasRacao[1], standartMediaSenior),
+            new Racao(this, colunasRacao[0], linhasRacao[2], standartPequenaFilhote),
+            new Racao(this, colunasRacao[1], linhasRacao[2], standartPequenaAdulto),
+            new Racao(this, colunasRacao[2], linhasRacao[2], standartPequenaSenior),
         ];
+        
         this.racoesStandard.forEach(r => {
-            r.sprite.setScale(0.125);
-            r.sprite.setVisible(false);
+            r.sprite.setScale(0.3);
+            r.sprite.setVisible(true);
         });
 
         // ==========================================
-        // COLUNA DIREITA (Popup e Botão Comprar)
+        // COLUNA DIREITA (Popup, Preço e Botão Comprar)
         // ==========================================
 
         this.fundoTemplateRacao = this.add.image(centroDireitaX, altura * 0.56, "fundoTemplateRacao")
             .setScale(altura * 0.00075);
 
-        // >>> ALTERAÇÃO AQUI: Mudado de 0.47 para 0.55 para ficar mais pra baixo <<<
         this.containerTexto = this.add.container(centroDireitaX, altura * 0.55);
 
         const titulo = this.add.text(0, -altura*0.15, "Compre sua ração!", {
@@ -141,8 +129,8 @@ export class cenaRacaoStandart extends Phaser.Scene {
             centroDireitaX, altura * 0.85, 
             "botaoComprarStandard", "botaoComprarStandardPressionado",
             0.35, 0.4, 0.30,
-            () => this.scene.start("")
-        ).setScale(0.35).setVisible(false).setAlpha(0);
+            () => this.executarCompra()
+        ).setVisible(false).setAlpha(0);
 
         this.containerInfo = this.add.container(centroDireitaX, altura * 0.47)
             .setScale(altura * 0.0009)
@@ -172,13 +160,11 @@ export class cenaRacaoStandart extends Phaser.Scene {
         // INTERAÇÕES E RESIZE
         // ==========================================
 
-        const todasRacoes = [...this.racoesSuperPremium, ...this.racoesStandard];
-
-        todasRacoes.forEach((racao) => {
+        this.racoesStandard.forEach((racao) => {
             racao.sprite.setInteractive({ useHandCursor: true });
 
-            racao.sprite.on("pointerover", () => this.tweens.add({ targets: racao.sprite, scale: 0.14, duration: 100, ease: "Power2" }));
-            racao.sprite.on("pointerout", () => this.tweens.add({ targets: racao.sprite, scale: 0.125, duration: 100, ease: "Power2" }));
+            racao.sprite.on("pointerover", () => this.tweens.add({ targets: racao.sprite, scale: 0.32, duration: 100, ease: "Power2" }));
+            racao.sprite.on("pointerout", () => this.tweens.add({ targets: racao.sprite, scale: 0.3, duration: 100, ease: "Power2" }));
 
             racao.sprite.on("pointerup", () => {
                 this.tweens.add({
@@ -186,7 +172,7 @@ export class cenaRacaoStandart extends Phaser.Scene {
                     onComplete: () => this.containerTexto.setVisible(false)
                 });
 
-                this.textoTipo.setText(racao.tipo || "Super Premium");
+                this.textoTipo.setText(racao.tipo || "Standard");
                 this.textoPorte.setText(racao.porte || "-");
                 this.textoIdade.setText(racao.idade || "-");
                 this.textoChar1.setText(racao.caracteristicas ? racao.caracteristicas[0] : "");
@@ -197,11 +183,16 @@ export class cenaRacaoStandart extends Phaser.Scene {
                 this.textoGordura.setText(racao.nutrientes ? racao.nutrientes.gordura : "");
                 this.imagemRacaoInfo.setTexture(racao.sprite.texture.key);
 
+                // ATUALIZANDO O PREÇO NA TELA (NOVO)
+                const valorAtual = racao.valor || 15;
+                this.textoPreco.setText(`PREÇO: ${valorAtual} MOEDAS`);
+
                 this.composicaoRacao.setVisible(true);
                 
                 this.containerInfo.setAlpha(0).setVisible(true);
                 this.botaoComprarStandard.setVisible(true);
                 
+                // INCLUINDO textoPreco NO TWEEN (NOVO)
                 this.tweens.add({ 
                     targets: [this.containerInfo, this.botaoComprarStandard], 
                     alpha: 1, 
@@ -211,7 +202,6 @@ export class cenaRacaoStandart extends Phaser.Scene {
             });
         });
 
-        // >>> Listener de resize robusto <<<
         this.scale.on("resize", (gameSize) => {
             const w = gameSize.width;
             const h = gameSize.height;
@@ -219,13 +209,12 @@ export class cenaRacaoStandart extends Phaser.Scene {
             this.cameras.resize(w, h);
             this.fundo.setDisplaySize(w, h).setPosition(w / 2, h / 2);
             
+            this.textoMoedas.setPosition(w * 0.95, h * 0.05); // Reposiciona HUD
             this.estante.setPosition(w * 0.30, h * 0.6);
             this.botaoStandard.setPosition(w * 0.20, h * 0.15);
             this.botaoSuperPremium.setPosition(w * 0.40, h * 0.15);
 
-            this.fundoTemplateRacao.setPosition(w * 0.70, h * 0.56).setScale(h * 0.00065); // Mantive 0.56 igual na criação
-            
-            // >>> ALTERAÇÃO AQUI: Atualizado também no resize (0.55) <<<
+            this.fundoTemplateRacao.setPosition(w * 0.70, h * 0.56).setScale(h * 0.00065);
             this.containerTexto.setPosition(w * 0.70, h * 0.55);
             
             this.containerInfo.setPosition(w * 0.70, h * 0.47).setScale(h * 0.0009);
@@ -234,20 +223,65 @@ export class cenaRacaoStandart extends Phaser.Scene {
             const novasColunas = [w * 0.18, w * 0.30, w * 0.42];
             const novasLinhas = [h * 0.37, h * 0.605, h * 0.845];
             
-            const reposicionarRacoes = (racoesArray) => {
-                let index = 0;
-                for (let i = 0; i < 3; i++) { 
-                    for (let j = 0; j < 3; j++) { 
-                        if(racoesArray[index]) {
-                            racoesArray[index].sprite.setPosition(novasColunas[j], novasLinhas[i]);
-                        }
-                        index++;
+            let index = 0;
+            for (let i = 0; i < 3; i++) { 
+                for (let j = 0; j < 3; j++) { 
+                    if(this.racoesStandard[index]) {
+                        this.racoesStandard[index].sprite.setPosition(novasColunas[j], novasLinhas[i]);
                     }
+                    index++;
                 }
-            };
+            }
+        });
+    }
 
-            reposicionarRacoes(this.racoesSuperPremium);
-            reposicionarRacoes(this.racoesStandard);
+    // ==========================================
+    // LÓGICA DE COMPRA
+    // ==========================================
+    executarCompra() {
+        const selecionada = Racao.selecionada;
+
+        if (!selecionada) {
+            console.log("Nenhuma ração selecionada!");
+            return;
+        }
+
+        const valorDaRacao = selecionada.valor || 15;
+
+        if (gameState.cobasiCoins >= valorDaRacao) {
+            gameState.cobasiCoins -= valorDaRacao;
+            console.log(`Compra efetuada! Saldo restante: ${gameState.cobasiCoins}`);
+            
+            // ATUALIZA O HUD DE MOEDAS APÓS COMPRA BEM SUCEDIDA (NOVO)
+            this.textoMoedas.setText(`MOEDAS: ${gameState.cobasiCoins}`);
+
+            this.exibirFeedbackCompra(true, valorDaRacao);
+            
+        } else {
+            console.log("Saldo insuficiente para comprar a ração.");
+            this.exibirFeedbackCompra(false, valorDaRacao);
+        }
+    }
+
+    exibirFeedbackCompra(sucesso, valor) {
+        const cor = sucesso ? "#009900" : "#ff0000";
+        const msg = sucesso ? `- ${valor} MOEDAS` : "SALDO INSUFICIENTE";
+        
+        const feedback = this.add.text(this.scale.width * 0.70, this.scale.height * 0.85, msg, {
+            fontFamily: '"Press Start 2P"',
+            fontSize: "20px",
+            color: cor,
+            stroke: "#ffffff",
+            strokeThickness: 4
+        }).setOrigin(0.5);
+
+        this.tweens.add({
+            targets: feedback,
+            y: feedback.y - 50,
+            alpha: 0,
+            duration: 1500,
+            ease: "Power2",
+            onComplete: () => feedback.destroy()
         });
     }
 }

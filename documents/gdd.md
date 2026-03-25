@@ -686,9 +686,19 @@ Correção de possíveis bugs e otimização do desempenho do jogo.
 
 Essas melhorias têm como objetivo tornar o Cobasi Shelter uma experiência mais completa, interativa e educativa, reforçando a proposta do jogo de ensinar sobre os cuidados necessários com animais domésticos de forma lúdica.
 
-## 4.4. Desenvolvimento final do MVP (sprint 4)
+## 4.4. Desenvolvimento final do MVP 
 
-*Descreva e ilustre aqui o desenvolvimento da versão final do jogo, explicando brevemente o que foi entregue em termos de MVP. Utilize prints de tela para ilustrar. Indique as eventuais dificuldades e planos futuros.*
+Nesta etapa do desenvolvimento, o foco principal esteve no aprimoramento do design do jogo, com ênfase na padronização visual das principais cenas, como a área de lazer e a tela inicial. Buscou-se estabelecer uma identidade visual consistente, baseada em um esquema de cores inspirado na marca Cobasi, garantindo maior coerência estética e reconhecimento visual do projeto. Paralelamente, foram desenvolvidos novos spritesheets, incluindo um novo cachorro que será introduzido no segundo round do jogo, além da criação de novos elementos gráficos para os minigames de cuidado, como ossos, pote de ração e componentes da seção de ração standard.
+
+No que se refere às mecânicas e sistemas, foi implementado um novo minigame na área de lazer, baseado em dinâmicas de passeio com o animal, no qual foram utilizadas equações matemáticas de movimento para simular ações como andar, correr e pular, proporcionando maior dinamismo e interatividade. Também foi incorporado um sistema de progressão que permite ao jogador avançar entre rounds, possibilitando o cuidado de um segundo animal até o final da experiência. Além disso, foi desenvolvido um sistema funcional de moedas, no qual o jogador acumula recompensas ao participar dos minigames, podendo utilizá-las para a compra de rações, integrando elementos de economia e progressão ao gameplay.
+
+O minigame de ração, considerado o núcleo principal do projeto, passou por melhorias significativas. Foram adicionadas mais informações e especificações sobre os tipos de ração, tornando o aprendizado mais intuitivo para o jogador. Ademais, foi implementado um sistema de escolhas, permitindo a seleção entre diferentes categorias, como ração super premium e standard. Essas escolhas impactam diretamente o estado do animal e apresentam variações de custo, introduzindo uma camada estratégica à experiência do jogador.
+
+Durante esta sprint, também houve um direcionamento estratégico voltado ao aprimoramento da experiência do usuário (UX Design). Nesse contexto, foi incorporada uma trilha sonora autoral desenvolvida pela equipe, bem como feedbacks interativos por meio de cores e formas e a implementação de telas de retorno para cada atividade realizada, com o objetivo de tornar as dinâmicas mais intuitivas, claras e envolventes.
+
+Ao longo do desenvolvimento, a equipe enfrentou desafios relacionados principalmente à colaboração no código, uma vez que o grande número de integrantes atuando simultaneamente gerou conflitos de versão e dificuldades na integração das alterações. Além disso, houve entraves na comunicação devido à ausência de alguns membros em determinados momentos, o que impactou o alinhamento da equipe. Ainda assim, tais dificuldades foram gradualmente superadas, contribuindo para o amadurecimento dos processos de trabalho.
+
+Para a próxima e última sprint, estão previstas melhorias e expansões, incluindo a adição de mais variações de preços e tipos de ração, a implementação de um quiz ao final da fase, a inclusão de um novo cachorro com características distintas e o refinamento dos testes e validações do sistema, além de ajustes finais de polimento e balanceamento do jogo.
 
 ## 4.5. Revisão do MVP (sprint 5)
 
@@ -806,3 +816,5 @@ ISTOÉ PET. Pesquisa global aponta: vivemos uma nova era de tutores e pets. 12 n
 # <a name="c8"></a>Anexos
 
 *Inclua aqui quaisquer complementos para seu projeto, como diagramas, imagens, tabelas etc. Organize em sub-tópicos utilizando headings menores (use ## ou ### para isso)*
+
+//adicionar as refrencias de diversidade aqui
