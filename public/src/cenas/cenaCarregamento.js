@@ -98,6 +98,15 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("racaoPA", "assets/Racoes/racaoPA.png");
         this.load.image("racaoPF", "assets/Racoes/racaoPF.png");
         this.load.image("racaoPV", "assets/Racoes/racaoPV.png");
+        this.load.image("standardGA", "assets/Racoes/standardGA.png");
+        this.load.image("standartGF", "assets/Racoes/standartGF.png");
+        this.load.image("standartGV", "assets/Racoes/standartGV.png");
+        this.load.image("standartMA", "assets/Racoes/standartMA.png");
+        this.load.image("standartMF", "assets/Racoes/standartMF.png");
+        this.load.image("standartMV", "assets/Racoes/standartMV.png");
+        this.load.image("standartPA", "assets/Racoes/standartPA.png");
+        this.load.image("standartPF", "assets/Racoes/standartPF.png");
+        this.load.image("standartPV", "assets/Racoes/standartPV.png");
 
         // Sprites da cena jogoRacao.js
         this.load.image("botaoStandard", "assets/botaoStandardNormal.png");
