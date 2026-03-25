@@ -1,4 +1,5 @@
 import { gameState } from "../main.js"; // Ajuste os '../' se o caminho for diferente!
+
 export class jogoLazer extends Phaser.Scene {
     constructor() {
         super({ key: "jogoLazer" });
@@ -10,8 +11,12 @@ export class jogoLazer extends Phaser.Scene {
      * Configura física, cenário, jogador, controles e colisões.
      */
     create() {
-        // Zera os pontos sempre que a fase reiniciar
+        // Zera as variáveis de controle sempre que a fase reiniciar
         this.pontos = 0;
+        this.jogoAcabou = false;
+        this.minigameFinalizado = false; // <-- CORREÇÃO: Faltava zerar isso aqui!
+        this.transicao = false;
+
         this.physics.world.gravity.y = 800;
 
         // --------------- MÚSICA ----------------
@@ -79,12 +84,13 @@ export class jogoLazer extends Phaser.Scene {
         this.physics.add.collider(this.cachorro, this.camasElasticas, this.usarCamaElastica, null, this);
 
         // ---------------- UI (HUD LOCAL) ----------------
-        this.textoPontos = this.add.text(30, 30, 'Petiscos: 0', { 
-            fontSize: '32px', 
+        this.textoPontos = this.add.text(largura - 30, 30, 'Petiscos: 0', { 
+            fontFamily: '"Press Start 2P", monospace', 
+            fontSize: '24px', 
             fill: '#fff',
             stroke: '#000',
             strokeThickness: 4
-        }).setScrollFactor(0).setDepth(20);
+        }).setOrigin(1, 0).setScrollFactor(0).setDepth(20);
 
         // ---------------- REDIMENSIONAMENTO (RESIZE) ----------------
         this.scale.on("resize", (tamanhoTela) => {
@@ -96,11 +102,11 @@ export class jogoLazer extends Phaser.Scene {
             const novaAlturaDoChao = h * 0.9;
             this.physics.world.setBounds(0, 0, 8000, novaAlturaDoChao);
             this.cameras.main.setBounds(0, 0, 8000, h);
+            
+            this.textoPontos.setPosition(w - 30, 30);
         });
         
         this.scene.stop("HUD");
-        this.transicao = false;
-        this.jogoAcabou = false;
     }
 
     /**
@@ -109,22 +115,27 @@ export class jogoLazer extends Phaser.Scene {
     update() {
         if (this.jogoAcabou) return; 
 
+        // --- VERIFICA SE PASSOU DIRETO PELO PETISCÃO (DERROTA) ---
+        if (this.petiscaoFinal && this.petiscaoFinal.active) {
+            if (this.cachorro.x > this.petiscaoFinal.x + 100) {
+                this.scene.restart(); 
+            }
+        }
+
         // --- VELOCIDADE PROGRESSIVA ---
         let velocidadeAtual = Math.min(300 + (this.cachorro.x * 0.05), 700);
         this.cachorro.setVelocityX(velocidadeAtual);
         
-        // Sincroniza a velocidade da animação com a velocidade do jogo
         this.cachorro.anims.timeScale = velocidadeAtual / 300; 
 
         const noChao = this.cachorro.body.blocked.down || this.cachorro.body.touching.down;
 
-        // --- CONTROLES: PULO E QUEDA RÁPIDA ---
+        // --- CONTROLES ---
         if (this.teclado.up.isDown) {
             this.pular();
         } else if (this.teclado.down.isDown) {
             this.abaixar(noChao);
         } else {
-            // Retorna ao tamanho normal ao soltar a tecla
             this.cachorro.setScale(0.5, 0.5); 
         }
 
@@ -141,11 +152,6 @@ export class jogoLazer extends Phaser.Scene {
         }
     }
 
-    // ================= MÉTODOS ADICIONAIS =================
-
-    /**
-     * Faz o cachorro pular caso esteja tocando o chão.
-     */
     pular() {
         if (this.jogoAcabou) return; 
 
@@ -157,11 +163,6 @@ export class jogoLazer extends Phaser.Scene {
         }
     }
 
-    /**
-     * Força a queda do cachorro caso esteja no ar (Ground Pound),
-     * ou visualmente o achata para parecer que está se esquivando.
-     * @param {boolean} noChao - Indica se o cachorro está pisando no chão.
-     */
     abaixar(noChao) {
         if (this.jogoAcabou) return;
 
@@ -169,47 +170,46 @@ export class jogoLazer extends Phaser.Scene {
             this.cachorro.setVelocityY(1000); 
         } 
         
-        // Efeito visual de achatamento
         this.cachorro.setScale(0.5, 0.41); 
     }
 
-    /**
-     * Gera os obstáculos, petiscos e a cama elástica final ao longo da fase.
-     * @param {number} alturaDoChao - A coordenada Y correspondente ao chão.
-     */
     gerarPercurso(alturaDoChao) {
         let fimDaFase = 7000;
+        let tiposPetiscos = [true, true, true, false, false, false, false, false];
+        
+        Phaser.Utils.Array.Shuffle(tiposPetiscos);
 
         for (let x = 600; x <= fimDaFase; x += 800) {
             let posX = x + 400; 
 
             if (x === fimDaFase) {
-                // Estrutura Final: Cama Elástica
                 let cama = this.camasElasticas.create(posX, alturaDoChao - 25, 'camaElastica').setScale(0.5).setDepth(5);
                 cama.body.setSize(cama.width * 0.4, cama.height * 0.1); 
                 cama.body.setOffset(cama.width * 0.4, cama.height * 0.5); 
 
-                // Estrutura Final: Petiscão Dourado
-                let petiscoAlto = this.petiscos.create(posX + 300, alturaDoChao - 650, 'petisco').setScale(0.3).setDepth(5);
-                petiscoAlto.body.setSize(petiscoAlto.width * 0.9, petiscoAlto.height * 0.95);
+                let yPetiscao = alturaDoChao - 450; 
+                let petiscoAlto = this.petiscos.create(posX + 300, yPetiscao, 'petisco').setScale(0.3).setDepth(5);
+                
+                petiscoAlto.body.setSize(petiscoAlto.width * 0.4, petiscoAlto.height * 0.4);
+                petiscoAlto.body.setOffset(petiscoAlto.width * 0.3, petiscoAlto.height * 0.3);
+                
                 petiscoAlto.tint = 0xffd700; 
                 petiscoAlto.isSuper = true;
+
+                this.petiscaoFinal = petiscoAlto;
             } 
-         else {
-                // Cria o obstáculo no posX (como já estava)
+            else {
                 let obs = this.obstaculos.create(posX, alturaDoChao - 50, 'obstaculo').setScale(2).setDepth(5);
                 let raio = obs.width * 0.30; 
                 obs.body.setCircle(raio, obs.width * 0.35, obs.height * 0.4);
 
-                // --- A MÁGICA ACONTECE AQUI ---
-                // Em vez de usar "posX" (que fica em cima da pedra), vamos usar a variável "x" do loop for.
-                // Isso faz o petisco nascer 400 pixels ANTES da pedra, no espaço vazio do cenário!
-                let yPetisco = alturaDoChao - 150; // Abaixei um pouco para ele pegar no pulo ou até correndo
+                let yPetisco = alturaDoChao - 150; 
                 let petisco = this.petiscos.create(x, yPetisco, 'petisco').setScale(0.15).setDepth(5);
                 petisco.body.setSize(petisco.width * 0.3, petisco.height * 0.3);
 
-                // Sorteia se o petisco é estragado (verde) ou normal
-                if (Math.random() < 0.3) {
+                let ehEstragado = tiposPetiscos.shift();
+
+                if (ehEstragado) {
                     petisco.isEstragado = true;
                     petisco.tint = 0x55ff55; 
                 } else {
@@ -218,12 +218,7 @@ export class jogoLazer extends Phaser.Scene {
             }
         }
     }
-    /**
-     * Executado quando o cachorro colide com a cama elástica.
-     * Aplica um impulso vertical (pulo super alto).
-     * @param {Phaser.Physics.Arcade.Sprite} cachorro 
-     * @param {Phaser.Physics.Arcade.Sprite} cama 
-     */
+
     usarCamaElastica(cachorro, cama) {
         if (cachorro.body.velocity.y >= 0) {
             const constanteElasticaK = 800;  
@@ -238,32 +233,21 @@ export class jogoLazer extends Phaser.Scene {
         }
     }
 
-    /**
-     * Executado quando o cachorro coleta um petisco.
-     * @param {Phaser.Physics.Arcade.Sprite} cachorro 
-     * @param {Phaser.Physics.Arcade.Sprite} petisco 
-     */
-   coletarPetisco(cachorro, petisco) {
+    coletarPetisco(cachorro, petisco) {
         petisco.disableBody(true, true); 
         
-        // --- SE PEGOU O PETISCO ESTRAGADO ---
         if (petisco.isEstragado) {
-            
-            // Perde 1 ponto (Math.max garante que a pontuação não fique negativa)
             this.pontos = Math.max(0, this.pontos - 1);
             this.textoPontos.setText('Petiscos: ' + this.pontos);
 
-            // Perde 10 de felicidade
             gameState.barras.felicidade = Phaser.Math.Clamp(gameState.barras.felicidade - 10, 0, 100);
             
-            // EFEITO VISUAL: O cachorro pisca em vermelho (dor de barriga!) por meio segundo
             cachorro.tint = 0xff0000;
             this.time.delayedCall(500, () => {
-                cachorro.clearTint(); // Volta a cor normal do cachorro
+                cachorro.clearTint(); 
             });
 
         } 
-        // --- SE PEGOU UM PETISCO BOM (NORMAL OU SUPER) ---
         else {
             this.pontos += 1;
             this.textoPontos.setText('Petiscos: ' + this.pontos);
@@ -276,23 +260,13 @@ export class jogoLazer extends Phaser.Scene {
             }
         }
         
-        // Dispara evento para atualizar a interface em ambos os casos
         this.events.emit("atualizarHUD"); 
     }
 
-    /**
-     * Reinicia a cena se o jogador bater de frente com o obstáculo.
-     * @param {Phaser.Physics.Arcade.Sprite} cachorro 
-     * @param {Phaser.Physics.Arcade.Sprite} obstaculo 
-     */
     baterNoObstaculo(cachorro, obstaculo) {
         this.scene.restart();
     }
 
-    /**
-     * Lógica disparada ao coletar o Super Petisco.
-     * Trava o jogo e exibe a mensagem de vitória.
-     */
     vencerJogo() {
         if (this.jogoAcabou) return; 
         this.jogoAcabou = true;
@@ -303,24 +277,20 @@ export class jogoLazer extends Phaser.Scene {
         const meioX = this.cameras.main.worldView.x + (this.scale.width / 2);
         const meioY = this.scale.height / 2;
 
-        let textoVitoria = this.add.text(meioX, meioY, 'FASE CONCLUÍDA!', {
-            fontFamily: 'Arial',
-            fontSize: '64px',
+        this.add.text(meioX, meioY, 'FASE CONCLUIDA!', {
+            fontFamily: '"Press Start 2P", monospace', 
+            fontSize: '40px', 
             fill: '#00ff00',
             stroke: '#000000',
             strokeThickness: 8
         }).setOrigin(0.5).setDepth(30);
         
-        // Aguarda 2 segundos e vai para o processamento final
+        // CORREÇÃO: Aguarda 2 segundos com o texto na tela e vai direto para a função que transiciona
         this.time.delayedCall(2000, () => {
-            textoVitoria.destroy(); 
             this.finalizarMinigame();
         });
     }
     
-    /**
-     * Processa a pontuação final, distribui moedas e retorna ao menu principal.
-     */
     finalizarMinigame() {
         if (this.minigameFinalizado) return;
         this.minigameFinalizado = true;
@@ -329,31 +299,18 @@ export class jogoLazer extends Phaser.Scene {
         const estrelas = this.calcularEstrelas(this.pontos);
         const moedas = this.calcularMoedas(estrelas);
 
-        // Atualiza a economia global do jogo
         gameState.cobasiCoins += moedas;
         
-        // Retorna para a cena base após 1.5 segundos
-        this.time.delayedCall(1500, () => {
-            this.scene.start("cenaLazer"); 
-        });
+        // CORREÇÃO: Transiciona imediatamente, sem o delay extra que estava escondendo o texto
+        this.scene.start("cenaLazer"); 
     }
     
-    /**
-     * Calcula a quantidade de estrelas baseada na pontuação.
-     * @param {number} pontos - Quantidade de petiscos coletados.
-     * @returns {number} Quantidade de estrelas (1 a 3).
-     */
     calcularEstrelas(pontos) {
-        if (pontos >= 9) return 3; 
-        if (pontos >= 5) return 2; 
-        return 1;                    
+        if (pontos >= 5) return 3; 
+        if (pontos >= 3) return 2; 
+        return 1;                  
     }
 
-    /**
-     * Converte as estrelas adquiridas na fase em moedas do jogo.
-     * @param {number} estrelas - Quantidade de estrelas conquistadas.
-     * @returns {number} Quantidade de moedas a receber.
-     */
     calcularMoedas(estrelas) {
         if (estrelas === 3) return 20;
         if (estrelas === 2) return 10;
