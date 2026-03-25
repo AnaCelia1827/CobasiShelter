@@ -33,7 +33,8 @@ export let gameState = {
         cachorroCaramelo: true,
         cachorroHeroi: false
     },
-    pulga: true
+    pulga: true,
+    trocar: false
  
 };
 

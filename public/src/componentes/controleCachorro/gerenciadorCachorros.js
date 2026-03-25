@@ -39,6 +39,7 @@ export class GerenciadorCachorros {
   mudarParaCachorroHeroi() {
     gameState.pets.cachorroCaramelo = false
     gameState.pets.cachorroHeroi = true
+    gameState.trocar = true
     
     // Reseta as barras para 11
     gameState.barras.comida = 11

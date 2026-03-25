@@ -140,6 +140,7 @@ export class cenaCuidado extends Phaser.Scene {
         if (!this.instrucoesLidas || !this.pincaEquipada || this.minigameFinalizado) return;
 
         const ponteiro = this.input.activePointer;
+        
 
         // Pinça segue o cursor
         if (this.pinca) {

@@ -310,6 +310,10 @@ export class cenaBanho extends Phaser.Scene {
         this.atualizarToalha();
         this.limparGotas();
 
+        if (gameState.trocar) {
+            this.gerenciadorCachorros.mudarParaCachorroHeroi()
+        }
+
         // Atualiza a visibilidade da pulga em tempo real
         if (this.pulgas) {
             this.pulgas.setVisible(gameState.pulga);

@@ -122,5 +122,9 @@ export class cenaComida extends Phaser.Scene {
         if (this.pulgas) {
             this.pulgas.setVisible(gameState.pulga);
         }
+
+        if (gameState.trocar) {
+            this.gerenciadorCachorros.mudarParaCachorroHeroi()
+        }
     }
 }
