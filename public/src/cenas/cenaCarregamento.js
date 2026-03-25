@@ -112,6 +112,20 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("estanteRacao", "assets/tela-alimentacao/estanteRacao.png");
         this.load.image("estanteStandard", "assets/tela-alimentacao/estanteStandard.png");
 
+        //Cenas feedback
+        this.load.image("avisoConclusao", "assets/Feedback/avisoConclusao.png");
+        this.load.image("feeedback3estrelas", "assets/Feedback/feedbackMineGame.png");
+        this.load.image("feedback2estrelas", "assets/Feedback/feedbackMinegame2.png");
+        this.load.image("feedback1estrela", "assets/Feedback/feedbackMinegame3.png");
+        this.load.image("instrucaoDescricaoBanho", "assets/Feedback/instrucaoBanho.png");
+        this.load.image("instrucaoRacao", "assets/Feedback/instrucaoDescricaoRacao.png");
+        this.load.image("instrucaoLazer", "assets/Feedback/instrucaoLazer.png");
+        this.load.image("instrucaoBanho", "assets/Feedback/instrucaoBanho.png");
+        this.load.image("instrucaoMissao", "assets/Feedback/instrucaoMissao.png");
+        this.load.image("instrucaoPulgas", "assets/Feedback/instrucaoPulgas.png");
+        this.load.image("instrucaoRacao", "assets/Feedback/instrucaoRacao.png");
+        this.load.image("instrucaoSegundaFase", "assets/Feedback/instrucaoSegundaFase.png");
+
         // Áudio
         this.load.audio("musica", "assets/trilhaSonora.mp3");
 
