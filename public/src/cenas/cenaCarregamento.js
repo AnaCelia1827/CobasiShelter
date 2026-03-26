@@ -70,6 +70,7 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("bgVeterinario", "assets/tela-veterinario/bgVeterinario.png");
         this.load.image("lupa", "assets/tela-veterinario/lupa.png")
         this.load.image("petisco", "assets/tela-lazer/petisco.png");
+        this.load.image("petiscoEstragado", "assets/tela-lazer/petiscoestragado.png")
         this.load.image("obstaculo", "assets/tela-lazer/obstaculo.png"); 
         this.load.image("bgLazer", "assets/tela-lazer/bgLazer.png");
         this.load.image("camaElastica", "assets/tela-lazer/camaElastica.png");

@@ -381,13 +381,9 @@ export class cenaCuidado extends Phaser.Scene {
         const moedas = this.calcularMoedas(estrelas);
 
         gameState.pulga = false;
-
         gameState.cobasiCoins += moedas;
-        this.mostrarPainelResultado(segundos, estrelas, moedas);
-
-        this.time.delayedCall(3500, () => {
-            this.scene.start('cenaVeterinario'); 
-        });
+        
+        this.mostrarPainelResultado(estrelas);
     }
 
     calcularEstrelas(segundos) {
@@ -402,37 +398,61 @@ export class cenaCuidado extends Phaser.Scene {
         return 0; 
     }
 
-    mostrarPainelResultado(segundos, estrelas, moedas) {
+    mostrarPainelResultado(estrelas) {
+        let imagemFeedback = "";
+        
+        if (estrelas === 3) {
+            imagemFeedback = "feeedback3estrelas"; // Atenção à escrita com três 'e'
+        } else if (estrelas === 2) {
+            imagemFeedback = "feedback2estrelas";
+        } else {
+            imagemFeedback = "feedback1estrela";
+        }
+
         const cx = this.scale.width / 2;
         const cy = this.scale.height / 2;
 
-        this.add.rectangle(cx, cy, 620, 330, 0x000000, 0.78)
-            .setStrokeStyle(4, 0xffd166)
-            .setDepth(70);
+        // Fundo escurecido atrás do feedback
+        const fundoFeedback = this.add.rectangle(cx, cy, this.scale.width, this.scale.height, 0x000000, 0.8)
+            .setDepth(100)
+            .setScrollFactor(0)
+            .setInteractive(); 
 
-        this.add.text(cx, cy - 80, "Minigame concluido!", {
-            fontFamily: '"Press Start 2P", Arial', 
-            fontSize: "26px", // <-- AJUSTADO PARA MEIO-TERMO
+        // Imagem principal de feedback
+        const telaFeedback = this.add.image(cx, cy, imagemFeedback)
+            .setDepth(101)
+            .setScrollFactor(0)
+            .setInteractive();
+
+        // Ajuste de tamanho da imagem para 80% da tela
+        const limiteLargura = this.scale.width * 0.8;
+        const limiteAltura = this.scale.height * 0.8;
+
+        const escalaX = limiteLargura / telaFeedback.width;
+        const escalaY = limiteAltura / telaFeedback.height;
+
+        const escalaFinal = Math.min(escalaX, escalaY);
+        telaFeedback.setScale(escalaFinal);
+
+        // Texto piscante para orientar o jogador a clicar
+        const textoContinuar = this.add.text(cx, cy + (telaFeedback.displayHeight / 2) + 40, "[ Clique para continuar ]", {
+            fontFamily: '"Press Start 2P", Arial',
+            fontSize: "15px",
             color: "#ffffff"
-        }).setOrigin(0.5).setDepth(71);
+        }).setOrigin(0.5).setDepth(101).setScrollFactor(0);
+        
+        this.tweens.add({
+            targets: textoContinuar, alpha: 0.5, duration: 600, yoyo: true, loop: -1
+        });
 
-        this.add.text(cx, cy - 20, `Tempo: ${segundos}s`, {
-            fontFamily: '"Press Start 2P", Arial',
-            fontSize: "16px", // <-- AJUSTADO PARA MEIO-TERMO
-            color: "#ffffff"
-        }).setOrigin(0.5).setDepth(71);
+        // Quando o jogador clicar na tela, ele volta pra cenaVeterinario
+        fundoFeedback.on('pointerdown', () => {
+            this.scene.start("cenaVeterinario"); 
+        });
 
-        this.add.text(cx, cy + 30, `Estrelas: ${"★".repeat(estrelas)}`, {
-            fontFamily: '"Press Start 2P", Arial',
-            fontSize: "20px", // <-- AJUSTADO PARA MEIO-TERMO
-            color: "#ffd166"
-        }).setOrigin(0.5).setDepth(71);
-
-        this.add.text(cx, cy + 80, `Cobasi Coins: +${moedas}`, {
-            fontFamily: '"Press Start 2P", Arial',
-            fontSize: "16px", // <-- AJUSTADO PARA MEIO-TERMO
-            color: "#9be564"
-        }).setOrigin(0.5).setDepth(71);
+        telaFeedback.on('pointerdown', () => {
+            this.scene.start("cenaVeterinario"); 
+        });
     }
 
     garantirTexturaPinca() {
