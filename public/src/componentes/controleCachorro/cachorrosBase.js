@@ -16,7 +16,7 @@ export const cachorrosBase = [
     idade: "1 ano",
     porte: "medio",
     estado: "sujo",
-    racao: "medio",
+    racao: "media",
     historia: "Ele caiu na porrada com três mendigo"
   }
 ]

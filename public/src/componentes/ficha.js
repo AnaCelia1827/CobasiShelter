@@ -1,4 +1,5 @@
 import { cachorrosBase } from "./controleCachorro/cachorrosBase.js";
+import { gameState } from "../main.js"; // Importação do estado global adicionada
 
 export class ficha extends Phaser.Scene {
     constructor() {
@@ -6,8 +7,13 @@ export class ficha extends Phaser.Scene {
     }
 
     create() {
-        // Obtém o cachorro atual do jogo
-        const pet = cachorrosBase[0];
+        // Verifica no estado global qual cachorro está ativo
+        let pet;
+        if (gameState.pets.cachorroHeroi) {
+            pet = cachorrosBase[1]; // Puxa os dados do Herói
+        } else {
+            pet = cachorrosBase[0]; // Puxa os dados do Caramelo
+        }
 
         // Cria um container centralizado para agrupar os elementos da ficha
         const fichaContainer = this.add.container(

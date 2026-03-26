@@ -9,7 +9,8 @@ export class GerenciadorCachorros {
   }
 
   criarCachorro(x, y, dados) {
-    const cachorro = new Cachorro(this.scene, x, y, "cachorroCaramelo", dados)
+    const petAtivo = gameState.pets.cachorroHeroi ? "cachorroHeroi" : "cachorroCaramelo"
+    const cachorro = new Cachorro(this.scene, x, y, petAtivo, dados)
     this.cachorros.push(cachorro)
     this.cachorroAtual = cachorro
     return cachorro

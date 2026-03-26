@@ -19,8 +19,8 @@ import {cenaRacaoSuperPremium } from "./cenas/cenaRacaoSuperPremium.js";
 // Objeto global para armazenar estados do jogo
 export let gameState = {
     barras: {
-        comida: 0,
-        lazer: 0,
+        comida: 11,
+        lazer: 11,
         limpeza: 11,
         saude: 11
     },
