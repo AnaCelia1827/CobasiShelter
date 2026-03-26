@@ -372,8 +372,6 @@ export class jogoLazer extends Phaser.Scene {
         // Atualiza Cobasi Coins
         gameState.cobasiCoins += moedas;
         
-        // --- ATUALIZA A BARRA DE LAZER ---
-        
         // Pega o valor atual do lazer (se não existir, assume 11 que é a barra vazia)
         let lazerAtual = gameState.barras.lazer !== undefined ? gameState.barras.lazer : 11;
         
@@ -444,6 +442,7 @@ export class jogoLazer extends Phaser.Scene {
         telaFeedback.on('pointerdown', () => {
             this.scene.start("cenaLazer"); 
         });
+
     }
     
     calcularEstrelas(pontos) {
