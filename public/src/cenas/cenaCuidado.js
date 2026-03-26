@@ -109,26 +109,21 @@ export class cenaCuidado extends Phaser.Scene {
 
             this.cameras.resize(novaLargura, novaAltura);
             
-            // Reajusta Fundo
             if (this.fundo) {
                 this.fundo.setDisplaySize(novaLargura, novaAltura).setPosition(novaLargura / 2, novaAltura / 2);
             }
 
-            // Reajusta Textos (Ancorados nas margens)
             if (this.textoTempo) this.textoTempo.setPosition(20, 30);
             if (this.textoProgresso) this.textoProgresso.setPosition(novaLargura - 20, 30);
 
-            // Reajusta Bandeja
             if (this.bandeja) {
                 this.bandeja.setPosition(novaLargura / 2, novaAltura * 0.85);
             }
 
-            // Reajusta Pinça (Se ainda não foi equipada)
             if (this.pinca && !this.pincaEquipada) {
                 this.pinca.setPosition(novaLargura / 2, novaAltura * 0.7);
             }
 
-            // Reajusta Pulgas (Mantém dentro da tela suavemente)
             this.pulgas.children.iterate((pulga) => {
                 if (pulga && pulga.active && pulga !== this.pulgaSegurada) {
                     pulga.x = Phaser.Math.Clamp(pulga.x, 50, novaLargura - 50);
@@ -149,7 +144,6 @@ export class cenaCuidado extends Phaser.Scene {
 
         const ponteiro = this.input.activePointer;
         
-        // Pinça segue o cursor
         if (this.pinca) {
             this.pinca.setPosition(ponteiro.x + 18, ponteiro.y + 14);
         }
@@ -162,41 +156,25 @@ export class cenaCuidado extends Phaser.Scene {
     mostrarInstrucoes() {
         const cx = this.scale.width / 2;
         const cy = this.scale.height / 2;
-
         const grupoInstrucoes = this.add.group();
 
         const fundo = this.add.rectangle(cx, cy, this.scale.width, this.scale.height, 0x000000, 0.85)
-            .setDepth(100)
-            .setInteractive(); 
+            .setDepth(100).setInteractive(); 
 
         const titulo = this.add.text(cx, cy - 120, "COMO JOGAR", {
-            fontFamily: '"Press Start 2P", Arial', 
-            fontSize: "35px",
-            color: "#ffd166",
-            align: "center"
+            fontFamily: '"Press Start 2P", Arial', fontSize: "35px", color: "#ffd166", align: "center"
         }).setOrigin(0.5).setDepth(101);
 
         const texto = this.add.text(cx, cy + 20, 
-            "Clique e arraste as pulgas\n" +
-            "uma a uma ate a bandeja\n" +
-            "na parte inferior para coleta-las.", 
-        {
-            fontFamily: '"Press Start 2P", Arial', 
-            fontSize: "18px",
-            color: "#ffffff",
-            align: "center",
-            lineSpacing: 15
-        }).setOrigin(0.5).setDepth(101);
+            "Clique e arraste as pulgas\numa a uma ate a bandeja\nna parte inferior para coleta-las.", 
+            { fontFamily: '"Press Start 2P", Arial', fontSize: "18px", color: "#ffffff", align: "center", lineSpacing: 15 }
+        ).setOrigin(0.5).setDepth(101);
 
         const textoBotao = this.add.text(cx, cy + 180, "[ Clique para Comecar ]", {
-            fontFamily: '"Press Start 2P", Arial',
-            fontSize: "15px",
-            color: "#9be564"
+            fontFamily: '"Press Start 2P", Arial', fontSize: "15px", color: "#9be564"
         }).setOrigin(0.5).setDepth(101);
         
-        this.tweens.add({
-            targets: textoBotao, alpha: 0.5, duration: 600, yoyo: true, loop: -1
-        });
+        this.tweens.add({ targets: textoBotao, alpha: 0.5, duration: 600, yoyo: true, loop: -1 });
 
         grupoInstrucoes.addMultiple([fundo, titulo, texto, textoBotao]);
 
@@ -208,19 +186,13 @@ export class cenaCuidado extends Phaser.Scene {
     
     iniciarMinigameAposInstrucoes() {
         this.instrucoesLidas = true;
-        
         this.tempoInicialMs = this.time.now;
         this.timerEvent = this.time.addEvent({
-            delay: 100,
-            callback: this.atualizarTextoTempo,
-            callbackScope: this,
-            loop: true
+            delay: 100, callback: this.atualizarTextoTempo, callbackScope: this, loop: true
         });
         
         this.pulgas.children.iterate((pulga) => {
-            if (pulga && pulga.active) {
-                this.moverPulga(pulga);
-            }
+            if (pulga && pulga.active) this.moverPulga(pulga);
         });
         
         this.mostrarPopupInstrucaoPinca();
@@ -230,51 +202,34 @@ export class cenaCuidado extends Phaser.Scene {
         const cx = this.scale.width / 2;
         const cy = this.scale.height / 2;
         const textoPopup = this.add.text(cx, cy, "Clique na Pinca\npara equipar!", {
-            fontFamily: '"Press Start 2P", Arial', 
-            fontSize: "16px", 
-            color: "#ffd166",
+            fontFamily: '"Press Start 2P", Arial', fontSize: "16px", color: "#ffd166",
             stroke: "#000000", strokeThickness: 8, align: "center"
         }).setOrigin(0.5).setDepth(80);
         
-        this.time.delayedCall(2000, () => {
-            textoPopup.destroy();
-        });
+        this.time.delayedCall(2000, () => { textoPopup.destroy(); });
     }
 
     criarTextosInfo() {
-        const largura = this.scale.width;
-
-        // Tempo na esquerda (ancorado com margem de 20px)
         this.textoTempo = this.add.text(20, 30, "Tempo: 0s", {
-            fontFamily: '"Press Start 2P", Arial', 
-            fontSize: "20px",
-            color: "#ffffff",
-            stroke: "#000000", strokeThickness: 5, align: "left"
+            fontFamily: '"Press Start 2P", Arial', fontSize: "20px", color: "#ffffff",
+            stroke: "#000000", strokeThickness: 5
         }).setOrigin(0, 0).setDepth(50);
 
-        // Progresso na direita (ancorado na direita com margem de 20px)
-        this.textoProgresso = this.add.text(largura - 20, 30, `Pulgas: 0/${this.totalPulgas}`, {
-            fontFamily: '"Press Start 2P", Arial', 
-            fontSize: "20px", 
-            color: "#ffffff",
-            stroke: "#000000", strokeThickness: 4, align: "right"
+        this.textoProgresso = this.add.text(this.scale.width - 20, 30, `Pulgas: 0/${this.totalPulgas}`, {
+            fontFamily: '"Press Start 2P", Arial', fontSize: "20px", color: "#ffffff",
+            stroke: "#000000", strokeThickness: 4
         }).setOrigin(1, 0).setDepth(50);
     }
 
     criarFerramentaPinca() {
-        const largura = this.scale.width;
-        const altura = this.scale.height;
-
-        this.pinca = this.add.image(largura / 2, altura * 0.7, "pincaTool")
-            .setDepth(60)
-            .setInteractive({ useHandCursor: true });
+        this.pinca = this.add.image(this.scale.width / 2, this.scale.height * 0.7, "pincaTool")
+            .setDepth(60).setInteractive({ useHandCursor: true });
 
         const escala = Math.min(140 / this.pinca.width, 140 / this.pinca.height, 1.2);
         this.pinca.setScale(escala);
 
         this.pinca.on("pointerdown", () => {
             if (this.pincaEquipada) return;
-
             this.pincaEquipada = true;
             this.input.setDefaultCursor("none"); 
             this.pinca.disableInteractive();
@@ -282,34 +237,26 @@ export class cenaCuidado extends Phaser.Scene {
     }
 
     spawnPulgasIniciais() {
-        for (let i = 0; i < this.totalPulgas; i++) {
-            this.spawnPulga();
-        }
+        for (let i = 0; i < this.totalPulgas; i++) this.spawnPulga();
     }
 
     spawnPulga() {
         const x = Phaser.Math.Between(50, this.scale.width - 50);
         const y = Phaser.Math.Between(80, this.scale.height - 80); 
-
         const pulga = this.pulgas.get(x, y, "pulga1");
         if (!pulga) return;
-
         pulga.setActive(true).setVisible(true);
         pulga.body.setAllowGravity(false);
-        pulga.body.stop();
         pulga.setScale(0.12).setDepth(10);
     }
 
     capturarPulga(pulga) {
         if (!pulga.active) return;
-
         this.tweens.killTweensOf(pulga);
         pulga.setActive(false).setVisible(false);
         if (pulga.body) pulga.body.enable = false;
 
         this.pulgasRemovidas++;
-        this.pontuacao++;
-
         this.textoProgresso.setText(`Pulgas: ${this.pulgasRemovidas}/${this.totalPulgas}`);
 
         if (this.pulgasRemovidas === 6 && !this.bonusMeioGanho) {
@@ -327,42 +274,24 @@ export class cenaCuidado extends Phaser.Scene {
     mostrarPopupMetade() {
         const cx = this.scale.width / 2;
         const cy = this.scale.height / 5;
-
-        // Largura responsiva do fundo
         const larguraFundo = Math.min(700, this.scale.width * 0.9);
 
         const fundo = this.add.rectangle(cx, cy, larguraFundo, 50, 0x000000, 0.8)
             .setStrokeStyle(4, 0x9be564).setDepth(20);
-
         const texto = this.add.text(cx, cy, "Metade das\npulgas removidas!", {
-            fontFamily: '"Press Start 2P", Arial', 
-            fontSize: "15px", 
-            color: "#ffffff",
-            align: "center"
+            fontFamily: '"Press Start 2P", Arial', fontSize: "15px", color: "#ffffff", align: "center"
         }).setOrigin(0.5).setDepth(81);
 
-        this.time.delayedCall(2000, () => {
-            fundo.destroy();
-            texto.destroy();
-        });
+        this.time.delayedCall(2000, () => { fundo.destroy(); texto.destroy(); });
     }
 
     moverPulga(pulga) {
         this.tweens.killTweensOf(pulga);
-
         const x = Phaser.Math.Between(50, this.scale.width - 50);
         const y = Phaser.Math.Between(80, this.scale.height - 80);
-
         this.tweens.add({
-            targets: pulga,
-            x: x, y: y,
-            duration: Phaser.Math.Between(1800, 3200),
-            ease: "Sine.easeInOut",
-            onComplete: () => {
-                if (pulga.active && !this.minigameFinalizado) {
-                    this.moverPulga(pulga);
-                }
-            }
+            targets: pulga, x, y, duration: Phaser.Math.Between(1800, 3200), ease: "Sine.easeInOut",
+            onComplete: () => { if (pulga.active && !this.minigameFinalizado) this.moverPulga(pulga); }
         });
     }
 
@@ -382,19 +311,15 @@ export class cenaCuidado extends Phaser.Scene {
         const moedas = this.calcularMoedas(estrelas);
 
         gameState.pulga = false;
-
         gameState.cobasiCoins += moedas;
-        this.mostrarPainelResultado(segundos, estrelas, moedas);
-
-        this.time.delayedCall(3500, () => {
-            this.scene.start('cenaVeterinario'); 
-        });
+        
+        this.mostrarPainelResultado(estrelas, moedas, segundos);
     }
 
     calcularEstrelas(segundos) {
         if (segundos <= 30) return 3; 
         if (segundos <= 55) return 2; 
-        return 1;                     
+        return 1; 
     }
 
     calcularMoedas(estrelas) {
@@ -403,57 +328,53 @@ export class cenaCuidado extends Phaser.Scene {
         return 0; 
     }
 
-    mostrarPainelResultado(segundos, estrelas, moedas) {
+    mostrarPainelResultado(estrelas, moedas, segundos) {
         const cx = this.scale.width / 2;
         const cy = this.scale.height / 2;
 
-        // Largura responsiva do fundo de resultado
-        const larguraPainel = Math.min(620, this.scale.width * 0.9);
+        const imagemFeedback = estrelas === 3 ? "feeedback3estrelas" : 
+                               estrelas === 2 ? "feedback2estrelas" : "feedback1estrela";
 
-        this.add.rectangle(cx, cy, larguraPainel, 330, 0x000000, 0.78)
-            .setStrokeStyle(4, 0xffd166)
-            .setDepth(70);
+        // Fundo escurecido atrás do feedback
+        const fundoFeedback = this.add.rectangle(cx, cy, this.scale.width, this.scale.height, 0x000000, 0.8)
+            .setDepth(100).setInteractive(); 
 
-        this.add.text(cx, cy - 80, "Minigame concluido!", {
-            fontFamily: '"Press Start 2P", Arial', 
-            fontSize: "22px", // Tamanho um pouco reduzido para não estourar telas pequenas
-            color: "#ffffff"
-        }).setOrigin(0.5).setDepth(71);
+        // Imagem principal de feedback
+        const telaFeedback = this.add.image(cx, cy, imagemFeedback).setDepth(101);
 
-        this.add.text(cx, cy - 20, `Tempo: ${segundos}s`, {
-            fontFamily: '"Press Start 2P", Arial',
-            fontSize: "16px",
-            color: "#ffffff"
-        }).setOrigin(0.5).setDepth(71);
+        // Ajuste de tamanho da imagem (80% da tela)
+        const limiteLargura = this.scale.width * 0.8;
+        const limiteAltura = this.scale.height * 0.8;
+        const escalaFinal = Math.min(limiteLargura / telaFeedback.width, limiteAltura / telaFeedback.height);
+        telaFeedback.setScale(escalaFinal);
 
-        this.add.text(cx, cy + 30, `Estrelas: ${"★".repeat(estrelas)}`, {
-            fontFamily: '"Press Start 2P", Arial',
-            fontSize: "20px", 
-            color: "#ffd166"
-        }).setOrigin(0.5).setDepth(71);
+        // Textos de pontuação em cima do painel
+        const textoMoedas = this.add.text(cx, cy + (telaFeedback.displayHeight * 0.1), `Cobasi Coins: +${moedas}`, {
+            fontFamily: '"Press Start 2P", Arial', fontSize: "16px", color: "#9be564"
+        }).setOrigin(0.5).setDepth(102);
 
-        this.add.text(cx, cy + 80, `Cobasi Coins: +${moedas}`, {
-            fontFamily: '"Press Start 2P", Arial',
-            fontSize: "16px", 
-            color: "#9be564"
-        }).setOrigin(0.5).setDepth(71);
+        // Texto piscante para orientar o clique
+        const textoContinuar = this.add.text(cx, cy + (telaFeedback.displayHeight / 2) + 40, "[ Clique para continuar ]", {
+            fontFamily: '"Press Start 2P", Arial', fontSize: "15px", color: "#ffffff"
+        }).setOrigin(0.5).setDepth(102);
+        
+        this.tweens.add({ targets: textoContinuar, alpha: 0.5, duration: 600, yoyo: true, loop: -1 });
+
+        // Eventos de clique para voltar
+        const fecharPainel = () => { this.scene.start("cenaVeterinario"); };
+        fundoFeedback.on('pointerdown', fecharPainel);
+        telaFeedback.setInteractive().on('pointerdown', fecharPainel);
     }
 
     garantirTexturaPinca() {
         if (this.textures.exists("pincaTool")) return;
-
         const g = this.make.graphics({ x: 0, y: 0, add: false });
         g.lineStyle(10, 0xdddddd);
         g.beginPath();
-        g.moveTo(14, 122);
-        g.lineTo(54, 12);
-        g.moveTo(44, 122);
-        g.lineTo(72, 12);
+        g.moveTo(14, 122); g.lineTo(54, 12);
+        g.moveTo(44, 122); g.lineTo(72, 12);
         g.strokePath();
-
-        g.fillStyle(0x555555);
-        g.fillCircle(63, 12, 6);
-
+        g.fillStyle(0x555555); g.fillCircle(63, 12, 6);
         g.generateTexture("pincaTool", 88, 132);
         g.destroy();
     }

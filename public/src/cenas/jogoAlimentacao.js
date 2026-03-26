@@ -195,7 +195,7 @@ export class jogoAlimentacao extends Phaser.Scene {
         return { tipo: 'superPremium', key: 'foodSuperPremium', pontos: 25, penalidade: 5, dano: 0, cura: 1 };
     }
 
-        coletarItem(jogador, item) {
+    coletarItem(jogador, item) {
         if (this.partidaEncerrada) return;
 
         this.pontuacao += item.getData('pontos');
@@ -209,34 +209,10 @@ export class jogoAlimentacao extends Phaser.Scene {
         this.atualizarHUDPontuacao();
         item.destroy();
 
-        // ✅ Verificação de vitória
+        // ✅ Verificação de vitória (mudado para a nova lógica)
         if (this.pontuacao >= 150) {
-            gameState.cobasiCoins += 20; 
-            // Atualiza barra de comida no gameState
-            gameState.barras.comida = Phaser.Math.Clamp(
-                gameState.barras.comida - 11, 0, 11
-            );
-            this.partidaEncerrada = true;
-             // Texto de recompensa 
-
-            this.add.text(this.larguraTela / 2, this.alturaTela / 2, "+20 CobasiCoins!", { 
-
-            fontFamily: '"Press Start 2P"', 
-
-            fontSize: "28px", 
-
-            color: "#020202" 
-
-              }).setOrigin(0.5).setDepth(50); 
-
-             // Espera 2 segundos antes de sair do minigame 
-
-            this.time.delayedCall(2000, () => { 
-
-             
-            this.scene.start('cenaComida'); // Volta para cena de comida
-        });
-    }
+            this.finalizarMinigame();
+        }
     }
 
     // Trata item perdido (quando cai fora da tela)
@@ -271,7 +247,105 @@ export class jogoAlimentacao extends Phaser.Scene {
         });
     }
 
-    // Encerramento da partida (Game Over)
+    // ==========================================
+    //       NOVAS FUNÇÕES DE TELA FINAL
+    // ==========================================
+
+    finalizarMinigame() {
+        if (this.partidaEncerrada) return;
+        this.partidaEncerrada = true;
+        this.jogador.setVelocityX(0);
+
+        // Remove os eventos de cair comida
+        if (this.eventoSpawn) this.eventoSpawn.remove(false);
+        if (this.eventoDificuldade) this.eventoDificuldade.remove(false);
+
+        // Limpa a tela das comidas que ainda estavam caindo
+        this.itensComida.clear(true, true);
+
+        // Calcula recompensas
+        const estrelas = this.calcularEstrelas(this.vidas);
+        const moedas = this.calcularMoedas(estrelas);
+
+        // Atualiza variáveis globais
+        gameState.cobasiCoins += moedas;
+        gameState.barras.comida = Phaser.Math.Clamp(gameState.barras.comida - 11, 0, 11);
+
+        this.mostrarPainelResultado(estrelas);
+    }
+
+    calcularEstrelas(vidas) {
+        if (vidas >= 3) return 3; 
+        if (vidas === 2) return 2; 
+        return 1;                  
+    }
+
+    calcularMoedas(estrelas) {
+        if (estrelas === 3) return 20;
+        if (estrelas === 2) return 10;
+        return 5; 
+    }
+
+    mostrarPainelResultado(estrelas) {
+        let imagemFeedback = "";
+        
+        if (estrelas === 3) {
+            imagemFeedback = "feeedback3estrelas"; // Atenção à escrita com três 'e'
+        } else if (estrelas === 2) {
+            imagemFeedback = "feedback2estrelas";
+        } else {
+            imagemFeedback = "feedback1estrela";
+        }
+
+        const cx = this.larguraTela / 2;
+        const cy = this.alturaTela / 2;
+
+        // Fundo escurecido atrás do feedback
+        const fundoFeedback = this.add.rectangle(cx, cy, this.larguraTela, this.alturaTela, 0x000000, 0.8)
+            .setDepth(100)
+            .setScrollFactor(0)
+            .setInteractive(); 
+
+        // Imagem principal de feedback
+        const telaFeedback = this.add.image(cx, cy, imagemFeedback)
+            .setDepth(101)
+            .setScrollFactor(0)
+            .setInteractive();
+
+        // Ajuste de tamanho da imagem para 80% da tela
+        const limiteLargura = this.larguraTela * 0.8;
+        const limiteAltura = this.alturaTela * 0.8;
+
+        const escalaX = limiteLargura / telaFeedback.width;
+        const escalaY = limiteAltura / telaFeedback.height;
+
+        const escalaFinal = Math.min(escalaX, escalaY);
+        telaFeedback.setScale(escalaFinal);
+
+        // Texto piscante para orientar o jogador a clicar
+        const textoContinuar = this.add.text(cx, cy + (telaFeedback.displayHeight / 2) + 40, "[ Clique para continuar ]", {
+            fontFamily: '"Press Start 2P", Arial',
+            fontSize: "15px",
+            color: "#ffffff"
+        }).setOrigin(0.5).setDepth(101).setScrollFactor(0);
+        
+        this.tweens.add({
+            targets: textoContinuar, alpha: 0.5, duration: 600, yoyo: true, loop: -1
+        });
+
+        // Quando o jogador clicar na tela, ele volta pra cenaComida
+        fundoFeedback.on('pointerdown', () => {
+            this.scene.start("cenaComida"); 
+        });
+
+        telaFeedback.on('pointerdown', () => {
+            this.scene.start("cenaComida"); 
+        });
+    }
+
+    // ==========================================
+
+    // Encerramento da partida (Game Over / Perdeu)
     encerrarPartida() {
         if (this.partidaEncerrada) {
             return;

@@ -4,6 +4,7 @@ export class jogoLazer extends Phaser.Scene {
     constructor() {
         super({ key: "jogoLazer" });
         this.pontos = 0; 
+        this.instrucoesLidas = false; // Variável de controle do tutorial
     }
 
     /**
@@ -16,6 +17,7 @@ export class jogoLazer extends Phaser.Scene {
         this.jogoAcabou = false;
         this.minigameFinalizado = false;
         this.transicao = false;
+        this.instrucoesLidas = false; // Reseta o tutorial
 
         this.physics.world.gravity.y = 800;
 
@@ -117,13 +119,19 @@ export class jogoLazer extends Phaser.Scene {
         });
         
         this.scene.stop("HUD");
+
+        // --- MOSTRA INSTRUÇÕES E DEPOIS PAUSA O JOGO ---
+        this.mostrarInstrucoes();
+        this.physics.pause();
+        this.cachorro.anims.pause();
     }
 
     /**
      * Loop principal do jogo. Executado a cada frame.
      */
     update() {
-        if (this.jogoAcabou) return; 
+        // Trava o update se as instruções não foram lidas ou se o jogo acabou
+        if (!this.instrucoesLidas || this.jogoAcabou) return; 
 
         // --- VERIFICA SE PASSOU DIRETO PELO PETISCÃO (DERROTA) ---
         if (this.petiscaoFinal && this.petiscaoFinal.active) {
@@ -162,6 +170,66 @@ export class jogoLazer extends Phaser.Scene {
         }
     }
 
+    // ========================================================
+    //                 TUTORIAL / INSTRUÇÕES
+    // ========================================================
+    mostrarInstrucoes() {
+        const cx = this.scale.width / 2;
+        const cy = this.scale.height / 2;
+
+        const grupoInstrucoes = this.add.group();
+
+        const fundo = this.add.rectangle(cx, cy, this.scale.width, this.scale.height, 0x000000, 0.85)
+            .setDepth(100)
+            .setScrollFactor(0)
+            .setInteractive(); 
+
+        const titulo = this.add.text(cx, cy - 180, "COMO JOGAR", {
+            fontFamily: '"Press Start 2P", Arial', 
+            fontSize: "35px",
+            color: "#ffd166",
+            align: "center"
+        }).setOrigin(0.5).setDepth(101).setScrollFactor(0);
+
+        const texto = this.add.text(cx, cy, 
+            "Seta para CIMA: Pular\n" +
+            "Seta para BAIXO: Abaixar\n\n" +
+            "Colete petiscos normais para pontuar.\n" +
+            "Evite os estragados (imagem diferente)!\n\n" +
+            "Pegue o Petiscao Dourado no\nfinal para vencer.", 
+        {
+            fontFamily: '"Press Start 2P", Arial', 
+            fontSize: "18px",
+            color: "#ffffff",
+            align: "center",
+            lineSpacing: 15
+        }).setOrigin(0.5).setDepth(101).setScrollFactor(0);
+
+        const textoBotao = this.add.text(cx, cy + 180, "[ Clique para Comecar ]", {
+            fontFamily: '"Press Start 2P", Arial',
+            fontSize: "15px",
+            color: "#9be564"
+        }).setOrigin(0.5).setDepth(101).setScrollFactor(0);
+        
+        this.tweens.add({
+            targets: textoBotao, alpha: 0.5, duration: 600, yoyo: true, loop: -1
+        });
+
+        grupoInstrucoes.addMultiple([fundo, titulo, texto, textoBotao]);
+
+        fundo.on('pointerdown', () => {
+            grupoInstrucoes.destroy(true); 
+            this.iniciarMinigameAposInstrucoes();
+        });
+    }
+
+    iniciarMinigameAposInstrucoes() {
+        this.instrucoesLidas = true;
+        this.physics.resume();
+        this.cachorro.anims.resume();
+    }
+    // ========================================================
+
     pular() {
         if (this.jogoAcabou) return; 
 
@@ -193,15 +261,15 @@ export class jogoLazer extends Phaser.Scene {
             let posX = x + 400; 
 
             if (x === fimDaFase) {
-                let cama = this.camasElasticas.create(posX, alturaDoChao - 25, 'camaElastica').setScale(0.5).setDepth(5);
+                let cama = this.camasElasticas.create(posX, alturaDoChao - 60, 'camaElastica').setScale(0.4).setDepth(5);
                 cama.body.setSize(cama.width * 0.4, cama.height * 0.1); 
                 cama.body.setOffset(cama.width * 0.4, cama.height * 0.5); 
 
                 let yPetiscao = alturaDoChao - 450; 
                 let petiscoAlto = this.petiscos.create(posX + 300, yPetiscao, 'petisco').setScale(0.3).setDepth(5);
                 
-                petiscoAlto.body.setSize(petiscoAlto.width * 0.4, petiscoAlto.height * 0.4);
-                petiscoAlto.body.setOffset(petiscoAlto.width * 0.3, petiscoAlto.height * 0.3);
+                petiscoAlto.body.setSize(petiscoAlto.width * 0.6, petiscoAlto.height * 0.6);
+                petiscoAlto.body.setOffset(petiscoAlto.width * 0.2, petiscoAlto.height * 0.2);
                 
                 petiscoAlto.tint = 0xffd700; 
                 petiscoAlto.isSuper = true;
@@ -215,13 +283,15 @@ export class jogoLazer extends Phaser.Scene {
 
                 let yPetisco = alturaDoChao - 150; 
                 let petisco = this.petiscos.create(x, yPetisco, 'petisco').setScale(0.15).setDepth(5);
-                petisco.body.setSize(petisco.width * 0.3, petisco.height * 0.3);
+                
+                petisco.body.setSize(petisco.width * 0.6, petisco.height * 0.6);
+                petisco.body.setOffset(petisco.width * 0.2, petisco.height * 0.2);
 
                 let ehEstragado = tiposPetiscos.shift();
 
                 if (ehEstragado) {
                     petisco.isEstragado = true;
-                    petisco.tint = 0x55ff55; 
+                    petisco.setTexture('petiscoEstragado'); 
                 } else {
                     petisco.isEstragado = false;
                 }
@@ -283,7 +353,7 @@ export class jogoLazer extends Phaser.Scene {
         const meioX = this.cameras.main.worldView.x + (this.scale.width / 2);
         const meioY = this.scale.height / 2;
 
-        this.add.image(meioX, meioY, '', {
+        this.add.text(meioX, meioY, 'FASE CONCLUIDA!', {
             fontFamily: '"Press Start 2P", monospace', 
             fontSize: '40px', 
             fill: '#00ff00',
@@ -316,8 +386,69 @@ export class jogoLazer extends Phaser.Scene {
         
         // Garante que a barra não passe do 0 (cheia) nem do 11 (vazia)
         gameState.barras.lazer = Phaser.Math.Clamp(novoLazer, 0, 11); 
+
+        // --- LÓGICA DA TELA DE FEEDBACK ---
         
-        this.scene.start("cenaLazer"); 
+        let imagemFeedback = "";
+        
+        if (estrelas === 3) {
+            imagemFeedback = "feeedback3estrelas"; // Atenção à escrita com três 'e'
+        } else if (estrelas === 2) {
+            imagemFeedback = "feedback2estrelas";
+        } else {
+            imagemFeedback = "feedback1estrela";
+        }
+
+        const cx = this.scale.width / 2;
+        const cy = this.scale.height / 2;
+
+        // Fundo escurecido atrás do feedback
+        const fundoFeedback = this.add.rectangle(cx, cy, this.scale.width, this.scale.height, 0x000000, 0.8)
+            .setDepth(100)
+            .setScrollFactor(0)
+            .setInteractive(); 
+
+        // Imagem principal de feedback
+        const telaFeedback = this.add.image(cx, cy, imagemFeedback)
+            .setDepth(101)
+            .setScrollFactor(0)
+            .setInteractive();
+
+        // --- AJUSTE DE TAMANHO DA IMAGEM ---
+        // Pega 80% da largura e altura totais da tela como limite
+        const limiteLargura = this.scale.width * 0.8;
+        const limiteAltura = this.scale.height * 0.8;
+
+        // Descobre o quanto precisa encolher em X e em Y baseando-se no tamanho original da imagem
+        const escalaX = limiteLargura / telaFeedback.width;
+        const escalaY = limiteAltura / telaFeedback.height;
+
+        // Usa a menor escala entre as duas para garantir que a imagem caiba inteira sem distorcer
+        const escalaFinal = Math.min(escalaX, escalaY);
+        telaFeedback.setScale(escalaFinal);
+        // ------------------------------------
+
+        // Texto piscante para orientar o jogador a clicar
+        // Calculamos a posição Y baseando-se no novo displayHeight da imagem escalada
+        const textoContinuar = this.add.text(cx, cy + (telaFeedback.displayHeight / 2) + 40, "[ Clique para continuar ]", {
+            fontFamily: '"Press Start 2P", Arial',
+            fontSize: "15px",
+            color: "#ffffff"
+        }).setOrigin(0.5).setDepth(101).setScrollFactor(0);
+        
+        this.tweens.add({
+            targets: textoContinuar, alpha: 0.5, duration: 600, yoyo: true, loop: -1
+        });
+
+        // Quando o jogador clicar na tela, ele volta pra cenaLazer
+        fundoFeedback.on('pointerdown', () => {
+            this.scene.start("cenaLazer"); 
+        });
+
+        telaFeedback.on('pointerdown', () => {
+            this.scene.start("cenaLazer"); 
+        });
+
     }
     
     calcularEstrelas(pontos) {
