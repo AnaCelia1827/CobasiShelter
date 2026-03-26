@@ -23,7 +23,8 @@ export class cenaRacaoStandart extends Phaser.Scene {
         const centroEsquerdaX = largura * 0.30;
         const centroDireitaX = largura * 0.70;
 
-        const pet = cachorrosBase[0];
+        const petAtivo = gameState.pets.cachorroHeroi ? cachorrosBase[1] : cachorrosBase[0];
+        const pet = petAtivo;
 
         this.scene.stop("HUD");
         this.transicao = false;

@@ -355,7 +355,7 @@ export class cenaBanho extends Phaser.Scene {
                 this.animarCachorro(); 
                 this.criarExplosaoBrilhos(); 
 
-                gameState.barras.limpeza = 0; 
+                gameState.barras.limpeza = Phaser.Math.Clamp(gameState.barras.limpeza - 11, 0, 11); 
                 
                 if (!gameState.recompensas.banho) { 
                     gameState.cobasiCoins += 20; 
