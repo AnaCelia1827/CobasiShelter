@@ -96,6 +96,52 @@ export class cenaConfiguracoes extends Phaser.Scene {
             () => { console.log('Vibracao desligada'); }
         );
 
+        // ─── RESPONSIVIDADE ──────────────────────────────────────────────────
+        const handleResizeConfiguracoes = () => {
+            // Atualiza fundo semitransparente
+            const fundoSemitransparente = this.children.getByName();
+            this.children.each((child) => {
+                if (child.type === 'Rectangle') {
+                    child.setPosition(this.scale.width / 2, this.scale.height / 2)
+                         .setSize(this.scale.width, this.scale.height);
+                }
+            });
+
+            // Atualiza ícone decorativo
+            this.children.each((child) => {
+                if (child.texture?.key === 'configuracoes') {
+                    child.setPosition(this.scale.width / 2, this.scale.height / 2);
+                }
+            });
+
+            // Atualiza botão fechar
+            this.children.each((child) => {
+                if (child.texture?.key === 'retornoInicio') {
+                    child.setPosition(this.scale.width / 2 + 260, this.scale.height / 2 - 320);
+                }
+            });
+
+            // Atualiza toggles
+            if (gameState.alternarMusica) {
+                gameState.alternarMusica.botaoLigado.setPosition(this.scale.width / 2 + 20, this.scale.height / 2 - 85);
+                gameState.alternarMusica.botaoDesligado.setPosition(this.scale.width / 2 + 20, this.scale.height / 2 - 85);
+            }
+            if (gameState.alternarSom) {
+                gameState.alternarSom.botaoLigado.setPosition(this.scale.width / 2 + 20, this.scale.height / 2 - 35);
+                gameState.alternarSom.botaoDesligado.setPosition(this.scale.width / 2 + 20, this.scale.height / 2 - 35);
+            }
+            if (gameState.alternarVibracao) {
+                gameState.alternarVibracao.botaoLigado.setPosition(this.scale.width / 2 + 20, this.scale.height / 2 + 15);
+                gameState.alternarVibracao.botaoDesligado.setPosition(this.scale.width / 2 + 20, this.scale.height / 2 + 15);
+            }
+        };
+
+        this.scale.on("resize", handleResizeConfiguracoes);
+
+        this.events.on('shutdown', () => {
+            this.scale.off("resize", handleResizeConfiguracoes);
+        });
+
         // Efeito de fade-in ao abrir popup
         this.cameras.main.fadeIn(150, 0, 0, 0);
     }

@@ -97,7 +97,7 @@ export class cenaInicial extends Phaser.Scene {
         this.cameras.main.fadeIn(200, 0, 0, 0);
 
         // Listener para redimensionamento da tela
-        this.scale.on("resize", (tamanhoTela) => {
+        const handleResizeInicial = (tamanhoTela) => {
             const { width: largura, height: altura } = tamanhoTela;
 
             // Atualiza fundo
@@ -110,7 +110,12 @@ export class cenaInicial extends Phaser.Scene {
             this.botaoJogar.setPosition(largura * 0.162, altura * 0.6).setScale(escalaBase);
             this.botaoSair.setPosition(largura * 0.05, altura * 0.9).setScale(escalaBase);
             this.botaoConfiguracoes.setPosition(largura * 0.28, altura * 0.9).setScale(escalaBase * 10);
+        };
 
+        this.scale.on("resize", handleResizeInicial);
+
+        this.events.on('shutdown', () => {
+            this.scale.off("resize", handleResizeInicial);
         });
     }
 

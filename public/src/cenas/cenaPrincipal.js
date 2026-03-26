@@ -18,9 +18,9 @@ export class cenaPrincipal extends Phaser.Scene {
         }
         this.scene.bringToTop("HUD")
 
-        // Música de fundo (principal)
+        // Música de fundo
         if (!gameState.musicaMenuPrincipal) {
-            gameState.musicaMenuPrincipal = this.sound.add("musicaMenuPrincipal", { loop: true, volume: 5.0 })
+            gameState.musicaMenuPrincipal = this.sound.add("musicaMenuPrincipal", { loop: true, volume: 0.5 })
         }
         if (gameState.musicaTutorial?.isPlaying) {
             gameState.musicaTutorial.stop();
@@ -30,70 +30,58 @@ export class cenaPrincipal extends Phaser.Scene {
         }
         gameState.musica = gameState.musicaMenuPrincipal;
 
-        const largura = this.scale.width
-        const altura = this.scale.height
+        // --- LÓGICA DE POSICIONAMENTO RESPONSIVO (ÁREA ÚTIL) ---
+        const larguraTotal = this.scale.width;
+        const alturaTotal = this.scale.height;
+        const areaUtilLargura = larguraTotal * 0.8; // Desconto de 20% da HUD
 
-        const posicaoX = largura - largura * 0.2
-        const posicaoY = altura
-
-        // Fundo da cena
+        // Fundo da cena (ajustado para a área útil)
         this.bg = this.add
-            .image(posicaoX / 2, posicaoY / 2, "bgPrincipal")
-            .setDisplaySize(posicaoX, posicaoY)
-            .setDepth(-1)
+            .image(areaUtilLargura / 2, alturaTotal / 2, "bgPrincipal")
+            .setDisplaySize(areaUtilLargura, alturaTotal)
+            .setDepth(-1);
 
-        // Criar cachorro dentro de um container
+        // Criar cachorro
         this.gerenciadorCachorros = new GerenciadorCachorros(this)
         this.cachorro = this.gerenciadorCachorros.criarCachorro(0, 0, cachorrosBase[0])
 
-        // Container que agrupa cachorro + pulgas
-        const elementosContainer = [this.cachorro.sprite]
-
-        // Cria a animação da pulga (se ainda não existir)
+        // Configuração das pulgas
         if (!this.anims.exists("pulgaAnim")) {
             this.anims.create({
                 key: "pulgaAnim",
                 frames: this.anims.generateFrameNumbers("pulgas", { start: 0, end: 1 }), 
-                frameRate: 1,   // velocidade da animação (frames por segundo)
-                repeat: -1      // -1 = loop infinito
+                frameRate: 2,
+                repeat: -1
             })
         }
 
-        // Cria o sprite da pulga
         this.pulgas = this.add.sprite(0, 0, "pulgas")
-            .setOrigin(0.5) 
-            .setScale(posicaoY * 0.0015) 
+            .setOrigin(0.5)
+            .setScale(alturaTotal * 0.0015) // Mantém o scale dinâmico da branch incoming
+            .play("pulgaAnim")
+            .setVisible(gameState.pulga);
 
-        // Inicia a animação da pulga
-        this.pulgas.play("pulgaAnim")
+        // Container (Cachorro + Pulgas)
+        this.containerCachorro = this.add.container(areaUtilLargura / 2, alturaTotal * 0.7, [
+            this.cachorro.sprite, 
+            this.pulgas
+        ]);
 
-        // Define a visibilidade inicial baseada no gameState atual
-        this.pulgas.setVisible(gameState.pulga)
+        // Ajuste de escala inicial
+        const escalaBase = alturaTotal * 0.0006;
+        this.containerCachorro.setScale(escalaBase);
 
-        // Adiciona ao container
-        elementosContainer.push(this.pulgas)
-
-        // Cria o container com cachorro + pulgas
-        this.containerCachorro = this.add.container(
-            posicaoX / 2,
-            posicaoY * 0.7,
-            elementosContainer
-        )
-
-        // Escala do container (afeta ambos)
-        this.containerCachorro.setScale(posicaoY * 0.0006)
-        
         // --- TELA DE INSTRUÇÃO (Aparece apenas na primeira vez) ---
         if (!gameState.instrucaoMissaoVista) {
-            const centroX = posicaoX / 2;
-            const centroY = posicaoY / 2;
+            const centroX = areaUtilLargura / 2;
+            const centroY = alturaTotal / 2;
 
             // Fundo semi-transparente salvo no "this" para podermos redimensionar depois
-            this.fundoEscuro = this.add.rectangle(centroX, centroY, posicaoX, posicaoY, 0x000000, 0.7)
+            this.fundoEscuro = this.add.rectangle(centroX, centroY, areaUtilLargura, alturaTotal, 0x000000, 0.7)
                 .setDepth(1000)
                 .setInteractive(); 
 
-            // Imagem de instrução (com escala reduzida para 70%)
+            // Imagem de instrução (com escala reduzida para 50%)
             this.imgInstrucao = this.add.image(centroX, centroY, "instrucaoMissao")
                 .setDepth(1001)
                 .setScale(0.5);
@@ -135,34 +123,31 @@ export class cenaPrincipal extends Phaser.Scene {
         // ----------------------------------------------------------
 
         // --- AJUSTE AQUI: Resize dinâmico otimizado ---
-        this.scale.on("resize", (gameSize) => {
+        const handleResizePrincipal = () => {
             if (!this.scene.isActive() || !this.cameras || !this.cameras.main) return;
 
-            const novaLargura = gameSize.width
-            const novaAltura = gameSize.height
+            const novaLargura = this.scale.width;
+            const novaAltura = this.scale.height;
+            const novaAreaUtilLargura = novaLargura * 0.8; // Desconta 20%
+            const novoCentroX = novaAreaUtilLargura / 2;
+            const novoCentroY = novaAltura / 2;
 
-            // Recalcula a área útil da tela principal (descontando 20% da HUD)
-            const novaPosicaoX = novaLargura - (novaLargura * 0.2)
-            const novaPosicaoY = novaAltura
-            const novoCentroX = novaPosicaoX / 2;
-            const novoCentroY = novaPosicaoY / 2;
-
-            // 1. Ajusta o Fundo
+            // 1. Atualiza Fundo
             if (this.bg) {
-               this.bg
-                .setDisplaySize(novaPosicaoX, novaPosicaoY)
-                .setPosition(novoCentroX, novoCentroY)
+                this.bg.setPosition(novoCentroX, novoCentroY)
+                       .setDisplaySize(novaAreaUtilLargura, novaAltura);
             }
 
-            // 2. Ajusta escala e posição do container (Cachorro + Pulga)
+            // 2. Atualiza Container
             if (this.containerCachorro) {
-                this.containerCachorro.setScale(novaPosicaoY * 0.0006)
-                this.containerCachorro.setPosition(novoCentroX, novaPosicaoY * 0.7)
+                const novaEscala = novaAltura * 0.0006;
+                this.containerCachorro.setPosition(novoCentroX, novaAltura * 0.7)                          
+                                      .setScale(novaEscala);
             }
 
             // 3. Ajusta a tela de instrução (se ela estiver aberta)
             if (this.fundoEscuro && this.fundoEscuro.active) {
-                this.fundoEscuro.setSize(novaPosicaoX, novaPosicaoY);
+                this.fundoEscuro.setSize(novaAreaUtilLargura, novaAltura);
                 this.fundoEscuro.setPosition(novoCentroX, novoCentroY);
                 
                 if (this.imgInstrucao && this.imgInstrucao.active) {
@@ -174,25 +159,24 @@ export class cenaPrincipal extends Phaser.Scene {
                     }
                 }
             }
-        })
+        };
+
+        this.scale.on("resize", handleResizePrincipal);
 
         // Limpa o evento de resize quando a cena for fechada/parada para evitar vazamento de memória e bugs
         this.events.on('shutdown', () => {
-            this.scale.removeAllListeners('resize');
+            this.scale.off("resize", handleResizePrincipal);
         });
-        
+
         // Câmera Inicial
-        this.cameras.main.setBounds(0, 0, largura, altura)
-        this.cameras.main.fadeIn(200, 0, 0, 0)
+        this.cameras.main.setBounds(0, 0, larguraTotal, alturaTotal);
+        this.cameras.main.fadeIn(200, 0, 0, 0);
     }
 
     update() {
-        // Verifica continuamente se todas as barras estão completas para evoluir o cachorro
         if (this.gerenciadorCachorros) {
             this.gerenciadorCachorros.verificarCompletude()
         }
-
-        // Atualiza a visibilidade da pulga em tempo real
         if (this.pulgas) {
             this.pulgas.setVisible(gameState.pulga)
         }

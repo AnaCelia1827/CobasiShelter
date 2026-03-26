@@ -96,7 +96,7 @@ export class jogoAlimentacao extends Phaser.Scene {
         });
 
         // >>> Listener de resize <<<
-        this.scale.on("resize", (gameSize) => {
+        const handleResizeAlimentacao = (gameSize) => {
             this.larguraTela = gameSize.width;
             this.alturaTela = gameSize.height;
             this.chaoY = this.alturaTela - 90;
@@ -113,6 +113,12 @@ export class jogoAlimentacao extends Phaser.Scene {
 
             this.botaoVoltar.setPosition(60, 50);
             this.physics.world.setBounds(0, 0, this.larguraTela, this.alturaTela);
+        };
+
+        this.scale.on("resize", handleResizeAlimentacao);
+
+        this.events.on('shutdown', () => {
+            this.scale.off("resize", handleResizeAlimentacao);
         });
     }
 

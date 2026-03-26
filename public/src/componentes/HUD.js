@@ -93,7 +93,7 @@ export class HUD extends Phaser.Scene {
         this.botoes.push({ botao: botaoVoltar, cenaAlvo: "cenaPrincipal" });
 
         // Listener de resize para ajustar elementos dinamicamente
-        this.scale.on("resize", (tamanhoTela) => {
+        const handleResizeHUD = (tamanhoTela) => {
             const { width: largura, height: altura } = tamanhoTela;
 
             const larguraPainel = largura * 0.2;
@@ -126,6 +126,12 @@ export class HUD extends Phaser.Scene {
 
             this.iconeSaude.setPosition(largura * 0.05, altura * 0.32).setScale(altura * 0.002);
             this.barraSaude.sprite.setPosition(largura * 0.15, altura * 0.32).setScale(altura * 0.002);
+        };
+
+        this.scale.on("resize", handleResizeHUD);
+
+        this.events.on('shutdown', () => {
+            this.scale.off("resize", handleResizeHUD);
         });
 
     }

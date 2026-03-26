@@ -118,13 +118,18 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
         gameState.bilhete = this.add.image(largura * 0.94, altura * 0.3, 'mineFicha')
             .setScale(0.12)
             .setInteractive({ useHandCursor:true });
+        
+        // Salva as escalas para responsividade
+        gameState.bilhete.escalaNormal = 0.12;
+        gameState.bilhete.escalaPassar = 0.14;
+        
         passarPressionarEfeito(gameState.bilhete, 0.12, 0.14);
 
         gameState.bilhete.on('pointerdown', () => {
-            if(this.scene.isActive('ficha')){
-                this.scene.stop('ficha')
-            } else{
-                this.scene.launch('ficha')
+            if (this.scene.isActive('ficha')) {
+                this.scene.stop('ficha');
+            } else {
+                this.scene.launch('ficha');
             }
         });
 
@@ -293,7 +298,7 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
         // ==========================================
         // RESIZE: REPOSICIONAMENTO E ATUALIZAÇÃO TOTAL DAS ESCALAS
         // ==========================================
-        this.scale.on("resize", (gameSize) => {
+        const handleResizeRacaoSuperPremium = (gameSize) => {
             const w = gameSize.width;
             const h = gameSize.height;
 
@@ -316,8 +321,8 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
             // Bilhete
             if (gameState.bilhete) {
                 gameState.bilhete.setPosition(w * 0.94, h * 0.3);
-                gameState.bilhete.escalaNormal = h * 0.0002;  
-                gameState.bilhete.escalaPassar = h * 0.00023; 
+                gameState.bilhete.escalaNormal = 0.12;  
+                gameState.bilhete.escalaPassar = 0.14; 
                 gameState.bilhete.setScale(gameState.bilhete.escalaNormal);
             }
 
@@ -369,6 +374,12 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
                     index++;
                 }
             }
+        };
+
+        this.scale.on("resize", handleResizeRacaoSuperPremium);
+
+        this.events.on('shutdown', () => {
+            this.scale.off("resize", handleResizeRacaoSuperPremium);
         });
     }
 
