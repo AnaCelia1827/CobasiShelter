@@ -19,10 +19,10 @@ import {cenaRacaoSuperPremium } from "./cenas/cenaRacaoSuperPremium.js";
 // Objeto global para armazenar estados do jogo
 export let gameState = {
     barras: {
-        comida: 9,
-        lazer: 9,
-        limpeza: 9,
-        saude: 9
+        comida: 11,
+        lazer: 11,
+        limpeza: 11,
+        saude: 11
     },
     cobasiCoins: 20,
     recompensas: {
@@ -37,23 +37,18 @@ export let gameState = {
  
 };
 
-// ─── RESOLUÇÃO FIXA DO JOGO ───────────────────────────────────────────────────
-// O jogo sempre roda em 480×854 (proporção 9:16, padrão mobile portrait).
-// O Phaser escala o canvas para caber na tela mantendo a proporção e centralizando.
-// Nenhum código de cena precisa se preocupar com window.innerWidth ou resize.
-const GAME_WIDTH  = 800;
-const GAME_HEIGHT = 600;
-
 // Configuração principal do Phaser
 const config = {
     type: Phaser.AUTO,
 
-    width:  GAME_WIDTH,
-    height: GAME_HEIGHT,
+    width: window.innerWidth,
+
+    // Altura sempre igual à altura total da janela
+    height: window.innerHeight,
 
     scale: {
-        mode:       Phaser.Scale.FIT,        // Escala para caber na tela, mantendo proporção
-        autoCenter: Phaser.Scale.CENTER_BOTH // Centraliza horizontal e verticalmente
+        mode: Phaser.Scale.RESIZE,          // ativa redimensionamento automático
+        autoCenter: Phaser.Scale.CENTER_BOTH // centraliza o jogo na tela
     },
 
     audio: {
