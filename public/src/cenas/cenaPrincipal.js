@@ -96,7 +96,7 @@ export class cenaPrincipal extends Phaser.Scene {
             // Imagem de instrução (com escala reduzida para 70%)
             this.imgInstrucao = this.add.image(centroX, centroY, "instrucaoMissao")
                 .setDepth(1001)
-                .setScale(0.7);
+                .setScale(0.5);
 
             // Calcula a posição do texto para ficar um pouco abaixo da imagem
             const posicaoTextoY = centroY + (this.imgInstrucao.displayHeight / 2) + 30;

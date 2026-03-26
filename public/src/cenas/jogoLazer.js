@@ -311,23 +311,19 @@ export class jogoLazer extends Phaser.Scene {
         petisco.disableBody(true, true); 
         
         if (petisco.isEstragado) {
+            // Perde ponto se pegar petisco verde
             this.pontos = Math.max(0, this.pontos - 1);
             this.textoPontos.setText('Petiscos: ' + this.pontos);
-
-            gameState.barras.felicidade = Phaser.Math.Clamp(gameState.barras.felicidade - 10, 0, 100);
             
             cachorro.tint = 0xff0000;
             this.time.delayedCall(500, () => {
                 cachorro.clearTint(); 
             });
 
-        } 
-        else {
+        } else {
+            // Ganha ponto se pegar petisco normal/super
             this.pontos += 1;
             this.textoPontos.setText('Petiscos: ' + this.pontos);
-            
-            let recompensa = petisco.isSuper ? 20 : 5;
-            gameState.barras.felicidade = Phaser.Math.Clamp(gameState.barras.felicidade + recompensa, 0, 100);
             
             if (petisco.isSuper) {
                 this.vencerJogo();
@@ -371,9 +367,22 @@ export class jogoLazer extends Phaser.Scene {
 
         const estrelas = this.calcularEstrelas(this.pontos);
         const moedas = this.calcularMoedas(estrelas);
+        const reducaoLazer = this.calcularLazer(estrelas);
 
+        // Atualiza Cobasi Coins
         gameState.cobasiCoins += moedas;
         
+        // --- ATUALIZA A BARRA DE LAZER ---
+        
+        // Pega o valor atual do lazer (se não existir, assume 11 que é a barra vazia)
+        let lazerAtual = gameState.barras.lazer !== undefined ? gameState.barras.lazer : 11;
+        
+        // Subtrai do lazer (pois quanto mais próximo de 0, mais cheia está a barra)
+        let novoLazer = lazerAtual - reducaoLazer;
+        
+        // Garante que a barra não passe do 0 (cheia) nem do 11 (vazia)
+        gameState.barras.lazer = Phaser.Math.Clamp(novoLazer, 0, 11); 
+
         // --- LÓGICA DA TELA DE FEEDBACK ---
         
         let imagemFeedback = "";
@@ -447,5 +456,13 @@ export class jogoLazer extends Phaser.Scene {
         if (estrelas === 3) return 20;
         if (estrelas === 2) return 10;
         return 5; 
+    }
+
+    calcularLazer(estrelas) {
+        // Define o quanto vamos SUBTRAIR da barra baseada nas estrelas
+        // Como a barra começa no 11 (vazia) e vai pro 0 (cheia):
+        if (estrelas === 3) return 11; // -11: Enche a barra inteira de uma vez
+        if (estrelas === 2) return 5;  // -5:  Se tava 11, vai pro 6
+        return 2;                      // -2:  Se tava 11, vai pro 9
     }
 }

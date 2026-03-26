@@ -114,7 +114,6 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("botaoStandardPressionado", "assets/botaoStandardPressionado.png");
         this.load.image("botaoSuperPremium", "assets/botaoSuperPremiumNormal.png");
         this.load.image("botaoSuperPremiumPressionado", "assets/botaoSuperPremiumPressionado.png");
-        this.load.image("templateRacao", "assets/templateRacao.png");
         this.load.image("fundoTemplateRacao", "assets/fundoTemplateRacao.png");
         this.load.image("composicaoRacao", "assets/tela-racao/composicaoRacao.png");
         this.load.image("estanteRacao", "assets/tela-alimentacao/estanteRacao.png");
@@ -131,7 +130,7 @@ export class cenaCarregamento extends Phaser.Scene {
         this.load.image("feedback2estrelas", "assets/Feedback/feedbackMinegame2.png");
         this.load.image("feedback1estrela", "assets/Feedback/feedbackMinegame3.png");
         this.load.image("instrucaoDescricaoBanho", "assets/Feedback/instrucaoBanho.png");
-        this.load.image("instrucaoRacao", "assets/Feedback/instrucaoDescricaoRacao.png");
+        this.load.image("instrucaoDescricaoRacao", "assets/Feedback/instrucaoDescricaoRacao.png");
         this.load.image("instrucaoLazer", "assets/Feedback/instrucaoLazer.png");
         this.load.image("instrucaoBanho", "assets/Feedback/instrucaoBanho.png");
         this.load.image("instrucaoMissao", "assets/Feedback/instrucaoMissao.png");

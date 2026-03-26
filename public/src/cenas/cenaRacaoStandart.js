@@ -1,6 +1,7 @@
 import { gameState } from "../main.js";
 import { Racao } from "../componentes/controleRacoes/racoes.js";
 import { ficha } from "../componentes/ficha.js";
+import { cachorrosBase } from "../componentes/controleCachorro/cachorrosBase.js";
 
 // Importando APENAS os dados da linha Standart
 import {
@@ -12,110 +13,107 @@ import {
 export class cenaRacaoStandart extends Phaser.Scene {
     constructor() {
         super({ key: "cenaRacaoStandart" });
+        this.transicao = false;
     }
 
     create() {
-        const largura = this.scale.width;
-        const altura = this.scale.height;
+        let largura = this.scale.width;
+        let altura = this.scale.height;
 
         const centroEsquerdaX = largura * 0.30;
         const centroDireitaX = largura * 0.70;
 
-        // Função predefinida para criar botões
+        const pet = cachorrosBase[0];
+
+        this.scene.stop("HUD");
+        this.transicao = false;
+
+        // ==========================================
+        // FUNÇÕES ORIGINAIS INTACTAS (com ajuste para ler a escala dinâmica)
+        // ==========================================
         const criarBotao = (x, y, texturaNormal, texturaPressionado, escalaBase, escalaAumentada, escalaPressionada, callback) => {
             const botao = this.add.image(x, y, texturaNormal).setScale(escalaBase).setInteractive({ useHandCursor: true });
 
+            // Salvamos as escalas no próprio botão para poder atualizar no resize
+            botao.escalaNormal = escalaBase;
+            botao.escalaHover = escalaAumentada;
+            botao.escalaPress = escalaPressionada;
+
             botao.on("pointerover", () => {
                 botao.setTexture(texturaPressionado);
-                this.tweens.add({ targets: botao, scale: escalaAumentada, duration: 150, ease: "Power2" });
+                this.tweens.add({ targets: botao, scale: botao.escalaHover, duration: 150, ease: "Power2" });
             });
 
             botao.on("pointerout", () => {
                 botao.setTexture(texturaNormal);
-                this.tweens.add({ targets: botao, scale: escalaBase, duration: 150, ease: "Power2" });
+                this.tweens.add({ targets: botao, scale: botao.escalaNormal, duration: 150, ease: "Power2" });
             });
 
             botao.on("pointerdown", () => {
                 botao.setTexture(texturaPressionado);
-                this.tweens.add({ targets: botao, scale: escalaPressionada, duration: 100, ease: "Power2" });
+                this.tweens.add({ targets: botao, scale: botao.escalaPress, duration: 100, ease: "Power2" });
             });
 
             botao.on("pointerup", () => {
                 botao.setTexture(texturaPressionado);
-                this.tweens.add({ targets: botao, scale: escalaAumentada, duration: 100, ease: "Power2" });
+                this.tweens.add({ targets: botao, scale: botao.escalaHover, duration: 100, ease: "Power2" });
                 if (callback) callback();
             });
 
             return botao;
         };
 
-        // Função predefinida de feedback ao passar o cursor em cima
         const passarPressionarEfeito = (alvo, escalaNormal, escalaPassar) => {
             alvo.removeAllListeners();
+            
+            // Salvamos as escalas no alvo para atualizar no resize
+            alvo.escalaNormal = escalaNormal;
+            alvo.escalaPassar = escalaPassar;
 
             alvo.on("pointerover", () => {
-                this.tweens.add({ targets: alvo, scaleX: escalaPassar, scaleY: escalaPassar, duration: 200 });
+                this.tweens.add({ targets: alvo, scaleX: alvo.escalaPassar, scaleY: alvo.escalaPassar, duration: 200 });
             });
 
             alvo.on("pointerdown", () => {
-                this.tweens.add({ targets: alvo, scaleX: escalaNormal * 0.9, scaleY: escalaNormal * 0.9, duration: 150, yoyo: true });
+                this.tweens.add({ targets: alvo, scaleX: alvo.escalaNormal * 0.9, scaleY: alvo.escalaNormal * 0.9, duration: 150, yoyo: true });
             });
 
             alvo.on("pointerout", () => {
-                this.tweens.add({ targets: alvo, scaleX: escalaNormal, scaleY: escalaNormal, duration: 200 });
+                this.tweens.add({ targets: alvo, scaleX: alvo.escalaNormal, scaleY: alvo.escalaNormal, duration: 200 });
             });
         }; 
 
-        // Fundo
+        // ==========================================
+        // ELEMENTOS E POSIÇÕES
+        // ==========================================
         this.fundo = this.add.image(largura / 2, altura / 2, "bgLimpo")
             .setDisplaySize(largura, altura)
             .setDepth(-1);
 
-        // Botão voltar
         this.botaoVoltar = criarBotao(
-            this.scale.width*0.95, this.scale.height*0.9, "iconeVoltar", "iconeVoltar",
-            1.5, 1.6, 1.4,
+            largura * 0.95, altura * 0.9, "iconeVoltar", "iconeVoltar",
+            0.8, 1, 0.6,
             () => this.transicaoPara("cenaComida")
         );
 
-        // Adiciona as moedas do jogador em tempo real
-        this.add.image(
-            this.scale.width*0.95, 
-            this.scale.height*0.06,
-           "cobasiCoin").setScale(0.7);
+        this.iconeMoeda = this.add.image(largura * 0.93, altura * 0.06, "cobasiCoin").setScale(0.6);
 
-        this.add.text(
-            this.scale.width*0.97, 
-            this.scale.height*0.06, 
-            gameState.cobasiCoins,
-            {
-                fontSize: "20px",
-                color: "#ffffff",
-                fontFamily: '"Press Start 2P"',
-                align: "center"
-            }).setOrigin(0.5);  
+        this.textoMoedas = this.add.text(largura * 0.94, altura * 0.06, gameState.cobasiCoins, {
+            fontSize: "20px", color: "#ffffff", fontFamily: '"Press Start 2P"', align: "center"
+        }).setOrigin(0.5);  
         
-        // Adiciona a ficha de informações do cachorro
-        gameState.bilhete = this.add.image(
-            this.scale.width*0.95,
-            this.scale.height*0.3,
-            'mineFicha')
-        .setScale(0.15)
-        .setInteractive({ useHandCursor:true });
-        passarPressionarEfeito(gameState.bilhete, 0.15, 0.18);
+        gameState.bilhete = this.add.image(largura * 0.94, altura * 0.3, 'mineFicha')
+            .setScale(0.12)
+            .setInteractive({ useHandCursor:true });
+        passarPressionarEfeito(gameState.bilhete, 0.12, 0.14);
 
         gameState.bilhete.on('pointerdown', () => {
             if(this.scene.isActive('ficha')){
-                this.scene.stop('ficha')
-            } 
-            else{
-                this.scene.launch('ficha')
+                this.scene.stop('ficha');
+            } else {
+                this.scene.launch('ficha');
             }
         });
-
-        // ==========================================
-        // COLUNA ESQUERDA (Botões, Estante e Rações)
-        // ==========================================
 
         this.botaoStandard = criarBotao(
             largura * 0.20, altura * 0.15,
@@ -131,14 +129,11 @@ export class cenaRacaoStandart extends Phaser.Scene {
             () => this.scene.start("cenaRacaoSuperPremium")
         );
 
-        this.estante = this.add.image(centroEsquerdaX, altura * 0.6, "estanteVazia")
-            .setScale(1)
-            .setDepth(-1);
+        this.estante = this.add.image(centroEsquerdaX, altura * 0.6, "estanteVazia").setScale(1).setDepth(-1);
 
         const colunasRacao = [largura * 0.18, largura * 0.30, largura * 0.42];
         const linhasRacao = [altura * 0.37, altura * 0.605, altura * 0.845];
 
-        // Grupo Standard (Visível)
         this.racoesStandard = [
             new Racao(this, colunasRacao[0], linhasRacao[0], standartGrandeFilhote),
             new Racao(this, colunasRacao[1], linhasRacao[0], standartGrandeAdulto),
@@ -151,35 +146,45 @@ export class cenaRacaoStandart extends Phaser.Scene {
             new Racao(this, colunasRacao[2], linhasRacao[2], standartPequenaSenior),
         ];
         
-        this.racoesStandard.forEach(r => {
-            r.sprite.setScale(0.3);
-            r.sprite.setVisible(true);
-        });
-
-        // ==========================================
-        // COLUNA DIREITA (Popup, Preço e Botão Comprar)
-        // ==========================================
-
         this.fundoTemplateRacao = this.add.image(centroDireitaX, altura * 0.56, "fundoTemplateRacao")
             .setScale(altura * 0.00075);
 
         this.containerTexto = this.add.container(centroDireitaX, altura * 0.55);
 
-        const titulo = this.add.text(0, -altura*0.15, "Compre sua ração!", {
+        this.titulo = this.add.text(0, -altura*0.15, "Compre sua ração!", {
             fontSize: "22px", color: "#000", fontFamily: '"Press Start 2P"', align: "center"
         }).setScale(altura*0.00125).setOrigin(0.5);
 
-        const subtitulo = this.add.text(0, altura*0.02, "Escolha o tipo de\n\nração ideal para seu\n\npet entre Super\n\nPremium e Standard", {
+        this.subtitulo = this.add.text(0, altura*0.02, "Escolha o tipo de\n\nração ideal para seu\n\npet entre Super\n\nPremium e Standard", {
             fontSize: "18px", color: "#000", fontFamily: '"Press Start 2P"', align: "center", wordWrap: { width: 450 }
         }).setScale(altura*0.0013).setOrigin(0.5);
 
-        this.containerTexto.add([titulo, subtitulo]);
+        this.containerTexto.add([this.titulo, this.subtitulo]);
+
+        this.textoFeedback = this.add.text(centroDireitaX, altura * 0.93, "", {
+            fontSize: "14px", color: "#ff0000", fontFamily: '"Press Start 2P"', align: "center", wordWrap: { width: 350 }
+        }).setOrigin(0.5);
 
         this.botaoComprarStandard = criarBotao(
-            centroDireitaX, altura * 0.85, 
+            centroDireitaX, altura * 0.75, 
             "botaoComprarStandard", "botaoComprarStandardPressionado",
-            0.35, 0.4, 0.30,
-            () => this.executarCompra()
+            0.15, 0.16, 0.14,
+            () => {
+                if (!Racao.selecionada) {
+                    this.textoFeedback.setText("SELECIONE UMA RAÇÃO PRIMEIRO!").setColor("#ff0000");
+                    return;
+                }
+                if (Racao.selecionada.id === pet.id) {
+                    this.textoFeedback.setText("ACERTOU! ESSA É A RAÇÃO IDEAL!\nRedirecionando...").setColor("#006600");
+                    this.botaoComprarStandard.disableInteractive();
+                    this.time.delayedCall(1500, () => {
+                        Racao.selecionada = null; 
+                        this.transicaoPara("jogoAlimentacao"); 
+                    });
+                } else {
+                    this.textoFeedback.setText("ESSA RAÇÃO NÃO É IDEAL.\nESCOLHA OUTRA RAÇÃO.").setColor("#ff0000");
+                }
+            }
         ).setVisible(false).setAlpha(0);
 
         this.containerInfo = this.add.container(centroDireitaX, altura * 0.47)
@@ -206,22 +211,22 @@ export class cenaRacaoStandart extends Phaser.Scene {
             this.textoChar1, this.textoChar2, this.textoTrigo, this.textoCarne, this.textoOsso, this.textoGordura
         ]);
 
-        // ==========================================
-        // INTERAÇÕES E RESIZE
-        // ==========================================
-
         this.racoesStandard.forEach((racao) => {
-            racao.sprite.setInteractive({ useHandCursor: true });
+            // Propriedades dinâmicas para a ração
+            racao.sprite.escalaNormal = 0.3;
+            racao.sprite.escalaHover = 0.32;
 
-            racao.sprite.on("pointerover", () => this.tweens.add({ targets: racao.sprite, scale: 0.32, duration: 100, ease: "Power2" }));
-            racao.sprite.on("pointerout", () => this.tweens.add({ targets: racao.sprite, scale: 0.3, duration: 100, ease: "Power2" }));
+            racao.sprite.setScale(racao.sprite.escalaNormal).setVisible(true).setInteractive({ useHandCursor: true });
+            
+            racao.sprite.on("pointerover", () => this.tweens.add({ targets: racao.sprite, scale: racao.sprite.escalaHover, duration: 100, ease: "Power2" }));
+            racao.sprite.on("pointerout", () => this.tweens.add({ targets: racao.sprite, scale: racao.sprite.escalaNormal, duration: 100, ease: "Power2" }));
 
             racao.sprite.on("pointerup", () => {
+                Racao.selecionada = racao; 
                 this.tweens.add({
                     targets: this.containerTexto, alpha: 0, duration: 200, ease: "Power2",
                     onComplete: () => this.containerTexto.setVisible(false)
                 });
-
                 this.textoTipo.setText(racao.tipo || "Standard");
                 this.textoPorte.setText(racao.porte || "-");
                 this.textoIdade.setText(racao.idade || "-");
@@ -233,25 +238,19 @@ export class cenaRacaoStandart extends Phaser.Scene {
                 this.textoGordura.setText(racao.nutrientes ? racao.nutrientes.gordura : "");
                 this.imagemRacaoInfo.setTexture(racao.sprite.texture.key);
 
-                // ATUALIZANDO O PREÇO NA TELA (NOVO)
-                const valorAtual = racao.valor || 15;
-                this.textoPreco.setText(`PREÇO: ${valorAtual} MOEDAS`);
+                if (this.textoFeedback) this.textoFeedback.setText("");
 
                 this.composicaoRacao.setVisible(true);
-                
                 this.containerInfo.setAlpha(0).setVisible(true);
                 this.botaoComprarStandard.setVisible(true);
                 
-                // INCLUINDO textoPreco NO TWEEN (NOVO)
-                this.tweens.add({ 
-                    targets: [this.containerInfo, this.botaoComprarStandard], 
-                    alpha: 1, 
-                    duration: 250, 
-                    ease: "Power2" 
-                });
+                this.tweens.add({ targets: [this.containerInfo, this.botaoComprarStandard], alpha: 1, duration: 250, ease: "Power2" });
             });
         });
 
+        // ==========================================
+        // RESIZE: REPOSICIONAMENTO E ATUALIZAÇÃO TOTAL DAS ESCALAS
+        // ==========================================
         this.scale.on("resize", (gameSize) => {
             const w = gameSize.width;
             const h = gameSize.height;
@@ -259,25 +258,71 @@ export class cenaRacaoStandart extends Phaser.Scene {
             this.cameras.resize(w, h);
             this.fundo.setDisplaySize(w, h).setPosition(w / 2, h / 2);
             
-            this.textoMoedas.setPosition(w * 0.95, h * 0.05); // Reposiciona HUD
-            this.estante.setPosition(w * 0.30, h * 0.6);
-            this.botaoStandard.setPosition(w * 0.20, h * 0.15);
-            this.botaoSuperPremium.setPosition(w * 0.40, h * 0.15);
+            // Botão Voltar (Atualiza as variáveis de hover/press dinamicamente)
+            this.botaoVoltar.setPosition(w * 0.95, h * 0.9);
+            this.botaoVoltar.escalaNormal = h * 0.0013; // aprox 0.8
+            this.botaoVoltar.escalaHover = h * 0.0016;  // aprox 1
+            this.botaoVoltar.escalaPress = h * 0.0010;  // aprox 0.6
+            this.botaoVoltar.setScale(this.botaoVoltar.escalaNormal);
 
-            this.fundoTemplateRacao.setPosition(w * 0.70, h * 0.56).setScale(h * 0.00065);
+            this.iconeMoeda.setPosition(w * 0.93, h * 0.06).setScale(h * 0.001); 
+            
+            if (this.textoMoedas) {
+                this.textoMoedas.setPosition(w * 0.94, h * 0.06).setScale(h * 0.0015);
+            }
+
+            // Bilhete
+            if (gameState.bilhete) {
+                gameState.bilhete.setPosition(w * 0.94, h * 0.3);
+                gameState.bilhete.escalaNormal = h * 0.0002;  // aprox 0.12
+                gameState.bilhete.escalaPassar = h * 0.00023; // aprox 0.14
+                gameState.bilhete.setScale(gameState.bilhete.escalaNormal);
+            }
+
+            // Botões de Categoria
+            this.botaoStandard.setPosition(w * 0.20, h * 0.15);
+            this.botaoStandard.escalaNormal = h * 0.00058; // aprox 0.35
+            this.botaoStandard.escalaHover = h * 0.00066;  // aprox 0.4
+            this.botaoStandard.escalaPress = h * 0.0005;   // aprox 0.3
+            this.botaoStandard.setScale(this.botaoStandard.escalaNormal);
+
+            this.botaoSuperPremium.setPosition(w * 0.40, h * 0.155);
+            this.botaoSuperPremium.escalaNormal = h * 0.00058;
+            this.botaoSuperPremium.escalaHover = h * 0.00066;
+            this.botaoSuperPremium.escalaPress = h * 0.0005;
+            this.botaoSuperPremium.setScale(this.botaoSuperPremium.escalaNormal);
+
+            this.estante.setPosition(w * 0.30, h * 0.6).setScale(h * 0.0016);
+
+            this.fundoTemplateRacao.setPosition(w * 0.70, h * 0.56).setScale(h * 0.00075);
             this.containerTexto.setPosition(w * 0.70, h * 0.55);
             
+            this.titulo.setPosition(0, -h * 0.15).setScale(h * 0.00125);
+            this.subtitulo.setPosition(0, h * 0.02).setScale(h * 0.0013);
+
             this.containerInfo.setPosition(w * 0.70, h * 0.47).setScale(h * 0.0009);
-            this.botaoComprarStandard.setPosition(w * 0.70, h * 0.85);
+            
+            // Botão Comprar (usando seus valores 0.15, 0.16, 0.14 do último código)
+            this.botaoComprarStandard.setPosition(w * 0.70, h * 0.75);
+            this.botaoComprarStandard.escalaNormal = h * 0.00025; // 0.15
+            this.botaoComprarStandard.escalaHover = h * 0.00026;  // 0.16
+            this.botaoComprarStandard.escalaPress = h * 0.00023;  // 0.14
+            this.botaoComprarStandard.setScale(this.botaoComprarStandard.escalaNormal);
+
+            this.textoFeedback.setPosition(w * 0.70, h * 0.93).setScale(h * 0.001);
 
             const novasColunas = [w * 0.18, w * 0.30, w * 0.42];
             const novasLinhas = [h * 0.37, h * 0.605, h * 0.845];
             
+            // Atualização dinâmica também para as Rações na Estante
             let index = 0;
             for (let i = 0; i < 3; i++) { 
                 for (let j = 0; j < 3; j++) { 
                     if(this.racoesStandard[index]) {
                         this.racoesStandard[index].sprite.setPosition(novasColunas[j], novasLinhas[i]);
+                        this.racoesStandard[index].sprite.escalaNormal = h * 0.0005;  // 0.3
+                        this.racoesStandard[index].sprite.escalaHover = h * 0.00053; // 0.32
+                        this.racoesStandard[index].sprite.setScale(this.racoesStandard[index].sprite.escalaNormal);
                     }
                     index++;
                 }
@@ -285,67 +330,13 @@ export class cenaRacaoStandart extends Phaser.Scene {
         });
     }
 
-    // ==========================================
-    // LÓGICA DE COMPRA
-    // ==========================================
-    executarCompra() {
-        const selecionada = Racao.selecionada;
-
-        if (!selecionada) {
-            console.log("Nenhuma ração selecionada!");
-            return;
-        }
-
-        const valorDaRacao = selecionada.valor || 15;
-
-        if (gameState.cobasiCoins >= valorDaRacao) {
-            gameState.cobasiCoins -= valorDaRacao;
-            console.log(`Compra efetuada! Saldo restante: ${gameState.cobasiCoins}`);
-            
-            // ATUALIZA O HUD DE MOEDAS APÓS COMPRA BEM SUCEDIDA (NOVO)
-            this.textoMoedas.setText(`MOEDAS: ${gameState.cobasiCoins}`);
-
-            this.exibirFeedbackCompra(true, valorDaRacao);
-            
-        } else {
-            console.log("Saldo insuficiente para comprar a ração.");
-            this.exibirFeedbackCompra(false, valorDaRacao);
-        }
-    }
-
-    exibirFeedbackCompra(sucesso, valor) {
-        const cor = sucesso ? "#009900" : "#ff0000";
-        const msg = sucesso ? `- ${valor} MOEDAS` : "SALDO INSUFICIENTE";
-        
-        const feedback = this.add.text(this.scale.width * 0.70, this.scale.height * 0.85, msg, {
-            fontFamily: '"Press Start 2P"',
-            fontSize: "20px",
-            color: cor,
-            stroke: "#ffffff",
-            strokeThickness: 4
-        }).setOrigin(0.5);
-
-        this.tweens.add({
-            targets: feedback,
-            y: feedback.y - 50,
-            alpha: 0,
-            duration: 1500,
-            ease: "Power2",
-            onComplete: () => feedback.destroy()
-        });
-    }
-
-    // Transição do botão comprar para cena do mini game de alimentação
     transicaoPara(chaveCena) {
         if (this.transicao) return;
-
         this.transicao = true;
         this.cameras.main.fadeOut(300, 0, 0, 0);
         this.cameras.main.once("camerafadeoutcomplete", () => {
-            if (this.scene.isActive("ficha")) {
-                this.scene.stop("ficha");
-            }
+            if (this.scene.isActive("ficha")) this.scene.stop("ficha");
             this.scene.start(chaveCena);
         });
-    };
+    }
 }
