@@ -1,5 +1,6 @@
 import { Cachorro } from "./cachorro.js"
 import { gameState } from "../../main.js"
+import { cachorrosBase } from "./cachorrosBase.js"
 
 export class GerenciadorCachorros {
   constructor(scene) {
@@ -51,6 +52,8 @@ export class GerenciadorCachorros {
     gameState.pulga = true
     
     if (this.cachorroAtual) {
+      // Atualiza os dados para o Herói
+      this.cachorroAtual.dados = { ...cachorrosBase[1] }
       this.cachorroAtual.mudarSprite("cachorroHeroi")
     }
   }
@@ -60,6 +63,8 @@ export class GerenciadorCachorros {
     gameState.pets.cachorroHeroi = false
     
     if (this.cachorroAtual) {
+      // Atualiza os dados para o Caramelo
+      this.cachorroAtual.dados = { ...cachorrosBase[0] }
       this.cachorroAtual.mudarSprite("cachorroCaramelo")
     }
   }
