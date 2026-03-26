@@ -21,6 +21,7 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
     constructor() {
         super({ key: "cenaRacaoSuperPremium" });
         this.transicao = false;
+        this.duracaoFade = 250;
     }
 
     create() {
@@ -72,8 +73,6 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
         };
 
         const passarPressionarEfeito = (alvo, escalaNormal, escalaPassar) => {
-            alvo.removeAllListeners();
-            
             // Salvamos as escalas no alvo para atualizar no resize
             alvo.escalaNormal = escalaNormal;
             alvo.escalaPassar = escalaPassar;
@@ -89,7 +88,17 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
             alvo.on("pointerout", () => {
                 this.tweens.add({ targets: alvo, scaleX: alvo.escalaNormal, scaleY: alvo.escalaNormal, duration: 200 });
             });
-        }; 
+        };
+
+        const alternarFicha = () => {
+            if (this.scene.isActive("ficha")) {
+                this.scene.stop("ficha");
+                return;
+            }
+
+            this.scene.launch("ficha");
+            this.scene.bringToTop("ficha");
+        };
 
         // ==========================================
         // ELEMENTOS E POSIÇÕES
@@ -100,7 +109,7 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
             .setDepth(-1);
 
         this.cameras.main.setBounds(0, 0, largura, altura);
-        this.cameras.main.fadeIn(200, 0, 0, 0);
+        this.cameras.main.fadeIn(this.duracaoFade, 0, 0, 0);
 
         this.botaoVoltar = criarBotao(
             largura * 0.95, altura * 0.9, "iconeVoltar", "iconeVoltar",
@@ -117,6 +126,7 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
         // Adiciona a ficha de informações do cachorro
         gameState.bilhete = this.add.image(largura * 0.94, altura * 0.3, 'mineFicha')
             .setScale(0.12)
+            .setDepth(20)
             .setInteractive({ useHandCursor:true });
         
         // Salva as escalas para responsividade
@@ -125,19 +135,13 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
         
         passarPressionarEfeito(gameState.bilhete, 0.12, 0.14);
 
-        gameState.bilhete.on('pointerdown', () => {
-            if (this.scene.isActive('ficha')) {
-                this.scene.stop('ficha');
-            } else {
-                this.scene.launch('ficha');
-            }
-        });
+        gameState.bilhete.on("pointerup", alternarFicha);
 
         this.botaoStandard = criarBotao(
             largura * 0.20, altura * 0.15,
             "botaoStandard", "botaoStandardPressionado",
             0.35, 0.4, 0.30,
-            () => this.scene.start("cenaRacaoStandart")
+            () => this.transicaoPara("cenaRacaoStandart")
         );
 
         this.botaoSuperPremium = criarBotao(
@@ -388,7 +392,7 @@ export class cenaRacaoSuperPremium extends Phaser.Scene {
         if (this.transicao) return;
 
         this.transicao = true;
-        this.cameras.main.fadeOut(300, 0, 0, 0);
+        this.cameras.main.fadeOut(this.duracaoFade, 0, 0, 0);
         this.cameras.main.once("camerafadeoutcomplete", () => {
             if (this.scene.isActive("ficha")) {
                 this.scene.stop("ficha");
