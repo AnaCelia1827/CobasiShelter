@@ -51,8 +51,8 @@ export class cenaConfiguracoes extends Phaser.Scene {
         // Este botão encerra apenas a cena de configurações e retorna à
         // cenaInicial que estava rodando por baixo, sem reiniciá-la.
         const botaoFechar = this.add.image(
-            this.scale.width / 2 + 260,
-            this.scale.height / 2 - 320,
+            this.scale.width / 2 + 65,
+            this.scale.height / 2 - 145,
             "retornoInicio"
         )
             .setScale(0.3)
