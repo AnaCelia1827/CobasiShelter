@@ -4,544 +4,583 @@ import { cachorrosBase } from "../componentes/controleCachorro/cachorrosBase.js"
 import { GerenciadorCachorros } from "../componentes/controleCachorro/gerenciadorCachorros.js";
 
 export class cenaBanho extends Phaser.Scene {
-    constructor() {
-        super({ key: "cenaBanho" });
+    constructor() {
+        super({ key: "cenaBanho" });
 
-        // Variáveis de controle do banho
-        this.ferramentaAtiva = null;
-        this.acumuladorAgua = 0;
-        this.tempoSecando = 0;
-        this.quantidadeEspuma = 0;
-        this.limiteMovimento = 30;
-        this.ultimoX = 0;
-        this.ultimoY = 0;
-        
-        this.estadoCachorro = cachorrosBase[0]?.estado || "sujo";
-        this.gerenciadorCachorros = null;
-        this.cachorro = null;
-    }
+        // Variáveis de controle do banho
+        this.ferramentaAtiva = null;
+        this.acumuladorAgua = 0;
+        this.tempoSecando = 0;
+        this.quantidadeEspuma = 0;
+        this.limiteMovimento = 30;
+        this.ultimoX = 0;
+        this.ultimoY = 0;
+        
+        this.estadoCachorro = "sujo"; // atualizado no create() com o pet correto
+        this.gerenciadorCachorros = null;
+        this.cachorro = null;
+    }
 
-    create() {
-        // ================= SETUP DO HUD =================
-        if (!this.scene.isActive("HUD")) {
-            this.scene.launch("HUD");
-        } else if (this.scene.isSleeping("HUD")) {
-            this.scene.wake("HUD");
-        }
-        this.scene.bringToTop("HUD");
-        
-        // ================= RESET GERAL =================
-        this.ferramentaAtiva = null;
-        this.acumuladorAgua = 0;
-        this.tempoSecando = 0;
-        this.quantidadeEspuma = 0;
-        this.estadoCachorro = cachorrosBase[0]?.estado || "sujo";
-        cachorrosBase[0].estado = this.estadoCachorro;
+    create() {
+        // ================= SETUP DO HUD =================
+        if (!this.scene.isActive("HUD")) {
+            this.scene.launch("HUD");
+        } else if (this.scene.isSleeping("HUD")) {
+            this.scene.wake("HUD");
+        }
+        this.scene.bringToTop("HUD");
+        
+        // ================= RESET GERAL =================
+        this.ferramentaAtiva = null;
+        this.acumuladorAgua = 0;
+        this.tempoSecando = 0;
+        this.quantidadeEspuma = 0;
 
-        // Fundo
-        gameState.banheiro = this.add.image(0, 0, "bgBanheiro").setOrigin(0.5);
+        // Determina qual cachorro está ativo no gameState
+        const indiceAtivo = gameState.pets.cachorroHeroi ? 1 : 0;
+        this.estadoCachorro = cachorrosBase[indiceAtivo]?.estado || "sujo";
+        cachorrosBase[indiceAtivo].estado = this.estadoCachorro;
 
-        // ================= CACHORRO E PULGAS =================
-        this.gerenciadorCachorros = new GerenciadorCachorros(this);
-        this.cachorro = this.gerenciadorCachorros.criarCachorro(0, 0, cachorrosBase[0]);
+        // Fundo
+        gameState.banheiro = this.add.image(0, 0, "bgBanheiro").setOrigin(0.5);
 
-        const elementosContainer = [this.cachorro.sprite];
+        // ================= CACHORRO E PULGAS =================
+        this.gerenciadorCachorros = new GerenciadorCachorros(this);
+        this.cachorro = this.gerenciadorCachorros.criarCachorro(0, 0, cachorrosBase[indiceAtivo]);
 
-        // Animação das Pulgas
-        if (!this.anims.exists("pulgaAnim")) {
-            this.anims.create({
-                key: "pulgaAnim",
-                frames: this.anims.generateFrameNumbers("pulgas", { start: 0, end: 1 }), 
-                frameRate: 1,  
-                repeat: -1     
-            });
-        }
+        const elementosContainer = [this.cachorro.sprite];
 
-        this.pulgas = this.add.sprite(0, 0, "pulgas").setOrigin(0.5);
-        this.pulgas.play("pulgaAnim");
-        this.pulgas.setVisible(gameState.pulga); 
-        elementosContainer.push(this.pulgas); 
+        // Animação das Pulgas
+        if (!this.anims.exists("pulgaAnim")) {
+            this.anims.create({
+                key: "pulgaAnim",
+                frames: this.anims.generateFrameNumbers("pulgas", { start: 0, end: 1 }), 
+                frameRate: 1,  
+                repeat: -1     
+            });
+        }
 
-        // Container agrupando cachorro e pulgas
-        this.containerCachorro = this.add.container(0, 0, elementosContainer);
+        this.pulgas = this.add.sprite(0, 0, "pulgas").setOrigin(0.5);
+        this.pulgas.play("pulgaAnim");
+        this.pulgas.setVisible(gameState.pulga); 
+        elementosContainer.push(this.pulgas); 
 
-        // Física do Cachorro
-        this.physics.add.existing(this.cachorro.sprite);
-        this.cachorro.sprite.body.setAllowGravity(false);
-        this.cachorro.sprite.body.immovable = true;
-        gameState.cachorro = this.cachorro.sprite;
+        // Container agrupando cachorro e pulgas
+        this.containerCachorro = this.add.container(0, 0, elementosContainer);
 
-        this.atualizarEstadoCachorroAnimacao();
+        // Física do Cachorro
+        this.physics.add.existing(this.cachorro.sprite);
+        this.cachorro.sprite.body.setAllowGravity(false);
+        this.cachorro.sprite.body.immovable = true;
+        gameState.cachorro = this.cachorro.sprite;
 
-        // ================= FERRAMENTAS =================
-        gameState.sabao = this.add.follower(new Phaser.Curves.Path(0, 0), 0, 0, "sabao")
-            .setInteractive({ useHandCursor: true }).setDepth(3);
-        
-        gameState.chuveiro = this.add.follower(new Phaser.Curves.Path(0, 0), 0, 0, "chuveiro")
-            .setInteractive({ useHandCursor: true }).setDepth(3);
-        
-        gameState.toalha = this.add.follower(new Phaser.Curves.Path(0, 0), 0, 0, "toalha")
-            .setInteractive({ useHandCursor: true }).setDepth(3);
+        this.atualizarEstadoCachorroAnimacao();
 
-        this.physics.add.existing(gameState.sabao);
-        this.physics.add.existing(gameState.chuveiro);
-        this.physics.add.existing(gameState.toalha);
+        // ================= FERRAMENTAS =================
+        gameState.sabao = this.add.follower(new Phaser.Curves.Path(0, 0), 0, 0, "sabao")
+            .setInteractive({ useHandCursor: true }).setDepth(3);
+        
+        gameState.chuveiro = this.add.follower(new Phaser.Curves.Path(0, 0), 0, 0, "chuveiro")
+            .setInteractive({ useHandCursor: true }).setDepth(3);
+        
+        gameState.toalha = this.add.follower(new Phaser.Curves.Path(0, 0), 0, 0, "toalha")
+            .setInteractive({ useHandCursor: true }).setDepth(3);
 
-        // ================= FÍSICA E PARTÍCULAS =================
-        gameState.bolhas = this.physics.add.group({ maxSize: 80 });
-        gameState.gotas = this.physics.add.group({ maxSize: 160 });
+        this.physics.add.existing(gameState.sabao);
+        this.physics.add.existing(gameState.chuveiro);
+        this.physics.add.existing(gameState.toalha);
 
-        this.physics.add.overlap(gameState.gotas, gameState.bolhas, (gota, bolha) => {
-            this.reciclarObjeto(bolha);
-            if (this.ferramentaAtiva === "chuveiro") {
-                this.quantidadeEspuma = Math.max(0, this.quantidadeEspuma - 1);
-            }
-        });
+        // ================= FÍSICA E PARTÍCULAS =================
+        gameState.bolhas = this.physics.add.group({ maxSize: 80 });
+        gameState.gotas = this.physics.add.group({ maxSize: 160 });
 
-        // Eventos de clique nas ferramentas
-        gameState.sabao.on("pointerdown", () => this.alternarFerramenta("sabao"));
-        gameState.chuveiro.on("pointerdown", () => this.alternarFerramenta("chuveiro"));
-        gameState.toalha.on("pointerdown", () => this.alternarFerramenta("toalha"));
+        this.physics.add.overlap(gameState.gotas, gameState.bolhas, (gota, bolha) => {
+            this.reciclarObjeto(bolha);
+            if (this.ferramentaAtiva === "chuveiro") {
+                this.quantidadeEspuma = Math.max(0, this.quantidadeEspuma - 1);
+            }
+        });
 
-        this.criarAnimacoes();
+        // Eventos de clique nas ferramentas
+        gameState.sabao.on("pointerdown", () => this.alternarFerramenta("sabao"));
+        gameState.chuveiro.on("pointerdown", () => this.alternarFerramenta("chuveiro"));
+        gameState.toalha.on("pointerdown", () => this.alternarFerramenta("toalha"));
 
-        // ================= RESPONSIVIDADE =================
-        this.reposicionarElementos(this.scale.width, this.scale.height);
+        this.criarAnimacoes();
 
-        this.scale.on("resize", (gameSize) => {
-            this.cameras.resize(gameSize.width, gameSize.height);
-            this.reposicionarElementos(gameSize.width, gameSize.height);
-        });
+        // ================= RESPONSIVIDADE =================
+        this.reposicionarElementos(this.scale.width, this.scale.height);
 
-        // ================= TELA DE INSTRUÇÕES =================
-        // Aparece apenas se ainda não foi vista
-        if (!gameState.instrucoesBanhoVistas) {
-            this.mostrarInstrucoes();
-        }
-    }
+        this.scale.on("resize", (gameSize) => {
+            this.cameras.resize(gameSize.width, gameSize.height);
+            this.reposicionarElementos(gameSize.width, gameSize.height);
+        });
 
-    // ========================================================
-    //                     MÉTODOS DE UPDATE
-    // ========================================================
+        // ================= TELA DE INSTRUÇÕES =================
+        // Aparece apenas se ainda não foi vista
+        if (!gameState.instrucoesBanhoVistas) {
+            this.mostrarInstrucoes();
+        }
+    }
 
-    update(tempo, delta) {
-        this.atualizarSabao();
-        this.atualizarChuveiro(delta);
-        this.atualizarToalha();
-        this.limparGotas();
+    // ========================================================
+    //                     MÉTODOS DE UPDATE
+    // ========================================================
 
-        // Verifica troca de cachorro pelo HUD
-        if (gameState.trocar) {
-            this.gerenciadorCachorros.mudarParaCachorroHeroi();
-        }
+    update(tempo, delta) {
+        this.atualizarSabao();
+        this.atualizarChuveiro(delta);
+        this.atualizarToalha();
+        this.limparGotas();
 
-        // Visibilidade dinâmica da pulga
-        if (this.pulgas) {
-            this.pulgas.setVisible(gameState.pulga);
-        }
+        // Verifica troca de cachorro pelo HUD
+        if (gameState.trocar) {
+            this.cachorro = this.gerenciadorCachorros.cachorroAtual;
+            gameState.cachorro = this.cachorro.sprite;
 
-        // Lógica de progressão do banho
-        if (this.estadoCachorro === "sujo" && this.quantidadeEspuma >= 50) {
-            this.estadoCachorro = "ensaboado";
-            this.atualizarEstadoCachorroAnimacao();
-            this.cameras.main.flash(200, 255, 255, 255); 
-            this.animarCachorro(); 
-            this.mostrarTextoFlutuante("Pronto!\nUse o chuveiro.", this.containerCachorro.x, this.containerCachorro.y - 150, "#88ff88");
-            
-            this.animarFerramenta(gameState.sabao, false);
-            this.retornarPosicaoInicial("sabao");
-            this.ferramentaAtiva = null; 
-        }
-
-        if (this.estadoCachorro === "lavando" && this.quantidadeEspuma <= 0) {
-            this.estadoCachorro = "molhado";
-            this.atualizarEstadoCachorroAnimacao();
-            
-            gameState.bolhas.children.iterate((bolha) => {
-                if (bolha && bolha.active) this.reciclarObjeto(bolha);
-            });
-
-            this.animarCachorro(); 
-            this.mostrarTextoFlutuante("Agora use\na toalha!", this.containerCachorro.x, this.containerCachorro.y - 150, "#88ff88");
-            
-            this.animarFerramenta(gameState.chuveiro, false);
-            this.retornarPosicaoInicial("chuveiro");
-            this.ferramentaAtiva = null;
-        }
-    }
-
-    // ========================================================
-    //                LÓGICA DAS FERRAMENTAS
-    // ========================================================
-
-    atualizarSabao() {
-        if (this.ferramentaAtiva !== "sabao") return;
-
-        this.ultimoX = gameState.sabao.x;
-        this.ultimoY = gameState.sabao.y;
-
-        gameState.sabao.x = this.input.activePointer.x;
-        gameState.sabao.y = this.input.activePointer.y;
-        gameState.sabao.body.reset(this.input.activePointer.x, this.input.activePointer.y);
-
-        const moveu = Math.abs(gameState.sabao.x - this.ultimoX) > this.limiteMovimento || Math.abs(gameState.sabao.y - this.ultimoY) > this.limiteMovimento;
-        const estaNoCachorro = Phaser.Math.Distance.Between(gameState.sabao.x, gameState.sabao.y, this.containerCachorro.x, this.containerCachorro.y) < 150;
-
-        if (estaNoCachorro && this.estadoCachorro === "sujo" && this.quantidadeEspuma < 50 && moveu) {
-            this.criarBolha();
-        }
-    }
-
-    atualizarChuveiro(delta) {
-        if (this.ferramentaAtiva !== "chuveiro") {
+            // Reseta o estado do banho para o novo cachorro
+            this.estadoCachorro = "sujo";
+            this.cachorro.dados.estado = "sujo";
+            this.quantidadeEspuma = 0;
             this.acumuladorAgua = 0;
-            return;
-        }
-
-        gameState.chuveiro.x = this.input.activePointer.x;
-        gameState.chuveiro.y = this.input.activePointer.y;
-        gameState.chuveiro.body.reset(this.input.activePointer.x, this.input.activePointer.y);
-
-        const estaNoCachorro = Phaser.Math.Distance.Between(gameState.chuveiro.x, gameState.chuveiro.y, this.containerCachorro.x, this.containerCachorro.y) < 150;
-
-        if (estaNoCachorro && this.estadoCachorro === "ensaboado") {
-            this.estadoCachorro = "lavando";
-            cachorrosBase[0].estado = "lavando";
-        }
-
-        if (this.estadoCachorro === "lavando" || this.estadoCachorro === "ensaboado") {
-            this.acumuladorAgua += delta;
-            if (this.acumuladorAgua >= 70) {
-                this.acumuladorAgua = 0;
-                this.criarGota();
-            }
-        }
-    }
-
-    atualizarToalha() {
-        if (this.ferramentaAtiva !== "toalha") {
             this.tempoSecando = 0;
-            return;
-        }
-
-        gameState.toalha.x = this.input.activePointer.x;
-        gameState.toalha.y = this.input.activePointer.y;
-        gameState.toalha.body.reset(this.input.activePointer.x, this.input.activePointer.y);
-
-        if (this.estadoCachorro !== "molhado") return;
-
-        const estaNoCachorro = Phaser.Math.Distance.Between(gameState.toalha.x, gameState.toalha.y, this.containerCachorro.x, this.containerCachorro.y) < 150;
-
-        if (estaNoCachorro) {
-            this.tempoSecando += 1;
-
-            if (this.tempoSecando >= 90) {
-                // ====== VITÓRIA ======
-                this.estadoCachorro = "limpo";
-                this.atualizarEstadoCachorroAnimacao();
-                this.animarCachorro(); 
-                this.criarExplosaoBrilhos(); 
-
-                gameState.barras.limpeza = 0; 
-                
-                if (!gameState.recompensas.banho) { 
-                    gameState.cobasiCoins += 20; 
-                    gameState.recompensas.banho = true; 
-                    this.mostrarTextoFlutuante("+20 Moedas!", this.containerCachorro.x, this.containerCachorro.y - 100, "#ffd700");
-                }
-
-                gameState.sabao.disableInteractive();
-                gameState.chuveiro.disableInteractive();
-                gameState.toalha.disableInteractive();
-                
-                this.animarFerramenta(gameState.toalha, false);
-                this.retornarPosicaoInicial("toalha");
-                this.ferramentaAtiva = null;
-                this.tempoSecando = 0;
-            }
-        } else {
-            this.tempoSecando = 0; 
-        }
-    }
-
-    alternarFerramenta(nomeFerramenta) {
-        if (nomeFerramenta === "chuveiro" && this.estadoCachorro !== "ensaboado" && this.estadoCachorro !== "lavando") {
-            this.mostrarTextoFlutuante("Ensaboe\nprimeiro!", gameState.chuveiro.x, gameState.chuveiro.y - 60, "#ff4444");
-            this.retornarPosicaoInicial(nomeFerramenta);
-            return;
-        }
-        if (nomeFerramenta === "toalha" && this.estadoCachorro !== "molhado") {
-            this.mostrarTextoFlutuante("Use o\nchuveiro!", gameState.toalha.x, gameState.toalha.y - 60, "#ff4444");
-            this.retornarPosicaoInicial(nomeFerramenta);
-            return;
-        }
-
-        if (this.ferramentaAtiva === nomeFerramenta) {
-            this.animarFerramenta(this.pegarFerramenta(nomeFerramenta), false);
-            this.retornarPosicaoInicial(nomeFerramenta);
             this.ferramentaAtiva = null;
-            return;
-        }
-        
-        if (this.ferramentaAtiva) {
-            this.animarFerramenta(this.pegarFerramenta(this.ferramentaAtiva), false);
-            this.retornarPosicaoInicial(this.ferramentaAtiva);
-        }
-        
-        this.ferramentaAtiva = nomeFerramenta;
-        this.animarFerramenta(this.pegarFerramenta(nomeFerramenta), true);
-    }
 
-    // ========================================================
-    //                EFEITOS E ANIMAÇÕES
-    // ========================================================
+            // Atualiza a animação do novo cachorro para o estado "sujo"
+            this.atualizarEstadoCachorroAnimacao();
 
-    criarBolha() {
-        const variacaoX = Phaser.Math.RND.between(-30, 30);
-        const variacaoY = Phaser.Math.RND.between(-30, 30);
-        const x = gameState.sabao.x + variacaoX;
-        const y = gameState.sabao.y + variacaoY;
-        
-        const bolha = gameState.bolhas.get(x, y, "bolhas");
-        if (!bolha) return;
-
-        bolha.setActive(true).setVisible(true);
-        bolha.setScale(0.13);
-        bolha.clearTint(); 
-        bolha.body.enable = true;
-        bolha.body.reset(x, y);
-        bolha.body.setSize(bolha.displayWidth, bolha.displayHeight, true);
-        
-        this.quantidadeEspuma += 1;
-    }
-
-    criarGota() {
-        const x = gameState.chuveiro.x;
-        const y = gameState.chuveiro.y + gameState.chuveiro.displayHeight / 2;
-        const gota = gameState.gotas.get(x, y, "agua");
-
-        if (!gota) return;
-
-        gota.setActive(true).setVisible(true);
-        gota.body.enable = true;
-        gota.body.reset(x, y);
-        gota.setScale(0.1);
-        gota.play("aguaAnim", true);
-        gota.body.setSize(gota.displayWidth, gota.displayHeight, true);
-        gota.body.setVelocityY(200); 
-    }
-
-    limparGotas() {
-        gameState.gotas.children.iterate((gota) => {
-            if (!gota || !gota.active) return;
-            if (gota.y > this.scale.height + 120) {
-                this.reciclarObjeto(gota);
+            // Atualiza o container para apontar para o novo sprite
+            if (this.containerCachorro) {
+                this.containerCachorro.removeAll(false);
+                this.containerCachorro.add(this.cachorro.sprite);
+                if (this.pulgas) this.containerCachorro.add(this.pulgas);
             }
-        });
-    }
 
-    reciclarObjeto(objeto) {
-        if (!objeto) return;
-        if (objeto.body) {
-            objeto.body.stop();
-            objeto.body.enable = false;
-        }
-        objeto.setActive(false).setVisible(false);
-        objeto.setPosition(-200, -200); 
-    }
+            // Reativar ferramentas
+            gameState.sabao.setInteractive({ useHandCursor: true });
+            gameState.chuveiro.setInteractive({ useHandCursor: true });
+            gameState.toalha.setInteractive({ useHandCursor: true });
 
-    criarAnimacoes() {
-        if (!this.anims.exists("aguaAnim")) {
-            this.anims.create({ key: "aguaAnim", frames: this.anims.generateFrameNumbers("agua", { start: 0, end: 5 }), frameRate: 8, repeat: -1 });
-        }
-    }
-
-    animarFerramenta(ferramenta, ativa) {
-        if (!ferramenta) return;
-        const escalaAlvo = ativa ? ferramenta.escalaOriginal * 1.1 : ferramenta.escalaOriginal;
-        this.tweens.add({
-            targets: ferramenta,
-            scale: escalaAlvo,
-            duration: 150,
-            ease: "Back.easeOut"
-        });
-    }
-
-    retornarPosicaoInicial(nomeFerramenta) {
-        const ferramenta = this.pegarFerramenta(nomeFerramenta);
-        const posicaoInicial = this.pegarPosicaoInicial(nomeFerramenta);
-        if (!ferramenta || !posicaoInicial) return;
-
-        if (ferramenta.stopFollow) ferramenta.stopFollow();
-        const caminho = new Phaser.Curves.Path(ferramenta.x, ferramenta.y);
-        caminho.lineTo(posicaoInicial.x, posicaoInicial.y);
-        ferramenta.setPath(caminho);
-        ferramenta.startFollow({ duration: 250, repeat: 0 });
-    }
-
-    mostrarTextoFlutuante(texto, x, y, cor = "#ffffff") {
-        const txt = this.add.text(x, y, texto, {
-            fontFamily: '"Press Start 2P"', 
-            fontSize: "28px",               
-            fill: cor,
-            stroke: "#000000",
-            strokeThickness: 5,
-            align: "center"
-        }).setOrigin(0.5).setDepth(10);
-
-        this.tweens.add({
-            targets: txt,
-            y: y - 100, 
-            alpha: 0,   
-            duration: 3000, 
-            ease: "Power1",
-            onComplete: () => txt.destroy() 
-        });
-    }
-
-    animarCachorro() {
-        const target = this.cachorro?.sprite || gameState.cachorro;
-        const escala = target?.escalaBase || 1;
-        this.tweens.add({
-            targets: target,
-            scaleY: escala * 0.85, 
-            scaleX: escala * 1.15, 
-            duration: 150,
-            yoyo: true, 
-            ease: "Quad.easeInOut"
-        });
-    }
-
-    atualizarEstadoCachorroAnimacao() {
-        if (!this.cachorro) return;
-        const estadoAnim = (this.estadoCachorro === "limpo") ? "limpo" : (this.estadoCachorro === "sujo") ? "sujo" : "ensaboado";
-        this.cachorro.mudarEstado(estadoAnim);
-        cachorrosBase[0].estado = this.estadoCachorro;
-        gameState.cachorro = this.cachorro.sprite;
-    }
-
-    criarExplosaoBrilhos() {
-        for (let i = 0; i < 25; i++) {
-            const x = gameState.cachorro.x + Phaser.Math.Between(-150, 150);
-            const y = gameState.cachorro.y + Phaser.Math.Between(-150, 150);
-            const brilho = this.add.image(x, y, "bolhas").setScale(0).setDepth(5);
-            brilho.setTint(0xffd700); 
-
-            this.tweens.add({
-                targets: brilho,
-                scale: Phaser.Math.FloatBetween(0.05, 0.15),
-                y: y - Phaser.Math.Between(50, 150),
-                alpha: 0,
-                duration: Phaser.Math.Between(1000, 2000),
-                ease: "Sine.easeOut",
-                onComplete: () => brilho.destroy()
-            });
-        }
-    }
-
-    // ========================================================
-    //             UTILITÁRIOS E LAYOUT (RESPONSIVO)
-    // ========================================================
-
-    pegarFerramenta(nomeFerramenta) {
-        if (nomeFerramenta === "sabao") return gameState.sabao;
-        if (nomeFerramenta === "chuveiro") return gameState.chuveiro;
-        if (nomeFerramenta === "toalha") return gameState.toalha;
-        return null;
-    }
-
-    pegarPosicaoInicial(nomeFerramenta) {
-        if (nomeFerramenta === "sabao") return this.posicaoInicialSabao;
-        if (nomeFerramenta === "chuveiro") return this.posicaoInicialChuveiro;
-        if (nomeFerramenta === "toalha") return this.posicaoInicialToalha;
-        return null;
-    }
-
-    reposicionarElementos(width, height) {
-        const areaUtilX = width * 0.8; 
-        const centroX = areaUtilX / 2;
-        const centroY = height / 2;
-        const escalaBase = Math.min(areaUtilX, height) * 0.0005;
-
-        // Fundo
-        if (gameState.banheiro) {
-            gameState.banheiro.setDisplaySize(areaUtilX, height);
-            gameState.banheiro.setPosition(centroX, centroY);
-        }
-
-        // Cachorro (Container)
-        if (this.containerCachorro) {
-            this.containerCachorro.setPosition(centroX, height * 0.6);
-            this.containerCachorro.setScale(escalaBase);
-            if (this.pulgas) this.pulgas.setScale(height * 0.0015); 
-        }
-
-        // Posições e escalas dinâmicas das ferramentas
-        const yFerramentas = height * 0.85;
-        this.posicaoInicialSabao = { x: centroX - (areaUtilX * 0.25), y: yFerramentas };
-        this.posicaoInicialChuveiro = { x: centroX, y: yFerramentas };
-        this.posicaoInicialToalha = { x: centroX + (areaUtilX * 0.25), y: yFerramentas };
-
-        const escalaReferencia = Math.min(areaUtilX, height) * 0.0004;
-        
-        const ajustarFerramenta = (ferramenta, proporcaoOrig, posInicial, nome) => {
-            if (ferramenta) {
-                ferramenta.escalaOriginal = escalaReferencia * proporcaoOrig;
-                if (this.ferramentaAtiva !== nome) {
-                    if (ferramenta.stopFollow) ferramenta.stopFollow();
-                    ferramenta.setPosition(posInicial.x, posInicial.y);
-                    ferramenta.setScale(ferramenta.escalaOriginal);
-                }
+            // Recriar física para o novo sprite (apenas se ainda não tem body)
+            if (!this.cachorro.sprite.body) {
+                this.physics.add.existing(this.cachorro.sprite);
             }
-        };
+            this.cachorro.sprite.body.setAllowGravity(false);
+            this.cachorro.sprite.body.immovable = true;
 
-        ajustarFerramenta(gameState.sabao, (0.12 / 0.25), this.posicaoInicialSabao, "sabao");
-        ajustarFerramenta(gameState.chuveiro, 1, this.posicaoInicialChuveiro, "chuveiro"); 
-        ajustarFerramenta(gameState.toalha, (0.2 / 0.25), this.posicaoInicialToalha, "toalha");
-    }
+            gameState.trocar = false;
+        }
 
-    // ========================================================
-    //                 TELA DE INSTRUÇÕES
-    // ========================================================
-    
-    mostrarInstrucoes() {
-        // Traz a cena de Lazer para cima do HUD temporariamente
-        this.scene.bringToTop();
 
-        // Centralizado na tela toda
-        const centroX = this.scale.width / 2;
-        const centroY = this.scale.height / 2;
 
-        const fundoEscuro = this.add.rectangle(centroX, centroY, 8000, 8000, 0x000000, 0.7)
-            .setDepth(100)
-            .setInteractive();
+        // Visibilidade dinâmica da pulga
+        if (this.pulgas) {
+            this.pulgas.setVisible(gameState.pulga);
+        }
 
-        const telaInstrucao = this.add.image(centroX, centroY, "instrucaoBanho")
-            .setDepth(101)
-            .setInteractive({ useHandCursor: true }); 
+        // Lógica de progressão do banho
+        if (this.estadoCachorro === "sujo" && this.quantidadeEspuma >= 50) {
+            this.estadoCachorro = "ensaboado";
+            this.atualizarEstadoCachorroAnimacao();
+            this.cameras.main.flash(200, 255, 255, 255); 
+            this.animarCachorro(); 
+            this.mostrarTextoFlutuante("Pronto!\nUse o chuveiro.", this.containerCachorro.x, this.containerCachorro.y - 150, "#88ff88");
+            
+            this.animarFerramenta(gameState.sabao, false);
+            this.retornarPosicaoInicial("sabao");
+            this.ferramentaAtiva = null; 
+        }
 
-        // Ajuste de tamanho da imagem proporcional à tela
-        const limiteLargura = this.scale.width * 0.8;
-        const limiteAltura = this.scale.height * 0.8;
+        if (this.estadoCachorro === "lavando" && this.quantidadeEspuma <= 0) {
+            this.estadoCachorro = "molhado";
+            this.atualizarEstadoCachorroAnimacao();
+            
+            gameState.bolhas.children.iterate((bolha) => {
+                if (bolha && bolha.active) this.reciclarObjeto(bolha);
+            });
 
-        const escalaX = limiteLargura / telaInstrucao.width;
-        const escalaY = limiteAltura / telaInstrucao.height;
+            this.animarCachorro(); 
+            this.mostrarTextoFlutuante("Agora use\na toalha!", this.containerCachorro.x, this.containerCachorro.y - 150, "#88ff88");
+            
+            this.animarFerramenta(gameState.chuveiro, false);
+            this.retornarPosicaoInicial("chuveiro");
+            this.ferramentaAtiva = null;
+        }
+    }
 
-        const escalaFinal = Math.min(escalaX, escalaY);
-        telaInstrucao.setScale(escalaFinal);
+    // ========================================================
+    //                LÓGICA DAS FERRAMENTAS
+    // ========================================================
 
-        // Evento de fechar
-        const fecharInstrucoes = () => {
-            fundoEscuro.destroy();
-            telaInstrucao.destroy();
-            
-            gameState.instrucoesBanhoVistas = true; 
-            
-            // Devolve o HUD para o topo
-            this.scene.bringToTop("HUD");
-        };
+    atualizarSabao() {
+        if (this.ferramentaAtiva !== "sabao") return;
 
-        fundoEscuro.on('pointerdown', fecharInstrucoes);
-        telaInstrucao.on('pointerdown', fecharInstrucoes);
-    }
+        this.ultimoX = gameState.sabao.x;
+        this.ultimoY = gameState.sabao.y;
+
+        gameState.sabao.x = this.input.activePointer.x;
+        gameState.sabao.y = this.input.activePointer.y;
+        gameState.sabao.body.reset(this.input.activePointer.x, this.input.activePointer.y);
+
+        const moveu = Math.abs(gameState.sabao.x - this.ultimoX) > this.limiteMovimento || Math.abs(gameState.sabao.y - this.ultimoY) > this.limiteMovimento;
+        const estaNoCachorro = Phaser.Math.Distance.Between(gameState.sabao.x, gameState.sabao.y, this.containerCachorro.x, this.containerCachorro.y) < 150;
+
+        if (estaNoCachorro && this.estadoCachorro === "sujo" && this.quantidadeEspuma < 50 && moveu) {
+            this.criarBolha();
+        }
+    }
+
+    atualizarChuveiro(delta) {
+        if (this.ferramentaAtiva !== "chuveiro") {
+            this.acumuladorAgua = 0;
+            return;
+        }
+
+        gameState.chuveiro.x = this.input.activePointer.x;
+        gameState.chuveiro.y = this.input.activePointer.y;
+        gameState.chuveiro.body.reset(this.input.activePointer.x, this.input.activePointer.y);
+
+        const estaNoCachorro = Phaser.Math.Distance.Between(gameState.chuveiro.x, gameState.chuveiro.y, this.containerCachorro.x, this.containerCachorro.y) < 150;
+
+        if (estaNoCachorro && this.estadoCachorro === "ensaboado") {
+            this.estadoCachorro = "lavando";
+            this.cachorro.dados.estado = "lavando";
+        }
+
+        if (this.estadoCachorro === "lavando" || this.estadoCachorro === "ensaboado") {
+            this.acumuladorAgua += delta;
+            if (this.acumuladorAgua >= 70) {
+                this.acumuladorAgua = 0;
+                this.criarGota();
+            }
+        }
+    }
+
+    atualizarToalha() {
+        if (this.ferramentaAtiva !== "toalha") {
+            this.tempoSecando = 0;
+            return;
+        }
+
+        gameState.toalha.x = this.input.activePointer.x;
+        gameState.toalha.y = this.input.activePointer.y;
+        gameState.toalha.body.reset(this.input.activePointer.x, this.input.activePointer.y);
+
+        if (this.estadoCachorro !== "molhado") return;
+
+        const estaNoCachorro = Phaser.Math.Distance.Between(gameState.toalha.x, gameState.toalha.y, this.containerCachorro.x, this.containerCachorro.y) < 150;
+
+        if (estaNoCachorro) {
+            this.tempoSecando += 1;
+
+            if (this.tempoSecando >= 90) {
+                // ====== VITÓRIA ======
+                this.estadoCachorro = "limpo";
+                this.atualizarEstadoCachorroAnimacao();
+                this.animarCachorro(); 
+                this.criarExplosaoBrilhos(); 
+
+                gameState.barras.limpeza = 0; 
+                
+                if (!gameState.recompensas.banho) { 
+                    gameState.cobasiCoins += 20; 
+                    gameState.recompensas.banho = true; 
+                    this.mostrarTextoFlutuante("+20 Moedas!", this.containerCachorro.x, this.containerCachorro.y - 100, "#ffd700");
+                }
+
+                gameState.sabao.disableInteractive();
+                gameState.chuveiro.disableInteractive();
+                gameState.toalha.disableInteractive();
+                
+                this.animarFerramenta(gameState.toalha, false);
+                this.retornarPosicaoInicial("toalha");
+                this.ferramentaAtiva = null;
+                this.tempoSecando = 0;
+            }
+        } else {
+            this.tempoSecando = 0; 
+        }
+    }
+
+    alternarFerramenta(nomeFerramenta) {
+        if (nomeFerramenta === "chuveiro" && this.estadoCachorro !== "ensaboado" && this.estadoCachorro !== "lavando") {
+            this.mostrarTextoFlutuante("Ensaboe\nprimeiro!", gameState.chuveiro.x, gameState.chuveiro.y - 60, "#ff4444");
+            this.retornarPosicaoInicial(nomeFerramenta);
+            return;
+        }
+        if (nomeFerramenta === "toalha" && this.estadoCachorro !== "molhado") {
+            this.mostrarTextoFlutuante("Use o\nchuveiro!", gameState.toalha.x, gameState.toalha.y - 60, "#ff4444");
+            this.retornarPosicaoInicial(nomeFerramenta);
+            return;
+        }
+
+        if (this.ferramentaAtiva === nomeFerramenta) {
+            this.animarFerramenta(this.pegarFerramenta(nomeFerramenta), false);
+            this.retornarPosicaoInicial(nomeFerramenta);
+            this.ferramentaAtiva = null;
+            return;
+        }
+        
+        if (this.ferramentaAtiva) {
+            this.animarFerramenta(this.pegarFerramenta(this.ferramentaAtiva), false);
+            this.retornarPosicaoInicial(this.ferramentaAtiva);
+        }
+        
+        this.ferramentaAtiva = nomeFerramenta;
+        this.animarFerramenta(this.pegarFerramenta(nomeFerramenta), true);
+    }
+
+    // ========================================================
+    //                EFEITOS E ANIMAÇÕES
+    // ========================================================
+
+    criarBolha() {
+        const variacaoX = Phaser.Math.RND.between(-30, 30);
+        const variacaoY = Phaser.Math.RND.between(-30, 30);
+        const x = gameState.sabao.x + variacaoX;
+        const y = gameState.sabao.y + variacaoY;
+        
+        const bolha = gameState.bolhas.get(x, y, "bolhas");
+        if (!bolha) return;
+
+        bolha.setActive(true).setVisible(true);
+        bolha.setScale(0.13);
+        bolha.clearTint(); 
+        bolha.body.enable = true;
+        bolha.body.reset(x, y);
+        bolha.body.setSize(bolha.displayWidth, bolha.displayHeight, true);
+        
+        this.quantidadeEspuma += 1;
+    }
+
+    criarGota() {
+        const x = gameState.chuveiro.x;
+        const y = gameState.chuveiro.y + gameState.chuveiro.displayHeight / 2;
+        const gota = gameState.gotas.get(x, y, "agua");
+
+        if (!gota) return;
+
+        gota.setActive(true).setVisible(true);
+        gota.body.enable = true;
+        gota.body.reset(x, y);
+        gota.setScale(0.1);
+        gota.play("aguaAnim", true);
+        gota.body.setSize(gota.displayWidth, gota.displayHeight, true);
+        gota.body.setVelocityY(200); 
+    }
+
+    limparGotas() {
+        gameState.gotas.children.iterate((gota) => {
+            if (!gota || !gota.active) return;
+            if (gota.y > this.scale.height + 120) {
+                this.reciclarObjeto(gota);
+            }
+        });
+    }
+
+    reciclarObjeto(objeto) {
+        if (!objeto) return;
+        if (objeto.body) {
+            objeto.body.stop();
+            objeto.body.enable = false;
+        }
+        objeto.setActive(false).setVisible(false);
+        objeto.setPosition(-200, -200); 
+    }
+
+    criarAnimacoes() {
+        if (!this.anims.exists("aguaAnim")) {
+            this.anims.create({ key: "aguaAnim", frames: this.anims.generateFrameNumbers("agua", { start: 0, end: 5 }), frameRate: 8, repeat: -1 });
+        }
+    }
+
+    animarFerramenta(ferramenta, ativa) {
+        if (!ferramenta) return;
+        const escalaAlvo = ativa ? ferramenta.escalaOriginal * 1.1 : ferramenta.escalaOriginal;
+        this.tweens.add({
+            targets: ferramenta,
+            scale: escalaAlvo,
+            duration: 150,
+            ease: "Back.easeOut"
+        });
+    }
+
+    retornarPosicaoInicial(nomeFerramenta) {
+        const ferramenta = this.pegarFerramenta(nomeFerramenta);
+        const posicaoInicial = this.pegarPosicaoInicial(nomeFerramenta);
+        if (!ferramenta || !posicaoInicial) return;
+
+        if (ferramenta.stopFollow) ferramenta.stopFollow();
+        const caminho = new Phaser.Curves.Path(ferramenta.x, ferramenta.y);
+        caminho.lineTo(posicaoInicial.x, posicaoInicial.y);
+        ferramenta.setPath(caminho);
+        ferramenta.startFollow({ duration: 250, repeat: 0 });
+    }
+
+    mostrarTextoFlutuante(texto, x, y, cor = "#ffffff") {
+        const txt = this.add.text(x, y, texto, {
+            fontFamily: '"Press Start 2P"', 
+            fontSize: "28px",               
+            fill: cor,
+            stroke: "#000000",
+            strokeThickness: 5,
+            align: "center"
+        }).setOrigin(0.5).setDepth(10);
+
+        this.tweens.add({
+            targets: txt,
+            y: y - 100, 
+            alpha: 0,   
+            duration: 3000, 
+            ease: "Power1",
+            onComplete: () => txt.destroy() 
+        });
+    }
+
+    animarCachorro() {
+        const target = this.cachorro?.sprite || gameState.cachorro;
+        const escala = target?.escalaBase || 1;
+        this.tweens.add({
+            targets: target,
+            scaleY: escala * 0.85, 
+            scaleX: escala * 1.15, 
+            duration: 150,
+            yoyo: true, 
+            ease: "Quad.easeInOut"
+        });
+    }
+
+    atualizarEstadoCachorroAnimacao() {
+        if (!this.cachorro) return;
+        const estadoAnim = (this.estadoCachorro === "limpo") ? "limpo" : (this.estadoCachorro === "sujo") ? "sujo" : "ensaboado";
+        this.cachorro.mudarEstado(estadoAnim);
+        const dadosCachorro = cachorrosBase.find(c => c.id === this.cachorro.dados.id) || cachorrosBase[0];
+        if (dadosCachorro) dadosCachorro.estado = this.estadoCachorro;
+        gameState.cachorro = this.cachorro.sprite;
+    }
+
+    criarExplosaoBrilhos() {
+        for (let i = 0; i < 25; i++) {
+            const x = gameState.cachorro.x + Phaser.Math.Between(-150, 150);
+            const y = gameState.cachorro.y + Phaser.Math.Between(-150, 150);
+            const brilho = this.add.image(x, y, "bolhas").setScale(0).setDepth(5);
+            brilho.setTint(0xffd700); 
+
+            this.tweens.add({
+                targets: brilho,
+                scale: Phaser.Math.FloatBetween(0.05, 0.15),
+                y: y - Phaser.Math.Between(50, 150),
+                alpha: 0,
+                duration: Phaser.Math.Between(1000, 2000),
+                ease: "Sine.easeOut",
+                onComplete: () => brilho.destroy()
+            });
+        }
+    }
+
+    // ========================================================
+    //             UTILITÁRIOS E LAYOUT (RESPONSIVO)
+    // ========================================================
+
+    pegarFerramenta(nomeFerramenta) {
+        if (nomeFerramenta === "sabao") return gameState.sabao;
+        if (nomeFerramenta === "chuveiro") return gameState.chuveiro;
+        if (nomeFerramenta === "toalha") return gameState.toalha;
+        return null;
+    }
+
+    pegarPosicaoInicial(nomeFerramenta) {
+        if (nomeFerramenta === "sabao") return this.posicaoInicialSabao;
+        if (nomeFerramenta === "chuveiro") return this.posicaoInicialChuveiro;
+        if (nomeFerramenta === "toalha") return this.posicaoInicialToalha;
+        return null;
+    }
+
+    reposicionarElementos(width, height) {
+        const areaUtilX = width * 0.8; 
+        const centroX = areaUtilX / 2;
+        const centroY = height / 2;
+        const escalaBase = Math.min(areaUtilX, height) * 0.0005;
+
+        // Fundo
+        if (gameState.banheiro) {
+            gameState.banheiro.setDisplaySize(areaUtilX, height);
+            gameState.banheiro.setPosition(centroX, centroY);
+        }
+
+        // Cachorro (Container)
+        if (this.containerCachorro) {
+            this.containerCachorro.setPosition(centroX, height * 0.6);
+            this.containerCachorro.setScale(escalaBase);
+            if (this.pulgas) this.pulgas.setScale(height * 0.0015); 
+        }
+
+        // Posições e escalas dinâmicas das ferramentas
+        const yFerramentas = height * 0.85;
+        this.posicaoInicialSabao = { x: centroX - (areaUtilX * 0.25), y: yFerramentas };
+        this.posicaoInicialChuveiro = { x: centroX, y: yFerramentas };
+        this.posicaoInicialToalha = { x: centroX + (areaUtilX * 0.25), y: yFerramentas };
+
+        const escalaReferencia = Math.min(areaUtilX, height) * 0.0004;
+        
+        const ajustarFerramenta = (ferramenta, proporcaoOrig, posInicial, nome) => {
+            if (ferramenta) {
+                ferramenta.escalaOriginal = escalaReferencia * proporcaoOrig;
+                if (this.ferramentaAtiva !== nome) {
+                    if (ferramenta.stopFollow) ferramenta.stopFollow();
+                    ferramenta.setPosition(posInicial.x, posInicial.y);
+                    ferramenta.setScale(ferramenta.escalaOriginal);
+                }
+            }
+        };
+
+        ajustarFerramenta(gameState.sabao, (0.12 / 0.25), this.posicaoInicialSabao, "sabao");
+        ajustarFerramenta(gameState.chuveiro, 1, this.posicaoInicialChuveiro, "chuveiro"); 
+        ajustarFerramenta(gameState.toalha, (0.2 / 0.25), this.posicaoInicialToalha, "toalha");
+    }
+
+    // ========================================================
+    //                 TELA DE INSTRUÇÕES
+    // ========================================================
+    
+    mostrarInstrucoes() {
+        // Traz a cena de Lazer para cima do HUD temporariamente
+        this.scene.bringToTop();
+
+        // Centralizado na tela toda
+        const centroX = this.scale.width / 2;
+        const centroY = this.scale.height / 2;
+
+        const fundoEscuro = this.add.rectangle(centroX, centroY, 8000, 8000, 0x000000, 0.7)
+            .setDepth(100)
+            .setInteractive();
+
+        const telaInstrucao = this.add.image(centroX, centroY, "instrucaoBanho")
+            .setDepth(101)
+            .setInteractive({ useHandCursor: true }); 
+
+        // Ajuste de tamanho da imagem proporcional à tela
+        const limiteLargura = this.scale.width * 0.8;
+        const limiteAltura = this.scale.height * 0.8;
+
+        const escalaX = limiteLargura / telaInstrucao.width;
+        const escalaY = limiteAltura / telaInstrucao.height;
+
+        const escalaFinal = Math.min(escalaX, escalaY);
+        telaInstrucao.setScale(escalaFinal);
+
+        // Evento de fechar
+        const fecharInstrucoes = () => {
+            fundoEscuro.destroy();
+            telaInstrucao.destroy();
+            
+            gameState.instrucoesBanhoVistas = true; 
+            
+            // Devolve o HUD para o topo
+            this.scene.bringToTop("HUD");
+        };
+
+        fundoEscuro.on('pointerdown', fecharInstrucoes);
+        telaInstrucao.on('pointerdown', fecharInstrucoes);
+    }
 }
