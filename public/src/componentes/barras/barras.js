@@ -13,11 +13,14 @@ export class Barra {
     // Atualiza a barra visualmente de acordo com o valor atual
     atualizarBarra() {
         // Garante que o valor esteja entre 0 e 11
-        this.valor = Phaser.Math.Clamp(this.valor, 0, 11);
+      //  this.valor = Phaser.Math.Clamp(this.valor, 0, 11);
         // Mapeia valor (0-11) para frame (0-10)
         // valor 0 → frame 0 (barra cheia)
         // valor 11 → frame 10 (barra vazia)
-        const frame = Math.min(Math.floor(this.valor), 10);
+
+        this.valor = Phaser.Math.Clamp(this.valor, 0, 9);
+        const frame = Math.floor(this.valor);
+      //  const frame = Math.min(Math.floor(this.valor), 10);
         this.sprite.setFrame(frame);
     }
 
