@@ -115,8 +115,46 @@ export class cenaComida extends Phaser.Scene {
         this.containerCachorro = this.add.container(dogX, dogY, elementosContainer);
         this.containerCachorro.setScale(posicaoY * 0.0007);
         // ==========================================
-    }
 
+        // ==========================================
+        // RESPONSIVIDADE - LISTENER DE RESIZE
+        // ==========================================
+        const handleResizeComida = () => {
+            const novaLargura = (this.scale.width - this.scale.width * 0.2);
+            const novaAltura = this.scale.height;
+
+            // Atualiza fundo
+            this.fundo.setPosition(novaLargura / 2, novaAltura / 2)
+                      .setDisplaySize(novaLargura, novaAltura);
+
+            // Atualiza estante
+            estante.setPosition(novaLargura * 0.25, novaAltura * 0.68)
+                   .setScale(novaAltura * 0.0006);
+
+            // Atualiza bilhete
+            gameState.bilhete.setPosition(this.scale.width * 0.7, this.scale.height * 0.25)
+                             .setScale(0.15);
+
+            // Atualiza racao vazia
+            racaoVazia.setPosition((novaLargura / 2) + (novaLargura / 2) * 0.1, novaAltura / 2 + novaAltura * 0.4)
+                      .setScale(novaAltura * 0.0002);
+
+            // Atualiza container do cachorro
+            const novoDogX = (novaLargura / 2) + (novaLargura / 2) * 0.4;
+            const novoDogY = (novaAltura / 2) + (novaAltura / 2) * 0.25;
+            this.containerCachorro.setPosition(novoDogX, novoDogY)
+                                  .setScale(novaAltura * 0.0007);
+
+            // Atualiza pulgas
+            this.pulgas.setScale(novaAltura * 0.0015);
+        };
+
+        this.scale.on("resize", handleResizeComida);
+
+        this.events.on('shutdown', () => {
+            this.scale.off("resize", handleResizeComida);
+        });
+    }
     update() {
         // Atualiza a visibilidade da pulga em tempo real
         if (this.pulgas) {

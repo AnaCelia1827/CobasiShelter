@@ -18,9 +18,9 @@ export class cenaPrincipal extends Phaser.Scene {
         }
         this.scene.bringToTop("HUD")
 
-        // Música de fundo (principal)
+        // Música de fundo
         if (!gameState.musicaMenuPrincipal) {
-            gameState.musicaMenuPrincipal = this.sound.add("musicaMenuPrincipal", { loop: true, volume: 5.0 })
+            gameState.musicaMenuPrincipal = this.sound.add("musicaMenuPrincipal", { loop: true, volume: 0.5 })
         }
         if (gameState.musicaTutorial?.isPlaying) {
             gameState.musicaTutorial.stop();
@@ -30,104 +30,75 @@ export class cenaPrincipal extends Phaser.Scene {
         }
         gameState.musica = gameState.musicaMenuPrincipal;
 
+        // --- LÓGICA DE POSICIONAMENTO RESPONSIVO (ÁREA ÚTIL) ---
+        const larguraTotal = this.scale.width;
+        const alturaTotal = this.scale.height;
+        const areaUtilLargura = larguraTotal * 0.8; // Desconto de 20% da HUD
 
-        const largura = this.scale.width
-        const altura = this.scale.height
-
-        const posicaoX = largura - largura * 0.2
-        const posicaoY = altura
-
-        // Fundo da cena
+        // Fundo da cena (ajustado para a área útil)
         this.bg = this.add
-            .image(posicaoX / 2, posicaoY / 2, "bgPrincipal")
-            .setDisplaySize(posicaoX, posicaoY)
-            .setDepth(-1)
+            .image(areaUtilLargura / 2, alturaTotal / 2, "bgPrincipal")
+            .setDisplaySize(areaUtilLargura, alturaTotal)
+            .setDepth(-1);
 
-        // Criar cachorro dentro de um container
+        // Criar cachorro
         this.gerenciadorCachorros = new GerenciadorCachorros(this)
         this.cachorro = this.gerenciadorCachorros.criarCachorro(0, 0, cachorrosBase[0])
 
-        // Container que agrupa cachorro + pulgas
-        const elementosContainer = [this.cachorro.sprite]
-
-        // Cria a animação da pulga (se ainda não existir)
+        // Configuração das pulgas
         if (!this.anims.exists("pulgaAnim")) {
             this.anims.create({
                 key: "pulgaAnim",
                 frames: this.anims.generateFrameNumbers("pulgas", { start: 0, end: 1 }), 
-                frameRate: 1,   // velocidade da animação (frames por segundo)
-                repeat: -1      // -1 = loop infinito
+                frameRate: 2,
+                repeat: -1
             })
         }
 
-        // Cria o sprite da pulga
         this.pulgas = this.add.sprite(0, 0, "pulgas")
-            .setOrigin(0.5) // centraliza no container
-            // Dica: Como a pulga está dentro do container, é melhor uma escala fixa em relação ao cachorro
-            // Mas mantive a sua proporção baseada na altura inicial
-            .setScale(posicaoY * 0.0015) 
+            .setOrigin(0.5)
+            .play("pulgaAnim")
+            .setVisible(gameState.pulga);
 
-        // Inicia a animação da pulga
-        this.pulgas.play("pulgaAnim")
+        // Container (Cachorro + Pulgas)
+        this.containerCachorro = this.add.container(areaUtilLargura / 2, alturaTotal * 0.7, [
+            this.cachorro.sprite, 
+            this.pulgas
+        ]);
 
-        // Define a visibilidade inicial baseada no gameState atual
-        this.pulgas.setVisible(gameState.pulga)
+        // Ajuste de escala inicial
+        const escalaBase = alturaTotal * 0.0006;
+        this.containerCachorro.setScale(escalaBase);
 
-        // Adiciona ao container
-        elementosContainer.push(this.pulgas)
+        // Define o handler de resize com referência fixa para poder remover
+        const handleResizePrincipal = () => {
+            const largura = this.scale.width - this.scale.width*0.2
+            const altura = this.scale.height
 
-        // Cria o container com cachorro + pulgas
-        this.containerCachorro = this.add.container(
-            posicaoX / 2,
-            posicaoY * 0.7,
-            elementosContainer
-        )
+            // Atualiza Fundo
+            this.bg.setPosition(largura / 2, altura / 2)
+            .setDisplaySize(largura, altura);
 
-        // Escala do container (afeta ambos)
-        this.containerCachorro.setScale(posicaoY * 0.0006)
-        
-     // --- AJUSTE AQUI: Resize dinâmico otimizado ---
-        // Adicionando uma checagem se as cameras existem e a cena está ativa
-        this.scale.on("resize", (gameSize) => {
-            // Se a cena não estiver ativa ou a câmera não existir, ignora o resize
-            if (!this.scene.isActive() || !this.cameras || !this.cameras.main) return;
+            // Atualiza Container
+            const novaEscala = altura * 0.0006;
+            this.containerCachorro.setPosition(largura / 2, altura * 0.7)                          
+            .setScale(novaEscala);
+        };
 
-            const novaLargura = gameSize.width
-            const novaAltura = gameSize.height
+        this.scale.on("resize", handleResizePrincipal);
 
-            // Recalcula a área útil da tela principal (descontando 20% da HUD)
-            const novaPosicaoX = novaLargura - (novaLargura * 0.2)
-            const novaPosicaoY = novaAltura
-
-            // 1. Ajusta o Fundo
-            if(this.bg){
-               this.bg
-                .setDisplaySize(novaPosicaoX, novaPosicaoY)
-                .setPosition(novaPosicaoX / 2, novaPosicaoY / 2)
-            }
-
-            // 2. Ajusta escala e posição do container (Cachorro + Pulga)
-            this.containerCachorro.setScale(novaPosicaoY * 0.0006)
-            this.containerCachorro.setPosition(novaPosicaoX / 2, novaPosicaoY * 0.7)
-        })
-
-
-        // Limpa o evento de resize quando a cena for fechada/parada para evitar vazamento de memória e bugs
+        // Limpeza de evento com referência exata
         this.events.on('shutdown', () => {
-            this.scale.removeAllListeners('resize');
+            this.scale.off("resize", handleResizePrincipal);
         });
-        // Câmera Inicial
-        this.cameras.main.setBounds(0, 0, largura, altura)
-        this.cameras.main.fadeIn(200, 0, 0, 0)
+
+        this.cameras.main.fadeIn(200, 0, 0, 0);
     }
 
     update() {
-        // Verifica continuamente se todas as barras estão completas para evoluir o cachorro
         if (this.gerenciadorCachorros) {
             this.gerenciadorCachorros.verificarCompletude()
         }
-
-        // Atualiza a visibilidade da pulga em tempo real
         if (this.pulgas) {
             this.pulgas.setVisible(gameState.pulga)
         }

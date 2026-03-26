@@ -256,13 +256,19 @@ export class jogoRacao extends Phaser.Scene {
         });
 
         // >>> Listener de resize <<<
-        this.scale.on("resize", (gameSize) => {
+        const handleResizeRacao = (gameSize) => {
             const largura = gameSize.width;
             const altura = gameSize.height;
 
             this.cameras.resize(largura, altura);
             this.fundo.setDisplaySize(largura, altura).setPosition(largura / 2, altura / 2);
             this.estante.setPosition(largura / 4, altura * 0.6);
+        };
+
+        this.scale.on("resize", handleResizeRacao);
+
+        this.events.on('shutdown', () => {
+            this.scale.off("resize", handleResizeRacao);
         });
     }
 }

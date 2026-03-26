@@ -92,7 +92,7 @@ export class cenaTutorial extends Phaser.Scene {
         this.atualizarBotoes();
 
         // Listener para redimensionamento da tela
-        this.scale.on("resize", (tamanhoTela) => {
+        const handleResizeTutorial = (tamanhoTela) => {
             const { width: largura, height: altura } = tamanhoTela;
 
             // Ajusta câmera
@@ -108,6 +108,12 @@ export class cenaTutorial extends Phaser.Scene {
             // Ajusta botões
             this.botaoAnterior.setPosition(80, altura / 2);
             this.botaoProximo.setPosition(largura - 80, altura / 2);
+        };
+
+        this.scale.on("resize", handleResizeTutorial);
+
+        this.events.on('shutdown', () => {
+            this.scale.off("resize", handleResizeTutorial);
         });
     }
 

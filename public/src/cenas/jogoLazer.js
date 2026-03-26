@@ -97,7 +97,7 @@ export class jogoLazer extends Phaser.Scene {
         }).setOrigin(1, 0).setScrollFactor(0).setDepth(20);
 
         // ---------------- REDIMENSIONAMENTO (RESIZE) ----------------
-        this.scale.on("resize", (tamanhoTela) => {
+        const handleResizeLazer = (tamanhoTela) => {
             const { width: w, height: h } = tamanhoTela;
             this.fundo.setSize(8000, h);
             const novaEscalaBg = h / alturaImgBg;
@@ -108,6 +108,12 @@ export class jogoLazer extends Phaser.Scene {
             this.cameras.main.setBounds(0, 0, 8000, h);
             
             this.textoPontos.setPosition(w - 30, 30);
+        };
+
+        this.scale.on("resize", handleResizeLazer);
+
+        this.events.on('shutdown', () => {
+            this.scale.off("resize", handleResizeLazer);
         });
         
         this.scene.stop("HUD");

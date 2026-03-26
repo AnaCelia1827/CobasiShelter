@@ -251,82 +251,120 @@ export class cenaRacaoStandart extends Phaser.Scene {
         // ==========================================
         // RESIZE: REPOSICIONAMENTO E ATUALIZAÇÃO TOTAL DAS ESCALAS
         // ==========================================
-        this.scale.on("resize", (gameSize) => {
+        const handleResizeRacaoStandart = (gameSize) => {
             const w = gameSize.width;
             const h = gameSize.height;
 
-            this.cameras.resize(w, h);
-            this.fundo.setDisplaySize(w, h).setPosition(w / 2, h / 2);
-            
-            // Botão Voltar (Atualiza as variáveis de hover/press dinamicamente)
-            this.botaoVoltar.setPosition(w * 0.95, h * 0.9);
-            this.botaoVoltar.escalaNormal = h * 0.0013; // aprox 0.8
-            this.botaoVoltar.escalaHover = h * 0.0016;  // aprox 1
-            this.botaoVoltar.escalaPress = h * 0.0010;  // aprox 0.6
-            this.botaoVoltar.setScale(this.botaoVoltar.escalaNormal);
-
-            this.iconeMoeda.setPosition(w * 0.93, h * 0.06).setScale(h * 0.001); 
-            
-            if (this.textoMoedas) {
-                this.textoMoedas.setPosition(w * 0.94, h * 0.06).setScale(h * 0.0015);
-            }
-
-            // Bilhete
-            if (gameState.bilhete) {
-                gameState.bilhete.setPosition(w * 0.94, h * 0.3);
-                gameState.bilhete.escalaNormal = h * 0.0002;  // aprox 0.12
-                gameState.bilhete.escalaPassar = h * 0.00023; // aprox 0.14
-                gameState.bilhete.setScale(gameState.bilhete.escalaNormal);
-            }
-
-            // Botões de Categoria
-            this.botaoStandard.setPosition(w * 0.20, h * 0.15);
-            this.botaoStandard.escalaNormal = h * 0.00058; // aprox 0.35
-            this.botaoStandard.escalaHover = h * 0.00066;  // aprox 0.4
-            this.botaoStandard.escalaPress = h * 0.0005;   // aprox 0.3
-            this.botaoStandard.setScale(this.botaoStandard.escalaNormal);
-
-            this.botaoSuperPremium.setPosition(w * 0.40, h * 0.155);
-            this.botaoSuperPremium.escalaNormal = h * 0.00058;
-            this.botaoSuperPremium.escalaHover = h * 0.00066;
-            this.botaoSuperPremium.escalaPress = h * 0.0005;
-            this.botaoSuperPremium.setScale(this.botaoSuperPremium.escalaNormal);
-
-            this.estante.setPosition(w * 0.30, h * 0.6).setScale(h * 0.0016);
-
-            this.fundoTemplateRacao.setPosition(w * 0.70, h * 0.56).setScale(h * 0.00075);
-            this.containerTexto.setPosition(w * 0.70, h * 0.55);
-            
-            this.titulo.setPosition(0, -h * 0.15).setScale(h * 0.00125);
-            this.subtitulo.setPosition(0, h * 0.02).setScale(h * 0.0013);
-
-            this.containerInfo.setPosition(w * 0.70, h * 0.47).setScale(h * 0.0009);
-            
-            // Botão Comprar (usando seus valores 0.15, 0.16, 0.14 do último código)
-            this.botaoComprarStandard.setPosition(w * 0.70, h * 0.75);
-            this.botaoComprarStandard.escalaNormal = h * 0.00025; // 0.15
-            this.botaoComprarStandard.escalaHover = h * 0.00026;  // 0.16
-            this.botaoComprarStandard.escalaPress = h * 0.00023;  // 0.14
-            this.botaoComprarStandard.setScale(this.botaoComprarStandard.escalaNormal);
-
-            this.textoFeedback.setPosition(w * 0.70, h * 0.93).setScale(h * 0.001);
-
-            const novasColunas = [w * 0.18, w * 0.30, w * 0.42];
-            const novasLinhas = [h * 0.37, h * 0.605, h * 0.845];
-            
-            // Atualização dinâmica também para as Rações na Estante
-            let index = 0;
-            for (let i = 0; i < 3; i++) { 
-                for (let j = 0; j < 3; j++) { 
-                    if(this.racoesStandard[index]) {
-                        this.racoesStandard[index].sprite.setPosition(novasColunas[j], novasLinhas[i]);
-                        this.racoesStandard[index].sprite.escalaNormal = h * 0.0005;  // 0.3
-                        this.racoesStandard[index].sprite.escalaHover = h * 0.00053; // 0.32
-                        this.racoesStandard[index].sprite.setScale(this.racoesStandard[index].sprite.escalaNormal);
-                    }
-                    index++;
+            try {
+                this.cameras.resize(w, h);
+                this.fundo.setDisplaySize(w, h).setPosition(w / 2, h / 2);
+                
+                // Botão Voltar (Atualiza as variáveis de hover/press dinamicamente)
+                if (this.botaoVoltar) {
+                    this.botaoVoltar.setPosition(w * 0.95, h * 0.9);
+                    this.botaoVoltar.escalaNormal = h * 0.0013;
+                    this.botaoVoltar.escalaHover = h * 0.0016;
+                    this.botaoVoltar.escalaPress = h * 0.0010;
+                    this.botaoVoltar.setScale(this.botaoVoltar.escalaNormal);
                 }
+
+                if (this.iconeMoeda) {
+                    this.iconeMoeda.setPosition(w * 0.93, h * 0.06).setScale(h * 0.001);
+                }
+                
+                if (this.textoMoedas) {
+                    this.textoMoedas.setPosition(w * 0.94, h * 0.06).setScale(h * 0.0015);
+                }
+
+                // Bilhete
+                if (gameState.bilhete) {
+                    gameState.bilhete.setPosition(w * 0.94, h * 0.3);
+                    gameState.bilhete.escalaNormal = 0.12;
+                    gameState.bilhete.escalaPassar = 0.14;
+                    gameState.bilhete.setScale(gameState.bilhete.escalaNormal);
+                }
+
+                // Botões de Categoria
+                if (this.botaoStandard) {
+                    this.botaoStandard.setPosition(w * 0.20, h * 0.15);
+                    this.botaoStandard.escalaNormal = h * 0.00058;
+                    this.botaoStandard.escalaHover = h * 0.00066;
+                    this.botaoStandard.escalaPress = h * 0.0005;
+                    this.botaoStandard.setScale(this.botaoStandard.escalaNormal);
+                }
+
+                if (this.botaoSuperPremium) {
+                    this.botaoSuperPremium.setPosition(w * 0.40, h * 0.155);
+                    this.botaoSuperPremium.escalaNormal = h * 0.00058;
+                    this.botaoSuperPremium.escalaHover = h * 0.00066;
+                    this.botaoSuperPremium.escalaPress = h * 0.0005;
+                    this.botaoSuperPremium.setScale(this.botaoSuperPremium.escalaNormal);
+                }
+
+                if (this.estante) {
+                    this.estante.setPosition(w * 0.30, h * 0.6).setScale(h * 0.0016);
+                }
+
+                if (this.fundoTemplateRacao) {
+                    this.fundoTemplateRacao.setPosition(w * 0.70, h * 0.56).setScale(h * 0.00075);
+                }
+                
+                if (this.containerTexto) {
+                    this.containerTexto.setPosition(w * 0.70, h * 0.55);
+                }
+
+                if (this.titulo) {
+                    this.titulo.setScale(h * 0.00125);
+                }
+                
+                if (this.subtitulo) {
+                    this.subtitulo.setScale(h * 0.0013);
+                }
+
+                if (this.containerInfo) {
+                    this.containerInfo.setPosition(w * 0.70, h * 0.47).setScale(h * 0.0009);
+                }
+                
+                // Botão Comprar
+                if (this.botaoComprarStandard) {
+                    this.botaoComprarStandard.setPosition(w * 0.70, h * 0.75);
+                    this.botaoComprarStandard.escalaNormal = h * 0.00025;
+                    this.botaoComprarStandard.escalaHover = h * 0.00026;
+                    this.botaoComprarStandard.escalaPress = h * 0.00023;
+                    this.botaoComprarStandard.setScale(this.botaoComprarStandard.escalaNormal);
+                }
+
+                if (this.textoFeedback) {
+                    this.textoFeedback.setPosition(w * 0.70, h * 0.93).setScale(h * 0.001);
+                }
+
+                const novasColunas = [w * 0.18, w * 0.30, w * 0.42];
+                const novasLinhas = [h * 0.37, h * 0.605, h * 0.845];
+                
+                // Atualização dinâmica também para as Rações na Estante
+                if (this.racoesStandard) {
+                    let index = 0;
+                    for (let i = 0; i < 3; i++) { 
+                        for (let j = 0; j < 3; j++) { 
+                            if(this.racoesStandard[index]) {
+                                this.racoesStandard[index].sprite.setPosition(novasColunas[j], novasLinhas[i]);
+                                this.racoesStandard[index].sprite.escalaNormal = h * 0.0005;
+                                this.racoesStandard[index].sprite.escalaHover = h * 0.00053;
+                                this.racoesStandard[index].sprite.setScale(this.racoesStandard[index].sprite.escalaNormal);
+                            }
+                            index++;
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error("Erro no resize handler:", e);
             }
+        };
+
+        this.scale.on("resize", handleResizeRacaoStandart);
+
+        this.events.on('shutdown', () => {
+            this.scale.off("resize", handleResizeRacaoStandart);
         });
     }
 
