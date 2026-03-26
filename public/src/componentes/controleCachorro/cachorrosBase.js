@@ -11,7 +11,7 @@ export const cachorrosBase = [
   },
   {
     id: 5,
-    nome: "Héroi",
+    nome: "Herói",
     peso: "4KG",
     idade: "1 ano",
     porte: "medio",
