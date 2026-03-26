@@ -272,8 +272,6 @@ Os requisitos não operam de forma isolada, mas de maneira articulada. A defini�
 O Público alvo do nosso projeto é qualquer um que tenha interesse em aprender e dar uma qualidade de vida melhor ao seu Pet. Apesar de ser acessível para qualquer um, é previsto que a Geração Z tenha mais contato com o jogo pela seu apreço com jogos e pela crescente onda de pais de pets entre essa geração.
 
 
-
-
 # <a name="c2"></a>2. Visão Geral do Jogo
 
 ## 2.1. Objetivos do Jogo
